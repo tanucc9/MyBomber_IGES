@@ -2,7 +2,7 @@ package model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Giocatore implements Serializable{
+public class GiocatoreBean implements Serializable{
 	
 private static final long serialVersionUID = 1L;
 	
@@ -12,12 +12,12 @@ private static final long serialVersionUID = 1L;
 	private String cognome;
 	private String password;
 	private String telefono;
-	private String nazioneResdidenza;
-	private String provinciaResdidenza;
-	private String cittaResdidenza;
-	private String capResdidenza;
+	private String nazioneResidenza;
+	private String provinciaResidenza;
+	private String cittaResidenza;
+	private String capResidenza;
 	private Date dataNascita;
-	private Float valutazione;
+	private float valutazione;
 
 	public void setUsername(String username) {
 		this.username=username;
@@ -92,10 +92,6 @@ private static final long serialVersionUID = 1L;
 	{
 		return cittaResidenza;
 	}
-	public String getTelefono()
-	{
-		return telefono;
-	}
 	public String getCapResidenza()
 	{
 		return capResidenza;
@@ -112,7 +108,7 @@ private static final long serialVersionUID = 1L;
 	public String toString() {
 		return "username " + username + " email " + email + " nome " + nome + 
 				" cognome " + cognome + " password " + password + " nazioneResidenza " + nazioneResidenza + 
-				" cittaResidenza " + cittaResidenza + " provinciaReidenza " + provinciaReidenza + " capResidenza " + capResidenza + 
+				" cittaResidenza " + cittaResidenza + " provinciaReidenza " + provinciaResidenza + " capResidenza " + capResidenza + 
 				" dataNascita " + dataNascita +" valutazione " + valutazione;
 	}
 }

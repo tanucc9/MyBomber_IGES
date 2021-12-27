@@ -3,13 +3,13 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 
-public class Evento implements Serializable{
+public class EventoBean implements Serializable{
 	
 private static final long serialVersionUID = 1L;
 	
 	private String nome;
 	private String descrizione;
-	private String strutturra;
+	private String struttura;
 	private Date data;
 	private Time ora;
 	private String gestore;

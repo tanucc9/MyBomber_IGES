@@ -2,7 +2,7 @@ package model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Gestore implements Serializable{
+public class GestoreBean implements Serializable{
 	
 private static final long serialVersionUID = 1L;
 	

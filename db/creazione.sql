@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS mybomber.gestore (
   PRIMARY KEY (e_mail),
   
 FOREIGN KEY(struttura)
-  REFERENCES mydb.Struttura (nome)
+  REFERENCES mydb.struttura (nome)
   ON DELETE NO ACTION
   ON UPDATE CASCADE);
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS mybomber.evento (
   PRIMARY KEY (nome),
   
     FOREIGN KEY (e_mail_gestore)
-    REFERENCES mydb.Gestore (e_mail)
+    REFERENCES mydb.gestore (e_mail)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
     

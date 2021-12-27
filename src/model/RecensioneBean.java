@@ -2,7 +2,7 @@ package model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Recensione implements Serializable{
+public class RecensioneBean implements Serializable{
 	
 private static final long serialVersionUID = 1L;
 	
@@ -25,7 +25,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	
-	public String getRecensione()
+	public float getRecensione()
 	{
 		return recensione;
 	}

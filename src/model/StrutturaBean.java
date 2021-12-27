@@ -2,7 +2,7 @@ package model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Struttura implements Serializable{
+public class StrutturaBean implements Serializable{
 	
 private static final long serialVersionUID = 1L;
 	
@@ -68,7 +68,7 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	public String toString() {
-		return "nome " + nome + " nazione " + nezione + " citta " + citta + 
+		return "nome " + nome + " nazione " + nazione + " citta " + citta + 
 				" cap " + cap + " provincia " + provincia + " indirizzo " + indirizzo + 
 				" telefono " + telefono ;
 	}

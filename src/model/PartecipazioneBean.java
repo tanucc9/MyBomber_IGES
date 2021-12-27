@@ -2,7 +2,7 @@ package model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Partecipazione implements Serializable{
+public class PartecipazioneBean implements Serializable{
 	
 private static final long serialVersionUID = 1L;
 	
