@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS mybomber.evento (
   PRIMARY KEY (nome),
   
     FOREIGN KEY (e_mail_gestore)
-    REFERENCES mybomber.Gestore (e_mail)
+    REFERENCES mybomber.gestore (e_mail)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
     
