@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS mybomber.gestore (
   PRIMARY KEY (e_mail),
   
 FOREIGN KEY(struttura)
-  REFERENCES mydb.struttura (nome)
+  REFERENCES mybomber.struttura (nome)
   ON DELETE NO ACTION
   ON UPDATE CASCADE);
 
@@ -53,12 +53,12 @@ CREATE TABLE IF NOT EXISTS mybomber.evento (
   PRIMARY KEY (nome),
   
     FOREIGN KEY (e_mail_gestore)
-    REFERENCES mydb.gestore (e_mail)
+    REFERENCES mybomber.Gestore (e_mail)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
     
     FOREIGN KEY (e_mail_utente)
-    REFERENCES mydb.giocatore (e_mail)
+    REFERENCES mybomber.giocatore (e_mail)
     ON DELETE NO ACTION
     ON UPDATE CASCADE);
  
@@ -68,12 +68,12 @@ CREATE TABLE IF NOT EXISTS mybomber.partecipazione (
   PRIMARY KEY (e_mail,nome_evento),
   
   FOREIGN KEY (e_mail)
-  REFERENCES mydb.giocatore (e_mail)
+  REFERENCES mybomber.giocatore (e_mail)
   ON DELETE NO ACTION
   ON UPDATE CASCADE,
     
   FOREIGN KEY (nome_evento)
-  REFERENCES mydb.evento (nome)
+  REFERENCES mybomber.evento (nome)
   ON DELETE NO ACTION
   ON UPDATE CASCADE);
   
@@ -85,16 +85,16 @@ CREATE TABLE IF NOT EXISTS mybomber.partecipazione (
   PRIMARY KEY (e_mail_recensore,e_mail_recensito,nome_evento),
   
     FOREIGN KEY (e_mail_recensore)
-    REFERENCES mydb.giocatore (e_mail)
+    REFERENCES mybomber.giocatore (e_mail)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
     
     FOREIGN KEY (e_mail_recensito)
-    REFERENCES mydb.giocatore (e_mail)
+    REFERENCES mybomber.giocatore (e_mail)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
     
     FOREIGN KEY (nome_evento)
-    REFERENCES mydb.evento (nome)
+    REFERENCES mybomber.evento (nome)
     ON DELETE NO ACTION
     ON UPDATE CASCADE);
