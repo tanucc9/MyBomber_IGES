@@ -60,6 +60,11 @@ CREATE TABLE IF NOT EXISTS mybomber.evento (
     FOREIGN KEY (e_mail_utente)
     REFERENCES mybomber.giocatore (e_mail)
     ON DELETE NO ACTION
+    ON UPDATE CASCADE,
+    
+    FOREIGN KEY (struttura)
+    REFERENCES mybomber.struttura (nome)
+    ON DELETE NO ACTION
     ON UPDATE CASCADE);
  
 CREATE TABLE IF NOT EXISTS mybomber.partecipazione (
