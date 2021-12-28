@@ -31,7 +31,7 @@ private static final long serialVersionUID = 1L;
 	public void setOra(Time ora) {
 		this.ora=ora;
 	}
-	public void setGestore(String Gestore) {
+	public void setGestore(String gestore) {
 		this.gestore=gestore;
 	}
 	public void setOrganizzatore(String organizzatore) {
