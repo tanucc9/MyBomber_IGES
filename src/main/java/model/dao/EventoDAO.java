@@ -147,6 +147,7 @@ public class EventoDAO {
 				preparedStatement.setTime(5, e.getOra());
 				preparedStatement.setString(6, e.getGestore());
 				preparedStatement.setString(7, e.getOrganizzatore());
+				preparedStatement.setString(8, e.getNome());
 			    preparedStatement.executeUpdate();
 
 			   connection.commit();
