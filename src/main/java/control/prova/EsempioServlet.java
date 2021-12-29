@@ -1,6 +1,9 @@
 package control.prova;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.*;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bean.GiocatoreBean;
+import model.dao.GiocatoreDAO;
 import model.dao.PartecipazioneDAO;
 
 /**
@@ -33,8 +38,32 @@ public class EsempioServlet extends HttpServlet {
 		
 		String nomeAttr = request.getParameter("nomeAttr");
 		String c= new String("mario");
-		PartecipazioneDAO p=new PartecipazioneDAO();
+	
 		request.setAttribute("c", c);
+		
+		GiocatoreBean g =new GiocatoreBean();
+		g.setCapResidenza("8218219");
+		g.setCittaResidenza("napoli");
+		g.setCognome("djkcdjk");
+		
+		
+		g.setDataNascita(java.sql.Date. valueOf("2000-05-01"));
+		g.setEmail("testeroverdrive@gmail.com");
+		g.setNazioneResidenza("africa");
+		g.setNome("mario");
+		g.setPassword("otto");
+		g.setProvinciaResidenza("napoli");
+		g.setTelefono("3923816543");
+		g.setUsername("pippos");
+		float t=2;
+		g.setValutazione(t);
+		GiocatoreDAO gd=new GiocatoreDAO();
+		try {
+			gd.doSave(g);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		RequestDispatcher dispatcher = request
                 .getRequestDispatcher(response.encodeRedirectURL("./Index.jsp"));
       dispatcher.forward(request, response);
