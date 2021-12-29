@@ -20,7 +20,7 @@ public class EventoDAO {
 			
 
 			String insertSQL = "insert into " + TABLE_NAME
-					+ " (nome, descrizione, struttura, data_evento, ora, e_mail_gestore , e_mail_utente) values (?, ?, ?, ?, ?, ?, ?)";
+					+ " (nome, descrizione, struttura, data_evento, ora, e_mail_gestore, e_mail_utente, stato) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
 			try {
 				connection = DriverManagerConnectionPool.getConnection();
@@ -32,6 +32,7 @@ public class EventoDAO {
 				preparedStatement.setTime(5, e.getOra());
 				preparedStatement.setString(6, e.getGestore());
 				preparedStatement.setString(7, e.getOrganizzatore());
+				preparedStatement.setString(8, e.getStato());
 				preparedStatement.executeUpdate();
 	            
 				connection.commit();
@@ -70,6 +71,7 @@ public class EventoDAO {
 					bean.setOra(rs.getTime("ora"));
 					bean.setGestore(rs.getString("e_mail_gestore"));
 					bean.setOrganizzatore(rs.getString("e_mail_utente"));
+					bean.setStato(rs.getString("stato"));
 					return bean;
 				}
 				
@@ -114,6 +116,7 @@ public class EventoDAO {
 						bean.setOra(rs.getTime("ora"));
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
+						bean.setStato(rs.getString("stato"));
 						eventi.add(bean);
 					}
 
@@ -136,7 +139,7 @@ public class EventoDAO {
 			PreparedStatement preparedStatement = null;
 			
 			String updateSQL ="UPDATE " + TABLE_NAME +
-		            " SET nome = ?, descrizione = ?, struttura = ? , data_evento = ?, ora = ?, e_mail_gestore = ?, e_mail_utente = ? WHERE nome = ?";
+		            " SET nome = ?, descrizione = ?, struttura = ? , data_evento = ?, ora = ?, e_mail_gestore = ?, e_mail_utente = ?, stato = ? WHERE nome = ?";
 			try {
 				connection = DriverManagerConnectionPool.getConnection();
 				preparedStatement = connection.prepareStatement(updateSQL);
@@ -147,7 +150,8 @@ public class EventoDAO {
 				preparedStatement.setTime(5, e.getOra());
 				preparedStatement.setString(6, e.getGestore());
 				preparedStatement.setString(7, e.getOrganizzatore());
-				preparedStatement.setString(8, e.getNome());
+				preparedStatement.setString(8, e.getStato());
+				preparedStatement.setString(9, e.getNome());
 			    preparedStatement.executeUpdate();
 
 			   connection.commit();
