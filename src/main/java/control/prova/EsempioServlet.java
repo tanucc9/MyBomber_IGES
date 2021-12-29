@@ -45,7 +45,7 @@ public class EsempioServlet extends HttpServlet {
 		g.setCapResidenza("8218219");
 		g.setCittaResidenza("napoli");
 		g.setCognome("djkcdjk");
-		
+		//forzaaaa
 		
 		g.setDataNascita(java.sql.Date. valueOf("2000-05-01"));
 		g.setEmail("testeroverdrive@gmail.com");
