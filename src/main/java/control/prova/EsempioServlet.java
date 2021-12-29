@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.dao.PartecipazioneDAO;
+
 /**
  * Servlet implementation class EsempioServlet
  */
@@ -30,11 +32,13 @@ public class EsempioServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String nomeAttr = request.getParameter("nomeAttr");
-		
-		request.setAttribute("x", nomeAttr);
+		String c= new String("mario");
+		PartecipazioneDAO p=new PartecipazioneDAO();
+		request.setAttribute("c", c);
 		RequestDispatcher dispatcher = request
                 .getRequestDispatcher(response.encodeRedirectURL("./Index.jsp"));
       dispatcher.forward(request, response);
+      
 	}
 
 	/**

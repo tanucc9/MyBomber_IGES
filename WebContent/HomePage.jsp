@@ -129,8 +129,8 @@
 
 <%
 
-if (request.getAttribute("x") != null) {
-	String x = (String)request.getAttribute("x");
+if (request.getAttribute("c") != null) {
+	String x = (String)request.getAttribute("c");
 %>
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong>Holy guacamole!</strong> Il  numero passato alla servlet era <%= x %>
