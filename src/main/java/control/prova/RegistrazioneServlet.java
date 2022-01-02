@@ -19,14 +19,14 @@ import model.dao.PartecipazioneDAO;
 /**
  * Servlet implementation class EsempioServlet
  */
-@WebServlet("/EsempioServlet")
-public class EsempioServlet extends HttpServlet {
+@WebServlet("/RegistrazioneServlet")
+public class RegistrazioneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public EsempioServlet() {
+    public RegistrazioneServlet() {
         // TODO Auto-generated constructor stub
     }
 
@@ -36,36 +36,13 @@ public class EsempioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String nomeAttr = request.getParameter("nomeAttr");
-		String c= new String("mario");
-	
-		request.setAttribute("c", c);
-		
-		GiocatoreBean g =new GiocatoreBean();
-		g.setCapResidenza("8218219");
-		g.setCittaResidenza("napoli");
-		g.setCognome("djkcdjk");
-		//forzaaaa
-		
-		g.setDataNascita(java.sql.Date. valueOf("2000-05-01"));
-		g.setEmail("testeroverdrive@gmail.com");
-		g.setNazioneResidenza("africa");
-		g.setNome("mario");
-		g.setPassword("otto");
-		g.setProvinciaResidenza("napoli");
-		g.setTelefono("3923816543");
-		g.setUsername("pippos");
-		float t=2;
-		g.setValutazione(t);
-		GiocatoreDAO gd=new GiocatoreDAO();
-		try {
-			gd.doSave(g);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String regop = request.getParameter("regop");
+		if(regop.equals("giocatore"))
+	    request.setAttribute("rego", "giocatore");
+		else
+	    request.setAttribute("rego", "gestore");	
 		RequestDispatcher dispatcher = request
-                .getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
+                .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
       dispatcher.forward(request, response);
       
 	}

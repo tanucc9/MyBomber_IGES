@@ -26,7 +26,7 @@ public class DriverManagerConnectionPool  {
 		String port = "3306";
 		String db = "mybomber";
 		String username = "root";
-		String password = "8454";   //ognuno la propria di mysql
+		String password = "pass1234";   //ognuno la propria di mysql
 
 		newConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mybomber?useUnicode=true&useJDBCCompliantTimezoneShift"
 				+ "=true&useLegacyDatetimeCode=false&serverTimezone=CET",username,password);
