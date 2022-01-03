@@ -49,10 +49,11 @@
 </div>
 
 <div class="container border mt-5 mb-5 ml-5 mr-5 col-sm align-items-center">
-<form action="/action_page.php">
+<form action="/action_page.php" onSubmit="event.preventDefault(); validate(this);">
   <div class="form-group">
     <label for="email">Indirizzo email :</label>
     <input type="email" class="form-control" placeholder="Inseriesi email" id="email">
+    <p id="errEmail"></p>
   </div>
   <div class="form-group">
     <label for="pwd">Password:</label>
