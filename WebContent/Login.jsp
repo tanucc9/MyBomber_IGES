@@ -52,12 +52,13 @@
 <form action="/action_page.php" onSubmit="event.preventDefault(); validate(this);">
   <div class="form-group">
     <label for="email">Indirizzo email :</label>
-    <input type="email" class="form-control" placeholder="Inseriesi email" id="email">
+    <input type="email" class="form-control" placeholder="Inseriesi email" name="email" id="email">
     <p id="errEmail"></p>
   </div>
   <div class="form-group">
     <label for="pwd">Password:</label>
-    <input type="password" class="form-control" placeholder="Inserisci password" id="pwd">
+    <input type="password" class="form-control" placeholder="Inserisci password" name="password" id="pwd">
+    <p id="errPassword"></p>
   </div>
   <div class="form-group form-check">
     <label class="form-check-label">
@@ -69,7 +70,7 @@
 
 </div>
 </div>
-
+<script src="script/login-validation.js"></script>
 <%@ include file="../fragments/footer.html"%>
 </body>
 </html>

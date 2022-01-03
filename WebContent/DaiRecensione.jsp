@@ -35,7 +35,7 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      <form>
+      <form id="dairecensione" onSubmit="event.preventDefault(); validate(this);">
   
       <div class="mb-3">
       <label for="valutazione" class="form-label">Valutazione</label>
@@ -45,7 +45,8 @@
 
       <div class="mb-3">
       <label for="descrizione" class="form-label">Descrizione</label>
-      <textarea class="form-control" id="descrizione"></textarea>
+      <textarea class="form-control" name="descrizione" id="descrizione"></textarea>
+      <p id="errDescrizione"></p>
       </div>
       
   

@@ -13,52 +13,61 @@ function mostraGestore() {
 /**
  * 
  */
-
+function checkLenght(data)
+{
+var lenght= 0;
+for(var key in data) {
+    if(data.hasOwnProperty(key)){
+        length++;
+    }
+}
+return lenght;
+}
 function checkIndirizzo(inputtxt) {
 	var indirizzo =/^[A-Za-zà-ù0-9, ]*$/;
-	if(inputtxt.value.match(indirizzo)) 
+	if(inputtxt.match(indirizzo)) 
 		return true
 
 	return false;	
 }
 function checkCitta(inputtxt) {
 	var citta =/^[A-zÀ-ù ‘-]*$/;
-	if(inputtxt.value.match(citta)) 
+	if(inputtxt.match(citta)) 
 		return true
 
 	return false;	
 }
 function checkProvincia(inputtxt) {
 	var provincia =/^[A-zÀ-ù ‘-]*$/;
-	if(inputtxt.value.match(provincia)) 
+	if(inputtxt.match(provincia)) 
 		return true
 
 	return false;	
 }
 function checkNazione(inputtxt) {
 	var nazione = /^[A-zÀ-ù ‘-]*$/;
-	if(inputtxt.value.match(nazione)) 
+	if(inputtxt.match(nazione)) 
 		return true
 
 	return false;	
 }
 function checkStruttura(inputtxt) {
 	var struttura = /^[A-Za-z0-9 \'_.-]*$/;
-	if(inputtxt.value.match(struttura)) 
+	if(inputtxt.match(struttura)) 
 		return true
 
 	return false;	
 }
 function checkNome(inputtxt) {
 	var nome =/^[A-Za-z \']*$/;
-	if(inputtxt.value.match(nome)) 
+	if(inputtxt.match(nome)) 
 		return true
 
 	return false;	
 }
 function checkCognome(inputtxt) {
 	var cognome =/^[A-Za-z \']*$/;
-	if(inputtxt.value.match(cognome)) 
+	if(inputtxt.match(cognome)) 
 		return true
 
 	return false;	
@@ -66,14 +75,15 @@ function checkCognome(inputtxt) {
 
 function checkEmail(inputtxt) {
 	var email =/^[a-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]*$/;
-	if(inputtxt.value.match(email)) 
+	
+	if(inputtxt.match(email)) 
 		return true;
 	
 	return false;	
 }
 function checkTelefono(inputtxt) {
 	var telefono =/^[0-9]*$/;
-	if(inputtxt.value.match(telefono)) 
+	if(inputtxt.match(telefono)) 
 		return true;
 	
 	return false;	
@@ -81,7 +91,7 @@ function checkTelefono(inputtxt) {
 
 function checkCap(inputtxt) {
 	var telefono =/^[A-Za-z0-9 -]*$/;
-	if(inputtxt.value.match(telefono)) 
+	if(inputtxt.match(telefono)) 
 		return true;
 	
 	return false;	
@@ -89,7 +99,7 @@ function checkCap(inputtxt) {
 
 function checkData(inputtxt) {
 	var data =/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/; //yyyy-mm-dd
-	if(inputtxt.value.match(data)) 
+	if(inputtxt.match(data)) 
 		return true;
 	
 	return false;	
@@ -98,7 +108,7 @@ function checkData(inputtxt) {
 
 function checkUsername(inputtxt) {
 	var username = /^[A-Za-z0-9-_]*$/;
-	if(inputtxt.value.match(username)) 
+	if(inputtxt.match(username)) 
 		return true;
 	
 	return false;	
@@ -107,104 +117,114 @@ function checkUsername(inputtxt) {
 function validateGiocatore(obj) {	
 	var valid = true;	
 	
-	var email = document.getElementsByName("email")[0];
-	if(!checkEmail(email)) {
+	var email = document.getElementsByName("email")[0].value;
+	if(!checkEmail(email)||!(email.length>1)||!(email.length<30)) {
 		valid = false;
-		document.getElementById("errEmail").innerHTML = "email non valida";
-		errEmail.style.color = "red";
+		let errEmail=document.getElementById("errEmail");
+		errEmail.innerHTML = "email non valida";
+		errEmail.style.color ="red";
 		}
 		else {
-			document.getElementById("errEmail").innerHTML = "";	
+			errNazione.innerHTML = "";	
 		}
-	var username = document.getElementsByName("username")[0];
-	if(!checkUsername(username)) {
+	var username = document.getElementsByName("username")[0].value;
+	console.log(username.length);
+	if(!checkUsername(username)||!(username.length>1)||!(username.length<30)) {
 		valid = false;
-		document.getElementById("errUsername").innerHTML = "username non valido" ;
+		let errUsername=document.getElementById("errUsername");
+		errUsername.innerHTML = "username non valido";
 		errUsername.style.color = "red";
 	} else {
-		document.getElementById("errUsername").innerHTML = "" ;
+		errUsername.innerHTML = "" ;
 	}	
 			
-	var nome = document.getElementsByName("nome")[0];
-	if(!checkNome(nome)) {
+	var nome = document.getElementsByName("nome")[0].value;
+	if(!checkNome(nome)||!(nome.length>1)||!(nome.length<=30)) {
 		valid = false;
-		document.getElementById("errNome").innerHTML = "nome non valido" ;
+		let errNome=document.getElementById("errNome");
+		errNome.innerHTML = "nome non valido" ;
 		errNome.style.color = "red";
 	} else {
-		document.getElementById("errNome").innerHTML = "" ;
+		errNome.innerHTML = "" ;
 	}	
+
 	
-	
-	
-	
-	var cognome = document.getElementsByName("cognome")[0];
-	if(!checkCognome(cognome)) {
+	var cognome = document.getElementsByName("cognome")[0].value;
+	if(!checkCognome(cognome)||!(cognome.length>1)||!(cognome.length<=30)) {
 		valid = false;
+		let errCognome=document.getElementById("errCognome");
 		document.getElementById("errCognome").innerHTML = "cognome non valido";
 		errCognome.style.color = "red";
 
 		} else {
-			document.getElementById("errCognome").innerHTML = "";
+			errCognome.innerHTML = "";
 	}
 	
-	var pw = document.getElementsByName("password")[0];				
-	var cpw = document.getElementsByName("cpassword")[0];
-	if(pw.value!=cpw.value) {
+	var pw = document.getElementsByName("password")[0].value;				
+	var cpw = document.getElementsByName("cpassword")[0].value;
+	if((pw!=cpw)||!(pw.length>1)||!(pw.length<=30)) {
 		valid = false;
-		document.getElementById("errCpassword").innerHTML = "le password non corrispondono";
+		let errCpassword=document.getElementById("errCpassword");
+		errCpassword.innerHTML = "le password non corrispondono";
 		errCpassword.style.color = "red";
 		}
 		else {
-			document.getElementById("errCpassword").innerHTML = "";
+			errCpassword.innerHTML = "";
 		}	
-	var nazione = document.getElementsByName("nazione")[0];
-	if(!checkNazione(nazione)) {
+	var nazione = document.getElementsByName("nazione")[0].value;
+	if(!checkNazione(nazione)||!(nazione.length>1)||!(nazione.length<=30)) {
 		valid = false;
-		document.getElementById("errNazione").innerHTML = "nazione non valida" ;
+		let errNazione=document.getElementById("errNazione");
+		errNazione.innerHTML = "nazione non valida" ;
 		errNazione.style.color = "red";
 	} else {
-		document.getElementById("errNazione").innerHTML = "" ;
+		errNazione.innerHTML = "" ;
 	}
-	var provincia = document.getElementsByName("provincia")[0];
-	if(!checkProvincia(provincia)) {
+	var provincia = document.getElementsByName("provincia")[0].value;
+	if(!checkProvincia(provincia)||!(provincia.length>1)||!(provincia.length<=30)) {
 		valid = false;
+		let errProvincia=document.getElementById("errProvincia");
 		document.getElementById("errProvincia").innerHTML = "provincia non valida" ;
 		errProvincia.style.color = "red";
 	} else {
-		document.getElementById("errProvincia").innerHTML = "" ;
+		errProvincia.innerHTML = "" ;
 	}
-	var citta = document.getElementsByName("citta")[0];
-	if(!checkCitta(citta)) {
+	var citta = document.getElementsByName("citta")[0].value;
+	if(!checkCitta(citta)||!(citta.length>1)||!(citta.length<=30)) {
 		valid = false;
-		document.getElementById("errCitta").innerHTML = "citta non valido" ;
+		let errCitta=document.getElementById("errCitta");
+		errCitta.innerHTML = "citta non valido" ;
 		errCitta.style.color = "red";
 	} else {
-		document.getElementById("errCitta").innerHTML = "" ;
+		errCitta.innerHTML = "" ;
 	}
-	var cap = document.getElementsByName("cap")[0];
-	if(!checkCap(cap)) {
+	var cap = document.getElementsByName("cap")[0].value;
+	if(!checkCap(cap)||!(cap.length>1)||!(cap.length<=10)) {
 		valid = false;
-		document.getElementById("errCap").innerHTML = "cap non valido" ;
+		let errCap=document.getElementById("errCap");
+		errCap.innerHTML = "cap non valido" ;
 		errCap.style.color = "red";
 	} else {
-		document.getElementById("errCap").innerHTML = "" ;
+		errCap.innerHTML = "" ;
 	}	
-	var telefono = document.getElementsByName("telefono")[0];
-	if(!checkTelefono(telefono)) {
+	var telefono = document.getElementsByName("telefono")[0].value;
+	if(!checkTelefono(telefono)||!(telefono.length>3)||!(telefono.length<=10)) {
 		valid = false;
-		document.getElementById("errTelefono").innerHTML = "telefono non valido" ;
+		let errTelefono=document.getElementById("errTelefono");
+		errTelefono.innerHTML = "telefono non valido" ;
 		errTelefono.style.color = "red";
 	} else {
-		document.getElementById("errTelefono").innerHTML = "" ;
+		errTelefono.innerHTML = "" ;
 	}	
 	
-	var data = document.getElementsByName("data")[0];
+	var data = document.getElementsByName("data")[0].value;
 	if(!checkData(data)) {
 		valid = false;
-		document.getElementById("errData").innerHTML = "data non valida";
+		let errData=document.getElementById("errData");
+		errData.innerHTML = "data non valida";
 		errData.style.color = "red";
 		} else {
-			document.getElementById("errData").innerHTML = "";
+			errData.innerHTML = "";
 		}		
 	
 	
@@ -215,114 +235,126 @@ function validateGiocatore(obj) {
 function validateGestore(obj) {	
 	var valid = true;
 		
-	var email = document.getElementsByName("email")[0];
-	if(!checkEmail(email)) {
+	var email = document.getElementsByName("email")[0].value;
+	if(!checkEmail(email)||!(email.length>1)||!(email.length<=30)) {
 		valid = false;
-		document.getElementById("errEmail").innerHTML = "email non valida";
+		let errEmail=document.getElementById("errEmail");
+		errEmail.innerHTML = "email non valida";
 		errEmail.style.color = "red";
 		}
 		else {
-			document.getElementById("errEmail").innerHTML = "";	
+			errEmail.innerHTML = "";	
 		}
-	var telefonoGestore = document.getElementsByName("telefonoGestore")[0];
-	if(!checkTelefono(telefonoGestore)) {
+	var telefonoGestore = document.getElementsByName("telefonoGestore")[0].value;
+	if(!checkTelefono(telefonoGestore)||!(telefonoGestore.length>3)||!(telefonoGestore.length<=10)) {
 		valid = false;
-		document.getElementById("errTelefonoGestore").innerHTML = "telefono non valido";
+		let errTelefonoGestore=document.getElementById("errTelefonoGestore");
+		errTelefonoGestore.innerHTML = "telefono non valido";
 		errTelefonoGestore.style.color = "red";
 		}
 		else {
-			document.getElementById("errTelefonoGestore").innerHTML = "";	
+			errTelefonoGestore.innerHTML = "";	
 		}			
-	var nome = document.getElementsByName("nome")[0];
-	if(!checkNome(nome)) {
+	var nome = document.getElementsByName("nome")[0].value;
+	if(!checkNome(nome)||!(nome.length>1)||!(nome.length<=30)) {
 		valid = false;
-		document.getElementById("errNome").innerHTML = "nome non valido" ;
+		let errNome=document.getElementById("errNome");
+		errNome.innerHTML = "nome non valido" ;
 		errNome.style.color = "red";
 	} else {
-		document.getElementById("errNome").innerHTML = "" ;
+		errNome.innerHTML = "" ;
 	}
 	
-	var cognome = document.getElementsByName("cognome")[0];
-	if(!checkCognome(cognome)) {
+	var cognome = document.getElementsByName("cognome")[0].value;
+	if(!checkCognome(cognome)||!(cognome.length>1)||!(cognome.length<=30)) {
 		valid = false;
-		document.getElementById("errCognome").innerHTML = "cognome non valido";
+		let errCognome=document.getElementById("errCognome");
+		errCognome.innerHTML = "cognome non valido";
 		errCognome.style.color = "red";
 
 		} else {
-			document.getElementById("errCognome").innerHTML = "";
+			errCognome.innerHTML = "";
 	}
-	var struttura = document.getElementsByName("struttura")[0];
-	if(!checkStruttura(struttura)) {
+	var struttura = document.getElementsByName("struttura")[0].value;
+	if(!checkStruttura(struttura)||!(struttura.length>1)||!(struttura.length<=30)) {
 		valid = false;
-		document.getElementById("errStruttura").innerHTML = "struttura non valida";
+		let errStruttura=document.getElementById("errStruttura");
+		errStruttura.innerHTML = "struttura non valida";
 		errStruttura.style.color = "red";
 
 		} else {
-			document.getElementById("errStruttura").innerHTML = "";
+			errStruttura.innerHTML = "";
 	}
-	var nazione = document.getElementsByName("nazione")[0];
-	if(!checkNazione(nazione)) {
+	var nazione = document.getElementsByName("nazione")[0].value;
+	if(!checkNazione(nazione)||!(nazione.length>1)||!(nazione.length<=30)) {
 		valid = false;
-		document.getElementById("errNazione").innerHTML = "nazione non valida";
+		let errNazione=document.getElementById("errNazione");
+		errNazione.innerHTML = "nazione non valida";
 		errNazione.style.color = "red";
 
 		} else {
-			document.getElementById("errNazione").innerHTML = "";
+			errNazione.innerHTML = "";
 	}
-	var provincia = document.getElementsByName("provincia")[0];
-	if(!checkProvincia(provincia)) {
+	var provincia = document.getElementsByName("provincia")[0].value;
+	if(!checkProvincia(provincia)||!(provincia.length>1)||!(provincia.length<=30)) {
 		valid = false;
-		document.getElementById("errProvincia").innerHTML = "provincia non valida";
+		let errProvincia=document.getElementById("errProvincia");
+		errProvincia.innerHTML = "provincia non valida";
 		errProvincia.style.color = "red";
 
 		} else {
-			document.getElementById("errProvincia").innerHTML = "";
+			errProvincia.innerHTML = "";
 	}
-	var citta = document.getElementsByName("citta")[0];
-	if(!checkCitta(citta)) {
+	var citta = document.getElementsByName("citta")[0].value;
+	if(!checkCitta(citta)||!(citta.length>1)||!(citta.length<=30)) {
 		valid = false;
-		document.getElementById("errCitta").innerHTML = "città non valida";
+		let errCitta=document.getElementById("errCitta");
+		errCitta.innerHTML = "città non valida";
 		errCitta.style.color = "red";
 
 		} else {
-			document.getElementById("errCitta").innerHTML = "";
+			errCitta.innerHTML = "";
 	}
-	var cap = document.getElementsByName("cap")[0];
-	if(!checkCap(cap)) {
+	var cap = document.getElementsByName("cap")[0].value;
+	if(!checkCap(cap)||!(cap.length>1)||!(cap.length<=10)) {
 		valid = false;
-		document.getElementById("errCap").innerHTML = "cap non valido";
+		let errCap=document.getElementById("errCap");
+		errCap.innerHTML = "cap non valido";
 		errCap.style.color = "red";
 
 		} else {
-			document.getElementById("errCap").innerHTML = "";
+			errCap.innerHTML = "";
 	}
-	var indirizzo = document.getElementsByName("indirizzo")[0];
-	if(!checkIndirizzo(indirizzo)) {
+	var indirizzo = document.getElementsByName("indirizzo")[0].value;
+	if(!checkIndirizzo(indirizzo)||!(indirizzo.length>1)||!(indirizzo.length<=30)) {
 		valid = false;
+		let errIndirizzo=document.getElementById("errIndirizzo");
 		document.getElementById("errIndirizzo").innerHTML = "indirizzo non valido";
 		errIndirizzo.style.color = "red";
 
 		} else {
-			document.getElementById("errIndirizzo").innerHTML = "";
+			errIndirizzo.innerHTML = "";
 	}
-	var telefonoStruttura = document.getElementsByName("telefonoStruttura")[0];
-	if(!checkTelefono(telefonoStruttura)) {
+	var telefonoStruttura = document.getElementsByName("telefonoStruttura")[0].value;
+	if(!checkTelefono(telefonoStruttura)||!(telefonoStruttura.length>1)||!(telefonoStruttura.length<=10)) {
 		valid = false;
-		document.getElementById("errTelefonoStruttura").innerHTML = "telefono non valido";
+		let errTelefonoStruttura=document.getElementById("errTelefonoStruttura");
+		errTelefonoStruttura.innerHTML = "telefono non valido";
 		errTelefonoStruttura.style.color = "red";
 
 		} else {
-			document.getElementById("errTelefonoStruttura").innerHTML = "";
+			errTelefonoStruttura.innerHTML = "";
 	}
-	var password = document.getElementsByName("password")[0];
-	var cpassword = document.getElementsByName("cpassword")[0];
-	if(password.value!=cpassword.value) {
+	var password = document.getElementsByName("password")[0].value;
+	var cpassword = document.getElementsByName("cpassword")[0].value;
+	if((password!=cpassword)||!(password.length>1)||!(password.length<=30)) {
 		valid = false;
-		document.getElementById("errCpassword").innerHTML = "le password non corrispondono";
+		let errCpassword=document.getElementById("errCpassword");
+		errCpassword.innerHTML = "le password non corrispondono";
 		errCpassword.style.color = "red";
 
 		} else {
-			document.getElementById("errCpassword").innerHTML = "";
+			errCpassword.innerHTML = "";
 	}
 		
 	
