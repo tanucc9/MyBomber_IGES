@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.util.*,model.bean.*" %>
+    
+<% 
+    ArrayList<?> eventi = (ArrayList<?>) request.getSession().getAttribute("eventi");
+	if(eventi == null) {
+		response.sendRedirect("./eventiRecenti?page=EventiRecenti.jsp");	
+		return;
+	}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,14 +30,35 @@
 </head>
 <body>
 <%@ include file="./fragments/header.jsp" %>
-
-<!-- for(Evento e: eventi) -->
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h3 class="card-title">e.getNome()</h3>
-    <p class="card-text">e.getDescrizione()</p>
-    <a href="#" class="card-link">Dettagli</a>
-  </div>
+<div class="container" style="margin: 100px;">
+	<div class="row">
+	<%
+		if (eventi != null && eventi.size() != 0) {
+			Iterator<?> it = eventi.iterator();
+			while (it.hasNext()) {
+				EventoBean bean = (EventoBean) it.next();
+	%>
+		<div class="col-lg-4 cusom_event_class mt-5">
+			<div class="card" style="width: 18rem;">
+  				<div class="card-body">
+    			<h3 class="card-title">e.getNome()</h3>
+   				<p class="card-text">e.getDescrizione()</p>
+    			<p class="card-text">e.getData() e.getTime()</p>
+    			<a href="#" class="card-link">Recensisci</a>
+  				</div>
+			</div>
+		</div>
+		<%
+			}
+		} else {
+	%>
+	
+	<h2>Non hai partecipato a nessuna partita nell'ultima settimana</h2>
+		
+	<%
+		}
+	%>
+	</div>
 </div>
 
 <%@ include file="./fragments/footer.html" %>

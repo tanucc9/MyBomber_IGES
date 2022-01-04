@@ -50,15 +50,15 @@ public class GestoreDAO {
 	public synchronized GestoreBean doRetrieveByKey(String email){
 		 
 		 Connection conn = null;
-		 PreparedStatement ps = null;
+		 PreparedStatement preparedStatement = null;
 		 try {
 			GestoreBean bean = new GestoreBean(); 
 			conn = DriverManagerConnectionPool.getConnection();
-			ps = conn.
+			preparedStatement = conn.
 					prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE username = ?");
-			ps.setString(1, email);
+			preparedStatement.setString(1, email);
 					
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs = preparedStatement.executeQuery();
 
 			// 4. Prendi il risultato
 			if(rs.next())
@@ -77,7 +77,7 @@ public class GestoreDAO {
 			e.printStackTrace();
 		}finally{
 			try {
-				ps.close();
+				preparedStatement.close();
 				DriverManagerConnectionPool.releaseConnection(conn);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -193,4 +193,48 @@ public class GestoreDAO {
 		}
 		return gestori;
 	}
+	
+	
+	public synchronized GestoreBean doRetrieveByStruttura(String struttura){
+		 
+		 Connection conn = null;
+		 PreparedStatement preparedStatement = null;
+		 
+		 
+		 try { 
+			GestoreBean bean = new GestoreBean();
+			conn = DriverManagerConnectionPool.getConnection();
+			preparedStatement = conn.
+					prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE struttura = ?");
+			preparedStatement.setString(1, struttura);
+					
+			ResultSet rs = preparedStatement.executeQuery();
+
+			// 4. Prendi il risultato
+			if(rs.next())
+			{
+				bean.setEmail(rs.getString("e_mail"));
+				bean.setNome(rs.getString("nome"));
+				bean.setCognome(rs.getString("cognome"));
+				bean.setPassword(rs.getString("password_gestore"));;
+				bean.setTelefono(rs.getString("telefono"));
+				bean.setStruttura(rs.getString("struttura"));
+				return bean;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				preparedStatement.close();
+				DriverManagerConnectionPool.releaseConnection(conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	 }
+	
 }

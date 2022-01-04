@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="model.bean.*, java.util.*"%>
+    
+    <% 
+    ArrayList<?> eventi = (ArrayList<?>) request.getSession().getAttribute("eventi");
+	if(eventi == null) {
+		response.sendRedirect("./richieste?page=RichiesteEventi.jsp");	
+		return;
+	}
+%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,14 +31,36 @@
 <body>
 <%@ include file="./fragments/header.jsp" %>
 
-<!-- for(Evento e: eventi) -->
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h3 class="card-title">e.getNome()</h3>
-    <p class="card-text">e.getDescrizione()</p>
-    <button type="button">Accetta</button>
-    <button type="button">Rifiuta</button>
-  </div>
+<div class="container" style="margin: 100px;">
+	<div class="row">
+	<%
+		if (eventi != null && eventi.size() != 0) {
+			Iterator<?> it = eventi.iterator();
+			while (it.hasNext()) {
+				EventoBean bean = (EventoBean) it.next();
+	%>
+		<div class="col-lg-4 cusom_event_class mt-5">
+			<div class="card" style="width: 18rem;">
+  				<div class="card-body">
+    			<h3 class="card-title">e.getNome()</h3>
+    			<p class="card-text">e.getDescrizione()</p>
+    			<p class="card-text">e.getData() e.getTime()</p>
+    			<a href="eventi?action=addE&id=<%=bean.getNome()%>&page=RichiestaEventi.jsp" class="btn btn-primary"><button>Accetta</button></a>
+    			<a href="eventi?action=DeleteE&id=<%=bean.getNome()%>&page=RichiestaEventi.jsp" class="btn btn-primary"><button>Rifiuta</button></a>
+  				</div>
+			</div>
+		</div>
+	<%
+			}
+		} else {
+	%>
+	
+	<h2>Non ci sono nuove richieste al momento</h2>
+		
+	<%
+		}
+	%>
+	</div>
 </div>
 
 <%@ include file="./fragments/footer.html" %>
