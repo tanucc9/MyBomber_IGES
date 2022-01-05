@@ -44,16 +44,16 @@ public class PartecipazioneDAO {
 		public synchronized PartecipazioneBean doRetrieveByKey(String email,String evento){
 			 
 			 Connection conn = null;
-			 PreparedStatement ps = null;
+			 PreparedStatement preparedStatement = null;
 			 try {
 				PartecipazioneBean bean = new PartecipazioneBean(); 
 				conn = DriverManagerConnectionPool.getConnection();
-				ps = conn.
+				preparedStatement = conn.
 						prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE e_mail = ? AND nome_evento = ?");
-				ps.setString(1, email);
-				ps.setString(2, evento);
+				preparedStatement.setString(1, email);
+				preparedStatement.setString(2, evento);
 			
-				ResultSet rs = ps.executeQuery();
+				ResultSet rs = preparedStatement.executeQuery();
 
 				// 4. Prendi il risultato
 				if(rs.next())
@@ -70,7 +70,7 @@ public class PartecipazioneDAO {
 				e.printStackTrace();
 			}finally{
 				try {
-					ps.close();
+					preparedStatement.close();
 					DriverManagerConnectionPool.releaseConnection(conn);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -179,5 +179,77 @@ public class PartecipazioneDAO {
 				}
 				return (result != 0);
 			}
+			
+			
+			public synchronized ArrayList<PartecipazioneBean> doRetrieveByEvento(String evento){
+				 
+				 Connection conn = null;
+				 PreparedStatement preparedStatement = null; 
+				 ArrayList<PartecipazioneBean> partecipanti = new ArrayList<PartecipazioneBean>();
+				 String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE nome_evento = ?";
+				 
+				 
+				 try {
+					conn = DriverManagerConnectionPool.getConnection();
+					preparedStatement = conn.prepareStatement(selectSQL);
+					preparedStatement.setString(1, evento);
+				
+					ResultSet rs = preparedStatement.executeQuery();
+
+					// 4. Prendi il risultato
+					if(rs.next()) {
+						PartecipazioneBean bean = new PartecipazioneBean();
+						bean.setUtente(rs.getString("e_mail"));
+						bean.setEvento(rs.getString("nome_evento"));
+						partecipanti.add(bean);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally{
+					try {
+						preparedStatement.close();
+						DriverManagerConnectionPool.releaseConnection(conn);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				return partecipanti;
+			 }
+			
+			
+			/*public synchronized int count(String evento) {
+				 
+				 Connection conn = null;
+				 PreparedStatement preparedStatement = null; 
+				 ArrayList<PartecipazioneBean> partecipanti = new ArrayList<PartecipazioneBean>();
+				 String selectSQL = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE nome_evento = ?";
+				 
+				 try {
+						conn = DriverManagerConnectionPool.getConnection();
+						preparedStatement = conn.prepareStatement(selectSQL);
+						preparedStatement.setString(1, evento);
+					
+						ResultSet rs = preparedStatement.executeQuery();
+
+						return;
+						}
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}finally{
+						try {
+							preparedStatement.close();
+							DriverManagerConnectionPool.releaseConnection(conn);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+			}*/
+			
 	}
 

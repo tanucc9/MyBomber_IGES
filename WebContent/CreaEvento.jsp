@@ -23,7 +23,7 @@
 	
 	<%@ include file="./fragments/header.jsp" %>
 	<div class="container mt-5 mb-5">
-	<form action="Creazione evento" method="post" id="myform" onsubmit="event.preventDefault(); validate(this);">
+	<form action="creaEvento" method="post" id="myform" onsubmit="event.preventDefault(); validate(this);">
 		<div class="form mb-3">
 		<label for="nome">Nome</label>
 		<input type="text" name="nome" class="form-control" placeholder="Nome" required>

@@ -14,7 +14,9 @@ private static final long serialVersionUID = 1L;
 	private Time ora;
 	private String gestore;
 	private String organizzatore;
-	private String stato; //richiesta - attivo - concluso
+	private String stato; //richiesta - attivo - completo - concluso
+	private float valutazione; //somma valutazioni giocatori
+	private int numPartecipanti;
 	
 	
 	public EventoBean() {
@@ -33,7 +35,6 @@ private static final long serialVersionUID = 1L;
 		this.stato = "richiesta";
 	}
 	
-
 	public void setNome(String nome) {
 		this.nome=nome;
 	}
@@ -63,6 +64,14 @@ private static final long serialVersionUID = 1L;
 	
 	public void setStato(String stato) {
 		this.stato = stato;
+	}
+	
+	public void setValutazione(float valutazione) {
+		this.valutazione = valutazione;
+	}
+	
+	public void setNumPartecipanti(int numPartecipanti) {
+		this.numPartecipanti = numPartecipanti;
 	}
 	
 	public String getNome() {
@@ -95,6 +104,26 @@ private static final long serialVersionUID = 1L;
 	
 	public String getStato() {
 		return stato;
+	}
+	
+	public float getValutazione() {
+		return valutazione;
+	}
+	
+	public int getNumPartecipanti() {
+		return numPartecipanti;
+	}
+	
+	public float getMedia() {
+		return valutazione / numPartecipanti;
+	}
+	
+	public void aggiungiG() {
+		numPartecipanti++;
+	}
+	
+	public void rimuoviG() {
+		numPartecipanti--;
 	}
 	
 	@Override

@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1" import="model.bean.*, java.util.*"%>
     
     <% 
-    ArrayList<?> eventi = (ArrayList<?>) request.getSession().getAttribute("eventi");
+    ArrayList<?> eventi = (ArrayList<?>) request.getSession().getAttribute("richieste");
 	if(eventi == null) {
 		response.sendRedirect("./richieste?page=RichiesteEventi.jsp");	
 		return;
@@ -45,8 +45,8 @@
     			<h3 class="card-title">e.getNome()</h3>
     			<p class="card-text">e.getDescrizione()</p>
     			<p class="card-text">e.getData() e.getTime()</p>
-    			<a href="eventi?action=addE&id=<%=bean.getNome()%>&page=RichiestaEventi.jsp" class="btn btn-primary"><button>Accetta</button></a>
-    			<a href="eventi?action=DeleteE&id=<%=bean.getNome()%>&page=RichiestaEventi.jsp" class="btn btn-primary"><button>Rifiuta</button></a>
+    			<a href="richieste?action=addE&nome=<%=bean.getNome()%>" class="btn btn-primary"><button>Accetta</button></a>
+    			<a href="richieste?action=deleteE&nome=<%=bean.getNome()%>" class="btn btn-primary"><button>Rifiuta</button></a>
   				</div>
 			</div>
 		</div>

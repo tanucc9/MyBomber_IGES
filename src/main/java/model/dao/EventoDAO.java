@@ -1,7 +1,6 @@
 package model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,13 +51,14 @@ public class EventoDAO {
 		
 		public synchronized EventoBean doRetrieveByKey(String nome){
 			 
-			 Connection conn = null;
+			 Connection connection = null;
 			 PreparedStatement preparedStatement = null;
-			 try {
-				EventoBean bean = new EventoBean(); 
-				conn = DriverManagerConnectionPool.getConnection();
-				preparedStatement = conn.
-						prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE nome = ?");
+			 EventoBean bean = new EventoBean();
+			 String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE nome = ?";
+			 
+			 try { 
+				connection = DriverManagerConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(selectSQL);;
 				preparedStatement.setString(1, nome);
 						
 				ResultSet rs = preparedStatement.executeQuery();
@@ -83,7 +83,7 @@ public class EventoDAO {
 			}finally{
 				try {
 					preparedStatement.close();
-					DriverManagerConnectionPool.releaseConnection(conn);
+					DriverManagerConnectionPool.releaseConnection(connection);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -140,7 +140,7 @@ public class EventoDAO {
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
 			
-			String updateSQL ="UPDATE " + TABLE_NAME +
+			String updateSQL = "UPDATE " + TABLE_NAME +
 		            " SET nome = ?, descrizione = ?, struttura = ? , data_evento = ?, ora = ?, e_mail_gestore = ?, e_mail_utente = ?, stato = ? WHERE nome = ?";
 			try {
 				connection = DriverManagerConnectionPool.getConnection();
@@ -208,7 +208,7 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE stato = attivo";
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE stato = 'attivo'";
 				
 				
 
@@ -251,7 +251,52 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE e_mail_gestore = ? AND stato = richiesta";
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE e_mail_gestore = ? AND stato = 'richiesta'";
+				
+				
+
+				try {
+					connection = DriverManagerConnectionPool.getConnection();
+					preparedStatement = connection.prepareStatement(selectSQL);
+					preparedStatement.setString(1, gestore);
+					
+					ResultSet rs = preparedStatement.executeQuery();
+
+					while (rs.next()) {
+						EventoBean bean = new EventoBean();
+						bean.setNome(rs.getString("nome"));
+						bean.setDescrizione(rs.getString("descrizione"));
+						bean.setStruttura(rs.getString("struttura"));
+						bean.setData(rs.getDate("data_evento"));
+						bean.setOra(rs.getTime("ora"));
+						bean.setGestore(rs.getString("e_mail_gestore"));
+						bean.setOrganizzatore(rs.getString("e_mail_utente"));
+						bean.setStato(rs.getString("stato"));
+						eventi.add(bean);
+					}
+
+				} finally {
+					try {
+						if (preparedStatement != null)
+							preparedStatement.close();
+					} finally {
+						if (connection != null)
+							connection.close();
+					}
+				}
+				return eventi;
+			}
+			
+			
+			public synchronized ArrayList<EventoBean> doRetrieveEventiGestore(String gestore) throws SQLException{
+				 
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+
+				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
+
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE e_mail_gestore = ? AND stato != 'richiesta' "
+									+ "ORDER BY data desc, ora desc";
 				
 				
 
@@ -295,7 +340,7 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE e_mail_utente = ? AND stato = concluso";
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE e_mail_utente = ? AND stato = 'concluso'";
 				
 				
 
@@ -350,6 +395,98 @@ public class EventoDAO {
 					preparedStatement.setString(1, giocatore);
 					preparedStatement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
 					preparedStatement.setDate(2, java.sql.Date.valueOf(LocalDate.now().minusWeeks(1)));
+					
+					ResultSet rs = preparedStatement.executeQuery();
+
+					while (rs.next()) {
+						EventoBean bean = new EventoBean();
+						bean.setNome(rs.getString("nome"));
+						bean.setDescrizione(rs.getString("descrizione"));
+						bean.setStruttura(rs.getString("struttura"));
+						bean.setData(rs.getDate("data_evento"));
+						bean.setOra(rs.getTime("ora"));
+						bean.setGestore(rs.getString("e_mail_gestore"));
+						bean.setOrganizzatore(rs.getString("e_mail_utente"));
+						bean.setStato(rs.getString("stato"));
+						eventi.add(bean);
+					}
+
+				} finally {
+					try {
+						if (preparedStatement != null)
+							preparedStatement.close();
+					} finally {
+						if (connection != null)
+							connection.close();
+					}
+				}
+				return eventi;
+			}
+			
+			
+			public synchronized ArrayList<EventoBean> doRetrieveEventi(String giocatore) throws SQLException{
+				 
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+
+				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
+
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE stato = 'attivi' AND nome != ALL "
+									+ "(SELECT nome_evento FROM partecipazione WHERE e_mail = ?)";
+				
+				
+
+				try {
+					connection = DriverManagerConnectionPool.getConnection();
+					preparedStatement = connection.prepareStatement(selectSQL);
+					preparedStatement.setString(1, giocatore);
+					
+					
+					ResultSet rs = preparedStatement.executeQuery();
+
+					while (rs.next()) {
+						EventoBean bean = new EventoBean();
+						bean.setNome(rs.getString("nome"));
+						bean.setDescrizione(rs.getString("descrizione"));
+						bean.setStruttura(rs.getString("struttura"));
+						bean.setData(rs.getDate("data_evento"));
+						bean.setOra(rs.getTime("ora"));
+						bean.setGestore(rs.getString("e_mail_gestore"));
+						bean.setOrganizzatore(rs.getString("e_mail_utente"));
+						bean.setStato(rs.getString("stato"));
+						eventi.add(bean);
+					}
+
+				} finally {
+					try {
+						if (preparedStatement != null)
+							preparedStatement.close();
+					} finally {
+						if (connection != null)
+							connection.close();
+					}
+				}
+				return eventi;
+			}
+			
+			
+			public synchronized ArrayList<EventoBean> doRetrieveEventiRecenti(String giocatore) throws SQLException{
+				 
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+
+				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
+
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + " JOIN partecipazione P on nome = P.nome_evento " 
+									+"WHERE stato = 'completo' AND P.e_mail = ?";
+				
+				
+
+				try {
+					connection = DriverManagerConnectionPool.getConnection();
+					preparedStatement = connection.prepareStatement(selectSQL);
+					preparedStatement.setString(1, giocatore);
+					
 					
 					ResultSet rs = preparedStatement.executeQuery();
 

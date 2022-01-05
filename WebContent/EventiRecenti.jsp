@@ -2,9 +2,9 @@
     pageEncoding="ISO-8859-1" import="java.util.*,model.bean.*" %>
     
 <% 
-    ArrayList<?> eventi = (ArrayList<?>) request.getSession().getAttribute("eventi");
+    ArrayList<?> eventi = (ArrayList<?>) request.getSession().getAttribute("eventiRecenti");
 	if(eventi == null) {
-		response.sendRedirect("./eventiRecenti?page=EventiRecenti.jsp");	
+		response.sendRedirect("./eventiRecenti");	
 		return;
 	}
 %>
@@ -44,7 +44,7 @@
     			<h3 class="card-title">e.getNome()</h3>
    				<p class="card-text">e.getDescrizione()</p>
     			<p class="card-text">e.getData() e.getTime()</p>
-    			<a href="#" class="card-link">Recensisci</a>
+    			<a href="daiRecensione.jsp" class="card-link">Recensisci</a>
   				</div>
 			</div>
 		</div>

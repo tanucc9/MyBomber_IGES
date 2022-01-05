@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1" import="java.util.*,model.bean.*" %>
     
 <% 
-    ArrayList<?> eventi = (ArrayList<?>) request.getSession().getAttribute("eventi");
+    ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventi");
 	if(eventi == null) {
 		response.sendRedirect("./partecipa?page=PartecipaEventi.jsp");	
 		return;
@@ -37,15 +37,20 @@
 		if (eventi != null && eventi.size() != 0) {
 			Iterator<?> it = eventi.iterator();
 			while (it.hasNext()) {
-				EventoBean evento = (EventoBean) it.next();
+				EventoBean e = (EventoBean) it.next();
 	%>
 		<div class="col-lg-4 cusom_event_class mt-5">
 			<div class="card" style="width: 18rem;">
   				<div class="card-body">
-    			<h3 class="card-title">e.getNome()</h3>
+    			<h3 class="card-title"><%=e.getNome() %></h3>
+    			<p class="card-text"><%=e.getData()%></p> <p class="card-text"><%=e.getOra()%></p>
+    			<p class="card-text">Partecipanti: <%=e.getNumPartecipanti()%></p>
+    			<p class="card-text">Valutazione: <%=e.getMedia()%></p>
     			<p class="card-text">e.getDescrizione()</p>
-    			<p class="card-text">e.getData() e.getTime()</p>
-    			<a href="#" class="btn btn-primary">Partecipa</a>
+    			<form action="partecipa" method="post"> 
+    			<input type="hidden" value=<%=e.getNome() %> name="nome" id="nome">
+    			<input type="submit" class="btn btn-primary" value="crea">
+    			</form>
   				</div>
 			</div>
 		</div>

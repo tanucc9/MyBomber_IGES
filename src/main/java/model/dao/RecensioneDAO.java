@@ -48,16 +48,16 @@ public class RecensioneDAO {
 		public synchronized RecensioneBean doRetrieveByKey(String recensore,String recensito,String evento){
 			 
 			 Connection conn = null;
-			 PreparedStatement ps = null;
+			 PreparedStatement preparedStatement = null;
 			 try {
 				RecensioneBean bean = new RecensioneBean(); 
 				conn = DriverManagerConnectionPool.getConnection();
-				ps = conn.
+				preparedStatement = conn.
 						prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE e_mail_recensore = ? AND e_mail_recensito = ? AND nome_evento = ?");
-				ps.setString(1, recensore);
-				ps.setString(2, recensito);
-				ps.setString(3, evento);
-				ResultSet rs = ps.executeQuery();
+				preparedStatement.setString(1, recensore);
+				preparedStatement.setString(2, recensito);
+				preparedStatement.setString(3, evento);
+				ResultSet rs = preparedStatement.executeQuery();
 
 				// 4. Prendi il risultato
 				if(rs.next())
@@ -75,7 +75,7 @@ public class RecensioneDAO {
 				e.printStackTrace();
 			}finally{
 				try {
-					ps.close();
+					preparedStatement.close();
 					DriverManagerConnectionPool.releaseConnection(conn);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
