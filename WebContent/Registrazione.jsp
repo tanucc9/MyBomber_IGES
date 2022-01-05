@@ -33,28 +33,60 @@
     <button type="button" id="gop" name="gop" class="btn btn-primary">Giocatore</button>
     <button type="button" id="geop"name="geop" class="btn btn-primary">Gestore</button>
 </div>
+
+
+  <%
+      if (request.getAttribute("emailRe") != null) {
+      %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>attenzione, email già in uso!</strong>
+      </div>
+      <%}%>
+
+      <%
+      if (request.getAttribute("userRe") != null) {
+      %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>attenzione, username già in uso!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <%}%>
+      <%
+      if (request.getAttribute("strutturaRe") != null) {
+      %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>attenzione, nomeStruttura già in uso!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <%}%>
+      <%
+      if (request.getAttribute("errorReg") != null) {
+    	  String x = (String)request.getAttribute("errorReg");
+      %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>attenzione! errore di registrazione </strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <%}%>
+
   <form id="registration" action="RegistrazioneServlet" method="post" onSubmit="event.preventDefault(); validateGiocatore(this);">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="email">Email</label>
       <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
       <p id="errEmail">
-      <%
-      if (request.getAttribute("emailRe") != null) {
-      %>
-      email già in uso
-      <%}%>
       </p>
     </div>
     <div class="form-group col-md-6">
       <label for="username">Username</label>
       <input type="text" class="form-control" id="username" placeholder="Username" name="username" required>
       <p id="errUsername">
-      <%
-      if (request.getAttribute("userRe") != null) {
-      %>
-      username già in uso
-      <%}%>
       </p>
     </div>
   </div>
@@ -127,11 +159,6 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <p id="errReg">
-      <%
-      if (request.getAttribute("errorReg") != null) {
-      %>
-      errore di registrazione
-      <%}%>
       </p>
   </div>  
   </div>
@@ -145,11 +172,6 @@
       <label for="emailG">Email</label>
       <input type="email" class="form-control" id="emailG" placeholder="Email" name="emailG" required>
       <p id="errEmailG">
-      <%
-      if (request.getAttribute("emailRe") != null) {
-      %>
-      email già in uso
-      <%}%>
       </p>
     </div>
     <div class="form-group col-md-6">
@@ -176,11 +198,6 @@
       <label for="strutturaG">Struttura</label>
       <input type="text" class="form-control" id="strutturaG" placeholder="Nome struttura" name="strutturaG" required>
       <p id="errStruttura">
-      <%
-      if (request.getAttribute("strutturaRe") != null) {
-      %>
-      email già in uso
-      <%}%>
       </p>
   </div>
   </div>
@@ -234,18 +251,6 @@
       <p id="errCpasswordG"></p>
     </div>
     </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <p id="errReg">
-      <%
-      if (request.getAttribute("errorReg") != null) {
-    	  String x = (String)request.getAttribute("errorReg");
-      %>
-      errore di registrazione <%=x%>
-      <%}%>
-      </p>
-  </div>  
-  </div>
   <input type="hidden" name="cf" id="cf" value="gestore">
   <button type="submit" class="btn btn-primary">Registrati</button>
 </form>

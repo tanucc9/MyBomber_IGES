@@ -71,53 +71,56 @@ public class RegistrazioneServlet extends HttpServlet {
 		       GiocatoreBean testEmail= gd.doRetrieveByKey(email);
 		       GiocatoreBean testUsername= gd.doRetrieveByUsername(username);
 		       
-		       if(testEmail!=null) {
-		    	   request.setAttribute("emailRe","errorEmail");  
-		    	   RequestDispatcher dispatcher = request
-		                   .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-		         dispatcher.forward(request, response);
-			      
+		       if(testEmail==null && testUsername==null)
+		       {
+		    	   GiocatoreBean g =new GiocatoreBean();
+					g.setCapResidenza(cap);
+					g.setCittaResidenza(citta);
+					g.setCognome(cognome);			
+					g.setDataNascita(java.sql.Date.valueOf(data));
+					g.setEmail(email);
+					g.setNazioneResidenza(nazione);
+					g.setNome(nome);
+					g.setPassword(password);
+					g.setProvinciaResidenza(provincia);
+					g.setTelefono(telefono);
+					g.setUsername(username);
+					float t=0;
+					g.setValutazione(t);
+		            gd.doSave(g);
+	                GiocatoreBean test=gd.doRetrieveByKey(email);
+		           if (test!=null)
+		           {
+		        	   request.getSession().setAttribute("giocatore",test);
+		        	   RequestDispatcher dispatcher = request
+		                       .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
+		             dispatcher.forward(request, response);
+		           }
+		      	        
+		           else 
+		           {	 
+		        	   request.setAttribute("errorReg","errore"); 
+		        	   RequestDispatcher dispatcher = request
+		                       .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
+		             dispatcher.forward(request, response);
+		           }
 		       }
+		 else {
+		        if(testEmail!=null) {
+		        	
+		    	       request.setAttribute("emailRe","errorEmail");  
+		      
+		       }
+		        
 		       if(testUsername!=null) {
-		    	   request.setAttribute("userRe","errorUser");  
-		    	   RequestDispatcher dispatcher = request
-		                   .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-		         dispatcher.forward(request, response);
-			    
+		    	   
+		    	       request.setAttribute("userRe","errorUser");  
+		    	        
 		       }
-   
-		       GiocatoreBean g =new GiocatoreBean();
-				g.setCapResidenza(cap);
-				g.setCittaResidenza(citta);
-				g.setCognome(cognome);			
-				g.setDataNascita(java.sql.Date.valueOf(data));
-				g.setEmail(email);
-				g.setNazioneResidenza(nazione);
-				g.setNome(nome);
-				g.setPassword(password);
-				g.setProvinciaResidenza(provincia);
-				g.setTelefono(telefono);
-				g.setUsername(username);
-				float t=0;
-				g.setValutazione(t);
-	            gd.doSave(g);
-                GiocatoreBean test=gd.doRetrieveByKey(email);
-	           if (test!=null)
-	           {
-	        	   request.getSession().setAttribute("giocatore",test);
-	        	   RequestDispatcher dispatcher = request
-	                       .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-	             dispatcher.forward(request, response);
-	           }
-	      	        
-	           else 
-	           {	 
-	        	   request.setAttribute("errorReg","errore"); 
-	        	   RequestDispatcher dispatcher = request
-	                       .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-	             dispatcher.forward(request, response);
-	           }
-		       
+		       RequestDispatcher dispatcher = request
+	                   .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
+	               dispatcher.forward(request, response);
+		      }
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
@@ -201,17 +204,13 @@ public class RegistrazioneServlet extends HttpServlet {
 			       else {
 			    	   if(testEmail!=null) {
 				    	   request.setAttribute("emailRe","errorEmail");  
-				    	   RequestDispatcher dispatcher = request
-				                   .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-				         dispatcher.forward(request, response);
-				     
 				       }
 				       if(testStruttura!=null) {
 				    	   request.setAttribute("strutturaRe","errorStruttura");  
-				    	   RequestDispatcher dispatcher = request
-				                   .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-				         dispatcher.forward(request, response);
 				       }
+				       RequestDispatcher dispatcher = request
+			                   .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
+			         dispatcher.forward(request, response);
 			       }
 			} catch (SQLException e) {
 				e.getStackTrace();
