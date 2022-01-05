@@ -33,17 +33,29 @@
     <button type="button" id="gop" name="gop" class="btn btn-primary">Giocatore</button>
     <button type="button" id="geop"name="geop" class="btn btn-primary">Gestore</button>
 </div>
-  <form id="registration" onSubmit="event.preventDefault(); validateGiocatore(this);">
+  <form id="registration" action="RegistrazioneServlet" method="post" onSubmit="event.preventDefault(); validateGiocatore(this);">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="email">Email</label>
       <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
-      <p id="errEmail"></p>
+      <p id="errEmail">
+      <%
+      if (request.getAttribute("emailRe") != null) {
+      %>
+      email già in uso
+      <%}%>
+      </p>
     </div>
     <div class="form-group col-md-6">
       <label for="username">Username</label>
       <input type="text" class="form-control" id="username" placeholder="Username" name="username" required>
-      <p id="errUsername"></p>
+      <p id="errUsername">
+      <%
+      if (request.getAttribute("userRe") != null) {
+      %>
+      username già in uso
+      <%}%>
+      </p>
     </div>
   </div>
   <div class="form-row">
@@ -112,71 +124,96 @@
   </div>  
   </div>
   
-  <button type="submit" class="btn btn-primary">Registrati</button>
-</form> 
-<form id="registrationGestore" style="display:none;" onSubmit="event.preventDefault(); validateGestore(this);">
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="emailGestore" placeholder="Email" name="email" required>
-      <p id="errEmail"></p>
+      <p id="errReg">
+      <%
+      if (request.getAttribute("errorReg") != null) {
+      %>
+      errore di registrazione
+      <%}%>
+      </p>
+  </div>  
+  </div>
+  <button type="submit" class="btn btn-primary">Registrati</button>
+   <input type="hidden" name="cf" id="cf" value="giocatore">
+</form>
+ 
+<form id="registrationGestore" action="RegistrazioneServlet" method="post" style="display:none;" onSubmit="event.preventDefault(); validateGestore(this);">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="emailG">Email</label>
+      <input type="email" class="form-control" id="emailG" placeholder="Email" name="emailG" required>
+      <p id="errEmailG">
+      <%
+      if (request.getAttribute("emailRe") != null) {
+      %>
+      email già in uso
+      <%}%>
+      </p>
     </div>
     <div class="form-group col-md-6">
-      <label for="telefono">Telefono</label>
+      <label for="telefonoGestore">Telefono</label>
       <input type="text" class="form-control" id="telefonoGestore" placeholder="Telefono" name="telefonoGestore" required>
       <p id="errTelefonoGestore"></p>
   </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="nome">Nome</label>
-      <input type="text" class="form-control" id="nomeGestore" placeholder="Nome" name="nome" required>
-      <p id="errNome"></p>
+      <label for="nomeG">Nome</label>
+      <input type="text" class="form-control" id="nomeG" placeholder="Nome" name="nomeG" required>
+      <p id="errNomeG"></p>
     </div>
     <div class="form-group col-md-6">
-      <label for="cognome">Cognome</label>
-      <input type="text" class="form-control" id="cognomeGestore" placeholder="Cognome" name="cognome" required>
-      <p id="errCognome"></p>
+      <label for="cognomeG">Cognome</label>
+      <input type="text" class="form-control" id="cognomeG" placeholder="Cognome" name="cognomeG" required>
+      <p id="errCognomeG"></p>
     </div>
   </div>
  
   <div class="form-row">
    <div class="form-group col-md-6">
-      <label for="telefono">Struttura</label>
-      <input type="text" class="form-control" id="struttura" placeholder="Nome struttura" name="struttura" required>
-      <p id="errTelefono"></p>
+      <label for="strutturaG">Struttura</label>
+      <input type="text" class="form-control" id="strutturaG" placeholder="Nome struttura" name="strutturaG" required>
+      <p id="errStruttura">
+      <%
+      if (request.getAttribute("strutturaRe") != null) {
+      %>
+      email già in uso
+      <%}%>
+      </p>
   </div>
   </div>
   <div class="form-row">
   <div class="form-group col-md-6">
     <label for="nazione">Nazione struttura</label>
-    <input type="text" class="form-control" id="nazione" placeholder="Italia" name="nazione" required>
-    <p id="errNazione"></p>
+    <input type="text" class="form-control" id="nazioneG" placeholder="Italia" name="nazioneG" required>
+    <p id="errNazioneG"></p>
   </div>
   <div class="form-group col-md-6">
     <label for="provincia">Provincia struttura</label>
-    <input type="text" class="form-control" id="provincia" placeholder="Napoli" name="provincia" required>
-    <p id="errProvincia"></p>
+    <input type="text" class="form-control" id="provinciaG" placeholder="Napoli" name="provinciaG" required>
+    <p id="errProvinciaG"></p>
   </div>
   </div>
   <div class="form-row">
   <div class="form-group col-md-6">
     <label for="citta">Città struttura</label>
-    <input type="text" class="form-control" id="citta" placeholder="Napoli" name="citta" required>
-    <p id="errCitta"></p>
+    <input type="text" class="form-control" id="cittaG" placeholder="Napoli" name="cittaG" required>
+    <p id="errCittaG"></p>
   </div>
   <div class="form-group col-md-6">
       <label for="cap">Cap struttura</label>
-     <input type="text" class="form-control" id="cap" placeholder="80043" name="cap" required>
-     <p id="errCap"></p>
+     <input type="text" class="form-control" id="capG" placeholder="80043" name="capG" required>
+     <p id="errCapG"></p>
      </div>
   </div>
   
   <div class="form-row">
    <div class="form-group col-md-6">
       <label for="telefono">Indirizzo struttura</label>
-      <input type="text" class="form-control" id="indirizzo" placeholder="via dei pastai 22" name="indirizzo" required>
-      <p id="errIndirizzo"></p>
+      <input type="text" class="form-control" id="indirizzoG" placeholder="via dei pastai 22" name="indirizzoG" required>
+      <p id="errIndirizzoG"></p>
   </div>
    <div class="form-group col-md-6">
       <label for="telefonoStruttura">Telefono struttura</label>
@@ -187,19 +224,30 @@
   
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
-      <p id="errPassword"></p>
+      <label for="passwordG">Password</label>
+      <input type="password" class="form-control" id="passwordG" placeholder="Password" name="passwordG" required>
+      <p id="errPasswordG"></p>
     </div>
     <div class="form-group col-md-6">
       <label for="cpassword">Conferma Password</label>
-      <input type="password" class="form-control" id="cpassword" placeholder="Conferma password" name="cpasseord" required>
-      <p id="errCpassword"></p>
+      <input type="password" class="form-control" id="cpasswordG" placeholder="Conferma password" name="cpasswordG" required>
+      <p id="errCpasswordG"></p>
+    </div>
     </div>
   <div class="form-row">
+    <div class="form-group col-md-6">
+      <p id="errReg">
+      <%
+      if (request.getAttribute("errorReg") != null) {
+    	  String x = (String)request.getAttribute("errorReg");
+      %>
+      errore di registrazione <%=x%>
+      <%}%>
+      </p>
+  </div>  
+  </div>
+  <input type="hidden" name="cf" id="cf" value="gestore">
   <button type="submit" class="btn btn-primary">Registrati</button>
-  </div>
-  </div>
 </form>
 </div>
 <%@ include file="../fragments/footer.html"%>

@@ -77,7 +77,7 @@ public class GiocatoreDAO {
 					bean.setPassword(rs.getString("password_giocatore"));
 					bean.setTelefono(rs.getString("telefono"));
 					bean.setDataNascita(rs.getDate("data_nascita"));
-					bean.setNazioneResidenza(rs.getString("nazione_reidenza"));
+					bean.setNazioneResidenza(rs.getString("nazione_residenza"));
 					bean.setProvinciaResidenza(rs.getString("provincia_residenza"));
 					bean.setCittaResidenza(rs.getString("citta_residenza"));
 					bean.setCapResidenza(rs.getString("cap_residenza"));
@@ -99,7 +99,51 @@ public class GiocatoreDAO {
 			}
 			return null;
 		 }
-		
+		public synchronized GiocatoreBean doRetrieveByUsername(String username){
+			 
+			 Connection conn = null;
+			 PreparedStatement ps = null;
+			 try {
+				GiocatoreBean bean = new GiocatoreBean(); 
+				conn = DriverManagerConnectionPool.getConnection();
+				ps = conn.
+						prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE username = ?");
+				ps.setString(1, username);
+						
+				ResultSet rs = ps.executeQuery();
+
+				// 4. Prendi il risultato
+				if(rs.next())
+				{
+					bean.setUsername(rs.getString("username"));
+					bean.setEmail(rs.getString("e_mail"));
+					bean.setNome(rs.getString("nome"));
+					bean.setCognome(rs.getString("cognome"));
+					bean.setPassword(rs.getString("password_giocatore"));
+					bean.setTelefono(rs.getString("telefono"));
+					bean.setDataNascita(rs.getDate("data_nascita"));
+					bean.setNazioneResidenza(rs.getString("nazione_residenza"));
+					bean.setProvinciaResidenza(rs.getString("provincia_residenza"));
+					bean.setCittaResidenza(rs.getString("citta_residenza"));
+					bean.setCapResidenza(rs.getString("cap_residenza"));
+					bean.setValutazione(rs.getFloat("valutazione"));
+					return bean;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				try {
+					ps.close();
+					DriverManagerConnectionPool.releaseConnection(conn);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return null;
+		 }
 			
 			public synchronized ArrayList<GiocatoreBean> doRetrieveAll() throws SQLException {
 				Connection connection = null;

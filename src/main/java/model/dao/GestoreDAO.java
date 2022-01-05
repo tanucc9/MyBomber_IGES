@@ -8,23 +8,34 @@ import java.util.ArrayList;
 
 import control.DriverManagerConnectionPool;
 import model.bean.GestoreBean;
+import model.bean.StrutturaBean;
 
 public class GestoreDAO {
 
 	private static final String TABLE_NAME = "gestore";
-	
-	
-	public synchronized void doSave(GestoreBean bean) throws SQLException {
+	public synchronized void doSave(GestoreBean bean,StrutturaBean bean2) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
+		PreparedStatement preparedStatement2 = null;
 		String insertSQL = "insert into " + TABLE_NAME  
-				+ " (e_mail, nome, cognome , password_gestore, telefono, struttura) values (?, ?, ?, ?, ?, ?)";
-
+				+ " (e_mail, nome, cognome, password_gestore, telefono, struttura) values (?, ?, ?, ?, ?, ?)";
+		
+		String insertSQL2 = "insert into struttura"  
+				+ " (nome, indirizzo, nazione, citta, cap, provincia, telefono) values (?, ?, ?, ?, ?, ?, ?)";
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement2 = connection.prepareStatement(insertSQL2);
+			preparedStatement2.setString(1, bean2.getNome());
+			preparedStatement2.setString(2, bean2.getIndirizzo());
+			preparedStatement2.setString(3, bean2.getNazione());
+			preparedStatement2.setString(4, bean2.getCitta());
+			preparedStatement2.setString(5, bean2.getCap());
+			preparedStatement2.setString(6, bean2.getProvincia());
+			preparedStatement2.setString(7, bean2.getTelefono());
+			preparedStatement2.executeUpdate();
+			
 			preparedStatement.setString(1, bean.getEmail());
 			preparedStatement.setString(2, bean.getNome());
 			preparedStatement.setString(3, bean.getCognome());
@@ -46,6 +57,39 @@ public class GestoreDAO {
 		
 	}
 	
+	public synchronized void doSave(GestoreBean bean) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "insert into " + TABLE_NAME  
+				+ " (e_mail, nome, cognome, password_gestore, telefono, struttura) values (?, ?, ?, ?, ?, ?)";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, bean.getEmail());
+			preparedStatement.setString(2, bean.getNome());
+			preparedStatement.setString(3, bean.getCognome());
+			preparedStatement.setString(4, bean.getPassword());
+			preparedStatement.setString(5, bean.getTelefono());
+			preparedStatement.setString(6, bean.getStruttura());
+			preparedStatement.executeUpdate();
+            
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+
+		
+	}
+	
 
 	public synchronized GestoreBean doRetrieveByKey(String email){
 		 
@@ -55,7 +99,7 @@ public class GestoreDAO {
 			GestoreBean bean = new GestoreBean(); 
 			conn = DriverManagerConnectionPool.getConnection();
 			preparedStatement = conn.
-					prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE username = ?");
+					prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE e_mail = ?");
 			preparedStatement.setString(1, email);
 					
 			ResultSet rs = preparedStatement.executeQuery();

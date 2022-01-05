@@ -18,7 +18,7 @@ private static final long serialVersionUID = 1L;
 	private String capResidenza;
 	private Date dataNascita;
 	private float valutazione;
-
+    
 	public void setUsername(String username) {
 		this.username=username;
 	}
