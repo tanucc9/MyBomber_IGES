@@ -185,7 +185,7 @@ public class EventoDAO {
 
 				int result = 0;
 
-				String deleteSQL = "delete from " + TABLE_NAME + " where nome = ?";
+				String deleteSQL = "delete from " + TABLE_NAME + " WHERE nome = ?";
 
 				try {
 					connection = DriverManagerConnectionPool.getConnection();
@@ -215,7 +215,7 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE stato = 'attivo'";
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE stato = 'attivo'";
 				
 				
 
@@ -260,7 +260,7 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE e_mail_gestore = ? AND stato = 'richiesta'";
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE e_mail_gestore = ? AND stato = 'richiesta'";
 				
 				
 
@@ -306,7 +306,7 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE e_mail_gestore = ? AND stato != 'richiesta' "
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE e_mail_gestore = ? AND stato != 'richiesta' "
 									+ "ORDER BY data desc, ora desc";
 				
 				
@@ -353,7 +353,7 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE e_mail_utente = ? AND stato = 'concluso'";
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE e_mail_utente = ? AND stato = 'concluso'";
 				
 				
 
@@ -399,7 +399,7 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE stato = 'attivi' AND nome != ALL "
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE stato = 'attivi' AND nome != ALL "
 									+ "(SELECT nome_evento FROM partecipazione WHERE e_mail = ?)";
 				
 				

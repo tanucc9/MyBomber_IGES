@@ -49,7 +49,7 @@
 </div>
 
 <div class="container border mt-5 mb-5 ml-5 mr-5 col-sm align-items-center">
-<form action="/action_page.php" onSubmit="event.preventDefault(); validate(this);">
+<form id="login" action="LoginServlet" method="post" onSubmit="event.preventDefault(); validate(this);">
   <div class="form-group">
     <label for="email">Indirizzo email :</label>
     <input type="email" class="form-control" placeholder="Inseriesi email" name="email" id="email">
@@ -64,6 +64,17 @@
     <label class="form-check-label">
       <input class="form-check-input" type="checkbox"> Ricordami
     </label>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <p id="errLog">
+      <%
+      if (request.getAttribute("errorLog") != null) {
+      %>
+      email o password errate
+      <%}%>
+      </p>
+  </div>  
   </div>
   <button type="submit" class="btn btn-primary">Accedi</button>
 </form>

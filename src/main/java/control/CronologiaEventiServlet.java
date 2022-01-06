@@ -1,9 +1,8 @@
-package control.prova;
+package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.*;
-import java.util.Date;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,39 +11,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bean.EventoBean;
+import model.bean.GestoreBean;
 import model.bean.GiocatoreBean;
-import model.dao.GiocatoreDAO;
+import model.bean.PartecipazioneBean;
+import model.dao.EventoDAO;
 import model.dao.PartecipazioneDAO;
 
-/**
- * Servlet implementation class EsempioServlet
- */
-@WebServlet("/RegistrazioneServlet")
-public class RegistrazioneServlet extends HttpServlet {
+@WebServlet("/cronologiaEventiServlet")
+public class CronologiaEventiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    /**
-     * Default constructor. 
-     */
-    public RegistrazioneServlet() {
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		String regop = request.getParameter("regop");
-		if(regop.equals("giocatore"))
-	    request.setAttribute("rego", "giocatore");
-		else
-	    request.setAttribute("rego", "gestore");	
-		RequestDispatcher dispatcher = request
+		 /*request.setAttribute("errorReg",pippo);
+        
+ 	   RequestDispatcher dispatcher1 = request
                 .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-      dispatcher.forward(request, response);
-      
+        dispatcher1.forward(request, response);
+        */
+		GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
+		EventoDAO eventoDAO = new EventoDAO();
+		ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
+		try {
+			eventi = eventoDAO.doRetrieveEventiGestore(gestore.getEmail());
+			
+			request.setAttribute("eventi", eventi);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./CronologiaEventi.jsp"));
+		dispatcher.forward(request, response);
+		
 	}
 
 	/**
@@ -52,7 +54,8 @@ public class RegistrazioneServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 
-}
+}	
