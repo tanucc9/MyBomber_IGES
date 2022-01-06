@@ -35,6 +35,8 @@ import model.dao.EventoDAO;
 			
 			try {
 				EventoBean bean = eventoDao.doRetrieveByKey(nomeEvento);
+				if(action!=null)
+				{
 				if(action.equalsIgnoreCase("addE")) {
 					bean.setStato("attivo");
 					bean.aggiungiG();
@@ -43,9 +45,10 @@ import model.dao.EventoDAO;
 				else if(action.equalsIgnoreCase("deleteE")) {
 					eventoDao.doDelete(nomeEvento);
 				}
-				else {
+				else if(action.equalsIgnoreCase("trovarichieste")){
 					richieste = eventoDao.doRetrieveRichieste(gestore.getEmail());
 					request.setAttribute("richieste", richieste);
+				}
 				}
 				
 			} catch (SQLException e) {

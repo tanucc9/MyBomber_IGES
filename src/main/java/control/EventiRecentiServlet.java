@@ -23,7 +23,7 @@ public class EventiRecentiServlet extends HttpServlet {
 		
 		EventoDAO eventoDao = new EventoDAO();
 		GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
-		ArrayList<EventoBean> eventiRecenti = new ArrayList<EventoBean>();
+		ArrayList<EventoBean> eventiRecenti;
 		
 		try {
 			eventiRecenti = eventoDao.doRetrieveEventiRecenti(gestore.getEmail());

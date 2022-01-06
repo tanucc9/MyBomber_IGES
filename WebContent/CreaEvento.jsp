@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
+<% 
+	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
+    GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
+    if(giocatore==null||gestore==null)
+    {
+    	response.sendRedirect("./Login.jsp");
+    }
+    
+%>
 <!DOCTYPE html>
 <html>
 <head>

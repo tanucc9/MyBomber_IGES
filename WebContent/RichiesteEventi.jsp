@@ -2,11 +2,17 @@
     pageEncoding="ISO-8859-1" import="model.bean.*, java.util.*"%>
     
     <% 
-    ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("richieste");
-	if(eventi == null) {
-		response.sendRedirect("./richieste?page=RichiesteEventi.jsp");	
-		return;
-	}
+       ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("richieste");
+       GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
+       if(gestore==null)
+       {
+    	  response.sendRedirect("./Login.jsp");
+       }
+       else{
+	         if(eventi == null) {
+		     response.sendRedirect("./richieste?action=trovarichieste");	
+		     }
+           }
 %>
     
 <!DOCTYPE html>

@@ -1,12 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1" import="java.util.*,model.bean.*" %>
     
-<% 
+<%  
     ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventi");
-	if(eventi == null) {
-		response.sendRedirect("./partecipa?page=PartecipaEventi.jsp");	
-		return;
-	}
+    GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
+    GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
+    if(giocatore==null && gestore==null)
+    {
+	  response.sendRedirect("./Login.jsp");
+    }
+    else if(giocatore==null&&gestore!=null)
+    {%>
+    	non puoi accedere a questa pagina
+    <% return;}
+    
+    else{
+	      if(eventi == null) {
+		  response.sendRedirect("./partecipa");	
+	    }
+    }
+    
 %>
 
 <!DOCTYPE html>

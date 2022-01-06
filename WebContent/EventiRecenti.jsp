@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1" import="java.util.*,model.bean.*" %>
     
-<% 
-    ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventiRecenti");
+<%  ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventiRecenti");
+    GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
+    if(giocatore==null)
+    {
+	  response.sendRedirect("./Login.jsp");
+    }
+    else{
 	if(eventi == null) {
 		response.sendRedirect("./eventiRecenti");	
-		return;
-	}
+		
+	}}
+	
 %>
 
 <!DOCTYPE html>

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="model.bean.*, java.util.*"
 	pageEncoding="UTF-8"%>
 <% 
+    GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
+    if(gestore==null)
+    {
+    	response.sendRedirect("./Login.jsp");
+    }
     ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventi");
 	/*if(eventi == null) {
 		response.sendRedirect("cronologiaEventiServlet");	
@@ -25,7 +30,7 @@
    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
- 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -66,7 +71,7 @@
 			}
 		} else {
 	%>
-	    <%=eventi.get(0).toString() %>
+	   
 	<h2>Non ci sono eventi al momento</h2>
 		
 	<%

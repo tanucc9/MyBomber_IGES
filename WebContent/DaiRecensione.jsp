@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*,model.bean.*" %>
 	
-	<% 
-    ArrayList<?> daRecensire = (ArrayList<?>) request.getAttribute("giocatoriDaRecensire");
+	<%
+	ArrayList<?> daRecensire = (ArrayList<?>) request.getAttribute("giocatoriDaRecensire");
 	ArrayList<?> recensiti = (ArrayList<?>) request.getAttribute("giocatoriRecensiti");
+	GiocatoreBean giotest=(GiocatoreBean)request.getSession().getAttribute("giocatore");
+    if(giotest==null)
+    {
+    	response.sendRedirect("./Login.jsp");
+    }
+    else{
 	if(daRecensire == null) {
 		response.sendRedirect("./recensione");	
 		return;
-	}
+	}}
 %>
 	
 <!DOCTYPE html>
