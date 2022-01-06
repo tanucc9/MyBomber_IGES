@@ -37,6 +37,7 @@ import model.dao.EventoDAO;
 				EventoBean bean = eventoDao.doRetrieveByKey(nomeEvento);
 				if(action.equalsIgnoreCase("addE")) {
 					bean.setStato("attivo");
+					bean.aggiungiG();
 					eventoDao.doUpdate(bean);
 					}
 				else if(action.equalsIgnoreCase("deleteE")) {

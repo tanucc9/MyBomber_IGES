@@ -33,6 +33,8 @@ private static final long serialVersionUID = 1L;
 		this.gestore = gestore;
 		this.organizzatore = organizzatore;
 		this.stato = "richiesta";
+		this.valutazione = 0;
+		this.numPartecipanti = 0;
 	}
 	
 	public void setNome(String nome) {

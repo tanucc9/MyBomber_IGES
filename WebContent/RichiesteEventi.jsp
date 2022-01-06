@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1" import="model.bean.*, java.util.*"%>
     
     <% 
-    ArrayList<?> eventi = (ArrayList<?>) request.getSession().getAttribute("richieste");
+    ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("richieste");
 	if(eventi == null) {
 		response.sendRedirect("./richieste?page=RichiesteEventi.jsp");	
 		return;

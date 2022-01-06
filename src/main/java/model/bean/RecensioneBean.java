@@ -1,6 +1,5 @@
 package model.bean;
 import java.io.Serializable;
-import java.sql.Date;
 
 public class RecensioneBean implements Serializable{
 	
@@ -10,6 +9,7 @@ private static final long serialVersionUID = 1L;
 	private String recensito;
 	private float recensione;
 	private String evento;
+	String descrizione;
 	
 	public void setRecensione(float recensione) {
 		this.recensione=recensione;
@@ -22,6 +22,9 @@ private static final long serialVersionUID = 1L;
 	}
 	public void setEvento(String evento) {
 		this.evento=evento;
+	}
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
 	}
 	
 	
@@ -41,7 +44,9 @@ private static final long serialVersionUID = 1L;
 	{
 		return evento;
 	}
-	
+	public String getDescrizione() {
+		return descrizione;
+	}
 	
 	@Override
 	public String toString() {

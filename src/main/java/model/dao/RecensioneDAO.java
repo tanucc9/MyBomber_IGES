@@ -20,7 +20,7 @@ public class RecensioneDAO {
 			
 
 			String insertSQL = "insert into " + TABLE_NAME
-					+ " (e_mail_recensore, e_mail_recensito, nome_evento, recensione) values (?, ?, ?, ?)";
+					+ " (e_mail_recensore, e_mail_recensito, nome_evento, recensione, descrizione) values (?, ?, ?, ?, ?)";
 
 			try {
 				connection = DriverManagerConnectionPool.getConnection();
@@ -29,6 +29,7 @@ public class RecensioneDAO {
 				preparedStatement.setString(2, e.getRecensito());
 				preparedStatement.setString(3, e.getEvento());
 				preparedStatement.setFloat(4, e.getRecensione());
+				preparedStatement.setString(5, e.getDescrizione());
 				
 				preparedStatement.executeUpdate();
 	            
@@ -125,23 +126,98 @@ public class RecensioneDAO {
 			}
 			
 			
+			public synchronized ArrayList<String> doRetrieveDaRecensire(String recensore, String evento) throws SQLException {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+
+				ArrayList<String> daRecensire = new ArrayList<String>();
+
+				String selectSQL = "SELECT e_mail FROM partecipazione WHERE nome_evento = ? AND e_mail != ALL " 
+							+ "(SELECT e_mail_recensito FROM " +TABLE_NAME + " WHERE nome_evento = ? AND e_mail_recensore = ?)";
+				
+				
+
+				try {
+					connection = DriverManagerConnectionPool.getConnection();
+					preparedStatement = connection.prepareStatement(selectSQL);
+
+					ResultSet rs = preparedStatement.executeQuery();
+					preparedStatement.setString(1, evento);
+					preparedStatement.setString(2, recensore);
+					preparedStatement.setString(3, evento);
+
+					while (rs.next()) {
+						String utente = rs.getString("e_mail");
+						daRecensire.add(utente);
+						
+					}
+
+				} finally {
+					try {
+						if (preparedStatement != null)
+							preparedStatement.close();
+					} finally {
+						if (connection != null)
+							connection.close();
+					}
+				}
+				return daRecensire;
+			}
+			
+			
+			public synchronized ArrayList<String> doRetrieveRecensiti(String recensore, String evento) throws SQLException {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+
+				ArrayList<String> recensiti = new ArrayList<String>();
+
+				String selectSQL = "SELECT e_mail_recensito FROM " +TABLE_NAME + " WHERE nome_evento = ? AND e_mail_recensore = ?";
+		
+				try {
+					connection = DriverManagerConnectionPool.getConnection();
+					preparedStatement = connection.prepareStatement(selectSQL);
+
+					ResultSet rs = preparedStatement.executeQuery();
+					preparedStatement.setString(1, evento);
+					preparedStatement.setString(2, recensore);
+
+					while (rs.next()) {
+						String utente = rs.getString("e_mail");
+						recensiti.add(utente);
+						
+					}
+
+				} finally {
+					try {
+						if (preparedStatement != null)
+							preparedStatement.close();
+					} finally {
+						if (connection != null)
+							connection.close();
+					}
+				}
+				return recensiti;
+			}
+			
+			
 			public synchronized void doUpdate(RecensioneBean e) throws SQLException {
 
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
 			
 			String updateSQL ="UPDATE " + TABLE_NAME +
-		            " SET e_mail_recensore = ?, e_mail_recensito = ?, nome_evento = ? , recensione = ? WHERE e_mail_recensore = ? AND e_mail_recensito = ? AND nome_evento = ?";
+		            " SET e_mail_recensore = ?, e_mail_recensito = ?, nome_evento = ? , recensione = ? , descrizione = ? WHERE e_mail_recensore = ? AND e_mail_recensito = ? AND nome_evento = ?";
 			try {
 				connection = DriverManagerConnectionPool.getConnection();
 				preparedStatement = connection.prepareStatement(updateSQL);
 				preparedStatement.setString(1, e.getRecensore());
 				preparedStatement.setString(2, e.getRecensito());
 				preparedStatement.setString(3, e.getEvento());
-				preparedStatement.setFloat(4, e.getRecensione());
-				preparedStatement.setString(5, e.getRecensore());
-				preparedStatement.setString(6, e.getRecensito());
-				preparedStatement.setString(7, e.getEvento());		
+				preparedStatement.setString(4, e.getDescrizione());
+				preparedStatement.setFloat(5, e.getRecensione());
+				preparedStatement.setString(6, e.getRecensore());
+				preparedStatement.setString(7, e.getRecensito());
+				preparedStatement.setString(8, e.getEvento());		
 				
 
 			   connection.commit();

@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*,model.bean.*" %>
+	
+	<% 
+    ArrayList<?> daRecensire = (ArrayList<?>) request.getAttribute("giocatoriDaRecensire");
+	ArrayList<?> recensiti = (ArrayList<?>) request.getAttribute("giocatoriRecensiti");
+	if(daRecensire == null) {
+		response.sendRedirect("./recensione");	
+		return;
+	}
+%>
 	
 <!DOCTYPE html>
 <html lang="en">
@@ -24,22 +33,27 @@
 <body>
 
 <%@ include file="../fragments/header.jsp" %>
-
+	
 <div class="container mt-5 mb-5">
+<%
+			Iterator<?> it = daRecensire.iterator();
+			while (it.hasNext()) {
+				String giocatore = (String) it.next();
+	%>
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
+    <h2 class="accordion-header" id=<%=giocatore %>>
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Accordion Item #1
+        <%=giocatore %><span class="badge badge-light">Da recensire</span>
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      <form id="dairecensione" onSubmit="event.preventDefault(); validate(this);">
+      <form id="dairecensione" action="recensione?action=addR&nomeG="<%=giocatore %> onSubmit="event.preventDefault(); validate(this);">
   
       <div class="mb-3">
       <label for="valutazione" class="form-label">Valutazione</label>
-      <input type="number" class="form-control" id="valutazione" min="1" max="5" step=".5" aria-describedby="valutazione" required>
+      <input type="number" class="form-control" name="valutazione" id="valutazione" min="1" max="5" step=".5" aria-describedby="valutazione" required>
       <div id="valutazioneHelp" class="form-text">Dai una valutazione da 1 a 5</div>
       </div>  
 
@@ -50,29 +64,55 @@
       </div>
       
   
-  <button type="submit" class="btn btn-primary">Submit</button>
+ <button type="submit" class="btn btn-primary">Salva recensione</button>
 </form>  
       </div>
     </div>
   </div>
-</div>
-<div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        Accordion Item #2
+	
+	<%
+		}
+	%>
+	
+	<!-- pippo -->
+	<%
+			Iterator<?> it2 = recensiti.iterator();
+			while (it2.hasNext()) {
+				String giocatore = (String) it2.next();
+	%>
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id=<%=giocatore %>>
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <%=giocatore %><span class="badge badge-light">Già recensito</span>
       </button>
     </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      <form>
+      <form id="dairecensione" method="post" action="recensione?action=DeleteR&nomeG="<%=giocatore %> onSubmit="event.preventDefault(); validate(this);">
+  
       <div class="mb-3">
+      <label for="valutazione" class="form-label">Valutazione</label>
+      <input type="number" class="form-control" name="valutazione" id="valutazione" min="1" max="5" step=".5" aria-describedby="valutazione" required>
+      <div id="valutazioneHelp" class="form-text">Dai una valutazione da 1 a 5</div>
+      </div>  
+
+      <div class="mb-3">
+      <label for="descrizione" class="form-label">Descrizione</label>
+      <textarea class="form-control" name="descrizione" id="descrizione"></textarea>
+      <p id="errDescrizione"></p>
+      </div>
       
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>    
+ <button type="submit" class="btn btn-primary">Elimina recensione</button>
+</form>  
       </div>
     </div>
   </div>
+	
+	<%
+		}
+	%>
+	
 </div>
 <%@ include file="../fragments/footer.html"%>
 <script src="script/dairecensione-validation.js"></script>

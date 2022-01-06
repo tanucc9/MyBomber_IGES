@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import control.DriverManagerConnectionPool;
@@ -21,7 +20,7 @@ public class EventoDAO {
 			
 
 			String insertSQL = "insert into " + TABLE_NAME
-					+ " (nome, descrizione, struttura, data_evento, ora, e_mail_gestore, e_mail_utente, stato) values (?, ?, ?, ?, ?, ?, ?, ?)";
+					+ " (nome, descrizione, struttura, data_evento, ora, e_mail_gestore, e_mail_utente, stato, valutazione, numero_partecipanti) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			try {
 				connection = DriverManagerConnectionPool.getConnection();
@@ -34,6 +33,8 @@ public class EventoDAO {
 				preparedStatement.setString(6, e.getGestore());
 				preparedStatement.setString(7, e.getOrganizzatore());
 				preparedStatement.setString(8, e.getStato());
+				preparedStatement.setFloat(9, e.getValutazione());
+				preparedStatement.setInt(10, e.getNumPartecipanti());
 				preparedStatement.executeUpdate();
 	            
 				connection.commit();
@@ -74,6 +75,8 @@ public class EventoDAO {
 					bean.setGestore(rs.getString("e_mail_gestore"));
 					bean.setOrganizzatore(rs.getString("e_mail_utente"));
 					bean.setStato(rs.getString("stato"));
+					bean.setValutazione(rs.getFloat("valutazione"));
+					bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
 					return bean;
 				}
 				
@@ -119,6 +122,8 @@ public class EventoDAO {
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
+						bean.setValutazione(rs.getFloat("valutazione"));
+						bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
 						eventi.add(bean);
 					}
 
@@ -141,7 +146,7 @@ public class EventoDAO {
 			PreparedStatement preparedStatement = null;
 			
 			String updateSQL = "UPDATE " + TABLE_NAME +
-		            " SET nome = ?, descrizione = ?, struttura = ? , data_evento = ?, ora = ?, e_mail_gestore = ?, e_mail_utente = ?, stato = ? WHERE nome = ?";
+		            " SET nome = ?, descrizione = ?, struttura = ? , data_evento = ?, ora = ?, e_mail_gestore = ?, e_mail_utente = ?, stato = ?, valutazione = ?, numero_partecipanti = ? WHERE nome = ?";
 			try {
 				connection = DriverManagerConnectionPool.getConnection();
 				preparedStatement = connection.prepareStatement(updateSQL);
@@ -153,7 +158,9 @@ public class EventoDAO {
 				preparedStatement.setString(6, e.getGestore());
 				preparedStatement.setString(7, e.getOrganizzatore());
 				preparedStatement.setString(8, e.getStato());
-				preparedStatement.setString(9, e.getNome());
+				preparedStatement.setFloat(9, e.getValutazione());
+				preparedStatement.setInt(10, e.getNumPartecipanti());
+				preparedStatement.setString(11, e.getNome());
 			    preparedStatement.executeUpdate();
 
 			   connection.commit();
@@ -228,6 +235,8 @@ public class EventoDAO {
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
+						bean.setValutazione(rs.getFloat("valutazione"));
+						bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
 						eventi.add(bean);
 					}
 
@@ -272,6 +281,8 @@ public class EventoDAO {
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
+						bean.setValutazione(rs.getFloat("valutazione"));
+						bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
 						eventi.add(bean);
 					}
 
@@ -317,6 +328,8 @@ public class EventoDAO {
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
+						bean.setValutazione(rs.getFloat("valutazione"));
+						bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
 						eventi.add(bean);
 					}
 
@@ -361,53 +374,8 @@ public class EventoDAO {
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
-						eventi.add(bean);
-					}
-
-				} finally {
-					try {
-						if (preparedStatement != null)
-							preparedStatement.close();
-					} finally {
-						if (connection != null)
-							connection.close();
-					}
-				}
-				return eventi;
-			}
-			
-			
-			//Eventi recenti
-			public synchronized ArrayList<EventoBean> doRetrieveRecenti(String giocatore) throws SQLException{
-				 
-				Connection connection = null;
-				PreparedStatement preparedStatement = null;
-
-				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
-
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE e_mail_utente = ? AND stato = concluso AND data_evento < ? AND data_evento > ?";
-				
-				
-
-				try {
-					connection = DriverManagerConnectionPool.getConnection();
-					preparedStatement = connection.prepareStatement(selectSQL);
-					preparedStatement.setString(1, giocatore);
-					preparedStatement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
-					preparedStatement.setDate(2, java.sql.Date.valueOf(LocalDate.now().minusWeeks(1)));
-					
-					ResultSet rs = preparedStatement.executeQuery();
-
-					while (rs.next()) {
-						EventoBean bean = new EventoBean();
-						bean.setNome(rs.getString("nome"));
-						bean.setDescrizione(rs.getString("descrizione"));
-						bean.setStruttura(rs.getString("struttura"));
-						bean.setData(rs.getDate("data_evento"));
-						bean.setOra(rs.getTime("ora"));
-						bean.setGestore(rs.getString("e_mail_gestore"));
-						bean.setOrganizzatore(rs.getString("e_mail_utente"));
-						bean.setStato(rs.getString("stato"));
+						bean.setValutazione(rs.getFloat("valutazione"));
+						bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
 						eventi.add(bean);
 					}
 
@@ -454,6 +422,8 @@ public class EventoDAO {
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
+						bean.setValutazione(rs.getFloat("valutazione"));
+						bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
 						eventi.add(bean);
 					}
 
@@ -500,6 +470,8 @@ public class EventoDAO {
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
+						bean.setValutazione(rs.getFloat("valutazione"));
+						bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
 						eventi.add(bean);
 					}
 

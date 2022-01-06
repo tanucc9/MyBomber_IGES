@@ -51,7 +51,8 @@ CREATE TABLE IF NOT EXISTS mybomber.evento (
   e_mail_gestore VARCHAR(30) NOT NULL,
   e_mail_utente VARCHAR(30) NOT NULL,
   stato VARCHAR(30) NOT NULL,
-  valutazione FLOAT,
+  valutazione FLOAT NOT NULL,
+  numero_partecipanti int NOT NULL,
   PRIMARY KEY (nome),
   
     FOREIGN KEY (e_mail_gestore)

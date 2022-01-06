@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1" import="java.util.*,model.bean.*" %>
     
 <% 
-    ArrayList<?> eventi = (ArrayList<?>) request.getSession().getAttribute("eventiRecenti");
+    ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventiRecenti");
 	if(eventi == null) {
 		response.sendRedirect("./eventiRecenti");	
 		return;
@@ -36,15 +36,15 @@
 		if (eventi != null && eventi.size() != 0) {
 			Iterator<?> it = eventi.iterator();
 			while (it.hasNext()) {
-				EventoBean bean = (EventoBean) it.next();
+				EventoBean e = (EventoBean) it.next();
 	%>
 		<div class="col-lg-4 cusom_event_class mt-5">
 			<div class="card" style="width: 18rem;">
   				<div class="card-body">
-    			<h3 class="card-title">e.getNome()</h3>
+    			<h3 class="card-title"><%=e.getNome() %></h3>
    				<p class="card-text">e.getDescrizione()</p>
-    			<p class="card-text">e.getData() e.getTime()</p>
-    			<a href="daiRecensione.jsp" class="card-link">Recensisci</a>
+    			<p class="card-text"><%=e.getData() %></p><p class="card-text"<%=e.getOra() %>></p>
+    			<a href="recensione?&nome="<%=e.getNome() %> class="card-link">Recensisci</a>
   				</div>
 			</div>
 		</div>
