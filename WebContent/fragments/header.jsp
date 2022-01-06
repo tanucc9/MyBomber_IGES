@@ -17,6 +17,7 @@
       <li class="nav-item">
         <a class="nav-link" href="./Registrazione.jsp">Registrazione</a>
       </li>
+       </ul>
      <%} %>
 
     <%if((gio!=null))
@@ -30,12 +31,13 @@
       <li class="nav-item navbar-nav">
         <a class="nav-link" href="./EventiRecenti.jsp">Eventi Recenti</a>
       </li>
+      </ul>
      <%} if(ges!= null){%>
     <li class="nav-item navbar-nav">
         <a class="nav-link" href="./RichiesteEventi.jsp">Richieste Eventi</a>
       </li>
      <li class="nav-item navbar-nav">
-        <a class="nav-link" href="./CronologiaEventi.jsp">Cronologia Eventi</a>
+        <a class="nav-link" href="./cronologiaEventiServlet">Cronologia Eventi</a>
       </li>
       </ul>
       <%}%>

@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="model.bean.*, java.util.*"
 	pageEncoding="UTF-8"%>
 <% 
-    GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
-    if(gestore==null)
-    {
-    	response.sendRedirect("./Login.jsp");
-    }
-    ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventi");
-	/*if(eventi == null) {
-		response.sendRedirect("cronologiaEventiServlet");	
-		return;
-	}
-	*/
+   ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventi");
+   GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
+   GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
+   if(giocatore==null && gestore==null)
+   {
+     response.sendRedirect("./Login.jsp");
+   }
+   else if(gestore==null && giocatore!=null)
+   {%>
+	   non puoi accedere a questa pagina
+    <% return;}
 %>
 <!DOCTYPE html>
 <html lang="en">

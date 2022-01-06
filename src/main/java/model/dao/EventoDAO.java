@@ -307,7 +307,7 @@ public class EventoDAO {
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
 				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE e_mail_gestore = ? AND stato != 'richiesta' "
-									+ "ORDER BY data desc, ora desc";
+									+ "ORDER BY data_evento desc, ora desc";
 				
 				
 
