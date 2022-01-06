@@ -58,7 +58,12 @@ public class LoginServlet extends HttpServlet {
 		       GestoreDAO gesd=new GestoreDAO();
 		       GiocatoreBean giocatore;
 		       GestoreBean gestore;
-		       
+		       /*request.setAttribute("errorReg",pippo);
+               
+        	   RequestDispatcher dispatcher1 = request
+                       .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
+               dispatcher1.forward(request, response);
+               */
 					  giocatore= gd.doRetrieveByKey(email);
 		              gestore = gesd.doRetrieveByKey(email);
 		              if(giocatore!=null) {
@@ -66,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 				    	   {
 				    		   request.getSession().setAttribute("giocatore",giocatore);
 			        	       RequestDispatcher dispatcher = request
-			                       .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
+			                       .getRequestDispatcher(response.encodeRedirectURL("areaUtenteServlet"));
 			                   dispatcher.forward(request, response);
 			                   return;
 				           }
@@ -76,7 +81,7 @@ public class LoginServlet extends HttpServlet {
 				    	   {
 				    		   request.getSession().setAttribute("gestore",gestore);
 			        	       RequestDispatcher dispatcher = request
-			                       .getRequestDispatcher(response.encodeRedirectURL("./RichiesteEventi.jsp"));
+			                       .getRequestDispatcher(response.encodeRedirectURL("cronologiaEventiServlet"));
 			                   dispatcher.forward(request, response);
 			                   return;
 				    	   }

@@ -40,6 +40,9 @@
       %>
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>attenzione, email già in uso!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
       </div>
       <%}%>
 
@@ -68,7 +71,7 @@
     	  String x = (String)request.getAttribute("errorReg");
       %>
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>attenzione! errore di registrazione </strong>
+      <strong>attenzione! errore di registrazione <%=x%></strong>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
       </button>

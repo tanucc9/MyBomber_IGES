@@ -1,6 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="model.bean.*, java.util.*"
 	pageEncoding="UTF-8"%>
-	
+<% 
+    ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventi");
+	/*if(eventi == null) {
+		response.sendRedirect("cronologiaEventiServlet");	
+		return;
+	}
+	*/
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,17 +39,39 @@
 </div>
 </div>
 <div class="row">
-<% for (int i = 0; i<10; i++) { %>
-<div class="col-lg-4 cusom_event_class mt-5">
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-  </div>
-</div>
-<%} %>
+<%
+		if (eventi != null && eventi.size() != 0) {
+			Iterator<?> it = eventi.iterator();
+			while (it.hasNext()) {
+				EventoBean e = (EventoBean) it.next();
+	%>
+		<div class="col-lg-4 cusom_event_class mt-5">
+			<div class="card" style="width: 18rem;">
+  				<div class="card-body">
+    			<h3 class="card-title"><%=e.getNome()%> <span class="badge badge-danger"><%=e.getStato()%></span></h3> 
+    			<p class="card-text">descrizione:</p>
+    			<p class="card-text"><%=e.getDescrizione()%></p>
+    			<p class="card-text">data e ora:</p>
+    			<p class="card-text"><%=e.getData()%> <%=e.getOra()%></p>
+    			<p class="card-text">struttura:</p>
+    			<p class="card-text"><%=e.getStruttura()%></p>
+    			<p class="card-text">gestore:</p>
+    			<p class="card-text"><%=e.getGestore()%></p>
+    			<p class="card-text">organizzatore:</p>
+    			<p class="card-text"><%=e.getOrganizzatore()%></p>
+  				</div>
+			</div>
+		</div>
+	<%
+			}
+		} else {
+	%>
+	    <%=eventi.get(0).toString() %>
+	<h2>Non ci sono eventi al momento</h2>
+		
+	<%
+		}
+	%>
 </div>
 
 </div>
