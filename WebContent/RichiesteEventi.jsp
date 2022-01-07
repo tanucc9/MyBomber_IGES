@@ -58,16 +58,12 @@
 			<div class="card">
   				<div class="card-body">
     			<h3 class="card-title"><%=e.getNome()%></h3> 
-    			<p class="card-text">descrizione:</p>
-    			<p class="card-text"><%=e.getDescrizione()%></p>
-    			<p class="card-text">data e ora:</p>
-    			<p class="card-text"><%=e.getData()%> <%=e.getOra()%></p>
-    			<p class="card-text">struttura:</p>
-    			<p class="card-text"><%=e.getStruttura()%></p>
-    			<p class="card-text">gestore:</p>
-    			<p class="card-text"><%=e.getGestore()%></p>
-    			<p class="card-text">organizzatore:</p>
-    			<p class="card-text"><%=e.getOrganizzatore()%></p>
+    			<p class="card-text">descrizione: <%=e.getDescrizione()%></p>
+    			<p class="card-text">data: <%=e.getData()%></p> 
+    			<p class="card-text">ora: <%=e.getOra()%></p>
+    			<p class="card-text">struttura: <%=e.getStruttura()%></p>
+    			<p class="card-text">gestore: <%=e.getGestore()%></p>
+    			<p class="card-text">organizzatore: <%=e.getOrganizzatore()%></p>
     			<a href="richieste?action=addE&nome=<%=e.getNome()%>" class="btn btn-primary">Accetta</a>
     			<a href="richieste?action=deleteE&nome=<%= e.getNome()%>" class="btn btn-outline-danger">Rifiuta</a>
   				</div>

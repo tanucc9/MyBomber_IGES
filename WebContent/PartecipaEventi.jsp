@@ -72,7 +72,7 @@
     			<p class="card-text">Valutazione: <%=e.getMedia()%></p>
     			
     			<form action="partecipa" method="post"> 
-    			<input type="hidden" value=<%=e.getNome() %> name="nome" id="nome">
+    			<input type="hidden" value="<%=e.getNome() %>" name="nome" id="nome">
     			<input type="submit" class="btn btn-primary" value="Partecipa">
     			</form>
   				</div>
