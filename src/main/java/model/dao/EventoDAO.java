@@ -399,7 +399,7 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE stato = 'attivi' AND nome != ALL "
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE stato = 'attivo' AND nome != ALL "
 									+ "(SELECT nome_evento FROM partecipazione WHERE e_mail = ?)";
 				
 				
@@ -448,7 +448,7 @@ public class EventoDAO {
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
 				String selectSQL = "SELECT * FROM " + TABLE_NAME + " JOIN partecipazione P on nome = P.nome_evento " 
-									+"WHERE stato = 'completo' AND P.e_mail = ?";
+									+"WHERE stato = 'completato' AND P.e_mail = ?";
 				
 				
 

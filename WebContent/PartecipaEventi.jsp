@@ -59,11 +59,20 @@
 		<div class="col-lg-4 cusom_event_class mt-5">
 			<div class="card" style="width: 18rem;">
   				<div class="card-body">
-    			<h3 class="card-title"><%=e.getNome() %></h3>
-    			<p class="card-text"><%=e.getData()%></p> <p class="card-text"><%=e.getOra()%></p>
+    			<h3 class="card-title"><%=e.getNome()%> <span class="badge badge-danger"><%=e.getStato()%></span></h3> 
+    			<p class="card-text">descrizione:</p>
+    			<p class="card-text"><%=e.getDescrizione()%></p>
+    			<p class="card-text">data e ora:</p>
+    			<p class="card-text"><%=e.getData()%> <%=e.getOra()%></p>
+    			<p class="card-text">struttura:</p>
+    			<p class="card-text"><%=e.getStruttura()%></p>
+    			<p class="card-text">gestore:</p>
+    			<p class="card-text"><%=e.getGestore()%></p>
+    			<p class="card-text">organizzatore:</p>
+    			<p class="card-text"><%=e.getOrganizzatore()%></p>   			
     			<p class="card-text">Partecipanti: <%=e.getNumPartecipanti()%></p>
     			<p class="card-text">Valutazione: <%=e.getMedia()%></p>
-    			<p class="card-text">e.getDescrizione()</p>
+    			
     			<form action="partecipa" method="post"> 
     			<input type="hidden" value=<%=e.getNome() %> name="nome" id="nome">
     			<input type="submit" class="btn btn-primary" value="crea">

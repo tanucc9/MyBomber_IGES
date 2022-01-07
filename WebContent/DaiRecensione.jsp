@@ -9,11 +9,7 @@
     {
     	response.sendRedirect("./Login.jsp");
     }
-    else{
-	if(daRecensire == null) {
-		response.sendRedirect("./recensione");	
-		return;
-	}}
+    
 %>
 	
 <!DOCTYPE html>
@@ -42,6 +38,8 @@
 	
 <div class="container mt-5 mb-5">
 <%
+            if(daRecensire!=null)
+            {
 			Iterator<?> it = daRecensire.iterator();
 			while (it.hasNext()) {
 				String giocatore = (String) it.next();
@@ -77,11 +75,13 @@
   </div>
 	
 	<%
-		}
+		}}
 	%>
 	
-	<!-- pippo -->
+	
 	<%
+	        if(recensiti!=null)
+	        {
 			Iterator<?> it2 = recensiti.iterator();
 			while (it2.hasNext()) {
 				String giocatore = (String) it2.next();
@@ -116,9 +116,11 @@
   </div>
 	
 	<%
-		}
+		}} if((daRecensire==null)&&(recensiti==null))
+	        {
 	%>
-	
+	   <h2>Non puoi recensire nessun giocatore di questo evento</h2>
+	<%} %>
 </div>
 <%@ include file="../fragments/footer.html"%>
 <script src="script/dairecensione-validation.js"></script>

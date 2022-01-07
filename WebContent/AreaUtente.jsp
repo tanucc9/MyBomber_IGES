@@ -118,7 +118,7 @@
 
 <%} else{   if (request.getAttribute("cu") == "gestore") { 
 	        GestoreBean ge=(GestoreBean)request.getSession().getAttribute("gestore");%>
-}
+
 <div class="page-content page-container container mt-5" id="page-content">
     <div class="padding">
         <div class="row container d-flex justify-content-center">
