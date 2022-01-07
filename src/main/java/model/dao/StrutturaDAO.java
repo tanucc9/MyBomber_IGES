@@ -156,7 +156,7 @@ public class StrutturaDAO {
 
 		ArrayList<StrutturaBean> strutture = new ArrayList<StrutturaBean>();
 
-		String selectSQL = "SELECT * " + TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + TABLE_NAME;
 		
 		
 
@@ -190,4 +190,41 @@ public class StrutturaDAO {
 		}
 		return strutture;
 	}
+	
+	
+	public synchronized ArrayList<String> doRetrieveAllNomi() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<String> strutture = new ArrayList<String>();
+
+		String selectSQL = "SELECT nome " + TABLE_NAME;
+		
+		
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				String bean = new String();
+				
+				bean = rs.getString("nome");
+				strutture.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return strutture;
+	}
+	
 }

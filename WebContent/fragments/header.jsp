@@ -26,7 +26,7 @@
         <a class="nav-link" href="./areaUtenteServlet">Area Utente</a>
       </li>
      <li class="nav-item navbar-nav">
-        <a class="nav-link" href="./CreaEvento.jsp">Crea Evento</a>
+        <a class="nav-link" href="./struttura">Crea Evento</a>
       </li>
       <li class="nav-item navbar-nav">
         <a class="nav-link" href="./PartecipaEventi.jsp">Partecipa Eventi</a>

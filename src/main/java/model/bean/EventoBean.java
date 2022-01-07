@@ -13,7 +13,7 @@ private static final long serialVersionUID = 1L;
 	private int ora;
 	private String gestore;
 	private String organizzatore;
-	private String stato; //richiesta - attivo - completo - concluso
+	private String stato; //richiesta - attivo - completato - concluso
 	private float valutazione; //somma valutazioni giocatori
 	private int numPartecipanti;
 	
@@ -125,6 +125,14 @@ private static final long serialVersionUID = 1L;
 	
 	public void rimuoviG() {
 		numPartecipanti--;
+	}
+	
+	public boolean isFinished() {
+		Date now = new Date(System.currentTimeMillis());
+		if(now.after(this.getData()) && this.getStato().equals("completato")) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

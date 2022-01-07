@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1" import="java.time.*,model.bean.*" %>
-<% 
-	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
-    GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
-    if(giocatore == null && gestore == null)
-    {
-    	response.sendRedirect("./Login.jsp");
-    }
-    
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +25,20 @@
 </head>
 <body>
 	<%@ include file="./fragments/header.jsp" %>
+	<% 
+	ArrayList<?> strutture = (ArrayList<?>) request.getAttribute("strutture");
+	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
+    GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
+    if(giocatore == null && gestore == null)
+    {
+    	response.sendRedirect("./Login.jsp");
+    }
+	
+%>
 	<div class="container mt-5 mb-5">
+	<% 
+		if (strutture != null && strutture.size() != 0) {
+	%>
 	<form action="creaEvento" id="myform" onSubmit="event.preventDefault(); validate(this);">
 		<div class="form mb-3">
 		<label for="nome">Nome</label>
@@ -49,7 +54,19 @@
   		
   		<div class="form mb-3">
 		<label for="struttura">Struttura</label>
-		<input type="text" name="struttura" class="form-control" placeholder="NomeStruttura" required>
+		<select name="struttura" id="struttura">
+	
+	<%
+		Iterator<?> it = strutture.iterator();
+		while (it.hasNext()) {
+			StrutturaBean s = (StrutturaBean) it.next();
+	%>
+		<option value="<%=s.getNome() %>"><%=s.getNome() %></option>
+		
+	<%
+		}
+	%>
+		</select>
 		<p id="errStruttura"></p>
 		</div>
 		
@@ -68,6 +85,15 @@
  		</div>
  		
 	</form>
+	<%
+		} else {
+	%>
+	
+	<h2>Non esistono strutture</h2>
+		
+	<%
+		}
+	%>
 	</div>
 	<%@ include file="./fragments/footer.html" %>
 	

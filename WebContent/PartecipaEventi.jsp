@@ -43,12 +43,15 @@
    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
- 
+ 	<link href="http://localhost:8080/mybomber/style/global.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <%@ include file="./fragments/header.jsp" %>
 
-<div class="container" style="margin: 100px;">
+<div class="container">
+<%if(eventi != null && eventi.size() != 0) { %>
+<h3 class="text-center">A quale evento vuoi partecipare?</h3>
+<%} %>
 	<div class="row">
 	<%
 		if(eventi != null && eventi.size() != 0) {
@@ -57,25 +60,20 @@
 				EventoBean e = (EventoBean) it.next();
 	%>
 		<div class="col-lg-4 cusom_event_class mt-5">
-			<div class="card" style="width: 18rem;">
+			<div class="card">
   				<div class="card-body">
     			<h3 class="card-title"><%=e.getNome()%> <span class="badge badge-danger"><%=e.getStato()%></span></h3> 
-    			<p class="card-text">descrizione:</p>
-    			<p class="card-text"><%=e.getDescrizione()%></p>
-    			<p class="card-text">data e ora:</p>
-    			<p class="card-text"><%=e.getData()%> <%=e.getOra()%></p>
-    			<p class="card-text">struttura:</p>
-    			<p class="card-text"><%=e.getStruttura()%></p>
-    			<p class="card-text">gestore:</p>
-    			<p class="card-text"><%=e.getGestore()%></p>
-    			<p class="card-text">organizzatore:</p>
-    			<p class="card-text"><%=e.getOrganizzatore()%></p>   			
+    			<p class="card-text">descrizione: <%=e.getDescrizione()%></p>
+    			<p class="card-text">data: <%=e.getData()%> <%=e.getOra()%></p>
+    			<p class="card-text">struttura: <%=e.getStruttura()%></p>
+    			<p class="card-text">gestore: <%=e.getGestore()%></p>
+    			<p class="card-text">organizzatore: <%=e.getOrganizzatore()%></p>   			
     			<p class="card-text">Partecipanti: <%=e.getNumPartecipanti()%></p>
     			<p class="card-text">Valutazione: <%=e.getMedia()%></p>
     			
     			<form action="partecipa" method="post"> 
     			<input type="hidden" value=<%=e.getNome() %> name="nome" id="nome">
-    			<input type="submit" class="btn btn-primary" value="crea">
+    			<input type="submit" class="btn btn-primary" value="Partecipa">
     			</form>
   				</div>
 			</div>

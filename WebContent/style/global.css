@@ -1,0 +1,15 @@
+.container{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+
+.badge{
+	font-size: 12px;
+}
+
+
+div#carouselExampleControls img{
+	height: 300px;
+	object-fit: cover; 
+}

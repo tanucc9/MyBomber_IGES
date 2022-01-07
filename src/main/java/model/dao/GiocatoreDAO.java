@@ -170,7 +170,7 @@ public class GiocatoreDAO {
 						bean.setPassword(rs.getString("password_giocatore"));
 						bean.setTelefono(rs.getString("telefono"));
 						bean.setDataNascita(rs.getDate("data_nascita"));
-						bean.setNazioneResidenza(rs.getString("nazione_reidenza"));
+						bean.setNazioneResidenza(rs.getString("nazione_residenza"));
 						bean.setProvinciaResidenza(rs.getString("provincia_residenza"));
 						bean.setCittaResidenza(rs.getString("citta_residenza"));
 						bean.setCapResidenza(rs.getString("cap_residenza"));

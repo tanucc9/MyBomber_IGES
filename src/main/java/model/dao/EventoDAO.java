@@ -448,7 +448,7 @@ public class EventoDAO {
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
 				String selectSQL = "SELECT * FROM " + TABLE_NAME + " JOIN partecipazione P on nome = P.nome_evento " 
-									+"WHERE stato = 'completato' AND P.e_mail = ?";
+									+"WHERE stato != 'richiesta' AND P.e_mail = ? ORDER BY data_evento desc";
 				
 				
 

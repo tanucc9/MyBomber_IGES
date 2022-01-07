@@ -41,12 +41,12 @@
    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
- 
+ 	<link href="../style/global.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <%@ include file="./fragments/header.jsp" %>
 
-<div class="container" style="margin: 100px;">
+<div class="container">
 	<div class="row">
 	<%
 		if (eventi != null && eventi.size() != 0) {
@@ -55,7 +55,7 @@
 				EventoBean e = (EventoBean) it.next();
 	%>
 		<div class="col-lg-4 cusom_event_class mt-5">
-			<div class="card" style="width: 18rem;">
+			<div class="card">
   				<div class="card-body">
     			<h3 class="card-title"><%=e.getNome()%></h3> 
     			<p class="card-text">descrizione:</p>
@@ -69,7 +69,7 @@
     			<p class="card-text">organizzatore:</p>
     			<p class="card-text"><%=e.getOrganizzatore()%></p>
     			<a href="richieste?action=addE&nome=<%=e.getNome()%>" class="btn btn-primary">Accetta</a>
-    			<a href="richieste?action=deleteE&nome=<%= e.getNome()%>" class="btn btn-primary">Rifiuta</a>
+    			<a href="richieste?action=deleteE&nome=<%= e.getNome()%>" class="btn btn-outline-danger">Rifiuta</a>
   				</div>
 			</div>
 		</div>

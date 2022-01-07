@@ -64,7 +64,7 @@ public class PartecipaEventiServlet extends HttpServlet {
 				eventoBean.setValutazione(eventoBean.getValutazione()+giocatore.getValutazione());
 			}
 				if(eventoBean.getNumPartecipanti() == 10) {
-					eventoBean.setStato("completo");
+					eventoBean.setStato("completato");
 				}
 				eventoDAO.doUpdate(eventoBean);
 			}
