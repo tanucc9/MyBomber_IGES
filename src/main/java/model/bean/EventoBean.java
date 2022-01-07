@@ -1,7 +1,6 @@
 package model.bean;
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Time;
 
 public class EventoBean implements Serializable{
 	
@@ -11,7 +10,7 @@ private static final long serialVersionUID = 1L;
 	private String descrizione;
 	private String struttura;
 	private Date data;
-	private Time ora;
+	private int ora;
 	private String gestore;
 	private String organizzatore;
 	private String stato; //richiesta - attivo - completo - concluso
@@ -24,7 +23,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	
-	public EventoBean(String nome, String descrizione, String struttura, Date data, Time ora, String gestore, String organizzatore) {
+	public EventoBean(String nome, String descrizione, String struttura, Date data, int ora, String gestore, String organizzatore) {
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.struttura = struttura;
@@ -52,7 +51,7 @@ private static final long serialVersionUID = 1L;
 	public void setData(Date data) {
 		this.data=data;
 	}
-	public void setOra(Time ora) {
+	public void setOra(int ora) {
 		this.ora=ora;
 	}
 	public void setGestore(String gestore) {
@@ -92,7 +91,7 @@ private static final long serialVersionUID = 1L;
 		return data;
 	}
 	
-	public Time getOra() {
+	public int getOra() {
 		return ora;
 	}
 	
@@ -131,7 +130,7 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public String toString() {
 		return "Evento [nome = " + nome + ", descrizione = " + descrizione + ", struttura = " + struttura + 
-				", data = " + data.toString() + ", ora = " + ora.toString() + ", gestore = " + gestore + 
+				", data = " + data.toString() + ", ora = " + ora + ", gestore = " + gestore + 
 				", organizzatore = " + organizzatore + ", stato = " + stato + "]";
 	}
 }

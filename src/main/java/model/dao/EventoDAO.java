@@ -29,7 +29,7 @@ public class EventoDAO {
 				preparedStatement.setString(2, e.getDescrizione());
 				preparedStatement.setString(3, e.getStruttura());
 				preparedStatement.setDate(4, e.getData());
-				preparedStatement.setTime(5, e.getOra());
+				preparedStatement.setInt(5, e.getOra());
 				preparedStatement.setString(6, e.getGestore());
 				preparedStatement.setString(7, e.getOrganizzatore());
 				preparedStatement.setString(8, e.getStato());
@@ -71,7 +71,7 @@ public class EventoDAO {
 					bean.setDescrizione(rs.getString("descrizione"));
 					bean.setStruttura(rs.getString("struttura"));
 					bean.setData(rs.getDate("data_evento"));
-					bean.setOra(rs.getTime("ora"));
+					bean.setOra(rs.getInt("ora"));
 					bean.setGestore(rs.getString("e_mail_gestore"));
 					bean.setOrganizzatore(rs.getString("e_mail_utente"));
 					bean.setStato(rs.getString("stato"));
@@ -118,7 +118,7 @@ public class EventoDAO {
 						bean.setDescrizione(rs.getString("descrizione"));
 						bean.setStruttura(rs.getString("struttura"));
 						bean.setData(rs.getDate("data_evento"));
-						bean.setOra(rs.getTime("ora"));
+						bean.setOra(rs.getInt("ora"));
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
@@ -154,7 +154,7 @@ public class EventoDAO {
 				preparedStatement.setString(2, e.getDescrizione());
 				preparedStatement.setString(3, e.getStruttura());
 				preparedStatement.setDate(4, e.getData());
-				preparedStatement.setTime(5, e.getOra());
+				preparedStatement.setInt(5, e.getOra());
 				preparedStatement.setString(6, e.getGestore());
 				preparedStatement.setString(7, e.getOrganizzatore());
 				preparedStatement.setString(8, e.getStato());
@@ -231,7 +231,7 @@ public class EventoDAO {
 						bean.setDescrizione(rs.getString("descrizione"));
 						bean.setStruttura(rs.getString("struttura"));
 						bean.setData(rs.getDate("data_evento"));
-						bean.setOra(rs.getTime("ora"));
+						bean.setOra(rs.getInt("ora"));
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
@@ -277,7 +277,7 @@ public class EventoDAO {
 						bean.setDescrizione(rs.getString("descrizione"));
 						bean.setStruttura(rs.getString("struttura"));
 						bean.setData(rs.getDate("data_evento"));
-						bean.setOra(rs.getTime("ora"));
+						bean.setOra(rs.getInt("ora"));
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
@@ -324,7 +324,7 @@ public class EventoDAO {
 						bean.setDescrizione(rs.getString("descrizione"));
 						bean.setStruttura(rs.getString("struttura"));
 						bean.setData(rs.getDate("data_evento"));
-						bean.setOra(rs.getTime("ora"));
+						bean.setOra(rs.getInt("ora"));
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
@@ -370,7 +370,7 @@ public class EventoDAO {
 						bean.setDescrizione(rs.getString("descrizione"));
 						bean.setStruttura(rs.getString("struttura"));
 						bean.setData(rs.getDate("data_evento"));
-						bean.setOra(rs.getTime("ora"));
+						bean.setOra(rs.getInt("ora"));
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
@@ -418,7 +418,7 @@ public class EventoDAO {
 						bean.setDescrizione(rs.getString("descrizione"));
 						bean.setStruttura(rs.getString("struttura"));
 						bean.setData(rs.getDate("data_evento"));
-						bean.setOra(rs.getTime("ora"));
+						bean.setOra(rs.getInt("ora"));
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));
@@ -466,7 +466,7 @@ public class EventoDAO {
 						bean.setDescrizione(rs.getString("descrizione"));
 						bean.setStruttura(rs.getString("struttura"));
 						bean.setData(rs.getDate("data_evento"));
-						bean.setOra(rs.getTime("ora"));
+						bean.setOra(rs.getInt("ora"));
 						bean.setGestore(rs.getString("e_mail_gestore"));
 						bean.setOrganizzatore(rs.getString("e_mail_utente"));
 						bean.setStato(rs.getString("stato"));

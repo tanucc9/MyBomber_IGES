@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.bean.EventoBean;
 import model.bean.GestoreBean;
+import model.bean.GiocatoreBean;
+import model.bean.PartecipazioneBean;
 import model.dao.EventoDAO;
+import model.dao.GiocatoreDAO;
+import model.dao.PartecipazioneDAO;
 
 	/**
 	 * Servlet implementation class EsempioServlet
@@ -28,18 +32,30 @@ import model.dao.EventoDAO;
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 			EventoDAO eventoDao = new EventoDAO();
+			GiocatoreDAO giocatoreDao = new GiocatoreDAO();
+			ArrayList<GiocatoreBean> giocatori = new ArrayList<GiocatoreBean>();
 			GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
+			PartecipazioneDAO partecipazioneDao = new PartecipazioneDAO();
 			String nomeEvento = request.getParameter("nome");
 			String action = request.getParameter("action");
 			ArrayList<EventoBean> richieste = new ArrayList<EventoBean>();
 			
 			try {
 				EventoBean bean = eventoDao.doRetrieveByKey(nomeEvento);
+				PartecipazioneBean partecipazione = new PartecipazioneBean();
 				if(action!=null)
 				{
 				if(action.equalsIgnoreCase("addE")) {
 					bean.setStato("attivo");
 					bean.aggiungiG();
+					partecipazione.setEvento(bean.getNome());
+					giocatori = giocatoreDao.doRetrieveAll();
+					for(int i = 0; i < giocatori.size(); i++) {
+						if(bean.getOrganizzatore().equals(giocatori.get(i).getEmail())) {
+							partecipazione.setUtente(bean.getOrganizzatore());
+							partecipazioneDao.doSave(partecipazione);
+						}
+					}
 					eventoDao.doUpdate(bean);
 					}
 				else if(action.equalsIgnoreCase("deleteE")) {

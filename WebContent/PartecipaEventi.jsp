@@ -10,16 +10,17 @@
 	  response.sendRedirect("./Login.jsp");
     }
     else if(giocatore==null&&gestore!=null)
-    {%>
+    {
+%>
     	non puoi accedere a questa pagina
-    <% return;}
-    
-    else{
-	      if(eventi == null) {
-		  response.sendRedirect("./partecipa");	
-	    }
+<% 
+	return;
     }
-    
+	else{
+    	if(eventi == null) {
+    		response.sendRedirect("./partecipa");	
+    	}
+  	} 
 %>
 
 <!DOCTYPE html>
@@ -50,7 +51,7 @@
 <div class="container" style="margin: 100px;">
 	<div class="row">
 	<%
-		if (eventi != null && eventi.size() != 0) {
+		if(eventi != null && eventi.size() != 0) {
 			Iterator<?> it = eventi.iterator();
 			while (it.hasNext()) {
 				EventoBean e = (EventoBean) it.next();

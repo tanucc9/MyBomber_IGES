@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.time.*,model.bean.*" %>
 <% 
 	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
     GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
-    if(giocatore==null||gestore==null)
+    if(giocatore == null && gestore == null)
     {
     	response.sendRedirect("./Login.jsp");
     }
@@ -32,15 +32,14 @@
  
 </head>
 <body>
-	
 	<%@ include file="./fragments/header.jsp" %>
 	<div class="container mt-5 mb-5">
-	<form action="creaEvento" method="post" id="myform" onsubmit="event.preventDefault(); validate(this);">
+	<form action="creaEvento" id="myform" onSubmit="event.preventDefault(); validate(this);">
 		<div class="form mb-3">
 		<label for="nome">Nome</label>
 		<input type="text" name="nome" class="form-control" placeholder="Nome" required>
-		<p id="errNome"></p>
-		<!-- Controllare se il nome già esiste -->
+		<p id="errNome">
+		</p>
 		</div>
 		
 		<div class="form mb-3">
@@ -55,20 +54,24 @@
 		</div>
 		
 		<div class="form mb-3">
-		<label for="data e ora">Data e ora</label>
-		<input type="datetime-local" name="data e ora" class="form-control" required>
-		<p id="errData"></p>	
+		<label for="data">Data</label>
+		<input type="date" name="data" class="form-control" min="<%=LocalDate.now().toString() %>" required>	
+		</div>
+		
+		<div class="form mb-3">
+		<label for="ora">Ora</label>
+		<input type="number" name="ora" class="form-control" min="00" max="23" required>	
 		</div>
  		
  		<div class="form mb-3">
- 		<input type="submit" value="Crea">
+ 		<input type="submit" class="btn btn-primary" value="Crea">
  		</div>
  		
 	</form>
 	</div>
 	<%@ include file="./fragments/footer.html" %>
 	
-	<script src="script/CreaEvento.js"></script>
+	<script src="script/CheckEvento.js"></script>
 	
 </body>
 </html>

@@ -2,17 +2,22 @@
     pageEncoding="ISO-8859-1" import="java.util.*,model.bean.*" %>
     
 <%  ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventiRecenti");
-    GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
-    if(giocatore==null)
-    {
-	  response.sendRedirect("./Login.jsp");
+	GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
+	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
+	if(giocatore==null && gestore==null) {
+	  	response.sendRedirect("./Login.jsp");
+	}
+	else if(giocatore==null && gestore!=null) {
+%>
+	       	non puoi accedere a questa pagina
+<% 
+	return;
+	}
+	else{
+      if(eventi == null) {
+	     response.sendRedirect("./eventiRecenti");	
+	     }
     }
-    else{
-	if(eventi == null) {
-		response.sendRedirect("./eventiRecenti");	
-		
-	}}
-	
 %>
 
 <!DOCTYPE html>
@@ -51,7 +56,7 @@
 			<div class="card" style="width: 18rem;">
   				<div class="card-body">
     			<h3 class="card-title"><%=e.getNome() %></h3>
-   				<p class="card-text">e.getDescrizione()</p>
+   				<p class="card-text"><%=e.getDescrizione() %></p>
     			<p class="card-text"><%=e.getData() %></p><p class="card-text"<%=e.getOra() %>></p>
     			<a href="recensione?&nome="<%=e.getNome() %> class="card-link">Recensisci</a>
   				</div>

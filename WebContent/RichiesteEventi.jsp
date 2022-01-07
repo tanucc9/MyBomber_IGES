@@ -4,11 +4,17 @@
     <% 
        ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("richieste");
        GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
-       if(gestore==null)
-       {
+       GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
+       if(giocatore==null && gestore==null) {
     	  response.sendRedirect("./Login.jsp");
        }
-       else{
+       else if(gestore == null && giocatore != null) {
+ 	%>
+    	       	non puoi accedere a questa pagina
+    <% 
+    	return;
+    	}
+      	else{
 	         if(eventi == null) {
 		     response.sendRedirect("./richieste?action=trovarichieste");	
 		     }

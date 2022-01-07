@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS mybomber.evento (
   descrizione VARCHAR(100) NOT NULL,
   struttura VARCHAR(30) NOT NULL,
   data_evento Date NOT NULL,
-  ora Time NOT NULL,
+  ora int NOT NULL,
   e_mail_gestore VARCHAR(30) NOT NULL,
   e_mail_utente VARCHAR(30) NOT NULL,
   stato VARCHAR(30) NOT NULL,

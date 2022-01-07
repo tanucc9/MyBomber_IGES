@@ -3,7 +3,6 @@ package control;
 	import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;	
@@ -38,36 +37,36 @@ import model.dao.StrutturaDAO;
 			EventoBean evento = new EventoBean();
 			StrutturaDAO strutturaDAO = new StrutturaDAO();
 			
-			String data = request.getParameter("data e ora").substring(0, 11);
-			String ora = request.getParameter("data e ora").substring(12);
-			ora = ora.concat(":00");
-			gestore = gestoreDAO.doRetrieveByStruttura(request.getParameter("struttura"));
+			String data = request.getParameter("data");
+			String ora = request.getParameter("ora");
 			String nome = request.getParameter("nome");
 			evento.setNome(nome);
 			evento.setDescrizione(request.getParameter("descrizione"));
 			String struttura = request.getParameter("struttura");
-			evento.setStruttura(request.getParameter("struttura"));
+			evento.setStruttura(struttura);
 			evento.setData(Date.valueOf(data));
-			evento.setOra(Time.valueOf(ora));
-			evento.setGestore(gestore.getEmail());
-			
-			//Se l'utente che sta utilizzando l'applicazione è un giocatore
-			if(request.getSession().getAttribute("giocatore") != null) {
-				GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
-				evento.setOrganizzatore(giocatore.getEmail());
-			}
-			
-			//Se l'utente che sta utilizzando l'applicazione è un gestore
-			else {
-				evento.setOrganizzatore(gestore.getEmail());
-			}
-			evento.setStato("richiesta");
+			evento.setOra(Integer.parseInt(ora));
 			
 			try {
+				gestore = gestoreDAO.doRetrieveByStruttura(struttura);
+				evento.setGestore(gestore.getEmail());
+				//Se l'utente che sta utilizzando l'applicazione è un giocatore
+				if(request.getSession().getAttribute("giocatore") != null) {
+					GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
+					evento.setOrganizzatore(giocatore.getEmail());
+				}
+				
+				//Se l'utente che sta utilizzando l'applicazione è un gestore
+				else {
+					evento.setOrganizzatore(gestore.getEmail());
+				}
+				evento.setStato("richiesta");
+				
 				EventoBean testEvento = new EventoBean();
 				testEvento = eventoDao.doRetrieveByKey(nome);
 				StrutturaBean testStruttura = new StrutturaBean();
 				testStruttura = strutturaDAO.doRetrieveByKey(nome);
+			
 				if(testEvento == null && testStruttura == null) {
 					eventoDao.doSave(evento);
 					RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
@@ -80,6 +79,7 @@ import model.dao.StrutturaDAO;
 					if(testStruttura != null) {
 						request.setAttribute("errStruttura", "errore");
 					}
+		
 					RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./CreaEventi.jsp"));
 					dispatcher.forward(request, response);
 				}
