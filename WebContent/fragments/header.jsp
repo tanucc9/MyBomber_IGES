@@ -23,6 +23,9 @@
     <%if((gio!=null))
     {%>
      <li class="nav-item navbar-nav">
+        <a class="nav-link" href="./areaUtenteServlet">Area Utente</a>
+      </li>
+     <li class="nav-item navbar-nav">
         <a class="nav-link" href="./CreaEvento.jsp">Crea Evento</a>
       </li>
       <li class="nav-item navbar-nav">
@@ -33,6 +36,10 @@
       </li>
       </ul>
      <%} if(ges!= null){%>
+     <li class="nav-item navbar-nav">
+        <a class="nav-link" href="./areaUtenteServlet">Area Utente</a>
+      </li>
+      
     <li class="nav-item navbar-nav">
         <a class="nav-link" href="./RichiesteEventi.jsp">Richieste Eventi</a>
       </li>

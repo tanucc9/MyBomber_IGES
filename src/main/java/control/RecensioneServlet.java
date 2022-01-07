@@ -24,15 +24,17 @@ import model.dao.RecensioneDAO;
 			GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
 			String nomeEvento = request.getParameter("nome");
 			String action = request.getParameter("action");
-			String recensito = request.getParameter("nomeG");
-			float valutazione = Float.parseFloat(request.getParameter("valutazione"));			
+			String recensito = request.getParameter("nomeG");			
 			String descrizione = request.getParameter("descrizione");
 			RecensioneDAO recensioneDao = new RecensioneDAO();
 			ArrayList<String> daRecensire = new ArrayList<String>();
-			ArrayList<String> recensiti = new ArrayList<String>();//già sono stati recensiti
+			ArrayList<String> recensiti = new ArrayList<String>();//giï¿½ sono stati recensiti
 			
 			try {
+				if(action!=null)
+				{
 				if(action.equalsIgnoreCase("addR")) {
+					float valutazione = Float.parseFloat(request.getParameter("valutazione"));	
 					RecensioneBean recensione = new RecensioneBean();
 					recensione = new RecensioneBean();
 					recensione.setRecensione(valutazione);
@@ -44,6 +46,7 @@ import model.dao.RecensioneDAO;
 				}
 				else if(action.equalsIgnoreCase("deleteR")) {
 					recensioneDao.doDelete(giocatore.getEmail(), recensito, nomeEvento);
+				}
 				}
 				else { 
 					daRecensire = recensioneDao.doRetrieveDaRecensire(giocatore.getEmail(), nomeEvento);

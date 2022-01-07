@@ -39,6 +39,7 @@
 </head>
 <body>
 <%@ include file="./fragments/header.jsp" %>
+
 <div class="container" style="margin: 100px;">
 	<div class="row">
 	<%
@@ -51,9 +52,17 @@
 			<div class="card" style="width: 18rem;">
   				<div class="card-body">
     			<h3 class="card-title"><%=e.getNome() %></h3>
-   				<p class="card-text">e.getDescrizione()</p>
-    			<p class="card-text"><%=e.getData() %></p><p class="card-text"<%=e.getOra() %>></p>
-    			<a href="recensione?&nome="<%=e.getNome() %> class="card-link">Recensisci</a>
+   				<p class="card-text">descrizione:</p>
+    			<p class="card-text"><%=e.getDescrizione()%></p>
+    			<p class="card-text">data e ora:</p>
+    			<p class="card-text"><%=e.getData()%> <%=e.getOra()%></p>
+    			<p class="card-text">struttura:</p>
+    			<p class="card-text"><%=e.getStruttura()%></p>
+    			<p class="card-text">gestore:</p>
+    			<p class="card-text"><%=e.getGestore()%></p>
+    			<p class="card-text">organizzatore:</p>
+    			<p class="card-text"><%=e.getOrganizzatore()%></p>
+    			<a href="recensione?&nome=<%=e.getNome()%>" class="btn btn-primary">Recensisci</a>
   				</div>
 			</div>
 		</div>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.bean.EventoBean;
 import model.bean.GestoreBean;
+import model.bean.GiocatoreBean;
 import model.dao.EventoDAO;
 
 @WebServlet("/eventiRecenti")
@@ -22,11 +23,11 @@ public class EventiRecentiServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		EventoDAO eventoDao = new EventoDAO();
-		GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
+		GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
 		ArrayList<EventoBean> eventiRecenti;
 		
 		try {
-			eventiRecenti = eventoDao.doRetrieveEventiRecenti(gestore.getEmail());
+			eventiRecenti = eventoDao.doRetrieveEventiRecenti(giocatore.getEmail());
 			request.setAttribute("eventiRecenti", eventiRecenti);
 		} 
 		catch (SQLException e) {

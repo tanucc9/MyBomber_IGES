@@ -133,7 +133,7 @@ public class RecensioneDAO {
 				ArrayList<String> daRecensire = new ArrayList<String>();
 
 				String selectSQL = "SELECT e_mail FROM partecipazione WHERE nome_evento = ? AND e_mail != ALL " 
-							+ "(SELECT e_mail_recensito FROM " +TABLE_NAME + " WHERE nome_evento = ? AND e_mail_recensore = ?)";
+							+ "(SELECT e_mail_recensito FROM " +TABLE_NAME + " WHERE nome_evento = ? AND e_mail_recensore = ?) AND e_mail != ?";
 				
 				
 
@@ -145,7 +145,7 @@ public class RecensioneDAO {
 					preparedStatement.setString(1, evento);
 					preparedStatement.setString(2, recensore);
 					preparedStatement.setString(3, evento);
-
+					preparedStatement.setString(4, recensore);
 					while (rs.next()) {
 						String utente = rs.getString("e_mail");
 						daRecensire.add(utente);
