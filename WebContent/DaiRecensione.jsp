@@ -103,7 +103,7 @@
 	        {
 	        int i =0;
 	%>
-	        <div class="accordion" id="accordionExample">
+	        <div class="accordion" id="accordionExampleRecensito">
 	        
 	<%
 			Iterator<?> it2 = recensiti.iterator();
@@ -113,12 +113,12 @@
 	%>
     
   <div class="accordion-item">
-    <h2 class="accordion-header" id="heading_<%=i %>">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_<%=i %>" aria-expanded="false" aria-controls="collapse_<%=i %>">
+    <h2 class="accordion-header" id="heading_recensito_<%=i %>">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_recensito_<%=i %>" aria-expanded="false" aria-controls="collapse_recensito_<%=i %>">
         <%=recensione.getRecensito()%> <span class="badge bg-success" style="margin-left:5px;">recensito</span>
       </button>
     </h2>
-    <div id="collapse_<%=i %>" class="accordion-collapse collapse" aria-labelledby="heading_<%=i %>" data-bs-parent="#accordionExample">
+    <div id="collapse_recensito_<%=i %>" class="accordion-collapse collapse" aria-labelledby="heading_recensito_<%=i %>" data-bs-parent="#accordionExampleRecensito">
       <div class="accordion-body">
       <form id="dairecensione" method="post" action="recensione" onSubmit="event.preventDefault(); validate(this);">
       <input type="hidden" name="rec" id="rec" value="el">
@@ -142,11 +142,11 @@
       </div>
     </div>
   </div>
-    
-  </div>
 	
 	<%
-		}} if((daRecensire==null)&&(recensiti==null))
+		}%>
+			  </div>
+	       <% } if((daRecensire==null)&&(recensiti==null))
 	        {
 	%>
 	   <h2>Non puoi recensire nessun giocatore di questo evento</h2>
