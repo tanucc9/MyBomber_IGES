@@ -26,43 +26,23 @@ import model.dao.RecensioneDAO;
 			GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
 			String action = request.getParameter("action");
 			RecensioneDAO recensioneDao = new RecensioneDAO();
-			String nomeE=(String)request.getAttribute("nome");
+			String nomeE=(String)request.getParameter("nome");
+			
 			try {
 				
-				if(action.equalsIgnoreCase("addR")) {
-					String nomeEvento = request.getParameter("nomeEvento");
-					String recensito = request.getParameter("nomeG");			
-					String descrizione = request.getParameter("descrizione");
-					float valutazione = Float.parseFloat(request.getParameter("valutazione"));	
-					RecensioneBean recensione = new RecensioneBean();
-					recensione.setRecensione(valutazione);
-					recensione.setDescrizione(descrizione);
-					recensione.setEvento(nomeEvento);
-					recensione.setRecensito(recensito);
-					recensione.setRecensore(giocatore.getEmail());
-					recensioneDao.doSave(recensione);
-					GiocatoreDAO giocatoredao=new GiocatoreDAO();
-					float nuovamedia=recensioneDao.doRetrieveMedia(recensito);
-					GiocatoreBean recensitobean=giocatoredao.doRetrieveByKey(recensito);
-					recensitobean.setValutazione(nuovamedia);
-					giocatoredao.doUpdate(recensitobean);				
-				}
-				else if(action.equalsIgnoreCase("deleteR")) {
-					String recensito = request.getParameter("nomeG");			
-					String nomeEvento = request.getParameter("nomeEvento");
-					recensioneDao.doDelete(giocatore.getEmail(), recensito, nomeEvento);
-				}
-				
-				else if(action.equalsIgnoreCase("cercagiocatori")){ 
-					ArrayList<String> daRecensire = new ArrayList<String>();
-					ArrayList<String> recensiti = new ArrayList<String>();//gi� sono stati recensiti
+			    if(action!=null)
+			    {
+				if(action.equalsIgnoreCase("cercagiocatori")){ 
+					ArrayList<String> daRecensire;
+					ArrayList<String> recensiti;//gi� sono stati recensiti
 					daRecensire = recensioneDao.doRetrieveDaRecensire(giocatore.getEmail(), nomeE);
 					recensiti = recensioneDao.doRetrieveRecensiti(giocatore.getEmail(), nomeE);
 					request.setAttribute("giocatoriDaRecensire", daRecensire);
 					request.setAttribute("giocatoriRecensiti", recensiti);
 					request.setAttribute("nomeEvento", nomeE);
-				}
-			} 
+				}}
+				
+				} 
 			catch (SQLException e) {
 				try (PrintWriter out =response.getWriter())
 				{
@@ -81,6 +61,53 @@ import model.dao.RecensioneDAO;
 		 */
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			// TODO Auto-generated method stub
-			doGet(request, response);
+			String rec = request.getParameter("rec");
+			GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
+			RecensioneDAO recensioneDao = new RecensioneDAO();
+			
+			if(rec!=null)
+			{
+				
+	 try {
+			if(rec.equalsIgnoreCase("set")) {
+				
+				String nomeEvento = (String)request.getParameter("nomeEvento");
+				String recensito = (String)request.getParameter("nomeG");			
+				String descrizione = (String)request.getParameter("descrizione");
+				float valutazione = Float.parseFloat((String)request.getParameter("valutazione"));	
+				RecensioneBean recensione = new RecensioneBean();
+				recensione.setRecensione(valutazione);
+				recensione.setDescrizione(descrizione);
+				recensione.setEvento(nomeEvento);
+				recensione.setRecensito(recensito);
+				recensione.setRecensore(giocatore.getEmail());
+				recensioneDao.doSave(recensione);
+				GiocatoreDAO giocatoredao=new GiocatoreDAO();
+				Float nuovamedia=new Float(recensioneDao.doRetrieveMedia(recensito));
+				if(nuovamedia!=null)
+				{
+				GiocatoreBean recensitobean=giocatoredao.doRetrieveByKey(recensito);
+				recensitobean.setValutazione(nuovamedia);
+				giocatoredao.doUpdate(recensitobean);	
+				}
+			}
+			else if(rec.equalsIgnoreCase("el")) {
+				String recensito = (String)request.getParameter("nomeG");			
+				String nomeEvento = (String)request.getParameter("nomeEvento");
+				recensioneDao.doDelete(giocatore.getEmail(), recensito, nomeEvento);
+			   } 
+	}catch (SQLException e) {
+	try (PrintWriter out =response.getWriter())
+	     {
+					out.println(e.getMessage());
+	     }
+				e.getStackTrace();
+			}
+			}
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./DaiRecensione.jsp"));
+			dispatcher.forward(request, response);
+			
+			
 		}
-}
+	}

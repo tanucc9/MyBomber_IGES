@@ -129,8 +129,9 @@ public class RecensioneDAO {
 			public synchronized Float doRetrieveMedia(String giocatore) throws SQLException {
 				Connection connection = null;
 				PreparedStatement preparedStatement = null;
+				float media=new Float(0);
 
-				String selectSQL = "SELECT AVG(valutazione) AS media FROM " + TABLE_NAME + "WHERE e_mail_recensito = ?";
+				String selectSQL = "SELECT AVG(recensione) AS media FROM " + TABLE_NAME + " WHERE e_mail_recensito = ?";
 				
 				
 
@@ -139,11 +140,9 @@ public class RecensioneDAO {
 					preparedStatement = connection.prepareStatement(selectSQL);
                     preparedStatement.setString(1, giocatore);
 					ResultSet rs = preparedStatement.executeQuery();
-					float media=0;
 					while (rs.next()) {
 						
 						media=rs.getFloat("media");
-			            return media;
 					}
                     
 				} finally {
@@ -155,7 +154,7 @@ public class RecensioneDAO {
 							connection.close();
 					}
 				}
-				return null;
+				return media;
 			}			
 
 
@@ -184,15 +183,14 @@ public class RecensioneDAO {
 						daRecensire.add(utente);
 						
 					}
-
-				}finally {
-				
+                    
+				}finally{
 					try {
-						if (preparedStatement != null)
-							preparedStatement.close();
-					} finally {
-						if (connection != null)
-							connection.close();
+						preparedStatement.close();
+						DriverManagerConnectionPool.releaseConnection(connection);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 				return daRecensire;

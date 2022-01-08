@@ -31,7 +31,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-	<link href="../style/global.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -49,10 +49,12 @@
             
             <%
 			
-			while (i<daRecensire.size()) {
-				String giocatore = (String)daRecensire.get(i);
+            Iterator<?> it = daRecensire.iterator();
+			while (it.hasNext()) {
 				i++;
+				String giocatore = (String) it.next();
 	%>
+
   <div class="accordion-item">
     <h2 class="accordion-header" id="heading_<%=i %>">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_<%=i %>" aria-expanded="false" aria-controls="collapse_<%=i %>">
@@ -61,8 +63,10 @@
     </h2>
     <div id="collapse_<%=i %>" class="accordion-collapse collapse" aria-labelledby="heading_<%=i %>" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      <form id="dairecensione" action="recensione?action=addR&nomeG=<%=giocatore %>&nomeEvento=<%=nomeEvento %>" onSubmit="event.preventDefault(); validate(this);">
-  
+      <form id="dairecensione" action="recensione" method="post" onSubmit="event.preventDefault(); validate(this);">
+      <input type="hidden" name="rec" id="rec" value="set">
+      <input type="hidden" name="nomeEvento" id="nomeEvento" value="<%=nomeEvento%>">
+      <input type="hidden" name="nomeG" id="nomeG" value="<%=giocatore%>">
       <div class="mb-3">
       <label for="valutazione" class="form-label">Valutazione</label>
       <input type="number" class="form-control" name="valutazione" id="valutazione" min="1" max="5" step=".5" aria-describedby="valutazione" required>
@@ -114,8 +118,10 @@
     </h2>
     <div id="collapse_<%=i %>" class="accordion-collapse collapse" aria-labelledby="heading_<%=i %>" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      <form id="dairecensione" method="post" action="recensione?action=DeleteR&nomeG=<%=giocatore %>&nomeEvento=<%=nomeEvento %>" onSubmit="event.preventDefault(); validate(this);">
-  
+      <form id="dairecensione" method="post" action="recensione" onSubmit="event.preventDefault(); validate(this);">
+      <input type="hidden" name="rec" id="rec" value="el">
+      <input type="hidden" name="nomeEvento" id="nomeEvento" value="<%=nomeEvento%>">
+      <input type="hidden" name="nomeG" id="nomeG" value="<%=giocatore%>">
       <div class="mb-3">
       <label for="valutazione" class="form-label">Valutazione</label>
       <input type="number" class="form-control" name="valutazione" id="valutazione" min="1" max="5" step=".5" aria-describedby="valutazione" required>
