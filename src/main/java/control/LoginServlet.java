@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 				    	   {
 				    		   request.getSession().setAttribute("giocatore",giocatore);
 			        	       RequestDispatcher dispatcher = request
-			                       .getRequestDispatcher(response.encodeRedirectURL("areaUtenteServlet"));
+			                       .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
 			                   dispatcher.forward(request, response);
 			                   return;
 				           }

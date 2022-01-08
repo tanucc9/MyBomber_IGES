@@ -75,7 +75,7 @@
     		<%
     			if(e.isFinished()) {
     		%>
-    			<a href="recensione?&nome=<%=e.getNome()%>" class="btn btn-primary">Recensisci</a>
+    			<a href="recensione?&action=cercagiocatori&nome=<%=e.getNome()%>" class="btn btn-primary">Recensisci</a>
 			<%
 				}
     		%>

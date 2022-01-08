@@ -44,7 +44,7 @@ FOREIGN KEY(struttura)
 
 CREATE TABLE IF NOT EXISTS mybomber.evento (
   nome VARCHAR(30) NOT NULL,
-  descrizione VARCHAR(100) NOT NULL,
+  descrizione VARCHAR(100),
   struttura VARCHAR(30) NOT NULL,
   data_evento Date NOT NULL,
   ora int NOT NULL,
@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS mybomber.partecipazione (
   e_mail_recensito VARCHAR(30) NOT NULL,
   nome_evento VARCHAR(30) NOT NULL,
   recensione FLOAT NOT NULL,
+  descrizione VARCHAR(100),
   PRIMARY KEY (e_mail_recensore,e_mail_recensito,nome_evento),
   
     FOREIGN KEY (e_mail_recensore)

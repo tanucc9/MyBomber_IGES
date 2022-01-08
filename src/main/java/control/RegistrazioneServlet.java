@@ -118,7 +118,7 @@ public class RegistrazioneServlet extends HttpServlet {
 		    	        
 		       }
 		       RequestDispatcher dispatcher = request
-	                   .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
+	                   .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
 	               dispatcher.forward(request, response);
 		      }
 		} catch (SQLException e) {

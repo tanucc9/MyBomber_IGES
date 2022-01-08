@@ -5,6 +5,7 @@
 	ArrayList<?> daRecensire = (ArrayList<?>) request.getAttribute("giocatoriDaRecensire");
 	ArrayList<?> recensiti = (ArrayList<?>) request.getAttribute("giocatoriRecensiti");
 	GiocatoreBean giotest=(GiocatoreBean)request.getSession().getAttribute("giocatore");
+	String nomeEvento=(String)request.getAttribute("nomeEvento");
     if(giotest==null)
     {
     	response.sendRedirect("./Login.jsp");
@@ -30,7 +31,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-	<link href="../mybomber/style/global.css" rel="stylesheet" type="text/css">
+	<link href="../style/global.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -41,20 +42,26 @@
 <%
             if(daRecensire!=null)
             {
-			Iterator<?> it = daRecensire.iterator();
-			while (it.hasNext()) {
-				String giocatore = (String) it.next();
+            int i =0;
+            %>
+            
+            <div class="accordion" id="accordionExample">
+            
+            <%
+			
+			while (i<daRecensire.size()) {
+				String giocatore = (String)daRecensire.get(i);
+				i++;
 	%>
-<div class="accordion" id="accordionExample">
   <div class="accordion-item">
-    <h2 class="accordion-header" id=<%=giocatore %>>
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <h2 class="accordion-header" id="heading_<%=i %>">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_<%=i %>" aria-expanded="false" aria-controls="collapse_<%=i %>">
         <%=giocatore %><span class="badge badge-light">Da recensire</span>
       </button>
     </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+    <div id="collapse_<%=i %>" class="accordion-collapse collapse" aria-labelledby="heading_<%=i %>" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      <form id="dairecensione" action="recensione?action=addR&nomeG="<%=giocatore %> onSubmit="event.preventDefault(); validate(this);">
+      <form id="dairecensione" action="recensione?action=addR&nomeG=<%=giocatore %>&nomeEvento=<%=nomeEvento %>" onSubmit="event.preventDefault(); validate(this);">
   
       <div class="mb-3">
       <label for="valutazione" class="form-label">Valutazione</label>
@@ -76,27 +83,38 @@
   </div>
 	
 	<%
-		}}
+		}%>
+		</div>
+		
+		<%
+			
+            }
 	%>
 	
 	
 	<%
 	        if(recensiti!=null)
 	        {
+	        int i =0;
+	%>
+	        <div class="accordion" id="accordionExample">
+	        
+	<%
 			Iterator<?> it2 = recensiti.iterator();
 			while (it2.hasNext()) {
+				i++;
 				String giocatore = (String) it2.next();
 	%>
-<div class="accordion" id="accordionExample">
+    
   <div class="accordion-item">
-    <h2 class="accordion-header" id=<%=giocatore %>>
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <%=giocatore %><span class="badge badge-light">Già recensito</span>
+    <h2 class="accordion-header" id="heading_<%=i %>">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_<%=i %>" aria-expanded="false" aria-controls="collapse_<%=i %>">
+        <%=giocatore %><span class="badge badge-light">Da recensire</span>
       </button>
     </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+    <div id="collapse_<%=i %>" class="accordion-collapse collapse" aria-labelledby="heading_<%=i %>" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-      <form id="dairecensione" method="post" action="recensione?action=DeleteR&nomeG="<%=giocatore %> onSubmit="event.preventDefault(); validate(this);">
+      <form id="dairecensione" method="post" action="recensione?action=DeleteR&nomeG=<%=giocatore %>&nomeEvento=<%=nomeEvento %>" onSubmit="event.preventDefault(); validate(this);">
   
       <div class="mb-3">
       <label for="valutazione" class="form-label">Valutazione</label>
@@ -110,10 +128,13 @@
       <p id="errDescrizione"></p>
       </div>
       
- <button type="submit" class="btn btn-primary">Elimina recensione</button>
+  
+ <button type="submit" class="btn btn-primary">Cancella recensione</button>
 </form>  
       </div>
     </div>
+  </div>
+    
   </div>
 	
 	<%

@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -124,8 +125,40 @@ public class RecensioneDAO {
 				}
 				return recensioni;
 			}
-			
-			
+
+			public synchronized Float doRetrieveMedia(String giocatore) throws SQLException {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+
+				String selectSQL = "SELECT AVG(valutazione) AS media FROM " + TABLE_NAME + "WHERE e_mail_recensito = ?";
+				
+				
+
+				try {
+					connection = DriverManagerConnectionPool.getConnection();
+					preparedStatement = connection.prepareStatement(selectSQL);
+                    preparedStatement.setString(1, giocatore);
+					ResultSet rs = preparedStatement.executeQuery();
+					float media=0;
+					while (rs.next()) {
+						
+						media=rs.getFloat("media");
+			            return media;
+					}
+                    
+				} finally {
+					try {
+						if (preparedStatement != null)
+							preparedStatement.close();
+					} finally {
+						if (connection != null)
+							connection.close();
+					}
+				}
+				return null;
+			}			
+
+
 			public synchronized ArrayList<String> doRetrieveDaRecensire(String recensore, String evento) throws SQLException {
 				Connection connection = null;
 				PreparedStatement preparedStatement = null;
@@ -141,18 +174,19 @@ public class RecensioneDAO {
 					connection = DriverManagerConnectionPool.getConnection();
 					preparedStatement = connection.prepareStatement(selectSQL);
 
-					ResultSet rs = preparedStatement.executeQuery();
 					preparedStatement.setString(1, evento);
-					preparedStatement.setString(2, recensore);
-					preparedStatement.setString(3, evento);
+					preparedStatement.setString(2, evento);
+					preparedStatement.setString(3, recensore);
 					preparedStatement.setString(4, recensore);
+					ResultSet rs = preparedStatement.executeQuery();
 					while (rs.next()) {
 						String utente = rs.getString("e_mail");
 						daRecensire.add(utente);
 						
 					}
 
-				} finally {
+				}finally {
+				
 					try {
 						if (preparedStatement != null)
 							preparedStatement.close();
@@ -177,10 +211,9 @@ public class RecensioneDAO {
 					connection = DriverManagerConnectionPool.getConnection();
 					preparedStatement = connection.prepareStatement(selectSQL);
 
-					ResultSet rs = preparedStatement.executeQuery();
 					preparedStatement.setString(1, evento);
 					preparedStatement.setString(2, recensore);
-
+					ResultSet rs = preparedStatement.executeQuery();
 					while (rs.next()) {
 						String utente = rs.getString("e_mail");
 						recensiti.add(utente);
