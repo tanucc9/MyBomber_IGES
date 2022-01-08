@@ -91,7 +91,11 @@ import model.dao.RecensioneDAO;
 				GiocatoreBean recensitobean=giocatoredao.doRetrieveByKey(recensito);
 				recensitobean.setValutazione(nuovamedia);
 				
-				giocatoredao.doUpdate(recensitobean);	
+				giocatoredao.doUpdate(recensitobean);
+				request.setAttribute("saveok", "saveok");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./EventiRecenti.jsp"));
+				dispatcher.forward(request, response);
+				return;
 				
 			}
 			else if(rec.equalsIgnoreCase("el")) {
@@ -105,7 +109,11 @@ import model.dao.RecensioneDAO;
 				GiocatoreBean recensitobean=giocatoredao.doRetrieveByKey(recensito);
 				recensitobean.setValutazione(nuovamedia);
 				
-				giocatoredao.doUpdate(recensitobean);	
+				giocatoredao.doUpdate(recensitobean);
+				request.setAttribute("deleteok", "deleteok");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./EventiRecenti.jsp"));
+				dispatcher.forward(request, response);
+				return;
 			   } 
 	}catch (SQLException e) {
 	try (PrintWriter out =response.getWriter())

@@ -93,7 +93,7 @@ public class RegistrazioneServlet extends HttpServlet {
 		           {
 		        	   request.getSession().setAttribute("giocatore",test);
 		        	   RequestDispatcher dispatcher = request
-		                       .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
+		                       .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
 		             dispatcher.forward(request, response);
 		           }
 		      	        

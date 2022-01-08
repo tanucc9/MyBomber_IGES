@@ -46,6 +46,7 @@
 <%@ include file="./fragments/header.jsp" %>
 
 <div class="container">
+     
 	<h3 class="text-center">Eventi recenti</h3>
 	<div class="row">
 	<%

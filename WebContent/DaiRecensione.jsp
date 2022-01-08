@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="java.util.*,model.bean.*" %>
 	
 	<%
+	
 	ArrayList<?> daRecensire = (ArrayList<?>) request.getAttribute("giocatoriDaRecensire");
 	ArrayList<?> recensiti = (ArrayList<?>) request.getAttribute("giocatoriRecensiti");
 	GiocatoreBean giotest=(GiocatoreBean)request.getSession().getAttribute("giocatore");
@@ -10,6 +11,7 @@
     {
     	response.sendRedirect("./Login.jsp");
     }
+    
     
 %>
 	
@@ -135,7 +137,7 @@
       </div>
       
   
- <button type="submit" class="btn btn-primary">Cancella recensione</button>
+ <button type="submit" class="btn btn-outline-danger">Cancella recensione</button>
 </form>  
       </div>
     </div>

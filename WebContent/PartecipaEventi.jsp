@@ -62,7 +62,7 @@
 		<div class="col-lg-4 cusom_event_class mt-5">
 			<div class="card">
   				<div class="card-body">
-    			<h3 class="card-title"><%=e.getNome()%> <span class="badge badge-danger"><%=e.getStato()%></span></h3> 
+    			<h3 class="card-title"><%=e.getNome()%> <span class="badge badge-warning"><%=e.getStato()%></span></h3> 
     			<p class="card-text">descrizione: <%=e.getDescrizione()%></p>
     			<p class="card-text">data: <%=e.getData()%> <%=e.getOra()%></p>
     			<p class="card-text">struttura: <%=e.getStruttura()%></p>
