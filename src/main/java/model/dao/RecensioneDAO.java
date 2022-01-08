@@ -126,10 +126,10 @@ public class RecensioneDAO {
 				return recensioni;
 			}
 
-			public synchronized Float doRetrieveMedia(String giocatore) throws SQLException {
+			public synchronized float doRetrieveMedia(String giocatore) throws SQLException {
 				Connection connection = null;
 				PreparedStatement preparedStatement = null;
-				float media=new Float(0);
+				float media=0;
 
 				String selectSQL = "SELECT AVG(recensione) AS media FROM " + TABLE_NAME + " WHERE e_mail_recensito = ?";
 				
@@ -197,13 +197,13 @@ public class RecensioneDAO {
 			}
 			
 			
-			public synchronized ArrayList<String> doRetrieveRecensiti(String recensore, String evento) throws SQLException {
+			public synchronized ArrayList<RecensioneBean> doRetrieveRecensiti(String recensore, String evento) throws SQLException {
 				Connection connection = null;
 				PreparedStatement preparedStatement = null;
 
-				ArrayList<String> recensiti = new ArrayList<String>();
+				ArrayList<RecensioneBean> recensiti = new ArrayList<RecensioneBean>();
 
-				String selectSQL = "SELECT e_mail_recensito FROM " +TABLE_NAME + " WHERE nome_evento = ? AND e_mail_recensore = ?";
+				String selectSQL = "SELECT * FROM " +TABLE_NAME + " WHERE nome_evento = ? AND e_mail_recensore = ?";
 		
 				try {
 					connection = DriverManagerConnectionPool.getConnection();
@@ -213,10 +213,17 @@ public class RecensioneDAO {
 					preparedStatement.setString(2, recensore);
 					ResultSet rs = preparedStatement.executeQuery();
 					while (rs.next()) {
-						String utente = rs.getString("e_mail");
-						recensiti.add(utente);
+						RecensioneBean bean=new RecensioneBean();
+						bean.setRecensore(rs.getString("e_mail_recensore"));
+						bean.setRecensito(rs.getString("e_mail_recensito"));
+						bean.setEvento(rs.getString("nome_evento"));
+						bean.setRecensione(rs.getFloat("recensione"));
+						bean.setDescrizione(rs.getString("descrizione"));
+						recensiti.add(bean);
+						
 						
 					}
+					
 
 				} finally {
 					try {

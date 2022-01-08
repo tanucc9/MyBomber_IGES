@@ -215,6 +215,7 @@ public class GiocatoreDAO {
 				preparedStatement.setString(11, e.getCapResidenza());
 				preparedStatement.setFloat(12, e.getValutazione());
 				preparedStatement.setString(13, e.getEmail());
+				preparedStatement.executeUpdate();
 			   connection.commit();
 			} 
 			finally {

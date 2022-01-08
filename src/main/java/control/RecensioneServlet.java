@@ -34,7 +34,7 @@ import model.dao.RecensioneDAO;
 			    {
 				if(action.equalsIgnoreCase("cercagiocatori")){ 
 					ArrayList<String> daRecensire;
-					ArrayList<String> recensiti;//gi� sono stati recensiti
+					ArrayList<RecensioneBean> recensiti;//gi� sono stati recensiti
 					daRecensire = recensioneDao.doRetrieveDaRecensire(giocatore.getEmail(), nomeE);
 					recensiti = recensioneDao.doRetrieveRecensiti(giocatore.getEmail(), nomeE);
 					request.setAttribute("giocatoriDaRecensire", daRecensire);
@@ -47,6 +47,7 @@ import model.dao.RecensioneDAO;
 				try (PrintWriter out =response.getWriter())
 				{
 					out.println(e.getMessage());
+					out.println(e.getStackTrace());
 				}
 				e.getStackTrace();
 			}
@@ -82,24 +83,35 @@ import model.dao.RecensioneDAO;
 				recensione.setRecensito(recensito);
 				recensione.setRecensore(giocatore.getEmail());
 				recensioneDao.doSave(recensione);
+				
 				GiocatoreDAO giocatoredao=new GiocatoreDAO();
-				Float nuovamedia=new Float(recensioneDao.doRetrieveMedia(recensito));
-				if(nuovamedia!=null)
-				{
+				float nuovamedia=recensioneDao.doRetrieveMedia(recensito);
+			
+				
 				GiocatoreBean recensitobean=giocatoredao.doRetrieveByKey(recensito);
 				recensitobean.setValutazione(nuovamedia);
+				
 				giocatoredao.doUpdate(recensitobean);	
-				}
+				
 			}
 			else if(rec.equalsIgnoreCase("el")) {
 				String recensito = (String)request.getParameter("nomeG");			
 				String nomeEvento = (String)request.getParameter("nomeEvento");
 				recensioneDao.doDelete(giocatore.getEmail(), recensito, nomeEvento);
+				GiocatoreDAO giocatoredao=new GiocatoreDAO();
+				float nuovamedia=recensioneDao.doRetrieveMedia(recensito);
+			
+				
+				GiocatoreBean recensitobean=giocatoredao.doRetrieveByKey(recensito);
+				recensitobean.setValutazione(nuovamedia);
+				
+				giocatoredao.doUpdate(recensitobean);	
 			   } 
 	}catch (SQLException e) {
 	try (PrintWriter out =response.getWriter())
 	     {
 					out.println(e.getMessage());
+					out.println(e.getStackTrace());
 	     }
 				e.getStackTrace();
 			}
