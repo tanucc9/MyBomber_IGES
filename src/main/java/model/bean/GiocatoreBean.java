@@ -108,7 +108,7 @@ private static final long serialVersionUID = 1L;
 	public String toString() {
 		return "username " + username + " email " + email + " nome " + nome + 
 				" cognome " + cognome + " password " + password + " nazioneResidenza " + nazioneResidenza + 
-				" cittaResidenza " + cittaResidenza + " provinciaReidenza " + provinciaResidenza + " capResidenza " + capResidenza + 
+				" cittaResidenza " + cittaResidenza + " provinciaResidenza " + provinciaResidenza + " capResidenza " + capResidenza + 
 				" dataNascita " + dataNascita +" valutazione " + valutazione;
 	}
 }

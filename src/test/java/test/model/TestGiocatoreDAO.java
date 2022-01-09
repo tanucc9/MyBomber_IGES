@@ -21,7 +21,7 @@ public class TestGiocatoreDAO extends TestCase{
 	public void setUp() throws Exception {
 		super.setUp();
 		bean =new GiocatoreBean();
-		bean.setUsername("simone");
+		bean.setUsername("simone45");
 		bean.setEmail("simone@simone.it");
 		bean.setNome("Simone");
 		bean.setCognome("Graziano");
@@ -44,18 +44,18 @@ public class TestGiocatoreDAO extends TestCase{
 	
 	@Test
 	public void testDoRetrieveByKey() {
-		assertEquals(bean, tester.doRetrieveByKey(bean.getEmail()));
+		assertEquals(bean.toString(), tester.doRetrieveByKey(bean.getEmail()).toString());
 	}
 	
 	@Test
 	public void testDoRetrieveByUsername() {
-		assertEquals(bean, tester.doRetrieveByUsername(bean.getUsername()));
+		assertEquals(bean.toString(), tester.doRetrieveByUsername(bean.getUsername()).toString());
 	}
 	
 	@Test
 	public void testDoSave() {
 		GiocatoreBean inserito = tester.doRetrieveByKey(bean.getEmail());
-		assertEquals(bean, inserito);
+		assertEquals(bean.toString(), inserito.toString());
 	}
 
 
@@ -70,7 +70,7 @@ public class TestGiocatoreDAO extends TestCase{
 		bean.setNome("Pasquale");
 		tester.doUpdate(bean);
 		GiocatoreBean mod = tester.doRetrieveByKey(bean.getEmail());
-		assertEquals(bean, mod);
+		assertEquals(bean.toString(), mod.toString());
 	}
 
 	/*@Test
