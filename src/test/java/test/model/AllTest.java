@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestGiocatoreDAO.class, TestGestoreDAO.class, TestStrutturaDAO.class
+@SuiteClasses({ TestGiocatoreDAO.class, TestGestoreDAO.class, TestStrutturaDAO.class, 
+	TestPartecipazioneDAO.class
 })
 
 public class AllTest {

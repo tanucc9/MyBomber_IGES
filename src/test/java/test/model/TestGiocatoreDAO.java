@@ -77,37 +77,36 @@ public class TestGiocatoreDAO extends TestCase{
 	public void testDoRetrieveAll() throws SQLException {
 		ArrayList<GiocatoreBean>list=new ArrayList<GiocatoreBean>();
 		GiocatoreBean g2=new GiocatoreBean();
-		bean.setUsername("pino");
-		bean.setEmail("pino1@pino.it");
-		bean.setNome("Pino");
-		bean.setCognome("Inglese");
-		bean.setPassword("pino");
-		bean.setTelefono("3665423187");
-		bean.setDataNascita(Date.valueOf("2000-09-09"));
-		bean.setNazioneResidenza("Italia");
-		bean.setProvinciaResidenza("Napoli");
-		bean.setCittaResidenza("Napoli");
-		bean.setCapResidenza("80000");
-		bean.setValutazione(0);
+		g2.setUsername("pino");
+		g2.setEmail("pino1@pino.it");
+		g2.setNome("Pino");
+		g2.setCognome("Inglese");
+		g2.setPassword("pino");
+		g2.setTelefono("3665423187");
+		g2.setDataNascita(Date.valueOf("2000-09-09"));
+		g2.setNazioneResidenza("Italia");
+		g2.setProvinciaResidenza("Napoli");
+		g2.setCittaResidenza("Napoli");
+		g2.setCapResidenza("80000");
+		g2.setValutazione(0);
 		list.add(g2);
 		list.add(bean);
 		
 		g2=new GiocatoreBean();
-		bean.setUsername("mario");
-		bean.setEmail("mario@mario.it.it");
-		bean.setNome("mario");
-		bean.setCognome("calabrese");
-		bean.setPassword("mario");
-		bean.setTelefono("3452167543");
-		bean.setDataNascita(Date.valueOf("2000-03-03"));
-		bean.setNazioneResidenza("Italia");
-		bean.setProvinciaResidenza("Avellino");
-		bean.setCittaResidenza("Avellino");
-		bean.setCapResidenza("80076");
-		bean.setValutazione(0);
-		list.add(g2);
+		g2.setUsername("mario");
+		g2.setEmail("mario@mario.it.it");
+		g2.setNome("mario");
+		g2.setCognome("calabrese");
+		g2.setPassword("mario");
+		g2.setTelefono("3452167543");
+		g2.setDataNascita(Date.valueOf("2000-03-03"));
+		g2.setNazioneResidenza("Italia");
+		g2.setProvinciaResidenza("Avellino");
+		g2.setCittaResidenza("Avellino");
+		g2.setCapResidenza("80076");
+		g2.setValutazione(0);
+		g2.add(g2);
 		
-		System.out.println(tester.doRetrieveByKey(bean.getEmail()).getEmail());
 		assertEquals(list, tester.doRetrieveAll());
 	}*/
 
