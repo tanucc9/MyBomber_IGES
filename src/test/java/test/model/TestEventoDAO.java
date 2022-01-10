@@ -127,12 +127,23 @@ public class TestEventoDAO extends TestCase{
 		assertEquals(list, list2);
 		
 	}
-	/*
+	
 	@Test
 	public void testDoRetrieveEventiRecenti() throws SQLException {
 		// nel database simone deve aver partecipato all'evento2
 		ArrayList<String> list = new ArrayList<String>();
-		
+		EventoBean g3=new EventoBean();
+		g3.setNome("evento3");
+		g3.setDescrizione("sdfghgfds");
+		g3.setStruttura("playk");
+		g3.setData(Date.valueOf("2022-01-15"));
+		g3.setOra(1);
+		g3.setGestore("gino@gino.it");
+		g3.setOrganizzatore("simone@simone.it");
+		g3.setStato("attivo");
+		g3.setValutazione(0);
+		g3.setNumPartecipanti(3);
+		list.add(g3.toString());
 		EventoBean gi=new EventoBean();
 		
 		gi.setNome("evento2");
@@ -156,7 +167,7 @@ public class TestEventoDAO extends TestCase{
 		assertEquals(list, list2);
 		
 	}
-	*/
+	
 	
 	@Test
 	public void testDoRetrieveEventiAttivi() throws SQLException {
@@ -317,7 +328,7 @@ public class TestEventoDAO extends TestCase{
 		assertEquals(list, list2);
 		
 	}
-	/*
+	
 	@Test
 	public void testDoRetrieveEventiRecentiGiocatore() throws SQLException {
 	//simone deve aver partecipato solo a gli eventi già accettati evento3 e evento2	
@@ -352,13 +363,13 @@ public class TestEventoDAO extends TestCase{
 		
 		list.add(g4.toString());
 		ArrayList<String> list2 = new ArrayList<String>();	
-		ArrayList<EventoBean> eventi = tester.doRetrieveEventi(g4.getOrganizzatore());
+		ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(g4.getOrganizzatore());
 		for(EventoBean p: eventi)
 			list2.add(p.toString());
 		
 		assertEquals(list, list2);
 		
 	}
-   */
+   
 }  
-//do retrive conologia prima controllava lo stato concluso 
+
