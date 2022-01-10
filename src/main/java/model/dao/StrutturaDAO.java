@@ -198,7 +198,7 @@ public class StrutturaDAO {
 
 		ArrayList<String> strutture = new ArrayList<String>();
 
-		String selectSQL = "SELECT nome " + TABLE_NAME;
+		String selectSQL = "SELECT nome FROM " + TABLE_NAME;
 		
 		
 

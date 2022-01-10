@@ -118,5 +118,19 @@ public class TestStrutturaDAO extends TestCase{
 		
 		assertEquals(list, list2);
 	}
+	@Test
+	public void testDoRetrieveAllNomi() throws SQLException {
+		
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("playb");
+		list.add("playh");
+		list.add("playk");
+		list.add("playo");
+		
+		
+		ArrayList<String> list2 = new ArrayList<String>();		
+		list2= tester.doRetrieveAllNomi();
+		assertEquals(list, list2);
+	}
 
 }

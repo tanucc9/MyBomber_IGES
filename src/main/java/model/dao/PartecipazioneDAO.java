@@ -119,7 +119,7 @@ public class PartecipazioneDAO {
 			}
 			
 			
-			public synchronized void doUpdate(PartecipazioneBean e) throws SQLException {
+		/*	public synchronized void doUpdate(PartecipazioneBean e) throws SQLException {
 
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
@@ -149,7 +149,7 @@ public class PartecipazioneDAO {
 					}
 				} 
 			}
-			
+		*/	
 			
 			public synchronized boolean doDelete(String email,String evento) throws SQLException {
 				Connection connection = null;
