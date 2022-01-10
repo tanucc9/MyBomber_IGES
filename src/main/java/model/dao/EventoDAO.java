@@ -353,7 +353,7 @@ public class EventoDAO {
 
 				ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 
-				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE e_mail_utente = ? AND stato = 'concluso'";
+				String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE e_mail_utente = ? AND stato = 'completato'";
 				
 				
 

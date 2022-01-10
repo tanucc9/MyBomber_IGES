@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import model.bean.EventoBean;
 import model.bean.GestoreBean;
 import model.bean.GiocatoreBean;
 import model.dao.GestoreDAO;
@@ -23,12 +24,13 @@ public class TestGestoreDAO extends TestCase{
 	public void setUp() throws Exception {
 		super.setUp();
 		bean =new GestoreBean();
-		bean.setEmail("gino@gino.it");
-		bean.setNome("gino");
-		bean.setCognome("pozzo");
-		bean.setPassword("gino");
+		bean.setEmail("zgaetano@olio.it");
+		bean.setNome("gaetano");
+		bean.setCognome("rossi");
+		bean.setPassword("gaetano");
 		bean.setTelefono("3923415443");
-		bean.setStruttura("playk");
+		bean.setStruttura("playo");
+		
 		tester.doSave(bean);
 	}
 	
@@ -45,7 +47,14 @@ public class TestGestoreDAO extends TestCase{
 	
 	@Test
 	public void testDoRetrieveByStruttura() {
-		assertEquals(bean.toString(), tester.doRetrieveByStruttura(bean.getStruttura()).toString());
+		GestoreBean gi=new GestoreBean();
+		gi.setEmail("gino@gino.it");
+		gi.setNome("gino");
+		gi.setCognome("pozzo");
+		gi.setPassword("gino");
+		gi.setTelefono("3923415443");
+		gi.setStruttura("playk");
+		assertEquals(gi.toString(), tester.doRetrieveByStruttura(gi.getStruttura()).toString());
 	}
 	
 	@Test
@@ -54,13 +63,12 @@ public class TestGestoreDAO extends TestCase{
 		assertEquals(bean.toString(), inserito.toString());
 	}
 
-
 	@Test
 	public void testDoDelete() throws SQLException {
 		tester.doDelete(bean.getEmail());
 		assertEquals(null, tester.doRetrieveByKey(bean.getEmail()));
 	}
-
+	
 	@Test
 	public void testDoUpdate() throws SQLException {
 		bean.setNome("Pasquale");
@@ -69,22 +77,20 @@ public class TestGestoreDAO extends TestCase{
 		assertEquals(bean.toString(), mod.toString());
 	}
 
-	/*@Test
+	@Test
 	public void testDoRetrieveAll() throws SQLException {
-		ArrayList<GestoreBean>list=new ArrayList<GestoreBean>();
+		
+		ArrayList<String> list = new ArrayList<String>();
 		GestoreBean g2=new GestoreBean();
 		GestoreBean g3=new GestoreBean();
-		g2.setEmail("olio@olio.it");
-		g2.setNome("olio");
-		g2.setCognome("rossi");
-		g2.setPassword("olio");
+		GestoreBean g4=new GestoreBean();
+		g2.setEmail("gino@gino.it");
+		g2.setNome("gino");
+		g2.setCognome("pozzo");
+		g2.setPassword("gino");
 		g2.setTelefono("3923415443");
-		g2.setStruttura("playo");
+		g2.setStruttura("playk");
 		
-		list.add(g2);
-		list.add(bean);
-		
-		g3=new GestoreBean();
 		g3.setEmail("bario@bario.it");
 		g3.setNome("piero");
 		g3.setCognome("rossi");
@@ -92,10 +98,27 @@ public class TestGestoreDAO extends TestCase{
 		g3.setTelefono("3223415443");
 		g3.setStruttura("playb");
 		
-		list.add(g3);
+		list.add(g3.toString());
+		list.add(g2.toString());
 		
-		System.out.println(tester.doRetrieveByKey(bean.getEmail()).getEmail());
-		assertEquals(list, tester.doRetrieveAll());
-	}*/
+		g4.setEmail("olio@olio.it");
+		g4.setNome("olio");
+		g4.setCognome("rossi");
+		g4.setPassword("olio");
+		g4.setTelefono("3923415443");
+		g4.setStruttura("playo");
+		
+		list.add(g4.toString());
+		
+		list.add(bean.toString());
+		
+		ArrayList<String> list2 = new ArrayList<String>();		
+		ArrayList<GestoreBean> gestori = tester.doRetrieveAll();
+		for(GestoreBean p: gestori)
+			list2.add(p.toString());
+		
+		assertEquals(list, list2);
+		
+	}
 
 }

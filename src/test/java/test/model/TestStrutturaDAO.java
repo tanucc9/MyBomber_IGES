@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import model.bean.EventoBean;
 import model.bean.GestoreBean;
 import model.bean.GiocatoreBean;
 import model.bean.StrutturaBean;
@@ -25,13 +26,13 @@ public class TestStrutturaDAO extends TestCase{
 	public void setUp() throws Exception {
 		super.setUp();
 		bean =new StrutturaBean();
-		bean.setNome("playo");
-		bean.setIndirizzo("via giacomo 21");
+		bean.setNome("playh");
+		bean.setIndirizzo("via giorgio 21");
 		bean.setNazione("italia");
 		bean.setCitta("napoli");
 		bean.setCap("80098");
 		bean.setProvincia("napoli");
-		bean.setTelefono("3122122112");
+		bean.setTelefono("3122122148");
 		tester.doSave(bean);
 	}
 	
@@ -66,36 +67,56 @@ public class TestStrutturaDAO extends TestCase{
 		tester.doUpdate(bean);
 		StrutturaBean mod = tester.doRetrieveByKey(bean.getNome());
 		assertEquals(bean.toString(), mod.toString());
+		bean.setTelefono("3122122112");
+		tester.doUpdate(bean);
 	}
 
-	/*@Test
+	@Test
 	public void testDoRetrieveAll() throws SQLException {
-		ArrayList<StrutturaBean>list=new ArrayList<StrutturaBean>();
+		
+		ArrayList<String> list = new ArrayList<String>();
 		StrutturaBean g2=new StrutturaBean();
 		StrutturaBean g3=new StrutturaBean();
-		bean.setNome("playb");
-		bean.setIndirizzo("via piero 21");
-		bean.setNazione("italia");
-		bean.setCitta("napoli");
-		bean.setCap("80098");
-		bean.setProvincia("napoli");
-		bean.setTelefono("1233211221");
+		StrutturaBean g4=new StrutturaBean();
+		g2.setNome("playb");
+		g2.setIndirizzo("via piero 21");
+		g2.setNazione("italia");
+		g2.setCitta("napoli");
+		g2.setCap("80098");
+		g2.setProvincia("napoli");
+		g2.setTelefono("1233211221");
+	
+		list.add(g2.toString());
+		list.add(bean.toString());
 		
-		list.add(g2);
-		list.add(bean);
+		g3.setNome("playk");
+		g3.setIndirizzo("via andrea 21");
+		g3.setNazione("italia");
+		g3.setCitta("napoli");
+		g3.setCap("80098");
+		g3.setProvincia("napoli");
+		g3.setTelefono("3122122143");
 		
-		bean.setNome("playk");
-		bean.setIndirizzo("via andrea 21");
-		bean.setNazione("italia");
-		bean.setCitta("napoli");
-		bean.setCap("80098");
-		bean.setProvincia("napoli");
-		bean.setTelefono("3122122143");
 		
-		list.add(g3);
+		list.add(g3.toString());
 		
-		System.out.println(tester.doRetrieveByKey(bean.getEmail()).getEmail());
-		assertEquals(list, tester.doRetrieveAll());
-	}*/
+		g4.setNome("playo");
+		g4.setIndirizzo("via giacomo 21");
+		g4.setNazione("italia");
+		g4.setCitta("napoli");
+		g4.setCap("80098");
+		g4.setProvincia("napoli");
+		g4.setTelefono("3122122112");
+		
+		list.add(g4.toString());
+		
+		
+		ArrayList<String> list2 = new ArrayList<String>();		
+		ArrayList<StrutturaBean> strutture = tester.doRetrieveAll();
+		for(StrutturaBean p: strutture)
+			list2.add(p.toString());
+		
+		assertEquals(list, list2);
+	}
 
 }
