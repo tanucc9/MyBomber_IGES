@@ -68,6 +68,7 @@ public class RecensioneDAO {
 					bean.setRecensito(rs.getString("e_mail_recensito"));
 					bean.setEvento(rs.getString("nome_evento"));
 					bean.setRecensione(rs.getFloat("recensione"));
+					bean.setDescrizione(rs.getString("descrizione"));
 					
 					return bean;
 				}
@@ -110,6 +111,7 @@ public class RecensioneDAO {
 						bean.setRecensito(rs.getString("e_mail_recensito"));
 						bean.setEvento(rs.getString("nome_evento"));
 						bean.setRecensione(rs.getFloat("recensione"));
+						bean.setDescrizione(rs.getString("descrizione"));
 						recensioni.add(bean);
 						
 					}

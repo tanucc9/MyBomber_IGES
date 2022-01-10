@@ -1,6 +1,7 @@
 package test.model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -51,20 +52,27 @@ public class TestPartecipazioneDAO extends TestCase{
 	}
 	
 
-	/*@Test
+	@Test
 	public void testDoRetrieveAll() throws SQLException {
 		ArrayList<String> list = new ArrayList<String>();
 		PartecipazioneBean p2 = new PartecipazioneBean();
-		PartecipazioneBean p3 = new PartecipazioneBean();
-		p2.setEvento("simoneEvento");
-		p2.setUtente("simone@simone.it");
 		
+		p2.setEvento("Evento 333");
+		p2.setUtente("pino@pino.it");
+		list.add(p2.toString());
+		
+		p2.setEvento("Evento 333");
+		p2.setUtente("simone@simone.it");
 		list.add(p2.toString());
 		list.add(bean.toString());
 		
-		p3.setEvento("simoneEvento");
-		p3.setUtente("pasquale@pasquale.it");
-		list.add(g3.toString());
+		p2.setEvento("evento3");
+		p2.setUtente("pino@pino.it");
+		list.add(p2.toString());
+		
+		p2.setEvento("evento3");
+		p2.setUtente("simone@simone.it");
+		list.add(p2.toString());
 		
 		ArrayList<String> list2 = new ArrayList<String>();		
 		ArrayList<PartecipazioneBean> partecipazioni = tester.doRetrieveAll();
@@ -72,41 +80,48 @@ public class TestPartecipazioneDAO extends TestCase{
 			list2.add(p.toString());
 		
 		assertEquals(list, list2);
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void testDoRetrieveByEvento() throws SQLException {
-		ArrayList<PartecipazioneBean>list=new ArrayList<PartecipazioneBean>();
+		ArrayList<String> list = new ArrayList<String>();
 		PartecipazioneBean p2 = new PartecipazioneBean();
 		PartecipazioneBean p3 = new PartecipazioneBean();
-		p2.setEvento("simoneEvento");
-		p2.setUtente("simone@simone.it");
-		
-		list.add(p2);
+		p2.setEvento("Evento 333");
+		p2.setUtente("pino@pino.it");
+		list.add(p2.toString());
 			
-		p3.setEvento("simoneEvento");
-		p3.setUtente("pasquale@pasquale.it");
-		list.add(g3);
+		p3.setEvento("Evento 333");
+		p3.setUtente("simone@simone.it");
+		list.add(p3.toString());
 		
-		assertEquals(list, tester.doRetrieveByEvento("simoneEvento"));
-	}*/
+		ArrayList<String> list2 = new ArrayList<String>();		
+		ArrayList<PartecipazioneBean> partecipazioni = tester.doRetrieveByEvento(p2.getEvento());
+		for(PartecipazioneBean p: partecipazioni)
+			list2.add(p.toString());
+
+
+		assertEquals(list, list2);
+	}
 	
-	/*@Test
+	@Test
 	public void testDoGetPartecipanti() throws SQLException {
-		ArrayList<PartecipazioneBean>list=new ArrayList<PartecipazioneBean>();
+		ArrayList<String> list = new ArrayList<String>();
 		PartecipazioneBean p2 = new PartecipazioneBean();
 		PartecipazioneBean p3 = new PartecipazioneBean();
-		p2.setEvento("simoneEvento");
-		p2.setUtente("simone@simone.it");
+		p2.setEvento("Evento 333");
+		p2.setUtente("pino@pino.it");
 		
-		list.add(p2);
+		list.add(p2.getUtente());
 			
-		p3.setEvento("simoneEvento");
-		p3.setUtente("pasquale@pasquale.it");
-		list.add(g3);
+		p3.setEvento("Evento 333");
+		p3.setUtente("simone@simone.it");
+		list.add(p3.getUtente());
 		
-		assertEquals(list, tester.doRetrieveByEvento("simoneEvento"));
-	}*/
+		ArrayList<String> list2 = new ArrayList<String>();		
+		list2 = tester.doGetPartecipanti(p2.getEvento());
+
+		assertEquals(list, list2);
+	}
 
 }
-

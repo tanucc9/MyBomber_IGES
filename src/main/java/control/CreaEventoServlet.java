@@ -50,13 +50,13 @@ import model.dao.StrutturaDAO;
 			try {
 				gestore = gestoreDAO.doRetrieveByStruttura(struttura);
 				evento.setGestore(gestore.getEmail());
-				//Se l'utente che sta utilizzando l'applicazione è un giocatore
+				//Se l'utente che sta utilizzando l'applicazione =  giocatore
 				if(request.getSession().getAttribute("giocatore") != null) {
 					GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
 					evento.setOrganizzatore(giocatore.getEmail());
 				}
 				
-				//Se l'utente che sta utilizzando l'applicazione è un gestore
+				//Se l'utente che sta utilizzando l'applicazione = gestore
 				else {
 					evento.setOrganizzatore(gestore.getEmail());
 				}

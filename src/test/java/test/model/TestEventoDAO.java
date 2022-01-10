@@ -144,23 +144,9 @@ public class TestEventoDAO extends TestCase{
 		g3.setValutazione(0);
 		g3.setNumPartecipanti(3);
 		list.add(g3.toString());
-		EventoBean gi=new EventoBean();
-		
-		gi.setNome("evento2");
-		gi.setDescrizione("grande evento");
-		gi.setStruttura("playk");
-		gi.setData(Date.valueOf("2022-01-03"));
-		gi.setOra(2);
-		gi.setGestore("gino@gino.it");
-		gi.setOrganizzatore("simone@simone.it");
-		gi.setStato("completato");
-		gi.setValutazione(0);
-		gi.setNumPartecipanti(10);
-		
-		list.add(gi.toString());
 		
 		ArrayList<String> list2 = new ArrayList<String>();		
-		ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(gi.getOrganizzatore());
+		ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(g3.getOrganizzatore());
 		for(EventoBean p: eventi)
 			list2.add(p.toString());
 		
@@ -350,20 +336,9 @@ public class TestEventoDAO extends TestCase{
 		
 		list.add(g3.toString());
 		
-		g4.setNome("evento2");
-		g4.setDescrizione("grande evento");
-		g4.setStruttura("playk");
-		g4.setData(Date.valueOf("2022-01-03"));
-		g4.setOra(2);
-		g4.setGestore("gino@gino.it");
-		g4.setOrganizzatore("simone@simone.it");
-		g4.setStato("completato");
-		g4.setValutazione(0);
-		g4.setNumPartecipanti(10);
 		
-		list.add(g4.toString());
 		ArrayList<String> list2 = new ArrayList<String>();	
-		ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(g4.getOrganizzatore());
+		ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(g3.getOrganizzatore());
 		for(EventoBean p: eventi)
 			list2.add(p.toString());
 		

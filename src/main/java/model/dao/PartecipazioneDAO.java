@@ -197,7 +197,7 @@ public class PartecipazioneDAO {
 					ResultSet rs = preparedStatement.executeQuery();
 
 					// 4. Prendi il risultato
-					if(rs.next()) {
+					while(rs.next()) {
 						PartecipazioneBean bean = new PartecipazioneBean();
 						bean.setUtente(rs.getString("e_mail"));
 						bean.setEvento(rs.getString("nome_evento"));
@@ -236,7 +236,7 @@ public class PartecipazioneDAO {
 					ResultSet rs = preparedStatement.executeQuery();
 
 					// 4. Prendi il risultato
-					if(rs.next()) {
+					while(rs.next()) {
 						String giocatore = rs.getString("e_mail");
 						partecipanti.add(giocatore);
 					}
