@@ -1,9 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.time.*;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +13,6 @@ import model.bean.GestoreBean;
 import model.bean.GiocatoreBean;
 import model.dao.GestoreDAO;
 import model.dao.GiocatoreDAO;
-import model.dao.PartecipazioneDAO;
 
 /**
  * Servlet implementation class EsempioServlet
@@ -25,6 +21,9 @@ import model.dao.PartecipazioneDAO;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private GiocatoreDAO giocatoreDao;
+	private GestoreDAO gestoreDao;
+	
     /**
      * Default constructor. 
      */
@@ -53,20 +52,32 @@ public class LoginServlet extends HttpServlet {
 			   
 		       String email = (String) request.getParameter("email");
 		       String password = (String) request.getParameter("password");
-		       
-		       GiocatoreDAO gd=new GiocatoreDAO();
-		       GestoreDAO gesd=new GestoreDAO();
-		       GiocatoreBean giocatore;
-		       GestoreBean gestore;
-		       /*request.setAttribute("errorReg",pippo);
-               
-        	   RequestDispatcher dispatcher1 = request
-                       .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-               dispatcher1.forward(request, response);
-               */
+		       GiocatoreDAO gd;
+			   if(giocatoreDao != null) 
+				   gd = giocatoreDao;
+			   else {
+				   gd = new GiocatoreDAO();
+				   giocatoreDao = gd;
+			   }
+			   GestoreDAO gesd;
+			   if(gestoreDao != null) 
+				   gesd = gestoreDao;
+			   else {
+				   gesd = new GestoreDAO();
+				   gestoreDao = gesd;
+			   }
+			   
+			   GiocatoreBean giocatore = new GiocatoreBean();
+			   GestoreBean gestore = new GestoreBean();
+			   /*request.setAttribute("errorReg",pippo);
+			   
+			   RequestDispatcher dispatcher1 = request
+			           .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
+			   dispatcher1.forward(request, response);
+			   */
 					  giocatore= gd.doRetrieveByKey(email);
-		              gestore = gesd.doRetrieveByKey(email);
-		              if(giocatore!=null) {
+			          gestore = gesd.doRetrieveByKey(email);
+			          if(giocatore!=null) {
 				    	   if(giocatore.getPassword().equals(password))
 				    	   {
 				    		   request.getSession().setAttribute("giocatore",giocatore);
@@ -88,11 +99,10 @@ public class LoginServlet extends HttpServlet {
 					      
 				       }
 				       request.setAttribute("errorLog","errore"); 
-		        	   RequestDispatcher dispatcher = request
-		                       .getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
-		             dispatcher.forward(request, response);
+			    	   RequestDispatcher dispatcher = request
+			                   .getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
+			         dispatcher.forward(request, response);
+		       
 	           
-}}
-
-	
-
+	}
+}
