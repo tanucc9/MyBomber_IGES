@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +22,8 @@ public class LogoutServlet extends HttpServlet {
 		if(request.getSession().getAttribute("gestore") != null) {
 			request.getSession().removeAttribute("gestore");
 		}
-		response.sendRedirect(request.getContextPath() + "/Login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
+		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
