@@ -56,6 +56,7 @@ public class TestCronologiaEventiServlet {
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
 		servlet= new CronologiaEventiServlet();
+		servlet.edao=evDao;
 		when(req.getSession()).thenReturn(session);
 
 	}

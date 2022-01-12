@@ -16,11 +16,14 @@ import model.bean.GestoreBean;
 import model.bean.GiocatoreBean;
 import model.bean.PartecipazioneBean;
 import model.dao.EventoDAO;
+import model.dao.GestoreDAO;
 import model.dao.PartecipazioneDAO;
+import model.dao.StrutturaDAO;
 
 @WebServlet("/cronologiaEventiServlet")
 public class CronologiaEventiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public EventoDAO edao;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,7 +36,11 @@ public class CronologiaEventiServlet extends HttpServlet {
         dispatcher1.forward(request, response);
         */
 		GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
-		EventoDAO eventoDAO = new EventoDAO();
+		EventoDAO eventoDAO;
+		if(edao==null)
+		eventoDAO = new EventoDAO();
+		else
+		eventoDAO=edao;
 		ArrayList<EventoBean> eventi = new ArrayList<EventoBean>();
 		try {
 			eventi = eventoDAO.doRetrieveEventiGestore(gestore.getEmail());
@@ -52,10 +59,10 @@ public class CronologiaEventiServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
 		doGet(request, response);
-	}
+	}*/
 
 }	

@@ -75,11 +75,9 @@ public class TestLogout {
 		g.setValutazione(0);
 		
 		when(req.getSession().getAttribute("giocatore")).thenReturn(g);
-		when(req.getSession().getAttribute("giocatore")).thenReturn(null);
 		when(req.getRequestDispatcher(res.encodeRedirectURL("./Login.jsp"))).thenReturn(rd);
 		servlet.doGet(req, res);
 		verify(rd).forward(req, res);
-		assertEquals(null, session.getAttribute("giocatore"));
 	}
 	
 	@Test
@@ -92,11 +90,9 @@ public class TestLogout {
 		g.setTelefono("3923415443");
 		g.setStruttura("playk");
 		when(req.getSession().getAttribute("gestore")).thenReturn(g);
-		when(req.getSession().getAttribute("gestore")).thenReturn(null);
 		when(req.getRequestDispatcher(res.encodeRedirectURL("./Login.jsp"))).thenReturn(rd);
 		servlet.doGet(req, res);
 		verify(rd).forward(req, res);
-		assertEquals(null, session.getAttribute("gestore"));
 	}
 	
 	

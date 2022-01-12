@@ -59,12 +59,14 @@ public class TestStrutturaServlet {
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
 		servlet= new StrutturaServlet();
+		//servlet.sdao=sDao;
 		when(req.getSession()).thenReturn(session);
 
 	}
 	
 	@Test
 	public void cercaCronologiaGestore() throws ServletException, IOException, SQLException {
+		servlet.sdao=sDao;
 		StrutturaBean bean =new StrutturaBean();
 		bean.setNome("playh");
 		bean.setIndirizzo("via giorgio 21");
@@ -132,6 +134,13 @@ public class TestStrutturaServlet {
 		
 	}
 	
-	
+	@Test
+	public void noTesting() throws ServletException, IOException, SQLException {
+
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./CreaEvento.jsp"))).thenReturn(rd);
+		servlet.doGet(req, res);
+		verify(rd).forward(req, res);
+			
+	}
 	
 }

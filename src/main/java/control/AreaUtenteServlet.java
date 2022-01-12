@@ -21,7 +21,10 @@ import model.dao.PartecipazioneDAO;
 @WebServlet("/areaUtenteServlet")
 public class AreaUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+    public AreaUtenteServlet()
+    {
+    	
+    }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

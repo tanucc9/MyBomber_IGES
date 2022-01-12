@@ -26,7 +26,9 @@ import model.dao.StrutturaDAO;
 @WebServlet("/RegistrazioneServlet")
 public class RegistrazioneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	public GiocatoreDAO gdt;
+	public GestoreDAO gedt;
+	public StrutturaDAO sdt;
     /**
      * Default constructor. 
      */
@@ -67,12 +69,17 @@ public class RegistrazioneServlet extends HttpServlet {
 		       String cap = (String) request.getParameter("cap");
 		       String telefono = (String) request.getParameter("telefono");
 		       String data = (String) request.getParameter("data");
-		       GiocatoreDAO gd=new GiocatoreDAO();
+		       GiocatoreDAO gd;
+		       if(gdt==null)
+		       gd=new GiocatoreDAO();
+		       else
+		       gd=gdt;
 		       GiocatoreBean testEmail= gd.doRetrieveByKey(email);
 		       GiocatoreBean testUsername= gd.doRetrieveByUsername(username);
 		       
 		       if(testEmail==null && testUsername==null)
 		       {
+		    	   
 		    	   GiocatoreBean g =new GiocatoreBean();
 					g.setCapResidenza(cap);
 					g.setCittaResidenza(citta);
@@ -140,8 +147,17 @@ public class RegistrazioneServlet extends HttpServlet {
 			       String indirizzo = (String) request.getParameter("indirizzoG");
 			       String telefonoStruttura = (String) request.getParameter("telefonoStruttura");
 			       String password = (String) request.getParameter("passwordG");
-			       GestoreDAO gd=new GestoreDAO();
-			       StrutturaDAO sd=new StrutturaDAO();
+			       GestoreDAO gd;
+			       StrutturaDAO sd;
+			       if(gedt==null)
+			       gd=new GestoreDAO();
+			       else
+			       gd=gedt;
+			       
+			       if(sdt==null)
+				       sd=new StrutturaDAO();
+				       else
+				       sd=sdt;
 			       GestoreBean testEmail= gd.doRetrieveByKey(email);
 			       StrutturaBean testStruttura= sd.doRetrieveByKey(nomeStruttura);
 			       
