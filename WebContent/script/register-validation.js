@@ -220,10 +220,11 @@ function validateGiocatore(obj) {
 	} else {
 		errTelefono.innerHTML = "" ;
 	}	
-	
+	var oggi = new Date();
 	var data = document.getElementsByName("data")[0].value;
+	var datav = new Date(data);
 	let errData=document.getElementById("errData");
-	if(!checkData(data)) {
+	if( !checkData(data)||datav.getTime()>oggi.getTime() ) {
 		valid = false;
 		errData.innerHTML = "data non valida";
 		errData.style.color = "red";

@@ -17,6 +17,7 @@ import model.dao.StrutturaDAO;
 @WebServlet("/struttura")
 public class StrutturaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public StrutturaDAO sdao;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,8 +25,11 @@ public class StrutturaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<StrutturaBean> strutture = new ArrayList<StrutturaBean>();
-		StrutturaDAO strutturaDao = new StrutturaDAO();
-		
+		StrutturaDAO strutturaDao;
+		if(sdao==null)
+		strutturaDao = new StrutturaDAO();
+		else
+		strutturaDao=sdao;
 		try {
 			strutture = strutturaDao.doRetrieveAll();
 			request.setAttribute("strutture", strutture);
@@ -42,9 +46,9 @@ public class StrutturaServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
+	}*/
 
 }
