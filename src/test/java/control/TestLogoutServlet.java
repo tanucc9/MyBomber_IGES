@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
-public class TestLogout {
+public class TestLogoutServlet {
 
 	@Mock
 	private HttpServletRequest req;

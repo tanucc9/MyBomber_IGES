@@ -84,7 +84,7 @@ import model.dao.StrutturaDAO;
 					strutturaDAO = sD;
 				
 				StrutturaBean testStruttura = new StrutturaBean();
-				testStruttura = strutturaDAO.doRetrieveByKey(nome);
+				testStruttura = strutturaDAO.doRetrieveByKey(struttura);
 			
 				if(testEvento == null && testStruttura != null) {
 					eventoDAO.doSave(evento);
@@ -99,7 +99,7 @@ import model.dao.StrutturaDAO;
 						request.setAttribute("errStruttura", "errore");
 					}
 		
-					RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./CreaEventi.jsp"));
+					RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("struttura"));
 					dispatcher.forward(request, response);
 				}
 				

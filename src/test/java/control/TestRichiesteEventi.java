@@ -23,6 +23,7 @@ import org.mockito.MockitoAnnotations;
 
 import model.bean.EventoBean;
 import model.bean.GestoreBean;
+import model.bean.GiocatoreBean;
 import model.bean.PartecipazioneBean;
 import model.dao.EventoDAO;
 import model.dao.GiocatoreDAO;
@@ -153,6 +154,22 @@ public class TestRichiesteEventi {
 		g.setPassword("gino");
 		g.setTelefono("3923415443");
 		g.setStruttura("playk");
+		GiocatoreBean bg;
+		bg =new GiocatoreBean();
+		bg.setUsername("simone45");
+		bg.setEmail("simon@simon.it");
+		bg.setNome("Simone");
+		bg.setCognome("Graziano");
+		bg.setPassword("simone");
+		bg.setTelefono("3324561273");
+		bg.setDataNascita(Date.valueOf("2000-05-09"));
+		bg.setNazioneResidenza("Italia");
+		bg.setProvinciaResidenza("Napoli");
+		bg.setCittaResidenza("Napoli");
+		bg.setCapResidenza("80000");
+		bg.setValutazione(0);
+		ArrayList<GiocatoreBean> ga=new ArrayList<GiocatoreBean>();
+		ga.add(bg);
 		
 		EventoBean bean =new EventoBean();
 		bean.setNome("evento12");
@@ -171,7 +188,9 @@ public class TestRichiesteEventi {
 		p.setUtente(bean.getOrganizzatore());
 		
 		when((GestoreBean)req.getSession().getAttribute("gestore")).thenReturn(g);
+		when(req.getParameter("nome")).thenReturn(bean.getNome());
 		when(req.getParameter("action")).thenReturn("addE");
+		when(gDao.doRetrieveAll()).thenReturn(ga);
 		when(evDao.doRetrieveByKey(bean.getNome())).thenReturn(bean);
 		when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
 		servlet.doGet(req, res);
