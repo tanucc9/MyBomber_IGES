@@ -57,14 +57,12 @@ public class LoginServlet extends HttpServlet {
 				   gd = giocatoreDao;
 			   else {
 				   gd = new GiocatoreDAO();
-				   giocatoreDao = gd;
 			   }
 			   GestoreDAO gesd;
 			   if(gestoreDao != null) 
 				   gesd = gestoreDao;
 			   else {
 				   gesd = new GestoreDAO();
-				   gestoreDao = gesd;
 			   }
 			   
 			   GiocatoreBean giocatore = new GiocatoreBean();
