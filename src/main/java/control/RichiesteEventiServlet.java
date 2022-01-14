@@ -25,22 +25,40 @@ import model.dao.PartecipazioneDAO;
 	@WebServlet("/richieste")
 	public class RichiesteEventiServlet extends HttpServlet {
 		private static final long serialVersionUID = 1L;
+		public EventoDAO eD;
+		public GiocatoreDAO gD;
+		public PartecipazioneDAO pD;
 
 		/**
 		 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 		 */
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-			EventoDAO eventoDao = new EventoDAO();
-			GiocatoreDAO giocatoreDao = new GiocatoreDAO();
+			EventoDAO eventoDao;
+			GiocatoreDAO giocatoreDao;
+			PartecipazioneDAO partecipazioneDao;
 			ArrayList<GiocatoreBean> giocatori = new ArrayList<GiocatoreBean>();
 			GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
-			PartecipazioneDAO partecipazioneDao = new PartecipazioneDAO();
 			String nomeEvento = request.getParameter("nome");
 			String action = request.getParameter("action");
 			ArrayList<EventoBean> richieste = new ArrayList<EventoBean>();
 			
 			try {
+				if(eD == null)
+					eventoDao = new EventoDAO();
+				else 
+					eventoDao = eD;
+				
+				if(pD == null)
+					partecipazioneDao = new PartecipazioneDAO();
+				else
+					partecipazioneDao = pD;
+				
+				if(gD == null)
+					giocatoreDao = new GiocatoreDAO();
+				else
+					giocatoreDao = gD;
+				
 				EventoBean bean = eventoDao.doRetrieveByKey(nomeEvento);
 				PartecipazioneBean partecipazione = new PartecipazioneBean();
 				if(action!=null)

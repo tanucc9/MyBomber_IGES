@@ -12,21 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.bean.EventoBean;
-import model.bean.GestoreBean;
 import model.bean.GiocatoreBean;
 import model.dao.EventoDAO;
 
 @WebServlet("/eventiRecenti")
 public class EventiRecentiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	EventoDAO eD;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		EventoDAO eventoDao = new EventoDAO();
+		EventoDAO eventoDao;
 		GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
 		ArrayList<EventoBean> eventiRecenti;
 		
 		try {
+			if(eD == null)
+				eventoDao = new EventoDAO();
+			else
+				eventoDao = eD;
+			
 			eventiRecenti = eventoDao.doRetrieveEventiRecenti(giocatore.getEmail());
 			request.setAttribute("eventiRecenti", eventiRecenti);
 		} 
@@ -42,9 +47,9 @@ public class EventiRecentiServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+*/
 }
