@@ -20,13 +20,13 @@ import model.dao.PartecipazioneDAO;
 @WebServlet("/partecipa")
 public class PartecipaEventiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	EventoDAO eD;
-	PartecipazioneDAO pD;
+	public EventoDAO eD;
+	public PartecipazioneDAO pD;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
 		EventoDAO eventoDao;
@@ -52,7 +52,7 @@ public class PartecipaEventiServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
 		String nomeEvento = request.getParameter("nome");
@@ -89,7 +89,10 @@ public class PartecipaEventiServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		doGet(request, response);
+		//doGet(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
+		dispatcher.forward(request, response);
+		
 	}
 
 }

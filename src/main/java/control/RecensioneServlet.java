@@ -14,18 +14,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.bean.GiocatoreBean;
 import model.bean.RecensioneBean;
+import model.dao.GestoreDAO;
 import model.dao.GiocatoreDAO;
 import model.dao.RecensioneDAO;
+import model.dao.StrutturaDAO;
 
 	@WebServlet("/recensione")
 	public class RecensioneServlet extends HttpServlet {
 		private static final long serialVersionUID = 1L;
-
-		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            
+		public RecensioneDAO rdt;
+		public GiocatoreDAO gdt;
+		
+		public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 			GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
 			String action = request.getParameter("action");
-			RecensioneDAO recensioneDao = new RecensioneDAO();
+			RecensioneDAO recensioneDao;
+			if(rdt==null)
+			recensioneDao = new RecensioneDAO();
+			else {
+				   recensioneDao=rdt;
+			     }
 			String nomeE=(String)request.getParameter("nome");
 			
 			try {
@@ -60,11 +70,16 @@ import model.dao.RecensioneDAO;
 		/**
 		 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 		 */
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			// TODO Auto-generated method stub
 			String rec = request.getParameter("rec");
 			GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
-			RecensioneDAO recensioneDao = new RecensioneDAO();
+			RecensioneDAO recensioneDao;
+			if(rdt==null)
+			recensioneDao = new RecensioneDAO();
+			else {
+				    recensioneDao=rdt;
+			     }
 			
 			if(rec!=null)
 			{
@@ -84,7 +99,14 @@ import model.dao.RecensioneDAO;
 				recensione.setRecensore(giocatore.getEmail());
 				recensioneDao.doSave(recensione);
 				
-				GiocatoreDAO giocatoredao=new GiocatoreDAO();
+				GiocatoreDAO giocatoredao;
+				if(gdt==null)
+				giocatoredao=new GiocatoreDAO();
+				
+				else {
+					    giocatoredao=gdt;
+				     }
+				
 				float nuovamedia=recensioneDao.doRetrieveMedia(recensito);
 			
 				
@@ -102,7 +124,15 @@ import model.dao.RecensioneDAO;
 				String recensito = (String)request.getParameter("nomeG");			
 				String nomeEvento = (String)request.getParameter("nomeEvento");
 				recensioneDao.doDelete(giocatore.getEmail(), recensito, nomeEvento);
-				GiocatoreDAO giocatoredao=new GiocatoreDAO();
+				
+				GiocatoreDAO giocatoredao;
+				if(gdt==null)
+					giocatoredao=new GiocatoreDAO();
+					
+					else {
+						    giocatoredao=gdt;
+					     }
+				
 				float nuovamedia=recensioneDao.doRetrieveMedia(recensito);
 			
 				

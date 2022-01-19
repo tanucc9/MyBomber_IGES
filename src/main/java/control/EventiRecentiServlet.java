@@ -18,9 +18,9 @@ import model.dao.EventoDAO;
 @WebServlet("/eventiRecenti")
 public class EventiRecentiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	EventoDAO eD;
+	public EventoDAO eD;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		EventoDAO eventoDao;
 		GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
