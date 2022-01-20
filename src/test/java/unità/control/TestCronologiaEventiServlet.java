@@ -57,13 +57,13 @@ public class TestCronologiaEventiServlet {
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
 		servlet= new CronologiaEventiServlet();
-		servlet.edao=evDao;
 		when(req.getSession()).thenReturn(session);
 
 	}
 	
 	@Test
 	public void cercaCronologiaGestore() throws ServletException, IOException, SQLException {
+		servlet.edao=evDao;
 		GestoreBean gi=new GestoreBean();
 		gi.setEmail("gino@gino.it");
 		gi.setNome("gino");
@@ -85,7 +85,7 @@ public class TestCronologiaEventiServlet {
 		bean.setOrganizzatore("simone@simone.it");
 		bean.setStato("completato");
 		bean.setValutazione(0);
-		bean.setNumPartecipanti(10);
+		bean.setNumPartecipanti(0);
 		
 		EventoBean g3=new EventoBean();
 		EventoBean g4=new EventoBean();
@@ -138,6 +138,32 @@ public class TestCronologiaEventiServlet {
 		
 	}
 	
+	@Test
+	public void noTesting() throws ServletException, IOException, SQLException {
+		GestoreBean gi=new GestoreBean();
+		gi.setEmail("gino@gino.it");
+		gi.setNome("gino");
+		gi.setCognome("pozzo");
+		gi.setPassword("gino");
+		gi.setTelefono("3923415443");
+		gi.setStruttura("playk");
+	
+		when((GestoreBean)req.getSession().getAttribute("gestore")).thenReturn(gi);
+		
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./CronologiaEventi.jsp"))).thenReturn(rd);
+		servlet.doGet(req, res);
+		verify(rd).forward(req, res);
+
+		
+	}
+	@Test
+	public void doPost() throws ServletException, IOException, SQLException {
+		
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./CronologiaEventi.jsp"))).thenReturn(rd);
+		servlet.doPost(req, res);
+		verify(rd).forward(req, res);
+		
+	}
 	
 	
 }

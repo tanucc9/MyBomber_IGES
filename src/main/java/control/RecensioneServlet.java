@@ -54,11 +54,6 @@ import model.dao.StrutturaDAO;
 				
 				} 
 			catch (SQLException e) {
-				try (PrintWriter out =response.getWriter())
-				{
-					out.println(e.getMessage());
-					out.println(e.getStackTrace());
-				}
 				e.getStackTrace();
 			}
 				
@@ -146,11 +141,6 @@ import model.dao.StrutturaDAO;
 				return;
 			   } 
 	}catch (SQLException e) {
-	try (PrintWriter out =response.getWriter())
-	     {
-					out.println(e.getMessage());
-					out.println(e.getStackTrace());
-	     }
 				e.getStackTrace();
 			}
 			}

@@ -62,7 +62,8 @@ public class CronologiaEventiServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		doGet(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./CronologiaEventi.jsp"));
+		dispatcher.forward(request, response);
 	}
 
 }	

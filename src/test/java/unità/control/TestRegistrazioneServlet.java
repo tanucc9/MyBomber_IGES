@@ -148,6 +148,83 @@ public class TestRegistrazioneServlet {
 		servlet.doPost(req, res);
 		verify(rd).forward(req, res);
 	}
+	
+	@Test
+	public void registrazioneGiocatoreErroreEmail() throws ServletException, IOException {
+		when(req.getParameter("cf")).thenReturn("giocatore");
+		
+		when(req.getParameter("nome")).thenReturn("pino");
+		when(req.getParameter("cognome")).thenReturn("pino");
+		when(req.getParameter("email")).thenReturn("pino@pino.it");
+		when(req.getParameter("username")).thenReturn("ukpino");
+		when(req.getParameter("password")).thenReturn("pino");
+		when(req.getParameter("nazione")).thenReturn("italia");
+		when(req.getParameter("provincia")).thenReturn("napoli");
+		when(req.getParameter("citta")).thenReturn("napoli");
+		when(req.getParameter("cap")).thenReturn("80050");
+		when(req.getParameter("telefono")).thenReturn("5433453443");
+		when(req.getParameter("data")).thenReturn("2000-06-06");
+		
+		GiocatoreBean g = new GiocatoreBean();
+		g.setUsername("ukpino");
+		g.setEmail("pino@pino.it");
+		g.setNome("pino");
+		g.setCognome("pino");
+		g.setPassword("pino");
+		g.setTelefono("5433453443");
+		g.setDataNascita(Date.valueOf("2000-06-06"));
+		g.setNazioneResidenza("Italia");
+		g.setProvinciaResidenza("napoli");
+		g.setCittaResidenza("napoli");
+		g.setCapResidenza("80050");
+		g.setValutazione(0);
+		
+		when(gioDao.doRetrieveByKey(Mockito.anyString())).thenReturn(g);
+		when(gioDao.doRetrieveByUsername(Mockito.anyString())).thenReturn(null);
+		
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./Registrazione.jsp"))).thenReturn(rd);
+		servlet.doPost(req, res);
+		verify(rd).forward(req, res);
+	}
+	
+	@Test
+	public void registrazioneGiocatoreErroreUsername() throws ServletException, IOException {
+		when(req.getParameter("cf")).thenReturn("giocatore");
+		
+		when(req.getParameter("nome")).thenReturn("pino");
+		when(req.getParameter("cognome")).thenReturn("pino");
+		when(req.getParameter("email")).thenReturn("pino@pino.it");
+		when(req.getParameter("username")).thenReturn("ukpino");
+		when(req.getParameter("password")).thenReturn("pino");
+		when(req.getParameter("nazione")).thenReturn("italia");
+		when(req.getParameter("provincia")).thenReturn("napoli");
+		when(req.getParameter("citta")).thenReturn("napoli");
+		when(req.getParameter("cap")).thenReturn("80050");
+		when(req.getParameter("telefono")).thenReturn("5433453443");
+		when(req.getParameter("data")).thenReturn("2000-06-06");
+		
+		GiocatoreBean g = new GiocatoreBean();
+		g.setUsername("ukpino");
+		g.setEmail("pino@pino.it");
+		g.setNome("pino");
+		g.setCognome("pino");
+		g.setPassword("pino");
+		g.setTelefono("5433453443");
+		g.setDataNascita(Date.valueOf("2000-06-06"));
+		g.setNazioneResidenza("Italia");
+		g.setProvinciaResidenza("napoli");
+		g.setCittaResidenza("napoli");
+		g.setCapResidenza("80050");
+		g.setValutazione(0);
+		
+		when(gioDao.doRetrieveByKey(Mockito.anyString())).thenReturn(null);
+		when(gioDao.doRetrieveByUsername(Mockito.anyString())).thenReturn(g);
+		
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./Registrazione.jsp"))).thenReturn(rd);
+		servlet.doPost(req, res);
+		verify(rd).forward(req, res);
+	}
+	
 	@Test
 	public void registrazioneGiocatoreErrore() throws ServletException, IOException {
 		when(req.getParameter("cf")).thenReturn("giocatore");
@@ -276,6 +353,91 @@ public class TestRegistrazioneServlet {
 		servlet.doPost(req, res);
 		verify(rd).forward(req, res);
 	}
+	@Test
+	public void registrazioneGestoreErroreStruttura() throws ServletException, IOException {
+		when(req.getParameter("cf")).thenReturn("gestore");
+		
+		when(req.getParameter("emailG")).thenReturn("tgino@gino.it");
+		when(req.getParameter("telefonoGestore")).thenReturn("5433453443");
+		when(req.getParameter("nomeG")).thenReturn("gino");
+		when(req.getParameter("cognomeG")).thenReturn("rossi");
+		when(req.getParameter("strutturaG")).thenReturn("ginol");
+		when(req.getParameter("nazioneG")).thenReturn("italia");
+		when(req.getParameter("provinciaG")).thenReturn("napoli");
+		when(req.getParameter("cittaG")).thenReturn("napoli");
+		when(req.getParameter("capG")).thenReturn("80050");
+		when(req.getParameter("indirizzoG")).thenReturn("via gino, 22");
+		when(req.getParameter("telefonoStruttura")).thenReturn("3213453443");
+		when(req.getParameter("passwordG")).thenReturn("tgino");
+	
+		GestoreBean g = new GestoreBean();
+		StrutturaBean s = new StrutturaBean();
+		
+		g.setEmail("tgino@gino.it");
+		g.setNome("gino");
+		g.setCognome("rossi");
+		g.setPassword("tgino");
+		g.setTelefono("5433453443");
+		g.setStruttura("ginol");
+		
+		s.setNome("ginol");
+		s.setCap("80050");
+		s.setCitta("napoli");
+		s.setIndirizzo("via gino, 22");
+		s.setNazione("italia");
+		s.setProvincia("napoli");
+		s.setTelefono("3213453443");
+		
+		when(gesDao.doRetrieveByKey(Mockito.anyString())).thenReturn(null);
+		when(sDao.doRetrieveByKey(Mockito.anyString())).thenReturn(s);
+	
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./Registrazione.jsp"))).thenReturn(rd);
+		servlet.doPost(req, res);
+		verify(rd).forward(req, res);
+	}
+	
+	@Test
+	public void registrazioneGestoreErroreEmail() throws ServletException, IOException {
+		when(req.getParameter("cf")).thenReturn("gestore");
+		
+		when(req.getParameter("emailG")).thenReturn("tgino@gino.it");
+		when(req.getParameter("telefonoGestore")).thenReturn("5433453443");
+		when(req.getParameter("nomeG")).thenReturn("gino");
+		when(req.getParameter("cognomeG")).thenReturn("rossi");
+		when(req.getParameter("strutturaG")).thenReturn("ginol");
+		when(req.getParameter("nazioneG")).thenReturn("italia");
+		when(req.getParameter("provinciaG")).thenReturn("napoli");
+		when(req.getParameter("cittaG")).thenReturn("napoli");
+		when(req.getParameter("capG")).thenReturn("80050");
+		when(req.getParameter("indirizzoG")).thenReturn("via gino, 22");
+		when(req.getParameter("telefonoStruttura")).thenReturn("3213453443");
+		when(req.getParameter("passwordG")).thenReturn("tgino");
+	
+		GestoreBean g = new GestoreBean();
+		StrutturaBean s = new StrutturaBean();
+		
+		g.setEmail("tgino@gino.it");
+		g.setNome("gino");
+		g.setCognome("rossi");
+		g.setPassword("tgino");
+		g.setTelefono("5433453443");
+		g.setStruttura("ginol");
+		
+		s.setNome("ginol");
+		s.setCap("80050");
+		s.setCitta("napoli");
+		s.setIndirizzo("via gino, 22");
+		s.setNazione("italia");
+		s.setProvincia("napoli");
+		s.setTelefono("3213453443");
+		
+		when(gesDao.doRetrieveByKey(Mockito.anyString())).thenReturn(g);
+		when(sDao.doRetrieveByKey(Mockito.anyString())).thenReturn(null);
+	
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./Registrazione.jsp"))).thenReturn(rd);
+		servlet.doPost(req, res);
+		verify(rd).forward(req, res);
+	}
 	
 	@Test
 	public void registrazioneGestoreErrore() throws ServletException, IOException {
@@ -319,5 +481,11 @@ public class TestRegistrazioneServlet {
 		servlet.doPost(req, res);
 		verify(rd).forward(req, res);
 	}
+	@Test
+	public void doGet() throws ServletException, IOException {
 	
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./Registrazione.jsp"))).thenReturn(rd);
+		servlet.doGet(req, res);
+		verify(rd).forward(req, res);
+	}
 }

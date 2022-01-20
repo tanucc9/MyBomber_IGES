@@ -62,15 +62,15 @@ public class TestRichiesteEventiServlet {
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
 		servlet = new RichiesteEventiServlet();
-		servlet.eD = evDao;
-		servlet.gD = gDao;
-		servlet.pD = pDao;
 		when(req.getSession()).thenReturn(session);
 
 	}
 	
 	@Test
 	public void cercaRichieste() throws ServletException, IOException, SQLException {
+		servlet.eD = evDao;
+		servlet.gD = gDao;
+		servlet.pD = pDao;
 		GestoreBean g = new GestoreBean();
 		g.setEmail("gino@gino.it");
 		g.setNome("gino");
@@ -148,6 +148,9 @@ public class TestRichiesteEventiServlet {
 	
 	@Test
 	public void accettaRichieste() throws ServletException, IOException, SQLException {
+		servlet.eD = evDao;
+		servlet.gD = gDao;
+		servlet.pD = pDao;
 		GestoreBean g = new GestoreBean();
 		g.setEmail("gino@gino.it");
 		g.setNome("gino");
@@ -201,6 +204,9 @@ public class TestRichiesteEventiServlet {
 	
 	@Test
 	public void rifiutaRichieste() throws ServletException, IOException, SQLException {
+		servlet.eD = evDao;
+		servlet.gD = gDao;
+		servlet.pD = pDao;
 		GestoreBean g = new GestoreBean();
 		g.setEmail("gino@gino.it");
 		g.setNome("gino");
@@ -223,6 +229,24 @@ public class TestRichiesteEventiServlet {
 		
 		when((GestoreBean)req.getSession().getAttribute("gestore")).thenReturn(g);
 		when(req.getParameter("action")).thenReturn("deleteE");
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
+		servlet.doGet(req, res);
+		verify(rd).forward(req, res);
+
+	}
+	
+	@Test
+	public void noTesting() throws ServletException, IOException, SQLException {
+		GestoreBean g = new GestoreBean();
+		g.setEmail("gino@gino.it");
+		g.setNome("gino");
+		g.setCognome("pozzo");
+		g.setPassword("gino");
+		g.setTelefono("3923415443");
+		g.setStruttura("playk");
+		
+		when((GestoreBean)req.getSession().getAttribute("gestore")).thenReturn(g);
+		when(req.getParameter("action")).thenReturn(null);
 		when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
 		servlet.doGet(req, res);
 		verify(rd).forward(req, res);

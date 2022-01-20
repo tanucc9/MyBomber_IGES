@@ -149,7 +149,105 @@ public class TestRecensioneServlet {
 		verify(rd).forward(req, res);
 		
 	}
-	
+	@Test
+	public void nullAction() throws ServletException, IOException, SQLException {
+		
+		servlet.rdt=recDao;
+		GiocatoreBean g4=new GiocatoreBean();
+		g4.setUsername("mario");
+		g4.setEmail("mario@mario.it");
+		g4.setNome("Mario");
+		g4.setCognome("Calabrese");
+		g4.setPassword("mario");
+		g4.setTelefono("3452167543");
+		g4.setDataNascita(Date.valueOf("2000-03-03"));
+		g4.setNazioneResidenza("Italia");
+		g4.setProvinciaResidenza("Avellino");
+		g4.setCittaResidenza("Avellino");
+		g4.setCapResidenza("80076");
+		g4.setValutazione(0);
+		
+		when((GiocatoreBean)req.getSession().getAttribute("giocatore")).thenReturn(g4);
+		when(req.getParameter("action")).thenReturn(null);
+		when(req.getParameter("nome")).thenReturn("evento3");
+		
+		ArrayList<String> list = new ArrayList<String>();
+		
+		list.add("pino@pino.it");
+		list.add("simone@simone.it");
+		
+		when(recDao.doRetrieveDaRecensire(g4.getEmail(),"evento3")).thenReturn(list);
+		when(recDao.doRetrieveRecensiti(g4.getEmail(),"evento3")).thenReturn(null);	
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./DaiRecensione.jsp"))).thenReturn(rd);
+		servlet.doGet(req, res);
+		verify(rd).forward(req, res);
+		
+	}
+	@Test
+	public void altriAction() throws ServletException, IOException, SQLException {
+		
+		servlet.rdt=recDao;
+		GiocatoreBean g4=new GiocatoreBean();
+		g4.setUsername("mario");
+		g4.setEmail("mario@mario.it");
+		g4.setNome("Mario");
+		g4.setCognome("Calabrese");
+		g4.setPassword("mario");
+		g4.setTelefono("3452167543");
+		g4.setDataNascita(Date.valueOf("2000-03-03"));
+		g4.setNazioneResidenza("Italia");
+		g4.setProvinciaResidenza("Avellino");
+		g4.setCittaResidenza("Avellino");
+		g4.setCapResidenza("80076");
+		g4.setValutazione(0);
+		
+		when((GiocatoreBean)req.getSession().getAttribute("giocatore")).thenReturn(g4);
+		when(req.getParameter("action")).thenReturn("pippo");
+		when(req.getParameter("nome")).thenReturn("evento3");
+		
+		ArrayList<String> list = new ArrayList<String>();
+		
+		list.add("pino@pino.it");
+		list.add("simone@simone.it");
+		
+		when(recDao.doRetrieveDaRecensire(g4.getEmail(),"evento3")).thenReturn(list);
+		when(recDao.doRetrieveRecensiti(g4.getEmail(),"evento3")).thenReturn(null);	
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./DaiRecensione.jsp"))).thenReturn(rd);
+		servlet.doGet(req, res);
+		verify(rd).forward(req, res);
+		
+	}
+	@Test
+	public void noTest() throws ServletException, IOException, SQLException {
+		
+		
+		GiocatoreBean g4=new GiocatoreBean();
+		g4.setUsername("mario");
+		g4.setEmail("mario@mario.it");
+		g4.setNome("Mario");
+		g4.setCognome("Calabrese");
+		g4.setPassword("mario");
+		g4.setTelefono("3452167543");
+		g4.setDataNascita(Date.valueOf("2000-03-03"));
+		g4.setNazioneResidenza("Italia");
+		g4.setProvinciaResidenza("Avellino");
+		g4.setCittaResidenza("Avellino");
+		g4.setCapResidenza("80076");
+		g4.setValutazione(0);
+		
+		when((GiocatoreBean)req.getSession().getAttribute("giocatore")).thenReturn(g4);
+		when(req.getParameter("action")).thenReturn("pippo");
+		when(req.getParameter("nome")).thenReturn("evento3");
+		
+		ArrayList<String> list = new ArrayList<String>();
+		
+		list.add("pino@pino.it");
+		list.add("simone@simone.it");
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./DaiRecensione.jsp"))).thenReturn(rd);
+		servlet.doGet(req, res);
+		verify(rd).forward(req, res);
+		
+	}
 	@Test
 	public void aggiungiRecensione() throws ServletException, IOException, SQLException {
 		
@@ -265,5 +363,30 @@ public class TestRecensioneServlet {
 		verify(rd).forward(req, res);
 		assertEquals("deleteok", req.getAttribute("deleteok"));
 	}
-	
+	@Test
+	public void altriRec() throws ServletException, IOException, SQLException {
+		
+		servlet.rdt=recDao;
+		servlet.gdt=gDao;
+		GiocatoreBean g4=new GiocatoreBean();
+		g4 =new GiocatoreBean();
+		g4.setUsername("simone45");
+		g4.setEmail("simon@simon.it");
+		g4.setNome("Simone");
+		g4.setCognome("Graziano");
+		g4.setPassword("simone");
+		g4.setTelefono("3324561273");
+		g4.setDataNascita(Date.valueOf("2000-05-09"));
+		g4.setNazioneResidenza("Italia");
+		g4.setProvinciaResidenza("Napoli");
+		g4.setCittaResidenza("Napoli");
+		g4.setCapResidenza("80000");
+		g4.setValutazione(0);
+		
+		when(req.getParameter("rec")).thenReturn("altro");
+		when((GiocatoreBean)req.getSession().getAttribute("giocatore")).thenReturn(g4);	
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./DaiRecensione.jsp"))).thenReturn(rd);
+		servlet.doPost(req, res);
+		verify(rd).forward(req, res);
+	}
 }
