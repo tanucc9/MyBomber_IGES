@@ -55,12 +55,6 @@ public class TestIntegrazioneRecensione {
 	@Mock
 	private RequestDispatcher rd;
 	
-	@Mock
-	RecensioneDAO recDao = new RecensioneDAO();
-	
-	@Mock
-	GiocatoreDAO gDao = new GiocatoreDAO();
-	
 	
 	private RecensioneServlet servlet;
 	
@@ -203,64 +197,7 @@ public class TestIntegrazioneRecensione {
 		assertEquals("deleteok", req.getAttribute("deleteok"));
 	}
 	
-	@Test
-	public void unitTest() throws ServletException, IOException, SQLException {
-		
-		servlet.rdt=recDao;
-		servlet.gdt=gDao;
-		GiocatoreBean g4=new GiocatoreBean();
-		g4 =new GiocatoreBean();
-		g4.setUsername("simone45");
-		g4.setEmail("simon@simon.it");
-		g4.setNome("Simone");
-		g4.setCognome("Graziano");
-		g4.setPassword("simone");
-		g4.setTelefono("3324561273");
-		g4.setDataNascita(Date.valueOf("2000-05-09"));
-		g4.setNazioneResidenza("Italia");
-		g4.setProvinciaResidenza("Napoli");
-		g4.setCittaResidenza("Napoli");
-		g4.setCapResidenza("80000");
-		g4.setValutazione(0);
-		
-		when(req.getParameter("rec")).thenReturn("set");
-		when((GiocatoreBean)req.getSession().getAttribute("giocatore")).thenReturn(g4);
-		
-		RecensioneBean bean = new RecensioneBean();
-		bean.setRecensore("simone@simone.it");
-		bean.setRecensito("pino@pino.it");
-		bean.setEvento("Evento 333");
-		bean.setRecensione(4);
-		
-		when(req.getParameter("nomeEvento")).thenReturn(bean.getEvento());
-		when(req.getParameter("nomeG")).thenReturn(bean.getRecensito());
-		when(req.getParameter("descrizione")).thenReturn(bean.getDescrizione());
-		when(req.getParameter("valutazione")).thenReturn("4");
-		
-		when(recDao.doRetrieveMedia(bean.getRecensito())).thenReturn(bean.getRecensione());
-		GiocatoreBean rs=new GiocatoreBean();
-		rs.setUsername("pino");
-		rs.setEmail("pino@pino.it");
-		rs.setNome("Pino");
-		rs.setCognome("Inglese");
-		rs.setPassword("pino");
-		rs.setTelefono("3665423187");
-		rs.setDataNascita(Date.valueOf("2000-09-09"));
-		rs.setNazioneResidenza("Italia");
-		rs.setProvinciaResidenza("Napoli");
-		rs.setCittaResidenza("Napoli");
-		rs.setCapResidenza("80000");
-		rs.setValutazione(0);
-		
-		when(gDao.doRetrieveByKey(Mockito.anyString())).thenReturn(rs);
-		
-		when(req.getAttribute("saveok")).thenReturn("saveok");
-		
-		when(req.getRequestDispatcher(res.encodeRedirectURL("./EventiRecenti.jsp"))).thenReturn(rd);
-		servlet.doPost(req, res);
-		verify(rd).forward(req, res);
-		assertEquals("saveok", req.getAttribute("saveok"));
-	}
+	
 	@After
 	public void tearDown() throws Exception {
 		PartecipazioneDAO tester=new PartecipazioneDAO();

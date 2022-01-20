@@ -1,4 +1,4 @@
-package unità.model;
+package unita.model;
 
 import java.sql.Date;
 import java.sql.SQLException;

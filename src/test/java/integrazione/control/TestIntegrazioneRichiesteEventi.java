@@ -47,14 +47,7 @@ public class TestIntegrazioneRichiesteEventi {
 	@Mock
 	private RequestDispatcher rd;
 
-	@Mock
-	EventoDAO evDao = new EventoDAO();
 	
-	@Mock
-	GiocatoreDAO gDao = new GiocatoreDAO();
-	
-	@Mock
-	PartecipazioneDAO pDao = new PartecipazioneDAO();
 	
 	private RichiesteEventiServlet servlet;
 	
@@ -86,60 +79,10 @@ public class TestIntegrazioneRichiesteEventi {
 	
 	@Test
 	public void accettaRichieste() throws ServletException, IOException, SQLException {
-		GestoreBean g = new GestoreBean();
-		g.setEmail("gino@gino.it");
-		g.setNome("gino");
-		g.setCognome("pozzo");
-		g.setPassword("gino");
-		g.setTelefono("3923415443");
-		g.setStruttura("playk");
-		
-		when((GestoreBean)req.getSession().getAttribute("gestore")).thenReturn(g);
-		when(req.getParameter("nome")).thenReturn("Evento 333");
-		when(req.getParameter("action")).thenReturn("addE");
-		when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
-		servlet.doGet(req, res);
-		verify(rd).forward(req, res);
-
-	}
-	
-	@Test
-	public void rifiutaRichieste() throws ServletException, IOException, SQLException {
-		GestoreBean g = new GestoreBean();
-		g.setEmail("gino@gino.it");
-		g.setNome("gino");
-		g.setCognome("pozzo");
-		g.setPassword("gino");
-		g.setTelefono("3923415443");
-		g.setStruttura("playk");
-		
-		when((GestoreBean)req.getSession().getAttribute("gestore")).thenReturn(g);
-		when(req.getParameter("nome")).thenReturn("Evento 333");
-		when(req.getParameter("action")).thenReturn("deleteE");
-		when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
-		servlet.doGet(req, res);
-		verify(rd).forward(req, res);
-
-	}
-	
-	@Test
-	public void unitTest() throws ServletException, IOException, SQLException {
-		servlet.eD = evDao;
-		servlet.gD = gDao;
-		servlet.pD = pDao;
-		GestoreBean g = new GestoreBean();
-		g.setEmail("gino@gino.it");
-		g.setNome("gino");
-		g.setCognome("pozzo");
-		g.setPassword("gino");
-		g.setTelefono("3923415443");
-		g.setStruttura("playk");
-		
-		//mariello
-		ArrayList<EventoBean> list = new ArrayList<EventoBean>();
-		ArrayList<String> liststr = new ArrayList<String>();
-		EventoBean bean =new EventoBean();
-		bean.setNome("evento12");
+		EventoBean bean=new EventoBean();
+		EventoDAO ed=new EventoDAO();
+		PartecipazioneDAO pd=new PartecipazioneDAO();
+		bean.setNome("evento435");
 		bean.setDescrizione("mitico evento");
 		bean.setStruttura("playk");
 		bean.setData(Date.valueOf("2023-01-03"));
@@ -148,57 +91,57 @@ public class TestIntegrazioneRichiesteEventi {
 		bean.setOrganizzatore("simone@simone.it");
 		bean.setStato("richiesta");
 		bean.setValutazione(0);
-		bean.setNumPartecipanti(0);
-		
-		EventoBean g3=new EventoBean();
-		EventoBean g4=new EventoBean();
-		
-		list.add(bean);
-		liststr.add(bean.toString());
-		
-		g4.setNome("evento2");
-		g4.setDescrizione("grande evento");
-		g4.setStruttura("playk");
-		g4.setData(Date.valueOf("2022-01-03"));
-		g4.setOra(2);
-		g4.setGestore("gino@gino.it");
-		g4.setOrganizzatore("simone@simone.it");
-		g4.setStato("richiesta");
-		g4.setValutazione(0);
-		g4.setNumPartecipanti(0);
-		
-		g3.setNome("evento3");
-		g3.setDescrizione("sdfghgfds");
-		g3.setStruttura("playk");
-		g3.setData(Date.valueOf("2022-01-15"));
-		g3.setOra(1);
-		g3.setGestore("gino@gino.it");
-		g3.setOrganizzatore("simone@simone.it");
-		g3.setStato("richiesta");
-		g3.setValutazione(0);
-		g3.setNumPartecipanti(0);
-		
-		list.add(g3);
-		liststr.add(g3.toString());
-		list.add(g4);
-		liststr.add(g4.toString());
+		bean.setNumPartecipanti(10);
+		ed.doSave(bean);
+		GestoreBean g = new GestoreBean();
+		g.setEmail("gino@gino.it");
+		g.setNome("gino");
+		g.setCognome("pozzo");
+		g.setPassword("gino");
+		g.setTelefono("3923415443");
+		g.setStruttura("playk");
 		
 		when((GestoreBean)req.getSession().getAttribute("gestore")).thenReturn(g);
-		when(req.getParameter("action")).thenReturn("trovaRichieste");
-		when(evDao.doRetrieveEventiRecenti(g.getEmail())).thenReturn(list);
-		when(req.getAttribute("richieste")).thenReturn(list);
+		when(req.getParameter("nome")).thenReturn("evento435");
+		when(req.getParameter("action")).thenReturn("addE");
 		when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
 		servlet.doGet(req, res);
 		verify(rd).forward(req, res);
-		ArrayList<EventoBean> cev = new ArrayList<EventoBean>();
-		ArrayList<String> stcev = new ArrayList<String>();
-		cev = (ArrayList<EventoBean>)req.getAttribute("richieste");
-		for(EventoBean e : cev)
-		{
-			stcev.add(e.toString());
-		}
-		
-		assertEquals(stcev,liststr);
-		
+		pd.doDelete(bean.getOrganizzatore(), bean.getNome());
+        ed.doDelete("evento435");
 	}
+	
+	@Test
+	public void rifiutaRichieste() throws ServletException, IOException, SQLException {
+		EventoBean bean=new EventoBean();
+		EventoDAO ed=new EventoDAO();
+		bean.setNome("evento435");
+		bean.setDescrizione("mitico evento");
+		bean.setStruttura("playk");
+		bean.setData(Date.valueOf("2023-01-03"));
+		bean.setOra(2);
+		bean.setGestore("gino@gino.it");
+		bean.setOrganizzatore("simone@simone.it");
+		bean.setStato("richiesta");
+		bean.setValutazione(0);
+		bean.setNumPartecipanti(10);
+		ed.doSave(bean);
+		
+		GestoreBean g = new GestoreBean();
+		g.setEmail("gino@gino.it");
+		g.setNome("gino");
+		g.setCognome("pozzo");
+		g.setPassword("gino");
+		g.setTelefono("3923415443");
+		g.setStruttura("playk");
+		
+		when((GestoreBean)req.getSession().getAttribute("gestore")).thenReturn(g);
+		when(req.getParameter("nome")).thenReturn("evento435");
+		when(req.getParameter("action")).thenReturn("deleteE");
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
+		servlet.doGet(req, res);
+		verify(rd).forward(req, res);
+
+	}
+	
 }

@@ -1,4 +1,4 @@
-package unità.model;
+package unita.model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

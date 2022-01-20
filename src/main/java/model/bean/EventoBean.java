@@ -134,7 +134,13 @@ private static final long serialVersionUID = 1L;
 		}
 		return false;
 	}
-	
+	public boolean precedenza() {
+		Date now = new Date(System.currentTimeMillis());
+		if(now.after(this.getData()) && this.getStato().equals("completato")) {
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public String toString() {
 		return "Evento [nome = " + nome + ", descrizione = " + descrizione + ", struttura = " + struttura + 
