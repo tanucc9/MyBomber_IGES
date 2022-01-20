@@ -1,8 +1,10 @@
 package control;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +18,7 @@ import model.bean.EventoBean;
 import model.bean.GestoreBean;
 import model.bean.GiocatoreBean;
 import model.bean.PartecipazioneBean;
+import model.bean.SortByDate;
 import model.dao.EventoDAO;
 import model.dao.PartecipazioneDAO;
 
@@ -46,7 +49,7 @@ public class AreaUtenteServlet extends HttpServlet {
 		  dispatcher.forward(request, response);
 		  LoggerSingleton logger1 = LoggerSingleton.getInstance();
 	        logger1.debug("il giocatore è dentro");
-	        
+	      
 		}
 		if(gestore!=null)
 		{

@@ -1,6 +1,10 @@
 package model.bean;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class EventoBean implements Serializable{
 	
@@ -134,13 +138,17 @@ private static final long serialVersionUID = 1L;
 		}
 		return false;
 	}
-	public boolean precedenza() {
-		Date now = new Date(System.currentTimeMillis());
-		if(now.after(this.getData()) && this.getStato().equals("completato")) {
+	public boolean precedenza(EventoBean altro) {
+		Date da = altro.getData();
+		if(da.after(this.getData())) {
 			return true;
 		}
 		return false;
 	}
+	
+    // per ordinare gli eventi per data Collections.sort(eventiList, new SortByDate());
+	// ordinamento inverso Collections.sort(eventilist, new SortByDate().reversed());
+	
 	@Override
 	public String toString() {
 		return "Evento [nome = " + nome + ", descrizione = " + descrizione + ", struttura = " + struttura + 
