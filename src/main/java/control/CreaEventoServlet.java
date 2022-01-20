@@ -83,7 +83,7 @@ import model.dao.StrutturaDAO;
 				else
 					strutturaDAO = sD;
 				
-				StrutturaBean testStruttura = new StrutturaBean();
+				StrutturaBean testStruttura;
 				testStruttura = strutturaDAO.doRetrieveByKey(struttura);
 			
 				if(testEvento == null && testStruttura != null) {

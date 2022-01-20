@@ -9,7 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	TestIntegrazioneCronologiaEventi.class,TestIntegrazioneRegistrazione.class,
 	TestIntegrazioneStruttura.class,TestIntegrazioneLogin.class, 
 	TestIntegrazionePartecipaEventi.class,TestIntegrazioneRecensione.class, 
-	TestIntegrazioneCreaEvento.class, TestIntegrazioneEventiRecenti.class  
+	TestIntegrazioneCreaEvento.class, TestIntegrazioneEventiRecenti.class 
 })
 
 public class AllTest {

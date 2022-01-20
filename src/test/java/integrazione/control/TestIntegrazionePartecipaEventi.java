@@ -48,6 +48,9 @@ public class TestIntegrazionePartecipaEventi {
 	private RequestDispatcher rd;
 
 	@Mock
+	EventoDAO evDao = new EventoDAO();
+	
+	@Mock
 	PartecipazioneDAO pDao = new PartecipazioneDAO();
 	
 	private PartecipaEventiServlet servlet;
@@ -160,4 +163,41 @@ public class TestIntegrazionePartecipaEventi {
 		
 	}
 	
+	@Test
+	public void unitTest() throws ServletException, IOException, SQLException {
+		servlet.eD = evDao;
+		servlet.pD = pDao;
+		GiocatoreBean g = new GiocatoreBean();
+		g.setUsername("pierox");
+		g.setEmail("piero@piero.it");
+		g.setNome("Giovanni");
+		g.setCognome("Falco");
+		g.setPassword("Gio");
+		g.setTelefono("3334562167");
+		g.setDataNascita(Date.valueOf("2001-11-16"));
+		g.setNazioneResidenza("Italia");
+		g.setProvinciaResidenza("Caserta");
+		g.setCittaResidenza("Caserta");
+		g.setCapResidenza("89976");
+		g.setValutazione(0);
+		
+        EventoBean g3=new EventoBean();	
+		g3.setNome("evento3");
+		g3.setDescrizione("sdfghgfds");
+		g3.setStruttura("playk");
+		g3.setData(Date.valueOf("2022-01-15"));
+		g3.setOra(1);
+		g3.setGestore("gino@gino.it");
+		g3.setOrganizzatore("simone@simone.it");
+		g3.setStato("attivo");
+		g3.setValutazione(0);
+		g3.setNumPartecipanti(10);
+		when((GiocatoreBean)req.getSession().getAttribute("giocatore")).thenReturn(g);
+		when(req.getParameter("nome")).thenReturn("evento3");
+		when(evDao.doRetrieveByKey(Mockito.anyString())).thenReturn(g3);
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+		servlet.doPost(req, res);
+		verify(rd).forward(req, res);
+		
+	}
 }
