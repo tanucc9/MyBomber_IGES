@@ -35,7 +35,7 @@ public class StrutturaServlet extends HttpServlet {
 			request.setAttribute("strutture", strutture);
 		}
 		catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			e.getStackTrace();
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./CreaEvento.jsp"));

@@ -56,6 +56,8 @@ public class TestLoginServlet {
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
 		servlet= new LoginServlet();
+		servlet.giocatoreDao=gioDao;
+		servlet.gestoreDao=gesDao;
 		when(req.getSession()).thenReturn(session);
 	}
 	
@@ -115,7 +117,32 @@ public class TestLoginServlet {
 		boolean error = (boolean) req.getAttribute("errorLog");
 		assertTrue(error);
 	}
-	
+	@Test
+	public void notGioLoggedErrorPass() throws ServletException, IOException   {
+		GiocatoreBean g = new GiocatoreBean();
+		g.setUsername("pino");
+		g.setEmail("pino@pino.it");
+		g.setNome("Pino");
+		g.setCognome("Inglese");
+		g.setPassword("pino");
+		g.setTelefono("3665423187");
+		g.setDataNascita(Date.valueOf("2000-09-09"));
+		g.setNazioneResidenza("Italia");
+		g.setProvinciaResidenza("Napoli");
+		g.setCittaResidenza("Napoli");
+		g.setCapResidenza("80000");
+		g.setValutazione(0);
+		
+		when(gioDao.doRetrieveByKey(Mockito.anyString())).thenReturn(g);
+		when(req.getParameter("email")).thenReturn("pino@pino.it");
+		when(req.getParameter("password")).thenReturn("x");
+		when(req.getRequestDispatcher(res.encodeRedirectURL("login.jsp"))).thenReturn(rd);
+		when(req.getAttribute("errorLog")).thenReturn(true);
+		servlet.doPost(req, res);
+		verify(rd).forward(req, res);
+		boolean error = (boolean) req.getAttribute("errorLog");
+		assertTrue(error);
+	}
 	@Test
 	public void notGesLogged() throws ServletException, IOException   {
 		when(gesDao.doRetrieveByKey(Mockito.anyString())).thenReturn(null);
@@ -127,6 +154,33 @@ public class TestLoginServlet {
 		verify(rd).forward(req, res);
 		boolean error = (boolean) req.getAttribute("errorLog");
 		assertTrue(error);
+	}
+	@Test
+	public void notGesLoggedErrorPass() throws ServletException, IOException   {
+		GestoreBean g = new GestoreBean();
+		g.setEmail("gino@gino.it");
+		g.setNome("gino");
+		g.setCognome("pozzo");
+		g.setPassword("gino");
+		g.setTelefono("3923415443");
+		g.setStruttura("playk");
+		when(gesDao.doRetrieveByKey(Mockito.anyString())).thenReturn(g);
+		
+		when(req.getParameter("email")).thenReturn("gino@gino.it");
+		when(req.getParameter("password")).thenReturn("x");
+		when(req.getRequestDispatcher(res.encodeRedirectURL("login.jsp"))).thenReturn(rd);
+		when(req.getAttribute("errorLog")).thenReturn(true);
+		servlet.doPost(req, res);
+		verify(rd).forward(req, res);
+		boolean error = (boolean) req.getAttribute("errorLog");
+		assertTrue(error);
+	}
+	@Test
+	public void doGet() throws ServletException, IOException   {
+		
+		when(req.getRequestDispatcher(res.encodeRedirectURL("./Registrazione.jsp"))).thenReturn(rd);
+		servlet.doGet(req, res);
+		verify(rd).forward(req, res);
 	}
 	
 }

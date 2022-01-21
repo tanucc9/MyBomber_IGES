@@ -36,7 +36,7 @@ public class EventiRecentiServlet extends HttpServlet {
 			request.setAttribute("eventiRecenti", eventiRecenti);
 		} 
 		catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			e.getStackTrace();
 		}
 			
 		RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeRedirectURL("./EventiRecenti.jsp"));

@@ -21,8 +21,8 @@ import model.dao.GiocatoreDAO;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private GiocatoreDAO giocatoreDao;
-	private GestoreDAO gestoreDao;
+	public GiocatoreDAO giocatoreDao;
+	public GestoreDAO gestoreDao;
 	
     /**
      * Default constructor. 
@@ -67,12 +67,7 @@ public class LoginServlet extends HttpServlet {
 			   
 			   GiocatoreBean giocatore = new GiocatoreBean();
 			   GestoreBean gestore = new GestoreBean();
-			   /*request.setAttribute("errorReg",pippo);
-			   
-			   RequestDispatcher dispatcher1 = request
-			           .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-			   dispatcher1.forward(request, response);
-			   */
+			  
 					  giocatore= gd.doRetrieveByKey(email);
 			          gestore = gesd.doRetrieveByKey(email);
 			          if(giocatore!=null) {
