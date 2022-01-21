@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1" import="java.time.*,model.bean.*" %>
+    pageEncoding="ISO-8859-1" import="java.time.*,model.utente.giocatore.*,model.utente.gestore.*,model.struttura.*" %>
 
 <!DOCTYPE html>
 <html>

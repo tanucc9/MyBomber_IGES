@@ -22,13 +22,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import control.RegistrazioneServlet;
-import model.bean.GestoreBean;
-import model.bean.GiocatoreBean;
-import model.bean.StrutturaBean;
-import model.dao.GestoreDAO;
-import model.dao.GiocatoreDAO;
-import model.dao.StrutturaDAO;
+import control.utente.RegistrazioneServlet;
+import model.struttura.StrutturaBean;
+import model.struttura.StrutturaDAO;
+import model.utente.gestore.GestoreBean;
+import model.utente.gestore.GestoreDAO;
+import model.utente.giocatore.GiocatoreBean;
+import model.utente.giocatore.GiocatoreDAO;
 
 public class TestIntegrazioneRegistrazione {
 	@Mock

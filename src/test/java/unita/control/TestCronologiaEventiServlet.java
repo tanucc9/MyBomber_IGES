@@ -18,13 +18,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import control.CronologiaEventiServlet;
-import model.bean.EventoBean;
-import model.bean.GestoreBean;
-import model.bean.GiocatoreBean;
-import model.dao.EventoDAO;
-import model.dao.GestoreDAO;
-import model.dao.GiocatoreDAO;
+import control.evento.CronologiaEventiServlet;
+import model.evento.EventoBean;
+import model.evento.EventoDAO;
+import model.utente.gestore.GestoreBean;
+import model.utente.gestore.GestoreDAO;
+import model.utente.giocatore.GiocatoreBean;
+import model.utente.giocatore.GiocatoreDAO;
 
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;

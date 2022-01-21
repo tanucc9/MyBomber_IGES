@@ -21,14 +21,14 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import control.RichiesteEventiServlet;
-import model.bean.EventoBean;
-import model.bean.GestoreBean;
-import model.bean.GiocatoreBean;
-import model.bean.PartecipazioneBean;
-import model.dao.EventoDAO;
-import model.dao.GiocatoreDAO;
-import model.dao.PartecipazioneDAO;
+import control.evento.RichiesteEventiServlet;
+import model.evento.EventoBean;
+import model.evento.EventoDAO;
+import model.partecipazione.PartecipazioneBean;
+import model.partecipazione.PartecipazioneDAO;
+import model.utente.gestore.GestoreBean;
+import model.utente.giocatore.GiocatoreBean;
+import model.utente.giocatore.GiocatoreDAO;
 
 public class TestRichiesteEventiServlet {
 

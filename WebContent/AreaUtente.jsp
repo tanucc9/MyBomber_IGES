@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="model.bean.*, java.util.*"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="model.utente.giocatore.*,model.utente.gestore.*, java.util.*"
     pageEncoding="ISO-8859-1"%>
  <% 
 	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");

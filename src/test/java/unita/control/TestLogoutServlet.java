@@ -16,11 +16,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import control.LogoutServlet;
-import model.bean.GestoreBean;
-import model.bean.GiocatoreBean;
-import model.dao.GestoreDAO;
-import model.dao.GiocatoreDAO;
+import control.utente.LogoutServlet;
+import model.utente.gestore.GestoreBean;
+import model.utente.gestore.GestoreDAO;
+import model.utente.giocatore.GiocatoreBean;
+import model.utente.giocatore.GiocatoreDAO;
 
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;

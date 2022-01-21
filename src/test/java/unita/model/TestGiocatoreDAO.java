@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import model.bean.GiocatoreBean;
-import model.dao.GiocatoreDAO;
+import model.utente.giocatore.GiocatoreBean;
+import model.utente.giocatore.GiocatoreDAO;
 
 public class TestGiocatoreDAO extends TestCase{
 

@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import model.bean.RecensioneBean;
-import model.dao.RecensioneDAO;
+import model.recensione.RecensioneBean;
+import model.recensione.RecensioneDAO;
 
 public class TestRecensioneDAO extends TestCase{
 	

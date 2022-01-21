@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import model.bean.PartecipazioneBean;
-import model.dao.PartecipazioneDAO;
+import model.partecipazione.PartecipazioneBean;
+import model.partecipazione.PartecipazioneDAO;
 
 
 public class TestPartecipazioneDAO extends TestCase{

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="model.bean.*, java.util.*"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="model.utente.giocatore.*,model.utente.gestore.*, model.evento.*,java.util.*"
 	pageEncoding="UTF-8"%>
 <% 
    ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventi");

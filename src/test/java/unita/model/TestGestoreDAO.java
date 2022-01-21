@@ -9,11 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import model.bean.EventoBean;
-import model.bean.GestoreBean;
-import model.bean.GiocatoreBean;
-import model.dao.GestoreDAO;
-import model.dao.GiocatoreDAO;
+import model.evento.EventoBean;
+import model.utente.gestore.GestoreBean;
+import model.utente.gestore.GestoreDAO;
+import model.utente.giocatore.GiocatoreBean;
+import model.utente.giocatore.GiocatoreDAO;
 
 public class TestGestoreDAO extends TestCase{
 

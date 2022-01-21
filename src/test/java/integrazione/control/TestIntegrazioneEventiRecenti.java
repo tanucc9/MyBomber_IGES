@@ -21,10 +21,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import control.EventiRecentiServlet;
-import model.bean.EventoBean;
-import model.bean.GiocatoreBean;
-import model.dao.EventoDAO;
+import control.evento.EventiRecentiServlet;
+import model.evento.EventoBean;
+import model.evento.EventoDAO;
+import model.utente.giocatore.GiocatoreBean;
 
 public class TestIntegrazioneEventiRecenti {
 

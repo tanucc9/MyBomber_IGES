@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1" import="java.util.*,model.bean.*" %>
+    pageEncoding="ISO-8859-1" import="java.util.*,model.evento.*,model.utente.giocatore.*,model.recensione.*,model.utente.gestore.*" %>
     
 <%  ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventiRecenti");
 	GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");

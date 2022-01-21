@@ -22,12 +22,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import control.EventiRecentiServlet;
-import control.PartecipaEventiServlet;
-import model.bean.EventoBean;
-import model.bean.GiocatoreBean;
-import model.dao.EventoDAO;
-import model.dao.PartecipazioneDAO;
+import control.evento.EventiRecentiServlet;
+import control.evento.PartecipaEventiServlet;
+import model.evento.EventoBean;
+import model.evento.EventoDAO;
+import model.partecipazione.PartecipazioneDAO;
+import model.utente.giocatore.GiocatoreBean;
 
 public class TestPartecipaEventiServlet {
 

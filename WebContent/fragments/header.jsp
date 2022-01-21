@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="model.bean.*, java.util.*"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="model.utente.gestore.*,model.utente.giocatore.*,java.util.*"
 	pageEncoding="UTF-8"%>
 <% 
     GestoreBean ges=(GestoreBean)request.getSession().getAttribute("gestore");

@@ -20,9 +20,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import control.StrutturaServlet;
-import model.bean.StrutturaBean;
-import model.dao.StrutturaDAO;
+import control.evento.StrutturaServlet;
+import model.struttura.StrutturaBean;
+import model.struttura.StrutturaDAO;
 
 public class TestIntegrazioneStruttura {
 	@Mock
