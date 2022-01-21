@@ -146,8 +146,20 @@ private static final long serialVersionUID = 1L;
 		return false;
 	}
 	
-    // per ordinare gli eventi per data Collections.sort(eventiList, new SortByDate());
-	// ordinamento inverso Collections.sort(eventilist, new SortByDate().reversed());
+	public static ArrayList<EventoBean> ordinaPerData(ArrayList<EventoBean> eventi) {
+	    
+	    Collections.sort(eventi, new SortByDate());
+	    return eventi;
+	    
+    }
+	
+    public static ArrayList<EventoBean> ordinaPerDataR(ArrayList<EventoBean> eventi) {
+        
+        Collections.sort(eventi, new SortByDate().reversed());
+        return eventi;
+        
+    }
+    
 	
 	@Override
 	public String toString() {

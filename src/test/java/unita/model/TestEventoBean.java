@@ -107,6 +107,60 @@ public class TestEventoBean{
 		boolean p=b2.precedenza(bean);
 		assert(!p);
 	}
-   
+	@Test
+    public void ordinaPerData() throws SQLException {
+        ArrayList<EventoBean> lista= new ArrayList<EventoBean>();
+        ArrayList<String> lr= new ArrayList<String>();
+        EventoBean b2 =new EventoBean();
+        b2.setNome("evento12");
+        b2.setDescrizione("mitico evento");
+        b2.setStruttura("playk");
+        b2.setData(Date.valueOf("2026-01-03"));
+        b2.setOra(2);
+        b2.setGestore("gino@gino.it");
+        b2.setOrganizzatore("simone@simone.it");
+        b2.setStato("completato");
+        b2.setValutazione(0);
+        b2.setNumPartecipanti(10);
+        lista.add(bean);
+        lr.add(bean.toString());
+        lista.add(b2);
+        lr.add(b2.toString());
+        ArrayList<EventoBean>ordinati=EventoBean.ordinaPerData(lista);
+        ArrayList<String> or=new ArrayList<String>();
+        for(EventoBean e: ordinati)
+        {
+            or.add(e.toString());
+        }
+        assertEquals(or,lr);
+    }
+	
+	@Test
+    public void ordinaPerDataR() throws SQLException {
+        ArrayList<EventoBean> lista= new ArrayList<EventoBean>();
+        ArrayList<String> lr= new ArrayList<String>();
+        EventoBean b2 =new EventoBean();
+        b2.setNome("evento12");
+        b2.setDescrizione("mitico evento");
+        b2.setStruttura("playk");
+        b2.setData(Date.valueOf("2026-01-03"));
+        b2.setOra(2);
+        b2.setGestore("gino@gino.it");
+        b2.setOrganizzatore("simone@simone.it");
+        b2.setStato("completato");
+        b2.setValutazione(0);
+        b2.setNumPartecipanti(10);
+        lista.add(bean);
+        lr.add(b2.toString());
+        lista.add(b2);
+        lr.add(bean.toString());
+        ArrayList<EventoBean>ordinati=EventoBean.ordinaPerDataR(lista);
+        ArrayList<String> or=new ArrayList<String>();
+        for(EventoBean e: ordinati)
+        {
+            or.add(e.toString());
+        }
+        assertEquals(or,lr);
+    }
 }  
 
