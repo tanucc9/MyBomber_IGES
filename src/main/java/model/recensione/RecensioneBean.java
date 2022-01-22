@@ -1,55 +1,128 @@
 package model.recensione;
+
 import java.io.Serializable;
 
-public class RecensioneBean implements Serializable{
-	
-private static final long serialVersionUID = 1L;
-	
-	private String recensore;
-	private String recensito;
-	private float recensione;
-	private String evento;
-	String descrizione;
-	
-	public void setRecensione(float recensione) {
-		this.recensione=recensione;
-	}
-	public void setRecensore(String recensore) {
-		this.recensore=recensore;
-	}
-	public void setRecensito(String recensito) {
-		this.recensito=recensito;
-	}
-	public void setEvento(String evento) {
-		this.evento=evento;
-	}
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-	
-	
-	public float getRecensione()
-	{
-		return recensione;
-	}
-	public String getRecensore()
-	{
-		return recensore;
-	}
-	public String getRecensito()
-	{
-		return recensito;
-	}
-	public String getEvento()
-	{
-		return evento;
-	}
-	public String getDescrizione() {
-		return descrizione;
-	}
-	
-	@Override
-	public String toString() {
-		return "recensore " + recensore + " recensito " + recensito + " evento " + evento;
-	}
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RecensioneBean.
+ */
+public class RecensioneBean implements Serializable {
+
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
+
+  /** The recensore. */
+  private String recensore;
+
+  /** The recensito. */
+  private String recensito;
+
+  /** The recensione. */
+  private float recensione;
+
+  /** The evento. */
+  private String evento;
+
+  /** The descrizione. */
+  String descrizione;
+
+  /**
+   * Sets the recensione.
+   *
+   * @param recensione the new recensione
+   */
+  public void setRecensione(float recensione) {
+    this.recensione = recensione;
+  }
+
+  /**
+   * Sets the recensore.
+   *
+   * @param recensore the new recensore
+   */
+  public void setRecensore(String recensore) {
+    this.recensore = recensore;
+  }
+
+  /**
+   * Sets the recensito.
+   *
+   * @param recensito the new recensito
+   */
+  public void setRecensito(String recensito) {
+    this.recensito = recensito;
+  }
+
+  /**
+   * Sets the evento.
+   *
+   * @param evento the new evento
+   */
+  public void setEvento(String evento) {
+    this.evento = evento;
+  }
+
+  /**
+   * Sets the descrizione.
+   *
+   * @param descrizione the new descrizione
+   */
+  public void setDescrizione(String descrizione) {
+    this.descrizione = descrizione;
+  }
+
+  /**
+   * Gets the recensione.
+   *
+   * @return the recensione
+   */
+  public float getRecensione() {
+    return recensione;
+  }
+
+  /**
+   * Gets the recensore.
+   *
+   * @return the recensore
+   */
+  public String getRecensore() {
+    return recensore;
+  }
+
+  /**
+   * Gets the recensito.
+   *
+   * @return the recensito
+   */
+  public String getRecensito() {
+    return recensito;
+  }
+
+  /**
+   * Gets the evento.
+   *
+   * @return the evento
+   */
+  public String getEvento() {
+    return evento;
+  }
+
+  /**
+   * Gets the descrizione.
+   *
+   * @return the descrizione
+   */
+  public String getDescrizione() {
+    return descrizione;
+  }
+
+  /**
+   * To string.
+   *
+   * @return the string
+   */
+  @Override
+  public String toString() {
+    return "recensore " + recensore + " recensito " + recensito + " evento " + evento;
+  }
 }

@@ -1,69 +1,150 @@
 package model.utente.gestore;
+
 import java.io.Serializable;
-import java.sql.Date;
 
-public class GestoreBean implements Serializable{
-	
-private static final long serialVersionUID = 1L;
-	
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GestoreBean.
+ */
+public class GestoreBean implements Serializable {
 
-	private String email;
-	private String nome;
-	private String cognome;
-	private String password;
-	private String telefono;
-	private String struttura;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
-	
-	public void setEmail(String email) {
-		this.email=email;
-	}
-	public void setNome(String nome) {
-		this.nome=nome;
-	}
-	public void setCognome(String cognome) {
-		this.cognome=cognome;
-	}
-	public void setPassword(String password) {
-		this.password=password;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono=telefono;
-	}
+  /** The email. */
+  private String email;
 
-	public void setStruttura(String struttura) {
-		this.struttura=struttura;
-	}
-	
-	public String getEmail()
-	{
-		return email;
-	}
-	public String getNome()
-	{
-		return nome;
-	}
-	public String getCognome()
-	{
-		return cognome;
-	}
-	public String getPassword()
-	{
-		return password;
-	}
-	public String getTelefono()
-	{
-		return telefono;
-	}
-	
-	public String getStruttura()
-	{
-		return struttura;
-	}
-	@Override
-	public String toString() {
-		return " email " + email + " nome " + nome + 
-				" cognome " + cognome + " password " + password + 
-				" telefono " + telefono+ " struttura " + struttura;
-	}
+  /** The nome. */
+  private String nome;
+
+  /** The cognome. */
+  private String cognome;
+
+  /** The password. */
+  private String password;
+
+  /** The telefono. */
+  private String telefono;
+
+  /** The struttura. */
+  private String struttura;
+
+  /**
+   * Sets the email.
+   *
+   * @param email the new email
+   */
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  /**
+   * Sets the nome.
+   *
+   * @param nome the new nome
+   */
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  /**
+   * Sets the cognome.
+   *
+   * @param cognome the new cognome
+   */
+  public void setCognome(String cognome) {
+    this.cognome = cognome;
+  }
+
+  /**
+   * Sets the password.
+   *
+   * @param password the new password
+   */
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  /**
+   * Sets the telefono.
+   *
+   * @param telefono the new telefono
+   */
+  public void setTelefono(String telefono) {
+    this.telefono = telefono;
+  }
+
+  /**
+   * Sets the struttura.
+   *
+   * @param struttura the new struttura
+   */
+  public void setStruttura(String struttura) {
+    this.struttura = struttura;
+  }
+
+  /**
+   * Gets the email.
+   *
+   * @return the email
+   */
+  public String getEmail() {
+    return email;
+  }
+
+  /**
+   * Gets the nome.
+   *
+   * @return the nome
+   */
+  public String getNome() {
+    return nome;
+  }
+
+  /**
+   * Gets the cognome.
+   *
+   * @return the cognome
+   */
+  public String getCognome() {
+    return cognome;
+  }
+
+  /**
+   * Gets the password.
+   *
+   * @return the password
+   */
+  public String getPassword() {
+    return password;
+  }
+
+  /**
+   * Gets the telefono.
+   *
+   * @return the telefono
+   */
+  public String getTelefono() {
+    return telefono;
+  }
+
+  /**
+   * Gets the struttura.
+   *
+   * @return the struttura
+   */
+  public String getStruttura() {
+    return struttura;
+  }
+
+  /**
+   * To string.
+   *
+   * @return the string
+   */
+  @Override
+  public String toString() {
+    return " email " + email + " nome " + nome + " cognome " + cognome + " password " + password
+        + " telefono " + telefono + " struttura " + struttura;
+  }
 }

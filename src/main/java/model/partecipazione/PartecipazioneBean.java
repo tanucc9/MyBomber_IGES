@@ -1,34 +1,65 @@
 package model.partecipazione;
+
 import java.io.Serializable;
-import java.sql.Date;
 
-public class PartecipazioneBean implements Serializable{
-	
-private static final long serialVersionUID = 1L;
-	
-	private String utente;
-	private String evento;
-	
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PartecipazioneBean.
+ */
+public class PartecipazioneBean implements Serializable {
 
-	public void setUtente(String utente) {
-		this.utente=utente;
-	}
-	public void setEvento(String evento) {
-		this.evento=evento;
-	}
-		
-	public String getUtente()
-	{
-		return utente;
-	}
-	public String getEvento()
-	{
-		return evento;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return "utente " + utente + " evento " + evento ;
-	}
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
+
+  /** The utente. */
+  private String utente;
+
+  /** The evento. */
+  private String evento;
+
+  /**
+   * Sets the utente.
+   *
+   * @param utente the new utente
+   */
+  public void setUtente(String utente) {
+    this.utente = utente;
+  }
+
+  /**
+   * Sets the evento.
+   *
+   * @param evento the new evento
+   */
+  public void setEvento(String evento) {
+    this.evento = evento;
+  }
+
+  /**
+   * Gets the utente.
+   *
+   * @return the utente
+   */
+  public String getUtente() {
+    return utente;
+  }
+
+  /**
+   * Gets the evento.
+   *
+   * @return the evento
+   */
+  public String getEvento() {
+    return evento;
+  }
+
+  /**
+   * To string.
+   *
+   * @return the string
+   */
+  @Override
+  public String toString() {
+    return "utente " + utente + " evento " + evento;
+  }
 }

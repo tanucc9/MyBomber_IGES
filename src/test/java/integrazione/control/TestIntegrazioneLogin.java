@@ -1,128 +1,157 @@
 package integrazione.control;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import control.utente.LoginServlet;
 import java.io.IOException;
 import java.sql.Date;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import model.utente.gestore.GestoreBean;
+import model.utente.giocatore.GiocatoreBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import control.utente.LoginServlet;
-import model.utente.gestore.GestoreBean;
-import model.utente.gestore.GestoreDAO;
-import model.utente.giocatore.GiocatoreBean;
-import model.utente.giocatore.GiocatoreDAO;
-
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestIntegrazioneLogin.
+ */
 public class TestIntegrazioneLogin {
 
-	@Mock
-	private HttpServletRequest req;
-	
-	@Mock
-	private HttpServletResponse res;
-	
-	@Mock
-	private ServletContext ctx;
-	
-	@Mock
-	private HttpSession session;
-	
-	@Mock
-	private RequestDispatcher rd;
-	
-	
-	
-	private LoginServlet servlet;
-	
-	@Before
-	public void setUp() {
-		MockitoAnnotations.openMocks(this);
-		servlet= new LoginServlet();
-		when(req.getSession()).thenReturn(session);
-	}
-	
-	@Test
-	public void loginGiocatoreOk() throws ServletException, IOException {
-		GiocatoreBean g = new GiocatoreBean();
-		g.setUsername("pino");
-		g.setEmail("pino@pino.it");
-		g.setNome("Pino");
-		g.setCognome("Inglese");
-		g.setPassword("pino");
-		g.setTelefono("3665423187");
-		g.setDataNascita(Date.valueOf("2000-09-09"));
-		g.setNazioneResidenza("Italia");
-		g.setProvinciaResidenza("Napoli");
-		g.setCittaResidenza("Napoli");
-		g.setCapResidenza("80000");
-		g.setValutazione(0);
-	
-		when(req.getParameter("email")).thenReturn("pino@pino.it");
-		when(req.getParameter("password")).thenReturn("pino");
-		when(session.getAttribute("giocatore")).thenReturn(g);
-		when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
-		servlet.doPost(req, res);
-		verify(rd).forward(req, res);
-		assertEquals(g, session.getAttribute("giocatore"));
-	}
-	
-	@Test
-	public void loginGestoreOk() throws ServletException, IOException {
-		GestoreBean g = new GestoreBean();
-		g.setEmail("gino@gino.it");
-		g.setNome("gino");
-		g.setCognome("pozzo");
-		g.setPassword("gino");
-		g.setTelefono("3923415443");
-		g.setStruttura("playk");
-	
-		when(req.getParameter("email")).thenReturn("gino@gino.it");
-		when(req.getParameter("password")).thenReturn("gino");
-		when(session.getAttribute("gestore")).thenReturn(g);
-		when(req.getRequestDispatcher(res.encodeRedirectURL("cronologiaEventiServlet"))).thenReturn(rd);
-		servlet.doPost(req, res);
-		verify(rd).forward(req, res);
-		assertEquals(g, session.getAttribute("gestore"));
-	}
-	
-	@Test
-	public void notGioLogged() throws ServletException, IOException   {
-	
-		when(req.getParameter("email")).thenReturn("pino@pino.it");
-		when(req.getParameter("password")).thenReturn("x");
-		when(req.getRequestDispatcher(res.encodeRedirectURL("login.jsp"))).thenReturn(rd);
-		when(req.getAttribute("errorLog")).thenReturn(true);
-		servlet.doPost(req, res);
-		verify(rd).forward(req, res);
-		boolean error = (boolean) req.getAttribute("errorLog");
-		assertTrue(error);
-	}
-	
-	@Test
-	public void notGesLogged() throws ServletException, IOException   {
-	
-		when(req.getParameter("email")).thenReturn("gino@gino.it");
-		when(req.getParameter("password")).thenReturn("x");
-		when(req.getRequestDispatcher(res.encodeRedirectURL("login.jsp"))).thenReturn(rd);
-		when(req.getAttribute("errorLog")).thenReturn(true);
-		servlet.doPost(req, res);
-		verify(rd).forward(req, res);
-		boolean error = (boolean) req.getAttribute("errorLog");
-		assertTrue(error);
-	}
-	
+  /** The req. */
+  @Mock
+  private HttpServletRequest req;
+
+  /** The res. */
+  @Mock
+  private HttpServletResponse res;
+
+  /** The ctx. */
+  @Mock
+  private ServletContext ctx;
+
+  /** The session. */
+  @Mock
+  private HttpSession session;
+
+  /** The rd. */
+  @Mock
+  private RequestDispatcher rd;
+
+  /** The servlet. */
+  private LoginServlet servlet;
+
+  /**
+   * Sets the up.
+   */
+  @Before
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
+    servlet = new LoginServlet();
+    when(req.getSession()).thenReturn(session);
+  }
+
+  /**
+   * Login giocatore ok.
+   *
+   * @throws ServletException the servlet exception
+   * @throws IOException      Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void loginGiocatoreOk() throws ServletException, IOException {
+    GiocatoreBean g = new GiocatoreBean();
+    g.setUsername("pino");
+    g.setEmail("pino@pino.it");
+    g.setNome("Pino");
+    g.setCognome("Inglese");
+    g.setPassword("pino");
+    g.setTelefono("3665423187");
+    g.setDataNascita(Date.valueOf("2000-09-09"));
+    g.setNazioneResidenza("Italia");
+    g.setProvinciaResidenza("Napoli");
+    g.setCittaResidenza("Napoli");
+    g.setCapResidenza("80000");
+    g.setValutazione(0);
+
+    when(req.getParameter("email")).thenReturn("pino@pino.it");
+    when(req.getParameter("password")).thenReturn("pino");
+    when(session.getAttribute("giocatore")).thenReturn(g);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+    servlet.doPost(req, res);
+    verify(rd).forward(req, res);
+    assertEquals(g, session.getAttribute("giocatore"));
+  }
+
+  /**
+   * Login gestore ok.
+   *
+   * @throws ServletException the servlet exception
+   * @throws IOException      Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void loginGestoreOk() throws ServletException, IOException {
+    GestoreBean g = new GestoreBean();
+    g.setEmail("gino@gino.it");
+    g.setNome("gino");
+    g.setCognome("pozzo");
+    g.setPassword("gino");
+    g.setTelefono("3923415443");
+    g.setStruttura("playk");
+
+    when(req.getParameter("email")).thenReturn("gino@gino.it");
+    when(req.getParameter("password")).thenReturn("gino");
+    when(session.getAttribute("gestore")).thenReturn(g);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("cronologiaEventiServlet"))).thenReturn(rd);
+    servlet.doPost(req, res);
+    verify(rd).forward(req, res);
+    assertEquals(g, session.getAttribute("gestore"));
+  }
+
+  /**
+   * Not gio logged.
+   *
+   * @throws ServletException the servlet exception
+   * @throws IOException      Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void notGioLogged() throws ServletException, IOException {
+
+    when(req.getParameter("email")).thenReturn("pino@pino.it");
+    when(req.getParameter("password")).thenReturn("x");
+    when(req.getRequestDispatcher(res.encodeRedirectURL("login.jsp"))).thenReturn(rd);
+    when(req.getAttribute("errorLog")).thenReturn(true);
+    servlet.doPost(req, res);
+    verify(rd).forward(req, res);
+    boolean error = (boolean) req.getAttribute("errorLog");
+    assertTrue(error);
+  }
+
+  /**
+   * Not ges logged.
+   *
+   * @throws ServletException the servlet exception
+   * @throws IOException      Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void notGesLogged() throws ServletException, IOException {
+
+    when(req.getParameter("email")).thenReturn("gino@gino.it");
+    when(req.getParameter("password")).thenReturn("x");
+    when(req.getRequestDispatcher(res.encodeRedirectURL("login.jsp"))).thenReturn(rd);
+    when(req.getAttribute("errorLog")).thenReturn(true);
+    servlet.doPost(req, res);
+    verify(rd).forward(req, res);
+    boolean error = (boolean) req.getAttribute("errorLog");
+    assertTrue(error);
+  }
+
 }
