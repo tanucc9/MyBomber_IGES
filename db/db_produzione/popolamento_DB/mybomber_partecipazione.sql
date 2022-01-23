@@ -21,7 +21,7 @@
 
 LOCK TABLES `partecipazione` WRITE;
 /*!40000 ALTER TABLE `partecipazione` DISABLE KEYS */;
-INSERT INTO `partecipazione` VALUES ('comi@libero.it','11 fiati in campo'),('benedetta@hotmail.it','Bravi tutti'),('pasquale@gmail.com','Bravi tutti'),('cinzia@libero.it','Classico della suerte'),('vincenzo@libero.it','Classico della suerte'),('benedetta@hotmail.it','Mondiali'),('cinzia@libero.it','Partita del cuore'),('claudio@hotmail.it','Partita del cuore'),('flavio@libero.it','Partita del cuore'),('vittorio@gmai.com','Stoppi la palla al volo');
+INSERT INTO `partecipazione` VALUES ('comi@libero.it','11 fiati in campo'),('benedetta@hotmail.it','Bravi tutti'),('pasquale@gmail.com','Bravi tutti'),('benedetta@hotmail.it','Calcium'),('cinzia@libero.it','Classico della suerte'),('vincenzo@libero.it','Classico della suerte'),('claudio@hotmail.it','Evento del secolo'),('benedetta@hotmail.it','Mondiali'),('aless@gmail.com','Partita del cuore'),('benedetta@hotmail.it','Partita del cuore'),('cinzia@libero.it','Partita del cuore'),('claudio@hotmail.it','Partita del cuore'),('comi@libero.it','Partita del cuore'),('flavio@libero.it','Partita del cuore'),('pasquale@gmail.com','Partita del cuore'),('pierf@libero.it','Partita del cuore'),('vincenzo@libero.it','Partita del cuore'),('vittorio@gmai.com','Partita del cuore'),('claudio@hotmail.it','Partitella Bella'),('aless@gmail.com','Stoppi la palla al volo'),('vittorio@gmai.com','Stoppi la palla al volo');
 /*!40000 ALTER TABLE `partecipazione` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-14 20:07:19
+-- Dump completed on 2022-01-23 20:26:51

@@ -21,7 +21,7 @@
 
 LOCK TABLES `recensione` WRITE;
 /*!40000 ALTER TABLE `recensione` DISABLE KEYS */;
-INSERT INTO `recensione` VALUES ('claudio@hotmail.it','cinzia@libero.it','Partita del cuore',4,'Ottima difesa, complimenti!');
+INSERT INTO `recensione` VALUES ('cinzia@libero.it','claudio@hotmail.it','Partita del cuore',5,'bravissimo!'),('cinzia@libero.it','comi@libero.it','Partita del cuore',5,'Ottima prestazione '),('cinzia@libero.it','flavio@libero.it','Partita del cuore',2,''),('claudio@hotmail.it','aless@gmail.com','Partita del cuore',3,''),('claudio@hotmail.it','benedetta@hotmail.it','Partita del cuore',5,'Una calciatrice nata!'),('claudio@hotmail.it','pasquale@gmail.com','Partita del cuore',3,''),('claudio@hotmail.it','pierf@libero.it','Partita del cuore',5,'Bravissimo!');
 /*!40000 ALTER TABLE `recensione` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-14 20:07:19
+-- Dump completed on 2022-01-23 20:26:51
