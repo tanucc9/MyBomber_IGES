@@ -82,9 +82,10 @@ public class CronologiaEventiServlet extends HttpServlet {
       throws ServletException, IOException {
     // TODO Auto-generated method stub
 
-    RequestDispatcher dispatcher = request
+   /* RequestDispatcher dispatcher = request
         .getRequestDispatcher(response.encodeRedirectURL("./CronologiaEventi.jsp"));
-    dispatcher.forward(request, response);
+    dispatcher.forward(request, response);*/
+	  doGet(request, response);
   }
 
 }
