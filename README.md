@@ -3,8 +3,7 @@
 </p>
 
 # MyBomber - Introduction
-MyBomber is a Web App for the football lovers: it is possible to create a match or to join it and share reviews with each other.
-This is a project for Software Engineering and Software Project Management courses of Computer Science Faculty at University of Salerno.
+MyBomber is a Web App for football lovers: it is possible to create a match or to join it and share reviews. This is a project for Software Engineering and Software Project Management courses of the Computer Science Faculty at the University of Salerno.
 
 # Members
 - Gaetano Mauro, *Project Manager*, [tanucc9](https://github.com/tanucc9)
