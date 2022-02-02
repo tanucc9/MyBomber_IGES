@@ -13,6 +13,9 @@ This is a project for Software Engineering and Software Project Management cours
 - Antonio Palladino, *Developer*, [PAntonio1998](https://github.com/PAntonio1998)
 - Maddalena Viglione, *Developer*, [madd87](https://github.com/madd87)
 
+# Installation
+For the installation of the Web App, please see [2021_MI_C11_MyBomber_Mauro](https://github.com/tanucc9/MyBomber/blob/master/docProduct/manuali/2021_MI_C11_MyBomber_Mauro.pdf) file.
+
 # Documentation
 ## Javadocs
 You can find Javadocs in the /docs folder.
@@ -20,5 +23,4 @@ You can find Javadocs in the /docs folder.
 ## Documentation Project
 You can find the management's documentation in /docManagement folder and the product's documentation in /docProduct folder.
 
-# Installation
-For the installation of the Web App, please see [2021_MI_C11_MyBomber_Mauro](https://github.com/tanucc9/MyBomber/blob/master/docProduct/manuali/2021_MI_C11_MyBomber_Mauro.pdf) file.
+
