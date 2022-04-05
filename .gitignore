@@ -1,3 +1,7 @@
 /target/
 /bin/
 .project
+.idea
+/src/main/java/control/DriverManagerConnectionPool.java
+/MyBomber_log/
+/MyBomber_log/log_file.txt

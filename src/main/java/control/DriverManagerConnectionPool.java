@@ -38,7 +38,7 @@ public class DriverManagerConnectionPool {
     String db = "mybomber";
     //db = "mybomber_testing"; // da attivare per il testing
     String username = "root";
-    String password = "pass1234"; // ognuno la propria di mysql
+    String password = "tanucc"; // ognuno la propria di mysql
 
     newConnection = DriverManager.getConnection(
         "jdbc:mysql://localhost:3306/" + db + "?useUnicode=true&useJDBCCompliantTimezoneShift"
