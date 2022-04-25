@@ -11,3 +11,54 @@ div#carouselExampleControls img {
 	height: 300px;
 	object-fit: cover;
 }
+
+.max_width_mybomber {
+	max-width: 1200px;
+	width: 90%;
+	margin: auto;
+}
+
+#carousel_home_mybomber {
+	height: 500px;
+	margin-top: 50px;
+}
+
+#carousel_home_mybomber img {
+	object-fit: cover;
+	height: 500px;
+}
+
+#home .value_proposition {
+	margin-top: 50px;
+}
+
+#home .title_values {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.icon_social a {
+	text-decoration: none;
+}
+
+#login_page .container_login {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#login_page .carousel img {
+	height: 300px;
+	object-fit: cover;
+}
+
+#login_page .container_form_login {
+	margin-top: 0;
+	margin-bottom: 0;
+	height: auto;
+	padding-top: 32px;
+	padding-bottom: 30px;
+}
+
+.badge {
+	font-size: 12px!important;
+}

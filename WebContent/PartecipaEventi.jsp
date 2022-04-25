@@ -48,7 +48,7 @@ non puoi accedere a questa pagina
 				<div class="card">
 					<div class="card-body">
 						<h3 class="card-title"><%=e.getNome()%>
-							<span class="badge badge-warning"><%=e.getStato()%></span>
+							<span class="badge bg-warning text-dark"><%=e.getStato()%></span>
 						</h3>
 						<p class="card-text">
 							descrizione:

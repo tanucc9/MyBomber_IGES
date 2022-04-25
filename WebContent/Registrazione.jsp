@@ -78,7 +78,7 @@
 
 		<form id="registration" action="RegistrazioneServlet" method="post"
 			onSubmit="event.preventDefault(); validateGiocatore(this);">
-			<div class="form-row">
+			<div class="form-row row">
 				<div class="form-group col-md-6">
 					<label for="email">E-mail</label> <input type="email"
 						class="form-control" id="email"
@@ -91,8 +91,6 @@
 						name="username" required>
 					<p id="errUsername"></p>
 				</div>
-			</div>
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="nome">Nome</label> <input type="text"
 						class="form-control" id="nome" placeholder="es. Mario" name="nome"
@@ -105,8 +103,6 @@
 						name="cognome" required>
 					<p id="errCognome"></p>
 				</div>
-			</div>
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="password">Password</label> <input type="password"
 						class="form-control" id="password"
@@ -119,9 +115,6 @@
 						placeholder="Conferma password qui" name="cpassword" required>
 					<p id="errCpassword"></p>
 				</div>
-			</div>
-
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="nazione">Nazione residenza</label> <input type="text"
 						class="form-control" id="nazione" placeholder="es. Italia"
@@ -134,8 +127,6 @@
 						placeholder="es. Napoli" name="provincia" required>
 					<p id="errProvincia"></p>
 				</div>
-			</div>
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="citta">Città residenza</label> <input type="text"
 						class="form-control" id="citta" placeholder="es. Napoli"
@@ -148,26 +139,17 @@
 						required>
 					<p id="errCap"></p>
 				</div>
-			</div>
-
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="telefono">Telefono</label> <input type="text"
 						class="form-control" id="telefono" placeholder="es. 3332211566"
 						name="telefono" required>
 					<p id="errTelefono"></p>
 				</div>
-			</div>
-
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="data">Data di nascita</label> <input type="date"
 						class="form-control" id="data" name="data" required>
 					<p id="errData"></p>
 				</div>
-			</div>
-
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<p id="errReg"></p>
 				</div>
@@ -181,7 +163,7 @@
 		<form id="registrationGestore" action="RegistrazioneServlet"
 			method="post" style="display: none;"
 			onSubmit="event.preventDefault(); validateGestore(this);">
-			<div class="form-row">
+			<div class="form-row row">
 				<div class="form-group col-md-6">
 					<label for="emailG">E-mail</label> <input type="email"
 						class="form-control" id="emailG"
@@ -194,8 +176,6 @@
 						placeholder="es. 2114578955" name="telefonoGestore" required>
 					<p id="errTelefonoGestore"></p>
 				</div>
-			</div>
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="nomeG">Nome</label> <input type="text"
 						class="form-control" id="nomeG" placeholder="es. Mario"
@@ -208,17 +188,12 @@
 						name="cognomeG" required>
 					<p id="errCognomeG"></p>
 				</div>
-			</div>
-
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="strutturaG">Struttura</label> <input type="text"
 						class="form-control" id="strutturaG"
 						placeholder="es. Stadio Olimpico" name="strutturaG" required>
 					<p id="errStruttura"></p>
 				</div>
-			</div>
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="nazione">Nazione struttura</label> <input type="text"
 						class="form-control" id="nazioneG" placeholder="es. Italia"
@@ -231,8 +206,6 @@
 						placeholder="es. Roma" name="provinciaG" required>
 					<p id="errProvinciaG"></p>
 				</div>
-			</div>
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="citta">Città struttura</label> <input type="text"
 						class="form-control" id="cittaG" placeholder="es. Roma"
@@ -245,9 +218,6 @@
 						required>
 					<p id="errCapG"></p>
 				</div>
-			</div>
-
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="telefono">Indirizzo struttura</label> <input
 						type="text" class="form-control" id="indirizzoG"
@@ -261,9 +231,6 @@
 						placeholder="es. 0636851" name="telefonoStruttura" required>
 					<p id="errTelefonoStruttura"></p>
 				</div>
-			</div>
-
-			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="passwordG">Password</label> <input type="password"
 						class="form-control" id="passwordG"
