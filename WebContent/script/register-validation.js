@@ -1,15 +1,18 @@
+const registrationTabEventFactory = (giocatore = false) => () => {
+	document.getElementById(giocatore ? "registration" : "registrationGestore").style.display = "block";
+	document.getElementById(giocatore ? "registrationGestore" : "registration").style.display = "none";
 
+	const btnToHighlight = giocatore ? "geop" : "gop";
+	document.getElementById(btnToHighlight).classList.add('btn-outline-primary');
+	document.getElementById(btnToHighlight).classList.remove('btn-primary');
 
-document.getElementById("gop").addEventListener("click", mostraGiocatore);
-document.getElementById("geop").addEventListener("click", mostraGestore);
-function mostraGiocatore() {
-	document.getElementById("registration").style.display="block";
-	document.getElementById("registrationGestore").style.display ="none";
-	}
-function mostraGestore() {
-	document.getElementById("registration").style.display ="none";
-	document.getElementById("registrationGestore").style.display ="block";
-	}	
+	const btnToPlain = giocatore ? "gop" : "geop";
+	document.getElementById(btnToPlain).classList.add('btn-primary');
+	document.getElementById(btnToPlain).classList.remove('btn-outline-primary');
+}
+document.getElementById("gop").addEventListener("click", registrationTabEventFactory(true));
+document.getElementById("geop").addEventListener("click", registrationTabEventFactory(false));
+
 /**
  * 
  */

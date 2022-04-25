@@ -1,44 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	import="model.utente.giocatore.*,model.utente.gestore.*, java.util.*"
 	pageEncoding="ISO-8859-1"%>
-<% 
+<%
 	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
     GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
     if(giocatore==null && gestore==null)
     {
     	response.sendRedirect("./Login.jsp");
-    	
     }
-    
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
-<link href="../style/personalpage.css" rel="stylesheet" type="text/css">
-<title>Area utente</title>
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	crossorigin="anonymous"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-	crossorigin="anonymous"></script>
-<meta charset="ISO-8859-1">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-	integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href="../mybomber/style/global.css" rel="stylesheet"
-	type="text/css">
+	<%@ include file="../fragments/head.jsp"%>
+	<link href="../style/personalpage.css" rel="stylesheet" type="text/css">
+	<title>Area utente</title>
 </head>
 <body>
 	<%@ include file="../fragments/header.jsp"%>
@@ -151,7 +127,7 @@
 		</div>
 	</div>
 
-	<%} else{   if (request.getAttribute("cu") == "gestore") { 
+	<%} else{   if (request.getAttribute("cu") == "gestore") {
 	        GestoreBean ge=(GestoreBean)request.getSession().getAttribute("gestore");%>
 
 	<div class="page-content page-container container mt-5"
