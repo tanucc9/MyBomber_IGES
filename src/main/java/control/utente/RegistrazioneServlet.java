@@ -1,6 +1,7 @@
 package control.utente;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -147,7 +148,7 @@ public class RegistrazioneServlet extends HttpServlet {
               .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
           dispatcher.forward(request, response);
         }
-      } catch (SQLException e) {
+      } catch (SQLException | NoSuchAlgorithmException e) {
         System.out.println("Error:" + e.getMessage());
       }
     } else {
@@ -236,7 +237,7 @@ public class RegistrazioneServlet extends HttpServlet {
               .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
           dispatcher.forward(request, response);
         }
-      } catch (SQLException e) {
+      } catch (SQLException | NoSuchAlgorithmException e) {
         e.getStackTrace();
       }
 
