@@ -1,6 +1,7 @@
 package control.utente;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -88,31 +89,31 @@ public class LoginServlet extends HttpServlet {
     GiocatoreBean giocatore = new GiocatoreBean();
     GestoreBean gestore = new GestoreBean();
 
-    giocatore = gd.doRetrieveByKey(email);
-    gestore = gesd.doRetrieveByKey(email);
+    try {
+      giocatore = gd.doRetrieveByAuth(email, password);
+      gestore = gesd.doRetrieveByAuth(email, password);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
     if (giocatore != null) {
-      if (giocatore.getPassword().equals(password)) {
-        request.getSession().setAttribute("giocatore", giocatore);
-        RequestDispatcher dispatcher = request
-            .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
-        dispatcher.forward(request, response);
-        return;
-      }
+      request.getSession().setAttribute("giocatore", giocatore);
+      RequestDispatcher dispatcher = request
+          .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
+      dispatcher.forward(request, response);
+      return;
     }
     if (gestore != null) {
-      if (gestore.getPassword().equals(password)) {
-        request.getSession().setAttribute("gestore", gestore);
-        RequestDispatcher dispatcher = request
-            .getRequestDispatcher(response.encodeRedirectURL("cronologiaEventiServlet"));
-        dispatcher.forward(request, response);
-        return;
-      }
-
+      request.getSession().setAttribute("gestore", gestore);
+      RequestDispatcher dispatcher = request
+          .getRequestDispatcher(response.encodeRedirectURL("cronologiaEventiServlet"));
+      dispatcher.forward(request, response);
+      return;
     }
+
+    //if datas didn't match in db
     request.setAttribute("errorLog", "errore");
     RequestDispatcher dispatcher = request
         .getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
     dispatcher.forward(request, response);
-
   }
 }

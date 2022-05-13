@@ -1,6 +1,10 @@
 package model.utente.giocatore;
 
 import control.DriverManagerConnectionPool;
+import model.utente.gestore.GestoreBean;
+import util.HashTool;
+
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,9 +26,12 @@ public class GiocatoreDAO {
    * @param e the e
    * @throws SQLException the SQL exception
    */
-  public synchronized void doSave(GiocatoreBean e) throws SQLException {
+  public synchronized void doSave(GiocatoreBean e) throws SQLException, NoSuchAlgorithmException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
+
+    HashTool hash = new HashTool();
+    String encryptedPsw = hash.hashSHA256(e.getPassword());
 
     String insertSQL = "insert into " + TABLE_NAME
         + " (username, e_mail, nome, cognome, password_giocatore, telefono, data_nascita, nazione_residenza, provincia_residenza, citta_residenza, cap_residenza, valutazione) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -36,7 +43,7 @@ public class GiocatoreDAO {
       preparedStatement.setString(2, e.getEmail());
       preparedStatement.setString(3, e.getNome());
       preparedStatement.setString(4, e.getCognome());
-      preparedStatement.setString(5, e.getPassword());
+      preparedStatement.setString(5, encryptedPsw);
       preparedStatement.setString(6, e.getTelefono());
       preparedStatement.setDate(7, e.getDataNascita());
 
@@ -219,10 +226,13 @@ public class GiocatoreDAO {
    * @param e the e
    * @throws SQLException the SQL exception
    */
-  public synchronized void doUpdate(GiocatoreBean e) throws SQLException {
+  public synchronized void doUpdate(GiocatoreBean e) throws SQLException, NoSuchAlgorithmException {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
+
+    HashTool hash = new HashTool();
+    String encryptedPsw = hash.hashSHA256(e.getPassword());
 
     String updateSQL = "UPDATE " + TABLE_NAME
         + " SET username = ?, e_mail = ?, nome = ? , cognome = ?, password_giocatore = ?, telefono = ?, data_nascita = ?, nazione_residenza = ?, provincia_residenza = ?, citta_residenza = ?, cap_residenza = ?, valutazione = ? WHERE e_mail = ?";
@@ -233,7 +243,7 @@ public class GiocatoreDAO {
       preparedStatement.setString(2, e.getEmail());
       preparedStatement.setString(3, e.getNome());
       preparedStatement.setString(4, e.getCognome());
-      preparedStatement.setString(5, e.getPassword());
+      preparedStatement.setString(5, encryptedPsw);
       preparedStatement.setString(6, e.getTelefono());
       preparedStatement.setDate(7, e.getDataNascita());
       preparedStatement.setString(8, e.getNazioneResidenza());
@@ -292,5 +302,63 @@ public class GiocatoreDAO {
       }
     }
     return (result != 0);
+  }
+
+  /**
+   * Check if exists the user with that specific email and password and return it.
+   *
+   * @param email
+   * @param password
+   * @return the gestore bean
+   */
+  public synchronized GiocatoreBean doRetrieveByAuth(String email, String password) throws NoSuchAlgorithmException {
+
+    Connection conn = null;
+    PreparedStatement preparedStatement = null;
+
+    HashTool hash = new HashTool();
+    password = hash.hashSHA256(password);
+
+    try {
+      GiocatoreBean bean = new GiocatoreBean();
+      conn = DriverManagerConnectionPool.getConnection();
+      preparedStatement = conn
+              .prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE e_mail = ? AND password_giocatore = ?");
+      preparedStatement.setString(1, email);
+      preparedStatement.setString(2, password);
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      // 4. Prendi il risultato
+      if (rs.next()) {
+        bean.setUsername(rs.getString("username"));
+        bean.setEmail(rs.getString("e_mail"));
+        bean.setNome(rs.getString("nome"));
+        bean.setCognome(rs.getString("cognome"));
+        bean.setPassword(rs.getString("password_giocatore"));
+        bean.setTelefono(rs.getString("telefono"));
+        bean.setDataNascita(rs.getDate("data_nascita"));
+        bean.setNazioneResidenza(rs.getString("nazione_residenza"));
+        bean.setProvinciaResidenza(rs.getString("provincia_residenza"));
+        bean.setCittaResidenza(rs.getString("citta_residenza"));
+        bean.setCapResidenza(rs.getString("cap_residenza"));
+        bean.setValutazione(rs.getFloat("valutazione"));
+
+        return bean;
+      }
+
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } finally {
+      try {
+        preparedStatement.close();
+        DriverManagerConnectionPool.releaseConnection(conn);
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+    return null;
   }
 }
