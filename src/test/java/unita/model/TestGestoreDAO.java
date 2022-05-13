@@ -1,5 +1,6 @@
 package unita.model;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import junit.framework.TestCase;
@@ -102,7 +103,7 @@ public class TestGestoreDAO extends TestCase {
    * @throws SQLException the SQL exception
    */
   @Test
-  public void testDoUpdate() throws SQLException {
+  public void testDoUpdate() throws SQLException, NoSuchAlgorithmException {
     bean.setNome("Pasquale");
     tester.doUpdate(bean);
     GestoreBean mod = tester.doRetrieveByKey(bean.getEmail());

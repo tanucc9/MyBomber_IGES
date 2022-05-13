@@ -1,5 +1,6 @@
 package unita.model;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -101,7 +102,7 @@ public class TestGiocatoreDAO extends TestCase {
    * @throws SQLException the SQL exception
    */
   @Test
-  public void testDoUpdate() throws SQLException {
+  public void testDoUpdate() throws SQLException, NoSuchAlgorithmException {
     bean.setNome("Pasquale");
     tester.doUpdate(bean);
     GiocatoreBean mod = tester.doRetrieveByKey(bean.getEmail());
