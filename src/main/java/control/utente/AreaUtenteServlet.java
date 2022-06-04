@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import log.LoggerSingleton;
 import model.utente.gestore.GestoreBean;
 import model.utente.giocatore.GiocatoreBean;
 
@@ -56,9 +55,6 @@ public class AreaUtenteServlet extends HttpServlet {
       RequestDispatcher dispatcher = request
           .getRequestDispatcher(response.encodeRedirectURL("./AreaUtente.jsp"));
       dispatcher.forward(request, response);
-      LoggerSingleton logger1 = LoggerSingleton.getInstance();
-      logger1.debug("il giocatore è dentro");
-
     }
     if (gestore != null) {
       request.setAttribute("cu", "gestore");

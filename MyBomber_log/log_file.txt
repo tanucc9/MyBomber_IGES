@@ -1,4 +1,0 @@
-### DEBUG ### : il giocatore è dentro
-### DEBUG ### : il giocatore è dentro
-### DEBUG ### : il giocatore è dentro
-### DEBUG ### : il giocatore è dentro
