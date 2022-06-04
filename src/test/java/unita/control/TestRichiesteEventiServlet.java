@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import control.evento.RichiesteEventiServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -67,16 +69,17 @@ public class TestRichiesteEventiServlet {
 
   /** The servlet. */
   private RichiesteEventiServlet servlet;
+  private HashTool hashTool;
 
   /**
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
     servlet = new RichiesteEventiServlet();
+    hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
-
   }
 
   /**
@@ -95,7 +98,7 @@ public class TestRichiesteEventiServlet {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
 
@@ -181,7 +184,7 @@ public class TestRichiesteEventiServlet {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
     GiocatoreBean bg;
@@ -190,7 +193,7 @@ public class TestRichiesteEventiServlet {
     bg.setEmail("simon@simon.it");
     bg.setNome("Simone");
     bg.setCognome("Graziano");
-    bg.setPassword("simone");
+    bg.setEncPassword(hashTool.hashSHA256("simone"));
     bg.setTelefono("3324561273");
     bg.setDataNascita(Date.valueOf("2000-05-09"));
     bg.setNazioneResidenza("Italia");
@@ -244,7 +247,7 @@ public class TestRichiesteEventiServlet {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
 
@@ -281,7 +284,7 @@ public class TestRichiesteEventiServlet {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
 

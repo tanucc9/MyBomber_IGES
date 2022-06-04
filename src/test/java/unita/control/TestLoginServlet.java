@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import control.utente.LoginServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -23,6 +24,7 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -60,16 +62,18 @@ public class TestLoginServlet {
 
   /** The servlet. */
   private LoginServlet servlet;
+  private HashTool hashTool;
 
   /**
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
     servlet = new LoginServlet();
     servlet.giocatoreDao = gioDao;
     servlet.gestoreDao = gesDao;
+    hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
   }
 
@@ -86,7 +90,7 @@ public class TestLoginServlet {
     g.setEmail("pino@pino.it");
     g.setNome("Pino");
     g.setCognome("Inglese");
-    g.setPassword("pino");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
     g.setTelefono("3665423187");
     g.setDataNascita(Date.valueOf("2000-09-09"));
     g.setNazioneResidenza("Italia");
@@ -116,7 +120,7 @@ public class TestLoginServlet {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
     when(gesDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(g);
@@ -161,7 +165,7 @@ public class TestLoginServlet {
     g.setEmail("pino@pino.it");
     g.setNome("Pino");
     g.setCognome("Inglese");
-    g.setPassword("pino");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
     g.setTelefono("3665423187");
     g.setDataNascita(Date.valueOf("2000-09-09"));
     g.setNazioneResidenza("Italia");
@@ -212,7 +216,7 @@ public class TestLoginServlet {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
     when(gesDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(g);

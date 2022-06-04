@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import control.evento.CreaEventoServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -22,12 +23,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestIntegrazioneCreaEvento.
  */
 public class TestIntegrazioneCreaEvento {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The req. */
   @Mock
@@ -56,8 +61,9 @@ public class TestIntegrazioneCreaEvento {
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
+    hashTool = new HashTool();
     servlet = new CreaEventoServlet();
     when(req.getSession()).thenReturn(session);
   }
@@ -75,7 +81,7 @@ public class TestIntegrazioneCreaEvento {
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");
     gi.setCognome("pozzo");
-    gi.setPassword("gino");
+    gi.setEncPassword(hashTool.hashSHA256("gino"));
     gi.setTelefono("3923415443");
     gi.setStruttura("playk");
 
@@ -96,7 +102,7 @@ public class TestIntegrazioneCreaEvento {
     g5.setEmail("gio4@email.it");
     g5.setNome("Giovanni");
     g5.setCognome("Falco");
-    g5.setPassword("Gio");
+    g5.setEncPassword(hashTool.hashSHA256("Gio"));
     g5.setTelefono("3334562167");
     g5.setDataNascita(Date.valueOf("2001-11-16"));
     g5.setNazioneResidenza("Italia");
@@ -139,7 +145,7 @@ public class TestIntegrazioneCreaEvento {
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");
     gi.setCognome("pozzo");
-    gi.setPassword("gino");
+    gi.setEncPassword(hashTool.hashSHA256("gino"));
     gi.setTelefono("3923415443");
     gi.setStruttura("playk");
 
@@ -160,7 +166,7 @@ public class TestIntegrazioneCreaEvento {
     g.setEmail("gio4@email.it");
     g.setNome("Giovanni");
     g.setCognome("Falco");
-    g.setPassword("Gio");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
     g.setTelefono("3334562167");
     g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");

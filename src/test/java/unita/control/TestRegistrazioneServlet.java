@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import control.utente.RegistrazioneServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -25,6 +26,7 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -66,17 +68,19 @@ public class TestRegistrazioneServlet {
 
   /** The servlet. */
   private RegistrazioneServlet servlet;
+  private HashTool hashTool;
 
   /**
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
     servlet = new RegistrazioneServlet();
     servlet.gdt = gioDao;
     servlet.sdt = sDao;
     servlet.gedt = gesDao;
+    hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
   }
 
@@ -108,7 +112,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("cpinoi@pino.it");
     g.setNome("pino");
     g.setCognome("pino");
-    g.setPassword("pino");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
     g.setTelefono("5433453443");
     g.setDataNascita(Date.valueOf("2000-06-06"));
     g.setNazioneResidenza("Italia");
@@ -154,7 +158,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("pino@pino.it");
     g.setNome("pino");
     g.setCognome("pino");
-    g.setPassword("pino");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
     g.setTelefono("5433453443");
     g.setDataNascita(Date.valueOf("2000-06-06"));
     g.setNazioneResidenza("Italia");
@@ -198,7 +202,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("pino@pino.it");
     g.setNome("pino");
     g.setCognome("pino");
-    g.setPassword("pino");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
     g.setTelefono("5433453443");
     g.setDataNascita(Date.valueOf("2000-06-06"));
     g.setNazioneResidenza("Italia");
@@ -242,7 +246,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("pino@pino.it");
     g.setNome("pino");
     g.setCognome("pino");
-    g.setPassword("pino");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
     g.setTelefono("5433453443");
     g.setDataNascita(Date.valueOf("2000-06-06"));
     g.setNazioneResidenza("Italia");
@@ -286,7 +290,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("pino@pino.it");
     g.setNome("pino");
     g.setCognome("pino");
-    g.setPassword("pino");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
     g.setTelefono("5433453443");
     g.setDataNascita(Date.valueOf("2000-06-06"));
     g.setNazioneResidenza("Italia");
@@ -335,7 +339,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("tgino@gino.it");
     g.setNome("gino");
     g.setCognome("rossi");
-    g.setPassword("tgino");
+    g.setEncPassword(hashTool.hashSHA256("tgino"));
     g.setTelefono("5433453443");
     g.setStruttura("ginol");
 
@@ -386,7 +390,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("tgino@gino.it");
     g.setNome("gino");
     g.setCognome("rossi");
-    g.setPassword("tgino");
+    g.setEncPassword(hashTool.hashSHA256("tgino"));
     g.setTelefono("5433453443");
     g.setStruttura("ginol");
 
@@ -435,7 +439,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("tgino@gino.it");
     g.setNome("gino");
     g.setCognome("rossi");
-    g.setPassword("tgino");
+    g.setEncPassword(hashTool.hashSHA256("tgino"));
     g.setTelefono("5433453443");
     g.setStruttura("ginol");
 
@@ -484,7 +488,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("tgino@gino.it");
     g.setNome("gino");
     g.setCognome("rossi");
-    g.setPassword("tgino");
+    g.setEncPassword(hashTool.hashSHA256("tgino"));
     g.setTelefono("5433453443");
     g.setStruttura("ginol");
 
@@ -533,7 +537,7 @@ public class TestRegistrazioneServlet {
     g.setEmail("tgino@gino.it");
     g.setNome("gino");
     g.setCognome("rossi");
-    g.setPassword("tgino");
+    g.setEncPassword(hashTool.hashSHA256("tgino"));
     g.setTelefono("5433453443");
     g.setStruttura("ginol");
 

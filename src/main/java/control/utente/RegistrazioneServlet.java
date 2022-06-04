@@ -15,6 +15,7 @@ import model.utente.gestore.GestoreBean;
 import model.utente.gestore.GestoreDAO;
 import model.utente.giocatore.GiocatoreBean;
 import model.utente.giocatore.GiocatoreDAO;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -102,6 +103,7 @@ public class RegistrazioneServlet extends HttpServlet {
         GiocatoreBean testUsername = gd.doRetrieveByUsername(username);
 
         if (testEmail == null && testUsername == null) {
+          HashTool hashTool = new HashTool();
 
           GiocatoreBean g = new GiocatoreBean();
           g.setCapResidenza(cap);
@@ -111,7 +113,7 @@ public class RegistrazioneServlet extends HttpServlet {
           g.setEmail(email);
           g.setNazioneResidenza(nazione);
           g.setNome(nome);
-          g.setPassword(password);
+          g.setEncPassword(hashTool.hashSHA256(password));
           g.setProvinciaResidenza(provincia);
           g.setTelefono(telefono);
           g.setUsername(username);
@@ -183,6 +185,8 @@ public class RegistrazioneServlet extends HttpServlet {
         StrutturaBean testStruttura = sd.doRetrieveByKey(nomeStruttura);
 
         if (testEmail == null && testStruttura == null) {
+          HashTool hashTool = new HashTool();
+
           GestoreBean ges = new GestoreBean();
           StrutturaBean sb = new StrutturaBean();
           sb.setNome(nomeStruttura);
@@ -197,7 +201,7 @@ public class RegistrazioneServlet extends HttpServlet {
           ges.setCognome(cognome);
           ges.setEmail(email);
           ges.setNome(nome);
-          ges.setPassword(password);
+          ges.setEncPassword(hashTool.hashSHA256(password));
           ges.setTelefono(telefono);
           ges.setStruttura(nomeStruttura);
 

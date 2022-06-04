@@ -10,12 +10,16 @@ import model.utente.giocatore.GiocatoreDAO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestGiocatoreDAO.
  */
 public class TestGiocatoreDAO extends TestCase {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The bean. */
   private GiocatoreBean bean;
@@ -32,12 +36,13 @@ public class TestGiocatoreDAO extends TestCase {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+	hashTool = new HashTool();
     bean = new GiocatoreBean();
     bean.setUsername("simone45");
     bean.setEmail("simon@simon.it");
     bean.setNome("Simone");
     bean.setCognome("Graziano");
-    bean.setPassword("simone");
+    bean.setEncPassword(hashTool.hashSHA256("simone"));
     bean.setTelefono("3324561273");
     bean.setDataNascita(Date.valueOf("2000-05-09"));
     bean.setNazioneResidenza("Italia");
@@ -125,7 +130,7 @@ public class TestGiocatoreDAO extends TestCase {
     g2.setEmail("gio4@email.it");
     g2.setNome("Giovanni");
     g2.setCognome("Falco");
-    g2.setPassword("Gio");
+    g2.setEncPassword(hashTool.hashSHA256("Gio"));
     g2.setTelefono("3334562167");
     g2.setDataNascita(Date.valueOf("2001-11-16"));
     g2.setNazioneResidenza("Italia");
@@ -139,7 +144,7 @@ public class TestGiocatoreDAO extends TestCase {
     g3.setEmail("mario@mario.it");
     g3.setNome("Mario");
     g3.setCognome("Calabrese");
-    g3.setPassword("mario");
+    g3.setEncPassword(hashTool.hashSHA256("mario"));
     g3.setTelefono("3452167543");
     g3.setDataNascita(Date.valueOf("2000-03-03"));
     g3.setNazioneResidenza("Italia");
@@ -153,7 +158,7 @@ public class TestGiocatoreDAO extends TestCase {
     g4.setEmail("pino@pino.it");
     g4.setNome("Pino");
     g4.setCognome("Inglese");
-    g4.setPassword("pino");
+    g4.setEncPassword(hashTool.hashSHA256("pino"));
     g4.setTelefono("3665423187");
     g4.setDataNascita(Date.valueOf("2000-09-09"));
     g4.setNazioneResidenza("Italia");
@@ -168,7 +173,7 @@ public class TestGiocatoreDAO extends TestCase {
     g5.setEmail("simone@simone.it");
     g5.setNome("Simone");
     g5.setCognome("Graziano");
-    g5.setPassword("simone");
+    g5.setEncPassword(hashTool.hashSHA256("simone"));
     g5.setTelefono("3324156789");
     g5.setDataNascita(Date.valueOf("1999-08-12"));
     g5.setNazioneResidenza("Italia");

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import control.evento.CronologiaEventiServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,12 +23,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestCronologiaEventiServlet.
  */
 public class TestCronologiaEventiServlet {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The req. */
   @Mock
@@ -60,8 +65,9 @@ public class TestCronologiaEventiServlet {
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
+    hashTool = new HashTool();
     servlet = new CronologiaEventiServlet();
     when(req.getSession()).thenReturn(session);
 
@@ -81,7 +87,7 @@ public class TestCronologiaEventiServlet {
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");
     gi.setCognome("pozzo");
-    gi.setPassword("gino");
+    gi.setEncPassword(hashTool.hashSHA256("gino"));
     gi.setTelefono("3923415443");
     gi.setStruttura("playk");
 
@@ -163,7 +169,7 @@ public class TestCronologiaEventiServlet {
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");
     gi.setCognome("pozzo");
-    gi.setPassword("gino");
+    gi.setEncPassword(hashTool.hashSHA256("gino"));
     gi.setTelefono("3923415443");
     gi.setStruttura("playk");
 

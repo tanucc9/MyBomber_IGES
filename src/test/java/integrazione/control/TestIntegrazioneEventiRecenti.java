@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import control.evento.EventiRecentiServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,12 +22,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestIntegrazioneEventiRecenti.
  */
 public class TestIntegrazioneEventiRecenti {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The req. */
   @Mock
@@ -55,8 +60,9 @@ public class TestIntegrazioneEventiRecenti {
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
+    hashTool = new HashTool();
     servlet = new EventiRecentiServlet();
     when(req.getSession()).thenReturn(session);
 
@@ -76,7 +82,7 @@ public class TestIntegrazioneEventiRecenti {
     g.setEmail("gio4@email.it");
     g.setNome("Giovanni");
     g.setCognome("Falco");
-    g.setPassword("Gio");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
     g.setTelefono("3334562167");
     g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");

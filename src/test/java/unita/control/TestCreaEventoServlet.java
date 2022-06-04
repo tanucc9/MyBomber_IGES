@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import control.evento.CreaEventoServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -24,12 +25,16 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestCreaEventoServlet.
  */
 public class TestCreaEventoServlet {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The req. */
   @Mock
@@ -70,8 +75,9 @@ public class TestCreaEventoServlet {
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
+    hashTool = new HashTool();
     servlet = new CreaEventoServlet();
     servlet.eD = eDao;
     servlet.sD = sDao;
@@ -92,7 +98,7 @@ public class TestCreaEventoServlet {
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");
     gi.setCognome("pozzo");
-    gi.setPassword("gino");
+    gi.setEncPassword(hashTool.hashSHA256("gino"));
     gi.setTelefono("3923415443");
     gi.setStruttura("playk");
 
@@ -113,7 +119,7 @@ public class TestCreaEventoServlet {
     g.setEmail("gio4@email.it");
     g.setNome("Giovanni");
     g.setCognome("Falco");
-    g.setPassword("Gio");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
     g.setTelefono("3334562167");
     g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");
@@ -160,7 +166,7 @@ public class TestCreaEventoServlet {
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");
     gi.setCognome("pozzo");
-    gi.setPassword("gino");
+    gi.setEncPassword(hashTool.hashSHA256("gino"));
     gi.setTelefono("3923415443");
     gi.setStruttura("playk");
 
@@ -181,7 +187,7 @@ public class TestCreaEventoServlet {
     g.setEmail("gio4@email.it");
     g.setNome("Giovanni");
     g.setCognome("Falco");
-    g.setPassword("Gio");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
     g.setTelefono("3334562167");
     g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");
@@ -225,7 +231,7 @@ public class TestCreaEventoServlet {
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");
     gi.setCognome("pozzo");
-    gi.setPassword("gino");
+    gi.setEncPassword(hashTool.hashSHA256("gino"));
     gi.setTelefono("3923415443");
     gi.setStruttura("playk");
 
@@ -246,7 +252,7 @@ public class TestCreaEventoServlet {
     g.setEmail("gio4@email.it");
     g.setNome("Giovanni");
     g.setCognome("Falco");
-    g.setPassword("Gio");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
     g.setTelefono("3334562167");
     g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");
@@ -290,7 +296,7 @@ public class TestCreaEventoServlet {
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");
     gi.setCognome("pozzo");
-    gi.setPassword("gino");
+    gi.setEncPassword(hashTool.hashSHA256("gino"));
     gi.setTelefono("3923415443");
     gi.setStruttura("playk");
 
@@ -305,29 +311,6 @@ public class TestCreaEventoServlet {
     e.setStato("richiesta");
     e.setValutazione(0);
     e.setNumPartecipanti(0);
-
-    GiocatoreBean g = new GiocatoreBean();
-    g.setUsername("gio");
-    g.setEmail("gio4@email.it");
-    g.setNome("Giovanni");
-    g.setCognome("Falco");
-    g.setPassword("Gio");
-    g.setTelefono("3334562167");
-    g.setDataNascita(Date.valueOf("2001-11-16"));
-    g.setNazioneResidenza("Italia");
-    g.setProvinciaResidenza("Caserta");
-    g.setCittaResidenza("Caserta");
-    g.setCapResidenza("89976");
-    g.setValutazione(0);
-
-    StrutturaBean s = new StrutturaBean();
-    s.setNome("playk");
-    s.setIndirizzo("via andrea 21");
-    s.setNazione("italia");
-    s.setCitta("napoli");
-    s.setCap("80098");
-    s.setProvincia("napoli");
-    s.setTelefono("3122122143");
 
     when(req.getParameter("nome")).thenReturn("newEvento");
     when(req.getParameter("descrizione")).thenReturn("Prova descrizione");

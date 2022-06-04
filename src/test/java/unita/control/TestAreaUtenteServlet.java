@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import control.utente.AreaUtenteServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -19,12 +20,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestAreaUtenteServlet.
  */
 public class TestAreaUtenteServlet {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The req. */
   @Mock
@@ -53,8 +58,9 @@ public class TestAreaUtenteServlet {
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
+    hashTool = new HashTool();
     servlet = new AreaUtenteServlet();
     when(req.getSession()).thenReturn(session);
 
@@ -73,7 +79,7 @@ public class TestAreaUtenteServlet {
     gi.setEmail("pino@pino.it");
     gi.setNome("Pino");
     gi.setCognome("Inglese");
-    gi.setPassword("pino");
+    gi.setEncPassword(hashTool.hashSHA256("pino"));
     gi.setTelefono("3665423187");
     gi.setDataNascita(Date.valueOf("2000-09-09"));
     gi.setNazioneResidenza("Italia");
@@ -103,7 +109,7 @@ public class TestAreaUtenteServlet {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
     when(session.getAttribute("gestore")).thenReturn(g);

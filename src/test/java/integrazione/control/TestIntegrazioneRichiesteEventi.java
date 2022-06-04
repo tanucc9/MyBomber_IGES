@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import control.evento.RichiesteEventiServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -21,12 +22,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestIntegrazioneRichiesteEventi.
  */
 public class TestIntegrazioneRichiesteEventi {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The req. */
   @Mock
@@ -55,8 +60,9 @@ public class TestIntegrazioneRichiesteEventi {
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
+    hashTool = new HashTool();
     servlet = new RichiesteEventiServlet();
     when(req.getSession()).thenReturn(session);
 
@@ -75,7 +81,7 @@ public class TestIntegrazioneRichiesteEventi {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
 
@@ -114,7 +120,7 @@ public class TestIntegrazioneRichiesteEventi {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
 
@@ -155,7 +161,7 @@ public class TestIntegrazioneRichiesteEventi {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
 

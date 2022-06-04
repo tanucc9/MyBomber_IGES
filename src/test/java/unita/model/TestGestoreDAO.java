@@ -9,12 +9,16 @@ import model.utente.gestore.GestoreDAO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestGestoreDAO.
  */
 public class TestGestoreDAO extends TestCase {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The bean. */
   private GestoreBean bean;
@@ -31,11 +35,12 @@ public class TestGestoreDAO extends TestCase {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    hashTool = new HashTool();
     bean = new GestoreBean();
     bean.setEmail("zgaetano@olio.it");
     bean.setNome("gaetano");
     bean.setCognome("rossi");
-    bean.setPassword("gaetano");
+    bean.setEncPassword(hashTool.hashSHA256("gaetano"));
     bean.setTelefono("3923415443");
     bean.setStruttura("playo");
 
@@ -71,7 +76,7 @@ public class TestGestoreDAO extends TestCase {
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");
     gi.setCognome("pozzo");
-    gi.setPassword("gino");
+    gi.setEncPassword(hashTool.hashSHA256("gino"));
     gi.setTelefono("3923415443");
     gi.setStruttura("playk");
     assertEquals(gi.toString(), tester.doRetrieveByStruttura(gi.getStruttura()).toString());
@@ -125,14 +130,14 @@ public class TestGestoreDAO extends TestCase {
     g2.setEmail("gino@gino.it");
     g2.setNome("gino");
     g2.setCognome("pozzo");
-    g2.setPassword("gino");
+    g2.setEncPassword(hashTool.hashSHA256("gino"));
     g2.setTelefono("3923415443");
     g2.setStruttura("playk");
 
     g3.setEmail("bario@bario.it");
     g3.setNome("piero");
     g3.setCognome("rossi");
-    g3.setPassword("bario");
+    g3.setEncPassword(hashTool.hashSHA256("bario"));
     g3.setTelefono("3223415443");
     g3.setStruttura("playb");
 
@@ -142,7 +147,7 @@ public class TestGestoreDAO extends TestCase {
     g4.setEmail("olio@olio.it");
     g4.setNome("olio");
     g4.setCognome("rossi");
-    g4.setPassword("olio");
+    g4.setEncPassword(hashTool.hashSHA256("olio"));
     g4.setTelefono("3923415443");
     g4.setStruttura("playo");
 

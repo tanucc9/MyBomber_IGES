@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import control.recensione.RecensioneServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -24,12 +25,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestIntegrazioneRecensione.
  */
 public class TestIntegrazioneRecensione {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The req. */
   @Mock
@@ -60,8 +65,9 @@ public class TestIntegrazioneRecensione {
    * @throws SQLException the SQL exception
    */
   @Before
-  public void setUp() throws SQLException {
+  public void setUp() throws SQLException, NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
+    hashTool = new HashTool();
     servlet = new RecensioneServlet();
     when(req.getSession()).thenReturn(session);
 
@@ -103,7 +109,7 @@ public class TestIntegrazioneRecensione {
     g4.setEmail("gio4@gmail.it");
     g4.setNome("Pino");
     g4.setCognome("Inglese");
-    g4.setPassword("pino");
+    g4.setEncPassword(hashTool.hashSHA256("pino"));
     g4.setTelefono("3665423187");
     g4.setDataNascita(Date.valueOf("2000-09-09"));
     g4.setNazioneResidenza("Italia");
@@ -138,7 +144,7 @@ public class TestIntegrazioneRecensione {
     g4.setEmail("mario@mario.it");
     g4.setNome("Simone");
     g4.setCognome("Graziano");
-    g4.setPassword("simone");
+    g4.setEncPassword(hashTool.hashSHA256("simone"));
     g4.setTelefono("3324561273");
     g4.setDataNascita(Date.valueOf("2000-05-09"));
     g4.setNazioneResidenza("Italia");
@@ -185,7 +191,7 @@ public class TestIntegrazioneRecensione {
     g4.setEmail("mario@mario.it");
     g4.setNome("Simone");
     g4.setCognome("Graziano");
-    g4.setPassword("simone");
+    g4.setEncPassword(hashTool.hashSHA256("simone"));
     g4.setTelefono("3324561273");
     g4.setDataNascita(Date.valueOf("2000-05-09"));
     g4.setNazioneResidenza("Italia");

@@ -30,9 +30,6 @@ public class GestoreDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    HashTool hash = new HashTool();
-    String encryptedPsw = hash.hashSHA256(bean.getPassword());
-
     String insertSQL = "insert into " + TABLE_NAME
         + " (e_mail, nome, cognome, password_gestore, telefono, struttura) values (?, ?, ?, ?, ?, ?)";
 
@@ -42,7 +39,7 @@ public class GestoreDAO {
       preparedStatement.setString(1, bean.getEmail());
       preparedStatement.setString(2, bean.getNome());
       preparedStatement.setString(3, bean.getCognome());
-      preparedStatement.setString(4, encryptedPsw);
+      preparedStatement.setString(4, bean.getEncPassword());
       preparedStatement.setString(5, bean.getTelefono());
       preparedStatement.setString(6, bean.getStruttura());
       preparedStatement.executeUpdate();
@@ -86,7 +83,7 @@ public class GestoreDAO {
         bean.setEmail(rs.getString("e_mail"));
         bean.setNome(rs.getString("nome"));
         bean.setCognome(rs.getString("cognome"));
-        bean.setPassword(rs.getString("password_gestore"));
+        bean.setEncPassword(rs.getString("password_gestore"));
 
         bean.setTelefono(rs.getString("telefono"));
         bean.setStruttura(rs.getString("struttura"));
@@ -119,9 +116,6 @@ public class GestoreDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    HashTool hash = new HashTool();
-    String encryptedPsw = hash.hashSHA256(bean.getPassword());
-
     String updateSQL = "UPDATE " + TABLE_NAME
         + " SET e_mail = ?, nome = ?, cognome = ?, password_gestore = ? , telefono = ?, struttura = ? WHERE e_mail = ?";
     try {
@@ -130,7 +124,7 @@ public class GestoreDAO {
       preparedStatement.setString(1, bean.getEmail());
       preparedStatement.setString(2, bean.getNome());
       preparedStatement.setString(3, bean.getCognome());
-      preparedStatement.setString(4, encryptedPsw);
+      preparedStatement.setString(4, bean.getEncPassword());
       preparedStatement.setString(5, bean.getTelefono());
       preparedStatement.setString(6, bean.getStruttura());
       preparedStatement.setString(7, bean.getEmail());
@@ -213,7 +207,7 @@ public class GestoreDAO {
         bean.setEmail(rs.getString("e_mail"));
         bean.setNome(rs.getString("nome"));
         bean.setCognome(rs.getString("cognome"));
-        bean.setPassword(rs.getString("password_gestore"));
+        bean.setEncPassword(rs.getString("password_gestore"));
 
         bean.setTelefono(rs.getString("telefono"));
         bean.setStruttura(rs.getString("struttura"));
@@ -259,7 +253,7 @@ public class GestoreDAO {
         bean.setEmail(rs.getString("e_mail"));
         bean.setNome(rs.getString("nome"));
         bean.setCognome(rs.getString("cognome"));
-        bean.setPassword(rs.getString("password_gestore"));
+        bean.setEncPassword(rs.getString("password_gestore"));
 
         bean.setTelefono(rs.getString("telefono"));
         bean.setStruttura(rs.getString("struttura"));
@@ -285,16 +279,16 @@ public class GestoreDAO {
    * Check if exists the user with that specific email and password and return it.
    *
    * @param email
-   * @param password
+   * @param clearPassword
    * @return the gestore bean
    */
-  public synchronized GestoreBean doRetrieveByAuth(String email, String password) throws NoSuchAlgorithmException {
+  public synchronized GestoreBean doRetrieveByAuth(String email, String clearPassword) throws NoSuchAlgorithmException {
 
     Connection conn = null;
     PreparedStatement preparedStatement = null;
 
     HashTool hash = new HashTool();
-    password = hash.hashSHA256(password);
+    String encPassword = hash.hashSHA256(clearPassword);
 
     try {
       GestoreBean bean = new GestoreBean();
@@ -302,7 +296,7 @@ public class GestoreDAO {
       preparedStatement = conn
               .prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE e_mail = ? AND password_gestore = ?");
       preparedStatement.setString(1, email);
-      preparedStatement.setString(2, password);
+      preparedStatement.setString(2, encPassword);
 
       ResultSet rs = preparedStatement.executeQuery();
 
@@ -311,7 +305,7 @@ public class GestoreDAO {
         bean.setEmail(rs.getString("e_mail"));
         bean.setNome(rs.getString("nome"));
         bean.setCognome(rs.getString("cognome"));
-        bean.setPassword(rs.getString("password_gestore"));
+        bean.setEncPassword(rs.getString("password_gestore"));
 
         bean.setTelefono(rs.getString("telefono"));
         bean.setStruttura(rs.getString("struttura"));

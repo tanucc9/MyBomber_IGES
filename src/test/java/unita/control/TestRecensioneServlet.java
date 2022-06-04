@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import control.recensione.RecensioneServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,12 +25,16 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestRecensioneServlet.
  */
 public class TestRecensioneServlet {
+
+  /** Utility tool for hashing. */
+  private HashTool hashTool;
 
   /** The req. */
   @Mock
@@ -66,8 +71,9 @@ public class TestRecensioneServlet {
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
+    hashTool = new HashTool();
     servlet = new RecensioneServlet();
     when(req.getSession()).thenReturn(session);
   }
@@ -88,7 +94,7 @@ public class TestRecensioneServlet {
     g4.setEmail("pino@pino.it");
     g4.setNome("Pino");
     g4.setCognome("Inglese");
-    g4.setPassword("pino");
+    g4.setEncPassword(hashTool.hashSHA256("pino"));
     g4.setTelefono("3665423187");
     g4.setDataNascita(Date.valueOf("2000-09-09"));
     g4.setNazioneResidenza("Italia");
@@ -141,7 +147,7 @@ public class TestRecensioneServlet {
     g4.setEmail("mario@mario.it");
     g4.setNome("Mario");
     g4.setCognome("Calabrese");
-    g4.setPassword("mario");
+    g4.setEncPassword(hashTool.hashSHA256("mario"));
     g4.setTelefono("3452167543");
     g4.setDataNascita(Date.valueOf("2000-03-03"));
     g4.setNazioneResidenza("Italia");
@@ -183,7 +189,7 @@ public class TestRecensioneServlet {
     g4.setEmail("mario@mario.it");
     g4.setNome("Mario");
     g4.setCognome("Calabrese");
-    g4.setPassword("mario");
+    g4.setEncPassword(hashTool.hashSHA256("mario"));
     g4.setTelefono("3452167543");
     g4.setDataNascita(Date.valueOf("2000-03-03"));
     g4.setNazioneResidenza("Italia");
@@ -225,7 +231,7 @@ public class TestRecensioneServlet {
     g4.setEmail("mario@mario.it");
     g4.setNome("Mario");
     g4.setCognome("Calabrese");
-    g4.setPassword("mario");
+    g4.setEncPassword(hashTool.hashSHA256("mario"));
     g4.setTelefono("3452167543");
     g4.setDataNascita(Date.valueOf("2000-03-03"));
     g4.setNazioneResidenza("Italia");
@@ -266,7 +272,7 @@ public class TestRecensioneServlet {
     g4.setEmail("mario@mario.it");
     g4.setNome("Mario");
     g4.setCognome("Calabrese");
-    g4.setPassword("mario");
+    g4.setEncPassword(hashTool.hashSHA256("mario"));
     g4.setTelefono("3452167543");
     g4.setDataNascita(Date.valueOf("2000-03-03"));
     g4.setNazioneResidenza("Italia");
@@ -307,7 +313,7 @@ public class TestRecensioneServlet {
     g4.setEmail("simon@simon.it");
     g4.setNome("Simone");
     g4.setCognome("Graziano");
-    g4.setPassword("simone");
+    g4.setEncPassword(hashTool.hashSHA256("simone"));
     g4.setTelefono("3324561273");
     g4.setDataNascita(Date.valueOf("2000-05-09"));
     g4.setNazioneResidenza("Italia");
@@ -336,7 +342,7 @@ public class TestRecensioneServlet {
     rs.setEmail("pino@pino.it");
     rs.setNome("Pino");
     rs.setCognome("Inglese");
-    rs.setPassword("pino");
+    rs.setEncPassword(hashTool.hashSHA256("pino"));
     rs.setTelefono("3665423187");
     rs.setDataNascita(Date.valueOf("2000-09-09"));
     rs.setNazioneResidenza("Italia");
@@ -373,7 +379,7 @@ public class TestRecensioneServlet {
     g4.setEmail("simon@simon.it");
     g4.setNome("Simone");
     g4.setCognome("Graziano");
-    g4.setPassword("simone");
+    g4.setEncPassword(hashTool.hashSHA256("simone"));
     g4.setTelefono("3324561273");
     g4.setDataNascita(Date.valueOf("2000-05-09"));
     g4.setNazioneResidenza("Italia");
@@ -400,7 +406,7 @@ public class TestRecensioneServlet {
     rs.setEmail("pino@pino.it");
     rs.setNome("Pino");
     rs.setCognome("Inglese");
-    rs.setPassword("pino");
+    rs.setEncPassword(hashTool.hashSHA256("pino"));
     rs.setTelefono("3665423187");
     rs.setDataNascita(Date.valueOf("2000-09-09"));
     rs.setNazioneResidenza("Italia");
@@ -437,7 +443,7 @@ public class TestRecensioneServlet {
     g4.setEmail("simon@simon.it");
     g4.setNome("Simone");
     g4.setCognome("Graziano");
-    g4.setPassword("simone");
+    g4.setEncPassword(hashTool.hashSHA256("simone"));
     g4.setTelefono("3324561273");
     g4.setDataNascita(Date.valueOf("2000-05-09"));
     g4.setNazioneResidenza("Italia");

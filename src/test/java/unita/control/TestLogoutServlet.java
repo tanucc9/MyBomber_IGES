@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import control.utente.LogoutServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -20,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -57,14 +59,16 @@ public class TestLogoutServlet {
 
   /** The servlet. */
   private LogoutServlet servlet;
+  private HashTool hashTool;
 
   /**
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
     servlet = new LogoutServlet();
+    hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
   }
 
@@ -81,7 +85,7 @@ public class TestLogoutServlet {
     g.setEmail("pino@pino.it");
     g.setNome("Pino");
     g.setCognome("Inglese");
-    g.setPassword("pino");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
     g.setTelefono("3665423187");
     g.setDataNascita(Date.valueOf("2000-09-09"));
     g.setNazioneResidenza("Italia");
@@ -108,7 +112,7 @@ public class TestLogoutServlet {
     g.setEmail("gino@gino.it");
     g.setNome("gino");
     g.setCognome("pozzo");
-    g.setPassword("gino");
+    g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
     when(req.getSession().getAttribute("gestore")).thenReturn(g);

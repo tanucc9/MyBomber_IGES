@@ -24,8 +24,8 @@ public class GiocatoreBean implements Serializable {
   /** The cognome. */
   private String cognome;
 
-  /** The password. */
-  private String password;
+  /** The encrypted password. */
+  private String encPassword;
 
   /** The telefono. */
   private String telefono;
@@ -87,10 +87,10 @@ public class GiocatoreBean implements Serializable {
   /**
    * Sets the password.
    *
-   * @param password the new password
+   * @param encPassword an encoded password
    */
-  public void setPassword(String password) {
-    this.password = password;
+  public void setEncPassword(String encPassword) {
+    this.encPassword = encPassword;
   }
 
   /**
@@ -197,8 +197,8 @@ public class GiocatoreBean implements Serializable {
    *
    * @return the password
    */
-  public String getPassword() {
-    return password;
+  public String getEncPassword() {
+    return encPassword;
   }
 
   /**
@@ -272,7 +272,7 @@ public class GiocatoreBean implements Serializable {
   @Override
   public String toString() {
     return "username " + username + " email " + email + " nome " + nome + " cognome " + cognome
-        + " password " + password + " nazioneResidenza " + nazioneResidenza + " cittaResidenza "
+        + " encPassword " + encPassword + " nazioneResidenza " + nazioneResidenza + " cittaResidenza "
         + cittaResidenza + " provinciaResidenza " + provinciaResidenza + " capResidenza "
         + capResidenza + " dataNascita " + dataNascita + " valutazione " + valutazione;
   }

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import control.evento.PartecipaEventiServlet;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import util.HashTool;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -61,16 +63,17 @@ public class TestPartecipaEventiServlet {
 
   /** The servlet. */
   private PartecipaEventiServlet servlet;
+  private HashTool hashTool;
 
   /**
    * Sets the up.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
     servlet = new PartecipaEventiServlet();
+    hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
-
   }
 
   /**
@@ -89,7 +92,7 @@ public class TestPartecipaEventiServlet {
     g.setEmail("piero@piero.it");
     g.setNome("Giovanni");
     g.setCognome("Falco");
-    g.setPassword("Gio");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
     g.setTelefono("3334562167");
     g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");
@@ -147,7 +150,7 @@ public class TestPartecipaEventiServlet {
     g.setEmail("piero@piero.it");
     g.setNome("Giovanni");
     g.setCognome("Falco");
-    g.setPassword("Gio");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
     g.setTelefono("3334562167");
     g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");
@@ -180,7 +183,7 @@ public class TestPartecipaEventiServlet {
     g.setEmail("piero@piero.it");
     g.setNome("Giovanni");
     g.setCognome("Falco");
-    g.setPassword("Gio");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
     g.setTelefono("3334562167");
     g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");
@@ -225,7 +228,7 @@ public class TestPartecipaEventiServlet {
     g.setEmail("piero@piero.it");
     g.setNome("Giovanni");
     g.setCognome("Falco");
-    g.setPassword("Gio");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
     g.setTelefono("3334562167");
     g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");
