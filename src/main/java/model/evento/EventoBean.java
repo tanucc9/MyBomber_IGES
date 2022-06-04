@@ -45,38 +45,6 @@ public class EventoBean implements Serializable {
   private int numPartecipanti;
 
   /**
-   * Instantiates a new evento bean.
-   */
-  public EventoBean() {
-    // TODO Auto-generated constructor stub
-  }
-
-  /**
-   * Instantiates a new evento bean.
-   *
-   * @param nome          the nome
-   * @param descrizione   the descrizione
-   * @param struttura     the struttura
-   * @param data          the data
-   * @param ora           the ora
-   * @param gestore       the gestore
-   * @param organizzatore the organizzatore
-   */
-  public EventoBean(String nome, String descrizione, String struttura, Date data, int ora,
-      String gestore, String organizzatore) {
-    this.nome = nome;
-    this.descrizione = descrizione;
-    this.struttura = struttura;
-    this.data = data;
-    this.ora = ora;
-    this.gestore = gestore;
-    this.organizzatore = organizzatore;
-    this.stato = "richiesta";
-    this.valutazione = 0;
-    this.numPartecipanti = 0;
-  }
-
-  /**
    * Sets the nome.
    *
    * @param nome the new nome

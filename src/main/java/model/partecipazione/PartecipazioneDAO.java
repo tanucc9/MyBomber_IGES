@@ -74,7 +74,6 @@ public class PartecipazioneDAO {
       if (rs.next()) {
         bean.setUtente(rs.getString("e_mail"));
         bean.setEvento(rs.getString("nome_evento"));
-
         return bean;
       }
 

@@ -25,10 +25,8 @@ public class EventoDAO {
   public synchronized void doSave(EventoBean e) throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-
     String insertSQL = "insert into " + TABLE_NAME
         + " (nome, descrizione, struttura, data_evento, ora, e_mail_gestore, e_mail_utente, stato, valutazione, numero_partecipanti) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
@@ -43,7 +41,6 @@ public class EventoDAO {
       preparedStatement.setFloat(9, e.getValutazione());
       preparedStatement.setInt(10, e.getNumPartecipanti());
       preparedStatement.executeUpdate();
-
       connection.commit();
     } finally {
       try {
@@ -65,20 +62,15 @@ public class EventoDAO {
    * @return the evento bean
    */
   public synchronized EventoBean doRetrieveByKey(String nome) {
-
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     EventoBean bean = new EventoBean();
     String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE nome = ?";
-
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(selectSQL);
-
       preparedStatement.setString(1, nome);
-
       ResultSet rs = preparedStatement.executeQuery();
-
       // 4. Prendi il risultato
       if (rs.next()) {
         bean.setNome(rs.getString("nome"));
@@ -93,7 +85,6 @@ public class EventoDAO {
         bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
         return bean;
       }
-
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

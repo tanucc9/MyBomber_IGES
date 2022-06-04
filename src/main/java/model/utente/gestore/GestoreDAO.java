@@ -26,13 +26,10 @@ public class GestoreDAO {
    * @throws SQLException the SQL exception
    */
   public synchronized void doSave(GestoreBean bean) throws SQLException, NoSuchAlgorithmException {
-
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-
     String insertSQL = "insert into " + TABLE_NAME
         + " (e_mail, nome, cognome, password_gestore, telefono, struttura) values (?, ?, ?, ?, ?, ?)";
-
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
@@ -43,7 +40,6 @@ public class GestoreDAO {
       preparedStatement.setString(5, bean.getTelefono());
       preparedStatement.setString(6, bean.getStruttura());
       preparedStatement.executeUpdate();
-
       connection.commit();
     } finally {
       try {
@@ -56,7 +52,6 @@ public class GestoreDAO {
         }
       }
     }
-
   }
 
   /**
@@ -66,7 +61,6 @@ public class GestoreDAO {
    * @return the gestore bean
    */
   public synchronized GestoreBean doRetrieveByKey(String email) {
-
     Connection conn = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -75,21 +69,17 @@ public class GestoreDAO {
       preparedStatement = conn
           .prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE e_mail = ?");
       preparedStatement.setString(1, email);
-
       ResultSet rs = preparedStatement.executeQuery();
-
       // 4. Prendi il risultato
       if (rs.next()) {
         bean.setEmail(rs.getString("e_mail"));
         bean.setNome(rs.getString("nome"));
         bean.setCognome(rs.getString("cognome"));
         bean.setEncPassword(rs.getString("password_gestore"));
-
         bean.setTelefono(rs.getString("telefono"));
         bean.setStruttura(rs.getString("struttura"));
         return bean;
       }
-
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -112,10 +102,8 @@ public class GestoreDAO {
    * @throws SQLException the SQL exception
    */
   public synchronized void doUpdate(GestoreBean bean) throws SQLException, NoSuchAlgorithmException {
-
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-
     String updateSQL = "UPDATE " + TABLE_NAME
         + " SET e_mail = ?, nome = ?, cognome = ?, password_gestore = ? , telefono = ?, struttura = ? WHERE e_mail = ?";
     try {
@@ -129,7 +117,6 @@ public class GestoreDAO {
       preparedStatement.setString(6, bean.getStruttura());
       preparedStatement.setString(7, bean.getEmail());
       preparedStatement.executeUpdate();
-
       connection.commit();
     } finally {
       try {

@@ -28,10 +28,8 @@ public class GiocatoreDAO {
   public synchronized void doSave(GiocatoreBean e) throws SQLException, NoSuchAlgorithmException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-
     String insertSQL = "insert into " + TABLE_NAME
         + " (username, e_mail, nome, cognome, password_giocatore, telefono, data_nascita, nazione_residenza, provincia_residenza, citta_residenza, cap_residenza, valutazione) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
@@ -42,14 +40,12 @@ public class GiocatoreDAO {
       preparedStatement.setString(5, e.getEncPassword());
       preparedStatement.setString(6, e.getTelefono());
       preparedStatement.setDate(7, e.getDataNascita());
-
       preparedStatement.setString(8, e.getNazioneResidenza());
       preparedStatement.setString(9, e.getProvinciaResidenza());
       preparedStatement.setString(10, e.getCittaResidenza());
       preparedStatement.setString(11, e.getCapResidenza());
       preparedStatement.setFloat(12, e.getValutazione());
       preparedStatement.executeUpdate();
-
       connection.commit();
     } finally {
       try {
@@ -71,7 +67,6 @@ public class GiocatoreDAO {
    * @return the giocatore bean
    */
   public synchronized GiocatoreBean doRetrieveByKey(String email) {
-
     Connection conn = null;
     PreparedStatement ps = null;
     try {
@@ -79,9 +74,7 @@ public class GiocatoreDAO {
       conn = DriverManagerConnectionPool.getConnection();
       ps = conn.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE e_mail = ?");
       ps.setString(1, email);
-
       ResultSet rs = ps.executeQuery();
-
       // 4. Prendi il risultato
       if (rs.next()) {
         bean.setUsername(rs.getString("username"));
@@ -98,7 +91,6 @@ public class GiocatoreDAO {
         bean.setValutazione(rs.getFloat("valutazione"));
         return bean;
       }
-
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -121,7 +113,6 @@ public class GiocatoreDAO {
    * @return the giocatore bean
    */
   public synchronized GiocatoreBean doRetrieveByUsername(String username) {
-
     Connection conn = null;
     PreparedStatement ps = null;
     try {
@@ -129,9 +120,7 @@ public class GiocatoreDAO {
       conn = DriverManagerConnectionPool.getConnection();
       ps = conn.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE username = ?");
       ps.setString(1, username);
-
       ResultSet rs = ps.executeQuery();
-
       // 4. Prendi il risultato
       if (rs.next()) {
         bean.setUsername(rs.getString("username"));
@@ -148,7 +137,6 @@ public class GiocatoreDAO {
         bean.setValutazione(rs.getFloat("valutazione"));
         return bean;
       }
-
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

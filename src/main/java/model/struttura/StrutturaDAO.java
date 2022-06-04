@@ -23,13 +23,10 @@ public class StrutturaDAO {
    * @throws SQLException the SQL exception
    */
   public synchronized void doSave(StrutturaBean bean) throws SQLException {
-
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-
     String insertSQL = "insert into " + TABLE_NAME
         + " (nome, indirizzo, nazione, citta, cap, provincia, telefono) values (?, ?, ?, ?, ?, ?, ?)";
-
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
@@ -41,7 +38,6 @@ public class StrutturaDAO {
       preparedStatement.setString(6, bean.getProvincia());
       preparedStatement.setString(7, bean.getTelefono());
       preparedStatement.executeUpdate();
-
       connection.commit();
     } finally {
       try {
@@ -54,7 +50,6 @@ public class StrutturaDAO {
         }
       }
     }
-
   }
 
   /**
@@ -64,7 +59,6 @@ public class StrutturaDAO {
    * @return the struttura bean
    */
   public synchronized StrutturaBean doRetrieveByKey(String nome) {
-
     Connection conn = null;
     PreparedStatement ps = null;
     try {
@@ -72,9 +66,7 @@ public class StrutturaDAO {
       conn = DriverManagerConnectionPool.getConnection();
       ps = conn.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE nome = ?");
       ps.setString(1, nome);
-
       ResultSet rs = ps.executeQuery();
-
       // 4. Prendi il risultato
       if (rs.next()) {
         bean.setNome(rs.getString("nome"));
@@ -86,7 +78,6 @@ public class StrutturaDAO {
         bean.setTelefono(rs.getString("telefono"));
         return bean;
       }
-
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -109,10 +100,8 @@ public class StrutturaDAO {
    * @throws SQLException the SQL exception
    */
   public synchronized void doUpdate(StrutturaBean bean) throws SQLException {
-
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-
     String updateSQL = "UPDATE " + TABLE_NAME
         + " SET nome = ?, indirizzo = ?, nazione = ?, citta = ?, cap = ?, provincia = ?, telefono = ? WHERE nome = ?";
     try {
@@ -127,7 +116,6 @@ public class StrutturaDAO {
       preparedStatement.setString(7, bean.getTelefono());
       preparedStatement.setString(8, bean.getNome());
       preparedStatement.executeUpdate();
-
       connection.commit();
     } finally {
       try {

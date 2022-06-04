@@ -84,7 +84,6 @@ public class RecensioneDAO {
         bean.setEvento(rs.getString("nome_evento"));
         bean.setRecensione(rs.getFloat("recensione"));
         bean.setDescrizione(rs.getString("descrizione"));
-
         return bean;
       }
 
