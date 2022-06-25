@@ -84,7 +84,7 @@ public class TestLoginServlet {
    * @throws IOException      Signals that an I/O exception has occurred.
    */
   @Test
-  public void loginGiocatoreOk() throws ServletException, IOException {
+  public void loginGiocatoreOk() throws ServletException, IOException, NoSuchAlgorithmException {
     GiocatoreBean g = new GiocatoreBean();
     g.setUsername("pino");
     g.setEmail("pino@pino.it");
@@ -98,7 +98,7 @@ public class TestLoginServlet {
     g.setCittaResidenza("Napoli");
     g.setCapResidenza("80000");
     g.setValutazione(0);
-    when(gioDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(g);
+    when(gioDao.doRetrieveByAuth(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(g);
     when(req.getParameter("email")).thenReturn("pino@pino.it");
     when(req.getParameter("password")).thenReturn("pino");
     when(session.getAttribute("giocatore")).thenReturn(g);
@@ -115,7 +115,7 @@ public class TestLoginServlet {
    * @throws IOException      Signals that an I/O exception has occurred.
    */
   @Test
-  public void loginGestoreOk() throws ServletException, IOException {
+  public void loginGestoreOk() throws ServletException, IOException, NoSuchAlgorithmException {
     GestoreBean g = new GestoreBean();
     g.setEmail("gino@gino.it");
     g.setNome("gino");
@@ -123,7 +123,7 @@ public class TestLoginServlet {
     g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
-    when(gesDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(g);
+    when(gesDao.doRetrieveByAuth(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(g);
     when(req.getParameter("email")).thenReturn("gino@gino.it");
     when(req.getParameter("password")).thenReturn("gino");
     when(session.getAttribute("gestore")).thenReturn(g);
@@ -140,8 +140,8 @@ public class TestLoginServlet {
    * @throws IOException      Signals that an I/O exception has occurred.
    */
   @Test
-  public void notGioLogged() throws ServletException, IOException {
-    when(gioDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(null);
+  public void notGioLogged() throws ServletException, IOException, NoSuchAlgorithmException {
+    when(gioDao.doRetrieveByAuth(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(null);
     when(req.getParameter("email")).thenReturn("pino@pino.it");
     when(req.getParameter("password")).thenReturn("x");
     when(req.getRequestDispatcher(res.encodeRedirectURL("login.jsp"))).thenReturn(rd);
@@ -159,7 +159,7 @@ public class TestLoginServlet {
    * @throws IOException      Signals that an I/O exception has occurred.
    */
   @Test
-  public void notGioLoggedErrorPass() throws ServletException, IOException {
+  public void notGioLoggedErrorPass() throws ServletException, IOException, NoSuchAlgorithmException {
     GiocatoreBean g = new GiocatoreBean();
     g.setUsername("pino");
     g.setEmail("pino@pino.it");
@@ -174,7 +174,7 @@ public class TestLoginServlet {
     g.setCapResidenza("80000");
     g.setValutazione(0);
 
-    when(gioDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(g);
+    when(gioDao.doRetrieveByAuth(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(g);
     when(req.getParameter("email")).thenReturn("pino@pino.it");
     when(req.getParameter("password")).thenReturn("x");
     when(req.getRequestDispatcher(res.encodeRedirectURL("login.jsp"))).thenReturn(rd);
@@ -192,8 +192,8 @@ public class TestLoginServlet {
    * @throws IOException      Signals that an I/O exception has occurred.
    */
   @Test
-  public void notGesLogged() throws ServletException, IOException {
-    when(gesDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(null);
+  public void notGesLogged() throws ServletException, IOException, NoSuchAlgorithmException {
+    when(gesDao.doRetrieveByAuth(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(null);
     when(req.getParameter("email")).thenReturn("gino@gino.it");
     when(req.getParameter("password")).thenReturn("x");
     when(req.getRequestDispatcher(res.encodeRedirectURL("login.jsp"))).thenReturn(rd);
@@ -211,7 +211,7 @@ public class TestLoginServlet {
    * @throws IOException      Signals that an I/O exception has occurred.
    */
   @Test
-  public void notGesLoggedErrorPass() throws ServletException, IOException {
+  public void notGesLoggedErrorPass() throws ServletException, IOException, NoSuchAlgorithmException {
     GestoreBean g = new GestoreBean();
     g.setEmail("gino@gino.it");
     g.setNome("gino");
@@ -219,7 +219,7 @@ public class TestLoginServlet {
     g.setEncPassword(hashTool.hashSHA256("gino"));
     g.setTelefono("3923415443");
     g.setStruttura("playk");
-    when(gesDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(g);
+    when(gesDao.doRetrieveByAuth(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(g);
 
     when(req.getParameter("email")).thenReturn("gino@gino.it");
     when(req.getParameter("password")).thenReturn("x");
