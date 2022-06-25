@@ -27,6 +27,8 @@ public class TestGiocatoreDAO extends TestCase {
   /** The tester. */
   private GiocatoreDAO tester = new GiocatoreDAO();
 
+  String password;
+
   /**
    * Sets the up.
    *
@@ -37,6 +39,7 @@ public class TestGiocatoreDAO extends TestCase {
   public void setUp() throws Exception {
     super.setUp();
 	hashTool = new HashTool();
+    password = "simone";
     bean = new GiocatoreBean();
     bean.setUsername("simone45");
     bean.setEmail("simon@simon.it");
@@ -190,6 +193,11 @@ public class TestGiocatoreDAO extends TestCase {
     }
 
     assertEquals(list, list2);
+  }
+
+  @Test
+  public void testDoRetrieveByAuth() throws NoSuchAlgorithmException {
+    assertEquals(bean.toString(), tester.doRetrieveByAuth(bean.getEmail(), password).toString());
   }
 
 }

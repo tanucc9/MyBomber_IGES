@@ -23,6 +23,8 @@ public class TestGestoreDAO extends TestCase {
   /** The bean. */
   private GestoreBean bean;
 
+  private String password;
+
   /** The tester. */
   private GestoreDAO tester = new GestoreDAO();
 
@@ -35,12 +37,13 @@ public class TestGestoreDAO extends TestCase {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    password = "gaetano";
     hashTool = new HashTool();
     bean = new GestoreBean();
     bean.setEmail("zgaetano@olio.it");
     bean.setNome("gaetano");
     bean.setCognome("rossi");
-    bean.setEncPassword(hashTool.hashSHA256("gaetano"));
+    bean.setEncPassword(hashTool.hashSHA256(password));
     bean.setTelefono("3923415443");
     bean.setStruttura("playo");
 
@@ -165,4 +168,8 @@ public class TestGestoreDAO extends TestCase {
 
   }
 
+  @Test
+  public void testDoRetrieveByAuth() throws NoSuchAlgorithmException {
+    assertEquals(bean.toString(), tester.doRetrieveByAuth(bean.getEmail(), password).toString());
+  }
 }
