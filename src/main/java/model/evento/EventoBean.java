@@ -43,6 +43,7 @@ public class EventoBean implements Serializable {
 
   /** The num partecipanti. */
   private int numPartecipanti;
+  private String tipologia;
 
   /**
    * Sets the nome.
@@ -216,6 +217,14 @@ public class EventoBean implements Serializable {
     return valutazione;
   }
 
+  public String getTipologia() {
+    return tipologia;
+  }
+
+  public void setTipologia(String tipologia) {
+    this.tipologia = tipologia;
+  }
+
   /**
    * Gets the num partecipanti.
    *
@@ -308,8 +317,18 @@ public class EventoBean implements Serializable {
    */
   @Override
   public String toString() {
-    return "Evento [nome = " + nome + ", descrizione = " + descrizione + ", struttura = "
-        + struttura + ", data = " + data.toString() + ", ora = " + ora + ", gestore = " + gestore
-        + ", organizzatore = " + organizzatore + ", stato = " + stato + "]";
+    return "EventoBean{" +
+            "nome='" + nome + '\'' +
+            ", descrizione='" + descrizione + '\'' +
+            ", struttura='" + struttura + '\'' +
+            ", data=" + data +
+            ", ora=" + ora +
+            ", gestore='" + gestore + '\'' +
+            ", organizzatore='" + organizzatore + '\'' +
+            ", stato='" + stato + '\'' +
+            ", valutazione=" + valutazione +
+            ", numPartecipanti=" + numPartecipanti +
+            ", tipologia='" + tipologia + '\'' +
+            '}';
   }
 }

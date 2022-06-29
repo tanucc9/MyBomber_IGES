@@ -47,6 +47,7 @@ public class GiocatoreBean implements Serializable {
 
   /** The valutazione. */
   private float valutazione;
+  private int idSquadra;
 
   /**
    * Sets the username.
@@ -264,6 +265,14 @@ public class GiocatoreBean implements Serializable {
     return valutazione;
   }
 
+  public int getIdSquadra() {
+    return idSquadra;
+  }
+
+  public void setIdSquadra(int idSquadra) {
+    this.idSquadra = idSquadra;
+  }
+
   /**
    * To string.
    *
@@ -271,9 +280,20 @@ public class GiocatoreBean implements Serializable {
    */
   @Override
   public String toString() {
-    return "username " + username + " email " + email + " nome " + nome + " cognome " + cognome
-        + " encPassword " + encPassword + " nazioneResidenza " + nazioneResidenza + " cittaResidenza "
-        + cittaResidenza + " provinciaResidenza " + provinciaResidenza + " capResidenza "
-        + capResidenza + " dataNascita " + dataNascita + " valutazione " + valutazione;
+    return "GiocatoreBean{" +
+            "username='" + username + '\'' +
+            ", email='" + email + '\'' +
+            ", nome='" + nome + '\'' +
+            ", cognome='" + cognome + '\'' +
+            ", encPassword='" + encPassword + '\'' +
+            ", telefono='" + telefono + '\'' +
+            ", nazioneResidenza='" + nazioneResidenza + '\'' +
+            ", provinciaResidenza='" + provinciaResidenza + '\'' +
+            ", cittaResidenza='" + cittaResidenza + '\'' +
+            ", capResidenza='" + capResidenza + '\'' +
+            ", dataNascita=" + dataNascita +
+            ", valutazione=" + valutazione +
+            ", idSquadra=" + idSquadra +
+            '}';
   }
 }
