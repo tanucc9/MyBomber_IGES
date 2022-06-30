@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	import="model.utente.giocatore.*,model.utente.gestore.*, java.util.*"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="model.squadra.SquadraBean" %>
 <%
 	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
     GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
+	SquadraBean squadra = (SquadraBean) request.getSession().getAttribute("squadra");
     if(giocatore==null && gestore==null)
     {
     	response.sendRedirect("./Login.jsp");
@@ -99,25 +101,18 @@
 											<p class="m-b-10 f-w-600">Valutazione</p>
 											<h6 class="text-muted f-w-400"><%=g.getValutazione()%></h6>
 										</div>
-
+										<div class="col-sm-6">
+											<p class="m-b-10 f-w-600">Squadra</p>
+											<h6 class="text-muted f-w-400">
+												<% if (squadra != null) { %>
+													<%=squadra.getNome()%>
+												<% } else { %>
+												-
+												<% } %>
+											</h6>
+										</div>
 									</div>
-									<ul class="social-link list-unstyled m-t-40 m-b-10">
-										<li><a href="#!" data-toggle="tooltip"
-											data-placement="bottom" title=""
-											data-original-title="facebook" data-abc="true"><i
-												class="mdi mdi-facebook feather icon-facebook facebook"
-												aria-hidden="true"></i></a></li>
-										<li><a href="#!" data-toggle="tooltip"
-											data-placement="bottom" title=""
-											data-original-title="twitter" data-abc="true"><i
-												class="mdi mdi-twitter feather icon-twitter twitter"
-												aria-hidden="true"></i></a></li>
-										<li><a href="#!" data-toggle="tooltip"
-											data-placement="bottom" title=""
-											data-original-title="instagram" data-abc="true"><i
-												class="mdi mdi-instagram feather icon-instagram instagram"
-												aria-hidden="true"></i></a></li>
-									</ul>
+
 								</div>
 							</div>
 						</div>
@@ -179,23 +174,6 @@
 										</div>
 
 									</div>
-									<ul class="social-link list-unstyled m-t-40 m-b-10">
-										<li><a href="#!" data-toggle="tooltip"
-											data-placement="bottom" title=""
-											data-original-title="facebook" data-abc="true"><i
-												class="mdi mdi-facebook feather icon-facebook facebook"
-												aria-hidden="true"></i></a></li>
-										<li><a href="#!" data-toggle="tooltip"
-											data-placement="bottom" title=""
-											data-original-title="twitter" data-abc="true"><i
-												class="mdi mdi-twitter feather icon-twitter twitter"
-												aria-hidden="true"></i></a></li>
-										<li><a href="#!" data-toggle="tooltip"
-											data-placement="bottom" title=""
-											data-original-title="instagram" data-abc="true"><i
-												class="mdi mdi-instagram feather icon-instagram instagram"
-												aria-hidden="true"></i></a></li>
-									</ul>
 								</div>
 							</div>
 						</div>
@@ -205,5 +183,8 @@
 		</div>
 	</div>
 	<%} }%>
+
+	<%@ include file="./fragments/footer.html"%>
+
 </body>
 </html>

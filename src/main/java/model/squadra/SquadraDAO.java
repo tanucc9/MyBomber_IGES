@@ -127,14 +127,12 @@ public class SquadraDAO {
                 return bean;
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             try {
                 preparedStatement.close();
                 DriverManagerConnectionPool.releaseConnection(connection);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

@@ -65,13 +65,45 @@ public class TestIntegrazioneLogin {
   }
 
   /**
-   * Login giocatore ok.
+   * Login giocatore ok (con giocatore NON iscritto ad una squadra)
    *
    * @throws ServletException the servlet exception
    * @throws IOException      Signals that an I/O exception has occurred.
    */
   @Test
   public void loginGiocatoreOk() throws ServletException, IOException {
+    GiocatoreBean g = new GiocatoreBean();
+    g.setUsername("gio");
+    g.setEmail("gio4@email.it");
+    g.setNome("Giovanni");
+    g.setCognome("Falco");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
+    g.setTelefono("3334562167");
+    g.setDataNascita(Date.valueOf("2001-11-16"));
+    g.setNazioneResidenza("Italia");
+    g.setProvinciaResidenza("Caserta");
+    g.setCittaResidenza("Caserta");
+    g.setCapResidenza("89976");
+    g.setValutazione(0);
+    g.setIdSquadra(0);
+
+    when(req.getParameter("email")).thenReturn("gio4@email.it");
+    when(req.getParameter("password")).thenReturn("Gio");
+    when(session.getAttribute("giocatore")).thenReturn(g);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+    servlet.doPost(req, res);
+    verify(rd).forward(req, res);
+    assertEquals(g, session.getAttribute("giocatore"));
+  }
+
+  /**
+   * Login giocatore ok (con giocatore iscritto ad una squadra)
+   *
+   * @throws ServletException the servlet exception
+   * @throws IOException      Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void loginGiocatoreOkConSquadra() throws ServletException, IOException {
     GiocatoreBean g = new GiocatoreBean();
     g.setUsername("pino");
     g.setEmail("pino@pino.it");
@@ -85,6 +117,7 @@ public class TestIntegrazioneLogin {
     g.setCittaResidenza("Napoli");
     g.setCapResidenza("80000");
     g.setValutazione(0);
+    g.setIdSquadra(1);
 
     when(req.getParameter("email")).thenReturn("pino@pino.it");
     when(req.getParameter("password")).thenReturn("pino");

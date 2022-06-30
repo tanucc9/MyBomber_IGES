@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.squadra.SquadraBean;
+import model.squadra.SquadraDAO;
 import model.utente.gestore.GestoreBean;
 import model.utente.gestore.GestoreDAO;
 import model.utente.giocatore.GiocatoreBean;
@@ -28,6 +31,8 @@ public class LoginServlet extends HttpServlet {
 
   /** The gestore dao. */
   public GestoreDAO gestoreDao;
+
+  public SquadraDAO squadraDAO;
 
   /**
    * Default constructor.
@@ -97,6 +102,18 @@ public class LoginServlet extends HttpServlet {
     }
     if (giocatore != null) {
       request.getSession().setAttribute("giocatore", giocatore);
+
+      SquadraDAO sDao;
+      if (squadraDAO != null) {
+        sDao = squadraDAO;
+      } else {
+        sDao = new SquadraDAO();
+      }
+
+      SquadraBean squadra = sDao.doRetrieveByKey(giocatore.getIdSquadra());
+      if (squadra != null)
+        request.getSession().setAttribute("squadra", squadra);
+
       RequestDispatcher dispatcher = request
           .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
       dispatcher.forward(request, response);

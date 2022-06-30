@@ -15,6 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import model.squadra.SquadraBean;
+import model.squadra.SquadraDAO;
 import model.utente.gestore.GestoreBean;
 import model.utente.gestore.GestoreDAO;
 import model.utente.giocatore.GiocatoreBean;
@@ -60,6 +63,9 @@ public class TestLoginServlet {
   @Mock
   GestoreDAO gesDao = new GestoreDAO();
 
+  @Mock
+  SquadraDAO sqDao = new SquadraDAO();
+
   /** The servlet. */
   private LoginServlet servlet;
   private HashTool hashTool;
@@ -73,12 +79,13 @@ public class TestLoginServlet {
     servlet = new LoginServlet();
     servlet.giocatoreDao = gioDao;
     servlet.gestoreDao = gesDao;
+    servlet.squadraDAO = sqDao;
     hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
   }
 
   /**
-   * Login giocatore ok.
+   * Login giocatore ok (il giocatore non è iscritto a nessuna squadra).
    *
    * @throws ServletException the servlet exception
    * @throws IOException      Signals that an I/O exception has occurred.
@@ -98,7 +105,57 @@ public class TestLoginServlet {
     g.setCittaResidenza("Napoli");
     g.setCapResidenza("80000");
     g.setValutazione(0);
+    g.setIdSquadra(0);
     when(gioDao.doRetrieveByAuth(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(g);
+
+    //Ritorna null, quindi è come se il giocatore non avesse una squadra
+    when(sqDao.doRetrieveByKey(ArgumentMatchers.anyInt())).thenReturn(null);
+
+    when(req.getParameter("email")).thenReturn("pino@pino.it");
+    when(req.getParameter("password")).thenReturn("pino");
+    when(session.getAttribute("giocatore")).thenReturn(g);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+    servlet.doPost(req, res);
+    verify(rd).forward(req, res);
+    assertEquals(g, session.getAttribute("giocatore"));
+  }
+
+  /**
+   * Login giocatore ok (con giocatore iscritto ad una squadra).
+   *
+   * @throws ServletException the servlet exception
+   * @throws IOException      Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void loginGiocatoreOkConSquadra() throws ServletException, IOException, NoSuchAlgorithmException {
+    GiocatoreBean g = new GiocatoreBean();
+    g.setUsername("pino");
+    g.setEmail("pino@pino.it");
+    g.setNome("Pino");
+    g.setCognome("Inglese");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
+    g.setTelefono("3665423187");
+    g.setDataNascita(Date.valueOf("2000-09-09"));
+    g.setNazioneResidenza("Italia");
+    g.setProvinciaResidenza("Napoli");
+    g.setCittaResidenza("Napoli");
+    g.setCapResidenza("80000");
+    g.setValutazione(0);
+    g.setIdSquadra(1);
+    when(gioDao.doRetrieveByAuth(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(g);
+
+    SquadraBean squadra = new SquadraBean();
+    squadra.setIdSquadra(1);
+    squadra.setCapitano("peppe@email.it");
+    squadra.setLogo("www.logo.it/image.png");
+    squadra.setDescrizione("Squadra nata per divertirsi");
+    squadra.setNome("Tigers");
+    squadra.setNomeAbbreviato("tig");
+    squadra.setCitta("Salerno");
+
+    //Ritorna squadra, quindi è come se il giocatore appartenesse alla squadra tigers
+    when(sqDao.doRetrieveByKey(ArgumentMatchers.anyInt())).thenReturn(squadra);
+
     when(req.getParameter("email")).thenReturn("pino@pino.it");
     when(req.getParameter("password")).thenReturn("pino");
     when(session.getAttribute("giocatore")).thenReturn(g);

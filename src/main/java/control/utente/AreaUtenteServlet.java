@@ -55,11 +55,14 @@ public class AreaUtenteServlet extends HttpServlet {
       RequestDispatcher dispatcher = request
           .getRequestDispatcher(response.encodeRedirectURL("./AreaUtente.jsp"));
       dispatcher.forward(request, response);
-    }
-    if (gestore != null) {
+    } else if (gestore != null) {
       request.setAttribute("cu", "gestore");
       RequestDispatcher dispatcher = request
           .getRequestDispatcher(response.encodeRedirectURL("./AreaUtente.jsp"));
+      dispatcher.forward(request, response);
+    } else {
+      RequestDispatcher dispatcher = request
+              .getRequestDispatcher(response.encodeRedirectURL("./"));
       dispatcher.forward(request, response);
     }
 
