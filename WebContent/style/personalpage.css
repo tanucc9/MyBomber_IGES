@@ -60,6 +60,15 @@ h6 {
 	line-height: 25px
 }
 
+.crea_squadra h4 {
+	text-align: center;
+}
+
+.crea_squadra a {
+	width: 53%;
+	margin: auto;
+}
+
 @media only screen and (min-width: 1400px) {
 	p {
 		font-size: 14px

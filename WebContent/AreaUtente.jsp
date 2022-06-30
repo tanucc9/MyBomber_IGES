@@ -15,7 +15,7 @@
 <html lang="it">
 <head>
 	<%@ include file="../fragments/head.jsp"%>
-	<link href="../style/personalpage.css" rel="stylesheet" type="text/css">
+	<link href="../mybomber/style/personalpage.css" rel="stylesheet" type="text/css">
 	<title>Area utente</title>
 </head>
 <body>
@@ -26,7 +26,6 @@
       %>
 	<div class="page-content page-container container mt-5"
 		id="page-content">
-		<div class="padding">
 			<div class="row container d-flex justify-content-center">
 				<div class="col-xl-6 col-md-12">
 					<div class="card user-card-full">
@@ -37,8 +36,12 @@
 										<img src="https://img.icons8.com/bubbles/100/000000/user.png"
 											class="img-radius" alt="User-Profile-Image">
 									</div>
-									<h6 class="f-w-600">Hembo Tingor</h6>
-									<p>Web Designer</p>
+									<h6 class="f-w-600">Squadra</h6>
+									<p><% if (squadra != null) { %>
+										<%=squadra.getNome()%>
+										<% } else { %>
+										-
+										<% } %></p>
 									<i
 										class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
 								</div>
@@ -101,16 +104,6 @@
 											<p class="m-b-10 f-w-600">Valutazione</p>
 											<h6 class="text-muted f-w-400"><%=g.getValutazione()%></h6>
 										</div>
-										<div class="col-sm-6">
-											<p class="m-b-10 f-w-600">Squadra</p>
-											<h6 class="text-muted f-w-400">
-												<% if (squadra != null) { %>
-													<%=squadra.getNome()%>
-												<% } else { %>
-												-
-												<% } %>
-											</h6>
-										</div>
 									</div>
 
 								</div>
@@ -118,8 +111,17 @@
 						</div>
 					</div>
 				</div>
+
+				<% if (squadra == null) { %>
+				<div class="crea_squadra">
+					<h4>Non hai ancora una squadra. Vuoi crearne una ora?</h4>
+					<div class="d-grid gap-2">
+						<a href="#" class="btn btn-outline-primary">Crea</a>
+					</div>
+				</div>
+				<% } %>
+
 			</div>
-		</div>
 	</div>
 
 	<%} else{   if (request.getAttribute("cu") == "gestore") {
