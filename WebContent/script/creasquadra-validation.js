@@ -1,18 +1,21 @@
-console.log("crea squadra validation");
-
+let validated = false;
 $("#form_creasquadra").on("submit", function(form) {validateTeamsFields(form)});
 
 function validateTeamsFields(form) {
-    form.preventDefault();
+    if (!validated) {
+        form.preventDefault();
 
-    const validationNome = validateNome();
-    const validationNomeAbbr = validateNomeAbbr();
-    const validationCitta = validateCitta();
-    const validationDescr = validateDescr();
-    const validationLogo = validateLogo();
+        const validationNome = validateNome();
+        const validationNomeAbbr = validateNomeAbbr();
+        const validationCitta = validateCitta();
+        const validationDescr = validateDescr();
+        const validationLogo = validateLogo();
 
-    if (validationNome && validationNomeAbbr && validationCitta && validationDescr && validationLogo)
-        form.submit(); //todo submit to servlet
+        if (validationNome && validationNomeAbbr && validationCitta && validationDescr && validationLogo) {
+            validated = true;
+            $("#form_creasquadra").submit();
+        }
+    }
 }
 
 function validateNome() {

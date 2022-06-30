@@ -23,7 +23,7 @@
 <%@ include file="./fragments/header.jsp"%>
 
 <div class="container">
-    <form class="row g-3" id="form_creasquadra">
+    <form action="creaSquadra" method="post" class="row g-3" id="form_creasquadra">
         <div class="col-md-6" id="container_nomeSquadra">
             <label for="inputNomeSquadra" class="form-label">Nome squadra*</label>
             <input type="text" class="form-control" id="inputNomeSquadra" placeholder="Digita nome...">
