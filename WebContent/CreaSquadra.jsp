@@ -23,26 +23,46 @@
 <%@ include file="./fragments/header.jsp"%>
 
 <div class="container">
-    <form class="row g-3">
-        <div class="col-md-6">
+    <form class="row g-3" id="form_creasquadra">
+        <div class="col-md-6" id="container_nomeSquadra">
             <label for="inputNomeSquadra" class="form-label">Nome squadra*</label>
-            <input type="text" class="form-control" id="inputNomeSquadra" placeholder="Digita nome..." required>
+            <input type="text" class="form-control" id="inputNomeSquadra" placeholder="Digita nome...">
+            <div class="valid-feedback">
+                Ok!
+            </div>
+            <div class="invalid-feedback"></div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="container_nomeSquadraAbbr">
             <label for="inputNomeAbbreviato" class="form-label">Nome abbreviato*</label>
-            <input type="text" class="form-control" id="inputNomeAbbreviato" placeholder="Digita nome..." required>
+            <input type="text" class="form-control" id="inputNomeAbbreviato" placeholder="Digita nome...">
+            <div class="valid-feedback">
+                Ok!
+            </div>
+            <div class="invalid-feedback"></div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="container_citta">
             <label for="inputCitta" class="form-label">Città*</label>
-            <input type="text" class="form-control" id="inputCitta" placeholder="Digita città..." required>
+            <input type="text" class="form-control" id="inputCitta" placeholder="Digita città...">
+            <div class="valid-feedback">
+                Ok!
+            </div>
+            <div class="invalid-feedback"></div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="container_logo">
             <label for="inputLogo" class="form-label">Logo</label>
             <input type="file" class="form-control" id="inputLogo">
+            <div class="valid-feedback">
+                Ok!
+            </div>
+            <div class="invalid-feedback"></div>
         </div>
-        <div class="col-12">
+        <div class="col-12" id="container_descr">
             <label for="inputDesc" class="form-label">Descrizione</label>
-            <textarea class="form-control" id="inputDesc" placeholder="Aggiungi una descrizione della squadra..." rows="3" required ></textarea>
+            <textarea class="form-control" id="inputDesc" placeholder="Aggiungi una descrizione della squadra..." rows="3"></textarea>
+            <div class="valid-feedback">
+                Ok!
+            </div>
+            <div class="invalid-feedback"></div>
         </div>
 
         <div class="col-12">
@@ -53,5 +73,6 @@
 
 <%@ include file="./fragments/footer.html"%>
 
+<script src="script/creasquadra-validation.js"></script>
 </body>
 </html>
