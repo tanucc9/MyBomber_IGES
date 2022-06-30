@@ -116,7 +116,7 @@
 				<div class="crea_squadra">
 					<h4>Non hai ancora una squadra. Vuoi crearne una ora?</h4>
 					<div class="d-grid gap-2">
-						<a href="#" class="btn btn-outline-primary">Crea</a>
+						<a href="./CreaSquadra.jsp" class="btn btn-outline-primary">Crea</a>
 					</div>
 				</div>
 				<% } %>
@@ -140,8 +140,6 @@
 										<img src="https://img.icons8.com/bubbles/100/000000/user.png"
 											class="img-radius" alt="User-Profile-Image">
 									</div>
-									<h6 class="f-w-600">Hembo Tingor</h6>
-									<p>Web Designer</p>
 									<i
 										class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
 								</div>
