@@ -117,6 +117,7 @@ public class SquadraDAO {
             ResultSet rs = preparedStatement.executeQuery();
             // 4. Prendi il risultato
             if (rs.next()) {
+                bean.setIdSquadra(rs.getInt("id_squadra"));
                 bean.setNome(rs.getString("nome"));
                 bean.setNomeAbbreviato(rs.getString("nome_abbreviato"));
                 bean.setCitta(rs.getString("citta"));
@@ -138,6 +139,42 @@ public class SquadraDAO {
         }
         return null;
     }
+
+    public synchronized SquadraBean doRetrieveByName(String nome) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        SquadraBean bean = new SquadraBean();
+        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE nome = ?";
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+            preparedStatement.setString(1, nome);
+            ResultSet rs = preparedStatement.executeQuery();
+            // 4. Prendi il risultato
+            if (rs.next()) {
+                bean.setIdSquadra(rs.getInt("id_squadra"));
+                bean.setNome(rs.getString("nome"));
+                bean.setNomeAbbreviato(rs.getString("nome_abbreviato"));
+                bean.setCitta(rs.getString("citta"));
+                bean.setDescrizione(rs.getString("descrizione"));
+                bean.setLogo(rs.getInt("logo"));
+                bean.setCapitano(rs.getString("capitano"));
+
+                return bean;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                DriverManagerConnectionPool.releaseConnection(connection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
 
     public synchronized ArrayList<SquadraBean> doRetrieveAll() throws SQLException {
         Connection connection = null;

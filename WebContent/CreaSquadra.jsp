@@ -14,7 +14,10 @@
         response.sendRedirect("./Login.jsp");
     } else if(giocatore==null || squadra != null) {
         response.sendRedirect("./");
+        return;
     }
+
+    String messageError = (String) request.getAttribute("messageError");
 %>
 <!DOCTYPE html>
 <html lang="it">
@@ -27,6 +30,11 @@
 <%@ include file="./fragments/header.jsp"%>
 
 <div class="container">
+    <% if (messageError != null) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Ci sono degli errori:</strong> <%= messageError %>
+    </div>
+    <% } %>
     <form action="creaSquadra" method="post" class="row g-3" id="form_creasquadra">
         <div class="col-md-6" id="container_nomeSquadra">
             <label for="inputNomeSquadra" class="form-label">Nome squadra*</label>

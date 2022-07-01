@@ -342,4 +342,32 @@ public class GiocatoreDAO {
     }
     return null;
   }
+
+  public synchronized void doUpdateTeam(GiocatoreBean g) throws SQLException, NoSuchAlgorithmException {
+
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+
+    String updateSQL = "UPDATE " + TABLE_NAME
+            + " SET id_squadra = ? WHERE e_mail = ?";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(updateSQL);
+      preparedStatement.setInt(1, g.getIdSquadra());
+      preparedStatement.setString(2, g.getEmail());
+      preparedStatement.executeUpdate();
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        if (connection != null) {
+          connection.close();
+        }
+      }
+    }
+  }
+
 }

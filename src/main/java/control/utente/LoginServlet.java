@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import log.LoggerSingleton;
 import model.squadra.LogoSquadraDAO;
 import model.squadra.SquadraBean;
 import model.squadra.SquadraDAO;
