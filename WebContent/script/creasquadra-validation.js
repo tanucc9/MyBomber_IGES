@@ -9,9 +9,9 @@ function validateTeamsFields(form) {
         const validationNomeAbbr = validateNomeAbbr();
         const validationCitta = validateCitta();
         const validationDescr = validateDescr();
-        const validationLogo = validateLogo();
+        //const validationLogo = validateLogo();
 
-        if (validationNome && validationNomeAbbr && validationCitta && validationDescr && validationLogo) {
+        if (validationNome && validationNomeAbbr && validationCitta && validationDescr) {
             validated = true;
             $("#form_creasquadra").submit();
         }

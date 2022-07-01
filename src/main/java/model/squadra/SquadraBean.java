@@ -6,7 +6,7 @@ public class SquadraBean {
     private String nomeAbbreviato;
     private String citta;
     private String descrizione;
-    private String logo;
+    private int logo;
     private String capitano;
 
     public int getIdSquadra() {
@@ -49,11 +49,11 @@ public class SquadraBean {
         this.descrizione = descrizione;
     }
 
-    public String getLogo() {
+    public int getLogo() {
         return logo;
     }
 
-    public void setLogo(String logo) {
+    public void setLogo(int logo) {
         this.logo = logo;
     }
 

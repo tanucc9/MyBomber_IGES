@@ -24,7 +24,7 @@ public class SquadraDAO {
             preparedStatement.setString(2, s.getNomeAbbreviato());
             preparedStatement.setString(3, s.getCitta());
             preparedStatement.setString(4, s.getDescrizione());
-            preparedStatement.setString(5, s.getLogo());
+            preparedStatement.setInt(5, s.getLogo());
             preparedStatement.setString(6, s.getCapitano());
             preparedStatement.executeUpdate();
             connection.commit();
@@ -55,7 +55,7 @@ public class SquadraDAO {
             preparedStatement.setString(2, s.getNomeAbbreviato());
             preparedStatement.setString(3, s.getCitta());
             preparedStatement.setString(4, s.getDescrizione());
-            preparedStatement.setString(5, s.getLogo());
+            preparedStatement.setInt(5, s.getLogo());
             preparedStatement.setString(6, s.getCapitano());
             preparedStatement.setInt(7, s.getIdSquadra());
             preparedStatement.executeUpdate();
@@ -121,7 +121,7 @@ public class SquadraDAO {
                 bean.setNomeAbbreviato(rs.getString("nome_abbreviato"));
                 bean.setCitta(rs.getString("citta"));
                 bean.setDescrizione(rs.getString("descrizione"));
-                bean.setLogo(rs.getString("logo"));
+                bean.setLogo(rs.getInt("logo"));
                 bean.setCapitano(rs.getString("capitano"));
 
                 return bean;
@@ -159,7 +159,7 @@ public class SquadraDAO {
                 bean.setNomeAbbreviato(rs.getString("nome_abbreviato"));
                 bean.setCitta(rs.getString("citta"));
                 bean.setDescrizione(rs.getString("descrizione"));
-                bean.setLogo(rs.getString("logo"));
+                bean.setLogo(rs.getInt("logo"));
                 bean.setCapitano(rs.getString("capitano"));
                 squadre.add(bean);
             }

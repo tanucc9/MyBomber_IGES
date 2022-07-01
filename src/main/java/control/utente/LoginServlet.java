@@ -2,6 +2,7 @@ package control.utente;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.squadra.LogoSquadraDAO;
 import model.squadra.SquadraBean;
 import model.squadra.SquadraDAO;
 import model.utente.gestore.GestoreBean;
@@ -33,6 +35,7 @@ public class LoginServlet extends HttpServlet {
   public GestoreDAO gestoreDao;
 
   public SquadraDAO squadraDAO;
+  public LogoSquadraDAO logoDAO;
 
   /**
    * Default constructor.
@@ -102,6 +105,20 @@ public class LoginServlet extends HttpServlet {
     }
     if (giocatore != null) {
       request.getSession().setAttribute("giocatore", giocatore);
+
+      LogoSquadraDAO lDao;
+      if (logoDAO != null) {
+        lDao = logoDAO;
+      } else {
+        lDao = new LogoSquadraDAO();
+      }
+
+      try {
+        request.getSession().setAttribute("loghiSquadra", lDao.doRetrieveAll());
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
+
 
       SquadraDAO sDao;
       if (squadraDAO != null) {

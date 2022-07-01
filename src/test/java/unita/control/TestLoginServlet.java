@@ -147,7 +147,7 @@ public class TestLoginServlet {
     SquadraBean squadra = new SquadraBean();
     squadra.setIdSquadra(1);
     squadra.setCapitano("peppe@email.it");
-    squadra.setLogo("www.logo.it/image.png");
+    squadra.setLogo(1);
     squadra.setDescrizione("Squadra nata per divertirsi");
     squadra.setNome("Tigers");
     squadra.setNomeAbbreviato("tig");
