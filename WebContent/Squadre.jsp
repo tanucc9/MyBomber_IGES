@@ -50,7 +50,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= sq.getNome() %></h5>
                         <p class="card-text">Città: <%= sq.getCitta() %></p>
-                        <a href="#" class="btn btn-primary stretched-link">Vedi di più</a>
+                        <a href="/mybomber/squadraSpecifica?idSquadra=<%= sq.getIdSquadra() %>" class="btn btn-primary stretched-link">Vedi di più</a>
                     </div>
                 </div>
             </div>

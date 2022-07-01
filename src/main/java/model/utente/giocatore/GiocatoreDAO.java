@@ -370,4 +370,51 @@ public class GiocatoreDAO {
     }
   }
 
+  public synchronized ArrayList<GiocatoreBean> doRetrieveBySquadra(int idSquadra) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+
+    ArrayList<GiocatoreBean> giocatori = new ArrayList<GiocatoreBean>();
+
+    String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE id_squadra = ?";
+
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement.setInt(1, idSquadra);
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      while (rs.next()) {
+        GiocatoreBean bean = new GiocatoreBean();
+        bean.setUsername(rs.getString("username"));
+        bean.setEmail(rs.getString("e_mail"));
+        bean.setNome(rs.getString("nome"));
+        bean.setCognome(rs.getString("cognome"));
+        bean.setEncPassword(rs.getString("password_giocatore"));
+        bean.setTelefono(rs.getString("telefono"));
+        bean.setDataNascita(rs.getDate("data_nascita"));
+        bean.setNazioneResidenza(rs.getString("nazione_residenza"));
+        bean.setProvinciaResidenza(rs.getString("provincia_residenza"));
+        bean.setCittaResidenza(rs.getString("citta_residenza"));
+        bean.setCapResidenza(rs.getString("cap_residenza"));
+        bean.setValutazione(rs.getFloat("valutazione"));
+        bean.setIdSquadra(rs.getInt("id_squadra"));
+        giocatori.add(bean);
+      }
+
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        if (connection != null) {
+          connection.close();
+        }
+      }
+    }
+    return giocatori;
+  }
+
 }

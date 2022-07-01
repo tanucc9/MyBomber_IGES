@@ -71,6 +71,7 @@
 
         <% if (loghi != null) { %>
         <div class="loghi_container">
+            <h5>Scegli un logo:</h5>
             <div class="row">
             <% for (LogoSquadraBean logo : loghi) {
                 if (!logo.getNome().equals("no_image")) {
