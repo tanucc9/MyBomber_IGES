@@ -30,6 +30,8 @@
 													   href="./PartecipaEventi.jsp">Partecipa Eventi</a></li>
 					<li class="nav-item navbar-nav"><a class="nav-link"
 													   href="./EventiRecenti.jsp">Eventi Recenti</a></li>
+					<li class="nav-item navbar-nav"><a class="nav-link"
+													   href="./Squadre.jsp">Squadre</a></li>
 				<%} if(ges!= null){%>
 					<li class="nav-item navbar-nav"><a class="nav-link"
 													   href="./areaUtenteServlet">Area Utente</a></li>

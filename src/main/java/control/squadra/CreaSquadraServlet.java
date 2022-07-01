@@ -132,6 +132,8 @@ public class CreaSquadraServlet extends HttpServlet {
         squadra.setDescrizione(descr);
         if (idLogo != 0) {
             squadra.setLogo(idLogo);
+        } else {
+            squadra.setLogo(8); //no_image
         }
         squadra.setCapitano(giocatore.getEmail());
         try {

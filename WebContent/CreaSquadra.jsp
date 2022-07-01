@@ -72,11 +72,13 @@
         <% if (loghi != null) { %>
         <div class="loghi_container">
             <div class="row">
-            <% for (LogoSquadraBean logo : loghi) { %>
+            <% for (LogoSquadraBean logo : loghi) {
+                if (!logo.getNome().equals("no_image")) {
+            %>
             <div class="col-lg-4">
                 <img src="<%= logo.getUrl() %>" alt="<%= logo.getNome() %>" data-id="<%= logo.getIdLogoSquadra() %>">
             </div>
-            <% } %>
+            <% }} %>
             </div>
         </div>
         <% } %>

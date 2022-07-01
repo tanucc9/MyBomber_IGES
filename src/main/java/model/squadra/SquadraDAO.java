@@ -198,6 +198,7 @@ public class SquadraDAO {
                 bean.setDescrizione(rs.getString("descrizione"));
                 bean.setLogo(rs.getInt("logo"));
                 bean.setCapitano(rs.getString("capitano"));
+                bean.setIdSquadra(rs.getInt("id_Squadra"));
                 squadre.add(bean);
             }
 
