@@ -33,6 +33,9 @@ public class LogoutServlet extends HttpServlet {
     if (request.getSession().getAttribute("giocatore") != null) {
       request.getSession().removeAttribute("giocatore");
     }
+    if (request.getSession().getAttribute("squadra") != null) {
+      request.getSession().removeAttribute("squadra");
+    }
     if (request.getSession().getAttribute("gestore") != null) {
       request.getSession().removeAttribute("gestore");
     }

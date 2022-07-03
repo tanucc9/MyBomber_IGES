@@ -4,3 +4,7 @@
     object-fit: cover;
     border-radius: 130px;
 }
+
+.container_buttons_actions a {
+    width: 70%;
+}

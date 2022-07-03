@@ -129,8 +129,9 @@ public class LoginServlet extends HttpServlet {
       }
 
       SquadraBean squadra = sDao.doRetrieveByKey(giocatore.getIdSquadra());
-      if (squadra != null)
+      if (squadra != null) {
         request.getSession().setAttribute("squadra", squadra);
+      }
 
       RequestDispatcher dispatcher = request
           .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));

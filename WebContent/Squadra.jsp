@@ -13,6 +13,7 @@
     LogoSquadraBean logo = (LogoSquadraBean) request.getAttribute("logo");
     ArrayList<GiocatoreBean> giocatori = (ArrayList<GiocatoreBean>) request.getAttribute("giocatori");
     GiocatoreBean capitano = (GiocatoreBean) request.getAttribute("capitano");
+    boolean isCaptain = squadra.getCapitano().equals(giocatore.getEmail());
 
     if(giocatore==null && gestore==null) {
         response.sendRedirect("./Login.jsp");
@@ -77,12 +78,21 @@
                         <% } %>
                     </p>
                 </div>
+                <div class="col-lg-12 container_buttons_actions">
+                    <div class="d-grid gap-2">
+                        <% if (isCaptain) { %>
+                        <a href="#" class="btn btn-outline-danger" type="button" id="eliminaSquadraBTN">Elimina la squadra</a>
+                        <% } %>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <%@ include file="./fragments/footer.html"%>
+
+<script src="script/eliminasquadra-confirm.js"></script>
 
 </body>
 </html>
