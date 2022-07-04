@@ -86,6 +86,9 @@
                         <% if (miaSquadra == null) { %>
                         <a href="#" class="btn btn-primary" id="uniscitiSquadraBTN" data-id-squadra="<%= squadra.getIdSquadra() %>">Unisciti alla squadra</a>
                         <% } %>
+                        <% if (miaSquadra != null && !isCaptain) { %>
+                        <a href="#" class="btn btn-outline-danger" id="abbandonaSquadraBTN" data-id-squadra="<%= squadra.getIdSquadra() %>">Abbandona squadra</a>
+                        <% } %>
                     </div>
                 </div>
             </div>

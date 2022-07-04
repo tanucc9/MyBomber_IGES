@@ -10,3 +10,10 @@ $("#uniscitiSquadraBTN").on("click", function() {
         location.href = "/mybomber/uniscitiSquadra?id=" + id;
     }
 });
+
+$("#abbandonaSquadraBTN").on("click", function() {
+    if (confirm('Sei sicuro di voler abbandonare la squadra?')) {
+        const id = $("#abbandonaSquadraBTN").attr("data-id-squadra");
+        location.href = "/mybomber/abbandonaSquadra?id=" + id;
+    }
+});

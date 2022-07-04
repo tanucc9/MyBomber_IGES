@@ -16,8 +16,8 @@ import model.squadra.SquadraDAO;
 import model.utente.giocatore.GiocatoreBean;
 import model.utente.giocatore.GiocatoreDAO;
 
-@WebServlet("/uniscitiSquadra")
-public class UniscitiSquadraServlet extends HttpServlet {
+@WebServlet("/abbandonaSquadra")
+public class AbbandonaSquadraServlet extends HttpServlet {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
@@ -40,9 +40,8 @@ public class UniscitiSquadraServlet extends HttpServlet {
             throws ServletException, IOException {
         GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
         SquadraBean squadra = (SquadraBean) request.getSession().getAttribute("squadra");
-        int idSquadra = Integer.parseInt(request.getParameter("id"));
 
-        if (giocatore == null || squadra != null) {
+        if (giocatore == null) {
             RequestDispatcher dispatcher = request
                     .getRequestDispatcher(response.encodeRedirectURL("./"));
             dispatcher.forward(request, response);
@@ -57,15 +56,14 @@ public class UniscitiSquadraServlet extends HttpServlet {
         }
 
         try {
-            giocatore.setIdSquadra(idSquadra);
-            this.gioDao.doUpdateTeam(giocatore);
+            this.gioDao.doLeaveTeam(giocatore);
 
-            SquadraBean miaSquadra = this.squadraDao.doRetrieveByKey(idSquadra);
-
-            request.getSession().setAttribute("squadra", miaSquadra);
+            giocatore.setIdSquadra(0);
+            request.getSession().setAttribute("giocatore", giocatore);
+            request.getSession().setAttribute("squadra", null);
 
             RequestDispatcher dispatcher = request
-                    .getRequestDispatcher(response.encodeRedirectURL("./squadraSpecifica?idSquadra=" + miaSquadra.getIdSquadra()));
+                    .getRequestDispatcher(response.encodeRedirectURL("./squadraSpecifica?idSquadra=" + squadra.getIdSquadra()));
             dispatcher.forward(request, response);
         } catch (SQLException e) {
             throw new RuntimeException(e);
