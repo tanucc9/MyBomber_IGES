@@ -11,6 +11,7 @@
     SquadraBean miaSquadra = (SquadraBean) request.getSession().getAttribute("squadra");
     ArrayList<SquadraBean> squadre = (ArrayList<SquadraBean>) request.getAttribute("squadre");
     ArrayList<LogoSquadraBean> loghi = (ArrayList<LogoSquadraBean>) request.getAttribute("loghi");
+    String messageSuccess = (String) request.getAttribute("messageSuccess");
 
     if(giocatore==null && gestore==null) {
         response.sendRedirect("./Login.jsp");
@@ -37,6 +38,13 @@
 <%@ include file="./fragments/header.jsp"%>
 
 <div class="container">
+
+    <% if (messageSuccess != null) { %>
+    <div class="alert alert-success" role="alert">
+        <%= messageSuccess %>
+    </div>
+    <% } %>
+
     <div class="row container_squadre">
         <% for (SquadraBean sq : squadre) { %>
             <div class="col-lg-4">

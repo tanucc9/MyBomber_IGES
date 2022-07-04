@@ -81,7 +81,10 @@
                 <div class="col-lg-12 container_buttons_actions">
                     <div class="d-grid gap-2">
                         <% if (isCaptain) { %>
-                        <a href="#" class="btn btn-outline-danger" type="button" id="eliminaSquadraBTN">Elimina la squadra</a>
+                        <a href="#" class="btn btn-outline-danger" id="eliminaSquadraBTN">Elimina la squadra</a>
+                        <% } %>
+                        <% if (miaSquadra == null) { %>
+                        <a href="#" class="btn btn-primary" id="uniscitiSquadraBTN" data-id-squadra="<%= squadra.getIdSquadra() %>">Unisciti alla squadra</a>
                         <% } %>
                     </div>
                 </div>
@@ -92,7 +95,7 @@
 
 <%@ include file="./fragments/footer.html"%>
 
-<script src="script/eliminasquadra-confirm.js"></script>
+<script src="script/actions-buttons-squadra.js"></script>
 
 </body>
 </html>
