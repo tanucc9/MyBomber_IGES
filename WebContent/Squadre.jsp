@@ -38,6 +38,9 @@
 
 <div class="container">
     <div class="row container_squadre">
+        <% if (squadre.size() == 0) { %>
+        <h4 style="text-align: center">Non ci sono ancora squadre.</h4>
+        <% } %>
         <% for (SquadraBean sq : squadre) { %>
             <div class="col-lg-4">
                 <div class="card" style="width: 18rem;">
