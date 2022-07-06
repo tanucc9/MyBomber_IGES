@@ -79,7 +79,7 @@ public class TestEventiRecentiServlet {
    */
   @Test
   public void cercaEventiRecenti() throws ServletException, IOException, SQLException {
-    servlet.eD = evDao;
+    servlet.seteD(evDao);
     GiocatoreBean g = new GiocatoreBean();
     g.setUsername("gio");
     g.setEmail("gio4@email.it");

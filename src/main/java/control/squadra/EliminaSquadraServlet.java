@@ -81,4 +81,8 @@ public class EliminaSquadraServlet extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
+
+    public void setSquadraDao(SquadraDAO squadraDao) {
+        this.squadraDao = squadraDao;
+    }
 }

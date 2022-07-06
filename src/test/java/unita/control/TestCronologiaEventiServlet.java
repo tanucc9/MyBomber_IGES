@@ -82,7 +82,7 @@ public class TestCronologiaEventiServlet {
    */
   @Test
   public void cercaCronologiaGestore() throws ServletException, IOException, SQLException {
-    servlet.edao = evDao;
+    servlet.setEdao(evDao);
     GestoreBean gi = new GestoreBean();
     gi.setEmail("gino@gino.it");
     gi.setNome("gino");

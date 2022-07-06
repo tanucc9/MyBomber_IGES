@@ -10,15 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import log.LoggerSingleton;
 import model.evento.EventoBean;
 import model.evento.EventoDAO;
 import model.partecipazione.PartecipazioneBean;
 import model.partecipazione.PartecipazioneDAO;
 import model.partecipazione.PartecipazioneSquadraBean;
 import model.partecipazione.PartecipazioneSquadraDAO;
-import model.squadra.SquadraBean;
-import model.squadra.SquadraDAO;
 import model.utente.gestore.GestoreBean;
 import model.utente.giocatore.GiocatoreBean;
 import model.utente.giocatore.GiocatoreDAO;
@@ -33,13 +30,13 @@ public class RichiesteEventiServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /** The e D. */
-  public EventoDAO eD;
+  private EventoDAO eD;
 
   /** The g D. */
-  public GiocatoreDAO gD;
+  private GiocatoreDAO gD;
 
   /** The p D. */
-  public PartecipazioneDAO pD;
+  private PartecipazioneDAO pD;
 
   private PartecipazioneSquadraDAO partecipazioneSquadraDao;
 
@@ -57,9 +54,6 @@ public class RichiesteEventiServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    EventoDAO eventoDao;
-    GiocatoreDAO giocatoreDao;
-    PartecipazioneDAO partecipazioneDao;
     ArrayList<GiocatoreBean> giocatori = new ArrayList<>();
     GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
     if (gestore == null) {
@@ -72,32 +66,26 @@ public class RichiesteEventiServlet extends HttpServlet {
     ArrayList<EventoBean> richieste = new ArrayList<>();
 
     try {
-      if (eD == null) {
-        eventoDao = new EventoDAO();
-      } else {
-        eventoDao = eD;
+      if (this.eD == null) {
+        this.eD = new EventoDAO();
       }
 
-      if (pD == null) {
-        partecipazioneDao = new PartecipazioneDAO();
-      } else {
-        partecipazioneDao = pD;
+      if (this.pD == null) {
+        this.pD = new PartecipazioneDAO();
       }
 
-      if (gD == null) {
-        giocatoreDao = new GiocatoreDAO();
-      } else {
-        giocatoreDao = gD;
+      if (this.gD == null) {
+        this.gD = new GiocatoreDAO();
       }
 
-      EventoBean bean = eventoDao.doRetrieveByKey(nomeEvento);
+      EventoBean bean = this.eD.doRetrieveByKey(nomeEvento);
       PartecipazioneBean partecipazione = new PartecipazioneBean();
       if (action != null) {
         if (action.equalsIgnoreCase("addE")) {
           bean.setStato("attivo");
           bean.aggiungiG();
 
-          giocatori = giocatoreDao.doRetrieveAll();
+          giocatori = this.gD.doRetrieveAll();
           GiocatoreBean giocatore = null;
 
           for (GiocatoreBean element : giocatori) {
@@ -110,27 +98,23 @@ public class RichiesteEventiServlet extends HttpServlet {
             partecipazione.setEvento(bean.getNome());
             if (giocatore != null) {
               partecipazione.setUtente(bean.getOrganizzatore());
-              partecipazioneDao.doSave(partecipazione);
+              this.pD.doSave(partecipazione);
             }
           } else {
-            LoggerSingleton log = LoggerSingleton.getInstance();
             if (this.partecipazioneSquadraDao == null) {
               this.partecipazioneSquadraDao = new PartecipazioneSquadraDAO();
             }
 
-            log.debug(giocatore.toString());
-
             PartecipazioneSquadraBean partecipazioneSquadra = new PartecipazioneSquadraBean();
             partecipazioneSquadra.setIdSquadra(giocatore.getIdSquadra());
             partecipazioneSquadra.setIdEvento(bean.getNome());
-            log.debug(partecipazioneSquadra.toString());
             this.partecipazioneSquadraDao.doSave(partecipazioneSquadra);
           }
-          eventoDao.doUpdate(bean);
+          this.eD.doUpdate(bean);
         } else if (action.equalsIgnoreCase("deleteE")) {
-          eventoDao.doDelete(nomeEvento);
+          this.eD.doDelete(nomeEvento);
         } else if (action.equalsIgnoreCase("trovarichieste")) {
-          richieste = eventoDao.doRetrieveRichieste(gestore.getEmail());
+          richieste = this.eD.doRetrieveRichieste(gestore.getEmail());
           request.setAttribute("richieste", richieste);
         }
       }
@@ -158,8 +142,22 @@ public class RichiesteEventiServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
     doGet(request, response);
   }
 
+  public void seteD(EventoDAO eD) {
+    this.eD = eD;
+  }
+
+  public void setgD(GiocatoreDAO gD) {
+    this.gD = gD;
+  }
+
+  public void setpD(PartecipazioneDAO pD) {
+    this.pD = pD;
+  }
+
+  public void setPartecipazioneSquadraDao(PartecipazioneSquadraDAO partecipazioneSquadraDao) {
+    this.partecipazioneSquadraDao = partecipazioneSquadraDao;
+  }
 }

@@ -86,4 +86,12 @@ public class AbbandonaSquadraServlet extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
+
+    public void setGioDao(GiocatoreDAO gioDao) {
+        this.gioDao = gioDao;
+    }
+
+    public void setSquadraDao(SquadraDAO squadraDao) {
+        this.squadraDao = squadraDao;
+    }
 }

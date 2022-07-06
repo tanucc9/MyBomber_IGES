@@ -28,7 +28,7 @@ public class EventiRecentiServlet extends HttpServlet {
   /**
    * The e D.
    */
-  public EventoDAO eD;
+  private EventoDAO eD;
 
   /**
    * Do get.
@@ -42,7 +42,6 @@ public class EventiRecentiServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
-    EventoDAO eventoDao;
     GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
     if (giocatore == null) {
       RequestDispatcher dispatcher = request
@@ -54,16 +53,14 @@ public class EventiRecentiServlet extends HttpServlet {
     ArrayList<EventoBean> eventiRecenti;
 
     try {
-      if (eD == null) {
-        eventoDao = new EventoDAO();
-      } else {
-        eventoDao = eD;
+      if (this.eD == null) {
+        this.eD = new EventoDAO();
       }
 
-      eventiRecenti = eventoDao.doRetrieveEventiRecenti(giocatore.getEmail());
+      eventiRecenti = this.eD.doRetrieveEventiRecenti(giocatore.getEmail());
 
       if (giocatore.getIdSquadra() != 0) {
-        ArrayList<EventoBean> eventiRecentiSquadra = eventoDao.doRetrieveEventiRecentiSquadra(giocatore.getIdSquadra());
+        ArrayList<EventoBean> eventiRecentiSquadra = this.eD.doRetrieveEventiRecentiSquadra(giocatore.getIdSquadra());
         request.setAttribute("eventiRecentiSquadra", eventiRecentiSquadra);
       }
 
@@ -75,6 +72,9 @@ public class EventiRecentiServlet extends HttpServlet {
     RequestDispatcher dispatcher = request
             .getRequestDispatcher(response.encodeRedirectURL("./EventiRecenti.jsp"));
     dispatcher.forward(request, response);
+  }
 
+  public void seteD(EventoDAO eD) {
+    this.eD = eD;
   }
 }

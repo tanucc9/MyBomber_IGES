@@ -29,10 +29,10 @@ public class PartecipaEventiServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /** The e D. */
-  public EventoDAO eD;
+  private EventoDAO eD;
 
   /** The p D. */
-  public PartecipazioneDAO pD;
+  private PartecipazioneDAO pD;
   private PartecipazioneSquadraDAO parSquadraDao;
 
   /**
@@ -57,16 +57,14 @@ public class PartecipaEventiServlet extends HttpServlet {
       return;
     }
 
-    EventoDAO eventoDao;
     ArrayList<EventoBean> eventi = new ArrayList<>();
 
     try {
-      if (eD == null) {
-        eventoDao = new EventoDAO();
-      } else {
-        eventoDao = eD;
+      if (this.eD == null) {
+        this.eD = new EventoDAO();
       }
-      eventi = eventoDao.doRetrieveEventi(giocatore.getEmail());
+
+      eventi = this.eD.doRetrieveEventi(giocatore.getEmail());
       request.setAttribute("eventi", eventi);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -93,36 +91,30 @@ public class PartecipaEventiServlet extends HttpServlet {
       throws ServletException, IOException {
     GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
     String nomeEvento = request.getParameter("nome");
-    EventoDAO eventoDao;
-    PartecipazioneDAO partecipazioneDao = new PartecipazioneDAO();
     SquadraBean squadra = (SquadraBean) request.getSession().getAttribute("squadra");
     boolean isCaptain = squadra.getCapitano().equals(giocatore.getEmail());
 
     try {
-      if (eD == null) {
-        eventoDao = new EventoDAO();
-      } else {
-        eventoDao = eD;
+      if (this.eD == null) {
+        this.eD = new EventoDAO();
       }
 
-      if (pD == null) {
-        partecipazioneDao = new PartecipazioneDAO();
-      } else {
-        partecipazioneDao = pD;
+      if (this.pD == null) {
+        this.pD = new PartecipazioneDAO();
       }
 
       if (this.parSquadraDao == null) {
         this.parSquadraDao = new PartecipazioneSquadraDAO();
       }
 
-      EventoBean eventoBean = eventoDao.doRetrieveByKey(nomeEvento);
+      EventoBean eventoBean = this.eD.doRetrieveByKey(nomeEvento);
 
       if (eventoBean.getTipologia().equals("libero")) {
         if (eventoBean.getNumPartecipanti() < 10) {
           PartecipazioneBean partecipazione = new PartecipazioneBean();
           partecipazione.setUtente(giocatore.getEmail());
           partecipazione.setEvento(nomeEvento);
-          partecipazioneDao.doSave(partecipazione);
+          this.pD.doSave(partecipazione);
           eventoBean.aggiungiG();
           eventoBean.setValutazione(eventoBean.getValutazione() + giocatore.getValutazione());
         }
@@ -137,18 +129,28 @@ public class PartecipaEventiServlet extends HttpServlet {
         eventoBean.aggiungiG();
         eventoBean.setStato("completato");
       }
-      eventoDao.doUpdate(eventoBean);
+      this.eD.doUpdate(eventoBean);
     }
 
     catch (SQLException e) {
       e.printStackTrace();
     }
 
-    // doGet(request, response);
     RequestDispatcher dispatcher = request
         .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
     dispatcher.forward(request, response);
 
   }
 
+  public void seteD(EventoDAO eD) {
+    this.eD = eD;
+  }
+
+  public void setpD(PartecipazioneDAO pD) {
+    this.pD = pD;
+  }
+
+  public void setParSquadraDao(PartecipazioneSquadraDAO parSquadraDao) {
+    this.parSquadraDao = parSquadraDao;
+  }
 }

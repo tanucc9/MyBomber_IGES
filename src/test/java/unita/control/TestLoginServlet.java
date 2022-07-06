@@ -77,9 +77,9 @@ public class TestLoginServlet {
   public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
     servlet = new LoginServlet();
-    servlet.giocatoreDao = gioDao;
-    servlet.gestoreDao = gesDao;
-    servlet.squadraDAO = sqDao;
+    servlet.setGiocatoreDao(gioDao);
+    servlet.setGestoreDao(gesDao);
+    servlet.setSquadraDAO(sqDao);
     hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
   }

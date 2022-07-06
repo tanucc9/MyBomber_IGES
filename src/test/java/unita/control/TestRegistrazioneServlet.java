@@ -77,9 +77,9 @@ public class TestRegistrazioneServlet {
   public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
     servlet = new RegistrazioneServlet();
-    servlet.gdt = gioDao;
-    servlet.sdt = sDao;
-    servlet.gedt = gesDao;
+    servlet.setGdt(gioDao);
+    servlet.setSdt(sDao);
+    servlet.setGedt(gesDao);
     hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
   }

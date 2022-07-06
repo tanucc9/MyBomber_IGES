@@ -91,9 +91,9 @@ public class TestRichiesteEventiServlet {
    */
   @Test
   public void cercaRichieste() throws ServletException, IOException, SQLException {
-    servlet.eD = evDao;
-    servlet.gD = gDao;
-    servlet.pD = pDao;
+    servlet.seteD(evDao);
+    servlet.setgD(gDao);
+    servlet.setpD(pDao);
     GestoreBean g = new GestoreBean();
     g.setEmail("gino@gino.it");
     g.setNome("gino");
@@ -177,9 +177,9 @@ public class TestRichiesteEventiServlet {
    */
   @Test
   public void accettaRichieste() throws ServletException, IOException, SQLException {
-    servlet.eD = evDao;
-    servlet.gD = gDao;
-    servlet.pD = pDao;
+    servlet.seteD(evDao);
+    servlet.setgD(gDao);
+    servlet.setpD(pDao);
     GestoreBean g = new GestoreBean();
     g.setEmail("gino@gino.it");
     g.setNome("gino");
@@ -240,9 +240,9 @@ public class TestRichiesteEventiServlet {
    */
   @Test
   public void rifiutaRichieste() throws ServletException, IOException, SQLException {
-    servlet.eD = evDao;
-    servlet.gD = gDao;
-    servlet.pD = pDao;
+    servlet.seteD(evDao);
+    servlet.setgD(gDao);
+    servlet.setpD(pDao);
     GestoreBean g = new GestoreBean();
     g.setEmail("gino@gino.it");
     g.setNome("gino");

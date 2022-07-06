@@ -23,7 +23,7 @@ public class StrutturaServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /** The sdao. */
-  public StrutturaDAO sdao;
+  private StrutturaDAO sdao;
 
   /**
    * Do get.
@@ -40,14 +40,11 @@ public class StrutturaServlet extends HttpServlet {
       throws ServletException, IOException {
 
     ArrayList<StrutturaBean> strutture = new ArrayList<>();
-    StrutturaDAO strutturaDao;
-    if (sdao == null) {
-      strutturaDao = new StrutturaDAO();
-    } else {
-      strutturaDao = sdao;
+    if (this.sdao == null) {
+      this.sdao = new StrutturaDAO();
     }
     try {
-      strutture = strutturaDao.doRetrieveAll();
+      strutture = this.sdao.doRetrieveAll();
       request.setAttribute("strutture", strutture);
     } catch (SQLException e) {
       e.getStackTrace();
@@ -59,14 +56,7 @@ public class StrutturaServlet extends HttpServlet {
 
   }
 
-  /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-   *      response)
-   */
-  /*
-   * protected void doPost(HttpServletRequest request, HttpServletResponse
-   * response) throws ServletException, IOException { // TODO Auto-generated
-   * method stub doGet(request, response); }
-   */
-
+  public void setSdao(StrutturaDAO sdao) {
+    this.sdao = sdao;
+  }
 }

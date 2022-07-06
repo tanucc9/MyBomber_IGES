@@ -23,7 +23,7 @@ public class CronologiaEventiServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /** The edao. */
-  public EventoDAO edao;
+  private EventoDAO edao;
 
   /**
    * Do get.
@@ -46,15 +46,13 @@ public class CronologiaEventiServlet extends HttpServlet {
      * dispatcher1.forward(request, response);
      */
     GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
-    EventoDAO eventoDAO;
-    if (edao == null) {
-      eventoDAO = new EventoDAO();
-    } else {
-      eventoDAO = edao;
+    if (this.edao == null) {
+      this.edao = new EventoDAO();
     }
+
     ArrayList<EventoBean> eventi = new ArrayList<>();
     try {
-      eventi = eventoDAO.doRetrieveEventiGestore(gestore.getEmail());
+      eventi = edao.doRetrieveEventiGestore(gestore.getEmail());
 
       request.setAttribute("eventi", eventi);
     } catch (SQLException e) {
@@ -80,12 +78,10 @@ public class CronologiaEventiServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
-
-   /* RequestDispatcher dispatcher = request
-        .getRequestDispatcher(response.encodeRedirectURL("./CronologiaEventi.jsp"));
-    dispatcher.forward(request, response);*/
 	  doGet(request, response);
   }
 
+  public void setEdao(EventoDAO edao) {
+    this.edao = edao;
+  }
 }

@@ -79,9 +79,9 @@ public class TestCreaEventoServlet {
     MockitoAnnotations.openMocks(this);
     hashTool = new HashTool();
     servlet = new CreaEventoServlet();
-    servlet.eD = eDao;
-    servlet.sD = sDao;
-    servlet.gD = gesDao;
+    servlet.seteD(eDao);
+    servlet.setsD(sDao);
+    servlet.setgD(gesDao);
     when(req.getSession()).thenReturn(session);
   }
 

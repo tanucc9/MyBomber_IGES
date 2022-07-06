@@ -17,7 +17,6 @@ import model.utente.giocatore.GiocatoreBean;
 import model.utente.giocatore.GiocatoreDAO;
 import util.HashTool;
 
-// TODO: Auto-generated Javadoc
 /**
  * Servlet implementation class EsempioServlet.
  */
@@ -28,20 +27,18 @@ public class RegistrazioneServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /** The gdt. */
-  public GiocatoreDAO gdt;
+  private GiocatoreDAO gdt;
 
   /** The gedt. */
-  public GestoreDAO gedt;
+  private GestoreDAO gedt;
 
   /** The sdt. */
-  public StrutturaDAO sdt;
+  private StrutturaDAO sdt;
 
   /**
    * Default constructor.
    */
-  public RegistrazioneServlet() {
-    // TODO Auto-generated constructor stub
-  }
+  public RegistrazioneServlet() {}
 
   /**
    * Do get.
@@ -79,7 +76,6 @@ public class RegistrazioneServlet extends HttpServlet {
       throws ServletException, IOException {
     String cf = request.getParameter("cf");
     if (cf.equals("giocatore")) {
-      // TODO Auto-generated method stub
       try {
 
         String nome = request.getParameter("nome");
@@ -93,14 +89,13 @@ public class RegistrazioneServlet extends HttpServlet {
         String cap = request.getParameter("cap");
         String telefono = request.getParameter("telefono");
         String data = request.getParameter("data");
-        GiocatoreDAO gd;
-        if (gdt == null) {
-          gd = new GiocatoreDAO();
-        } else {
-          gd = gdt;
+
+        if (this.gdt == null) {
+          this.gdt = new GiocatoreDAO();
         }
-        GiocatoreBean testEmail = gd.doRetrieveByKey(email);
-        GiocatoreBean testUsername = gd.doRetrieveByUsername(username);
+
+        GiocatoreBean testEmail = this.gdt.doRetrieveByKey(email);
+        GiocatoreBean testUsername = this.gdt.doRetrieveByUsername(username);
 
         if (testEmail == null && testUsername == null) {
           HashTool hashTool = new HashTool();
@@ -119,8 +114,8 @@ public class RegistrazioneServlet extends HttpServlet {
           g.setUsername(username);
           float t = 0;
           g.setValutazione(t);
-          gd.doSave(g);
-          GiocatoreBean test = gd.doRetrieveByKey(email);
+          this.gdt.doSave(g);
+          GiocatoreBean test = this.gdt.doRetrieveByKey(email);
           if (test != null) {
             request.getSession().setAttribute("giocatore", test);
             RequestDispatcher dispatcher = request
@@ -168,21 +163,16 @@ public class RegistrazioneServlet extends HttpServlet {
         String indirizzo = request.getParameter("indirizzoG");
         String telefonoStruttura = request.getParameter("telefonoStruttura");
         String password = request.getParameter("passwordG");
-        GestoreDAO gd;
         StrutturaDAO sd;
-        if (gedt == null) {
-          gd = new GestoreDAO();
-        } else {
-          gd = gedt;
+        if (this.gedt == null) {
+          this.gedt = new GestoreDAO();
         }
 
-        if (sdt == null) {
-          sd = new StrutturaDAO();
-        } else {
-          sd = sdt;
+        if (this.sdt == null) {
+          this.sdt = new StrutturaDAO();
         }
-        GestoreBean testEmail = gd.doRetrieveByKey(email);
-        StrutturaBean testStruttura = sd.doRetrieveByKey(nomeStruttura);
+        GestoreBean testEmail = this.gedt.doRetrieveByKey(email);
+        StrutturaBean testStruttura = this.sdt.doRetrieveByKey(nomeStruttura);
 
         if (testEmail == null && testStruttura == null) {
           HashTool hashTool = new HashTool();
@@ -196,7 +186,7 @@ public class RegistrazioneServlet extends HttpServlet {
           sb.setCitta(citta);
           sb.setCap(cap);
           sb.setTelefono(telefonoStruttura);
-          sd.doSave(sb);
+          this.sdt.doSave(sb);
 
           ges.setCognome(cognome);
           ges.setEmail(email);
@@ -205,16 +195,9 @@ public class RegistrazioneServlet extends HttpServlet {
           ges.setTelefono(telefono);
           ges.setStruttura(nomeStruttura);
 
-          gd.doSave(ges);
-          /*
-           * request.setAttribute("errorReg",pippo);
-           *
-           * RequestDispatcher dispatcher1 = request
-           * .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-           * dispatcher1.forward(request, response);
-           */
-          GestoreBean test = gd.doRetrieveByKey(email);
-          StrutturaBean testS = sd.doRetrieveByKey(nomeStruttura);
+          this.gedt.doSave(ges);
+          GestoreBean test = this.gedt.doRetrieveByKey(email);
+          StrutturaBean testS = this.sdt.doRetrieveByKey(nomeStruttura);
 
           if ((test != null) && (testS != null)) {
             request.getSession().setAttribute("gestore", test);
@@ -249,4 +232,15 @@ public class RegistrazioneServlet extends HttpServlet {
 
   }
 
+  public void setGdt(GiocatoreDAO gdt) {
+    this.gdt = gdt;
+  }
+
+  public void setGedt(GestoreDAO gedt) {
+    this.gedt = gedt;
+  }
+
+  public void setSdt(StrutturaDAO sdt) {
+    this.sdt = sdt;
+  }
 }

@@ -15,7 +15,6 @@ import model.recensione.RecensioneDAO;
 import model.utente.giocatore.GiocatoreBean;
 import model.utente.giocatore.GiocatoreDAO;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class RecensioneServlet.
  */
@@ -26,10 +25,10 @@ public class RecensioneServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /** The rdt. */
-  public RecensioneDAO rdt;
+  private RecensioneDAO rdt;
 
   /** The gdt. */
-  public GiocatoreDAO gdt;
+  private GiocatoreDAO gdt;
 
   /**
    * Do get.
@@ -45,11 +44,8 @@ public class RecensioneServlet extends HttpServlet {
 
     GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
     String action = request.getParameter("action");
-    RecensioneDAO recensioneDao;
-    if (rdt == null) {
-      recensioneDao = new RecensioneDAO();
-    } else {
-      recensioneDao = rdt;
+    if (this.rdt == null) {
+      this.rdt = new RecensioneDAO();
     }
     String nomeE = request.getParameter("nome");
 
@@ -59,8 +55,8 @@ public class RecensioneServlet extends HttpServlet {
         if (action.equalsIgnoreCase("cercagiocatori")) {
           ArrayList<String> daRecensire;
           ArrayList<RecensioneBean> recensiti;// gi� sono stati recensiti
-          daRecensire = recensioneDao.doRetrieveDaRecensire(giocatore.getEmail(), nomeE);
-          recensiti = recensioneDao.doRetrieveRecensiti(giocatore.getEmail(), nomeE);
+          daRecensire = this.rdt.doRetrieveDaRecensire(giocatore.getEmail(), nomeE);
+          recensiti = this.rdt.doRetrieveRecensiti(giocatore.getEmail(), nomeE);
           request.setAttribute("giocatoriDaRecensire", daRecensire);
           request.setAttribute("giocatoriRecensiti", recensiti);
           request.setAttribute("nomeEvento", nomeE);
@@ -92,11 +88,8 @@ public class RecensioneServlet extends HttpServlet {
       throws ServletException, IOException {
     String rec = request.getParameter("rec");
     GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
-    RecensioneDAO recensioneDao;
-    if (rdt == null) {
-      recensioneDao = new RecensioneDAO();
-    } else {
-      recensioneDao = rdt;
+    if (this.rdt == null) {
+      this.rdt = new RecensioneDAO();
     }
 
     if (rec != null) {
@@ -114,21 +107,18 @@ public class RecensioneServlet extends HttpServlet {
           recensione.setEvento(nomeEvento);
           recensione.setRecensito(recensito);
           recensione.setRecensore(giocatore.getEmail());
-          recensioneDao.doSave(recensione);
+          this.rdt.doSave(recensione);
 
-          GiocatoreDAO giocatoredao;
-          if (gdt == null) {
-            giocatoredao = new GiocatoreDAO();
-          } else {
-            giocatoredao = gdt;
+          if (this.gdt == null) {
+            this.gdt = new GiocatoreDAO();
           }
 
-          float nuovamedia = recensioneDao.doRetrieveMedia(recensito);
+          float nuovamedia = this.rdt.doRetrieveMedia(recensito);
 
-          GiocatoreBean recensitobean = giocatoredao.doRetrieveByKey(recensito);
+          GiocatoreBean recensitobean = this.gdt.doRetrieveByKey(recensito);
           recensitobean.setValutazione(nuovamedia);
 
-          giocatoredao.doUpdate(recensitobean);
+          this.gdt.doUpdate(recensitobean);
           request.setAttribute("saveok", "saveok");
           RequestDispatcher dispatcher = request
               .getRequestDispatcher(response.encodeRedirectURL("./EventiRecenti.jsp"));
@@ -138,21 +128,18 @@ public class RecensioneServlet extends HttpServlet {
         } else if (rec.equalsIgnoreCase("el")) {
           String recensito = request.getParameter("nomeG");
           String nomeEvento = request.getParameter("nomeEvento");
-          recensioneDao.doDelete(giocatore.getEmail(), recensito, nomeEvento);
+          this.rdt.doDelete(giocatore.getEmail(), recensito, nomeEvento);
 
-          GiocatoreDAO giocatoredao;
-          if (gdt == null) {
-            giocatoredao = new GiocatoreDAO();
-          } else {
-            giocatoredao = gdt;
+          if (this.gdt == null) {
+            this.gdt = new GiocatoreDAO();
           }
 
-          float nuovamedia = recensioneDao.doRetrieveMedia(recensito);
+          float nuovamedia = this.rdt.doRetrieveMedia(recensito);
 
-          GiocatoreBean recensitobean = giocatoredao.doRetrieveByKey(recensito);
+          GiocatoreBean recensitobean = this.gdt.doRetrieveByKey(recensito);
           recensitobean.setValutazione(nuovamedia);
 
-          giocatoredao.doUpdate(recensitobean);
+          this.gdt.doUpdate(recensitobean);
           request.setAttribute("deleteok", "deleteok");
           RequestDispatcher dispatcher = request
               .getRequestDispatcher(response.encodeRedirectURL("./EventiRecenti.jsp"));
@@ -168,5 +155,13 @@ public class RecensioneServlet extends HttpServlet {
         .getRequestDispatcher(response.encodeRedirectURL("./DaiRecensione.jsp"));
     dispatcher.forward(request, response);
 
+  }
+
+  public void setRdt(RecensioneDAO rdt) {
+    this.rdt = rdt;
+  }
+
+  public void setGdt(GiocatoreDAO gdt) {
+    this.gdt = gdt;
   }
 }

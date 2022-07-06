@@ -85,7 +85,7 @@ public class TestPartecipaEventiServlet {
    */
   @Test
   public void cercaEventi() throws ServletException, IOException, SQLException {
-    servlet.eD = evDao;
+    servlet.seteD(evDao);
 
     GiocatoreBean g = new GiocatoreBean();
     g.setUsername("pierox");
@@ -176,8 +176,8 @@ public class TestPartecipaEventiServlet {
    */
   @Test
   public void partecipaEvento() throws ServletException, IOException, SQLException {
-    servlet.eD = evDao;
-    servlet.pD = pDao;
+    servlet.seteD(evDao);
+    servlet.setpD(pDao);
     GiocatoreBean g = new GiocatoreBean();
     g.setUsername("pierox");
     g.setEmail("piero@piero.it");
@@ -221,8 +221,8 @@ public class TestPartecipaEventiServlet {
    */
   @Test
   public void partecipaEventoCompleto() throws ServletException, IOException, SQLException {
-    servlet.eD = evDao;
-    servlet.pD = pDao;
+    servlet.seteD(evDao);
+    servlet.setpD(pDao);
     GiocatoreBean g = new GiocatoreBean();
     g.setUsername("pierox");
     g.setEmail("piero@piero.it");

@@ -88,7 +88,7 @@ public class TestRecensioneServlet {
   @Test
   public void cercaGiocatori() throws ServletException, IOException, SQLException {
 
-    servlet.rdt = recDao;
+    servlet.setRdt(recDao);
     GiocatoreBean g4 = new GiocatoreBean();
     g4.setUsername("pino");
     g4.setEmail("pino@pino.it");
@@ -141,7 +141,7 @@ public class TestRecensioneServlet {
   @Test
   public void cercaGiocatori2() throws ServletException, IOException, SQLException {
 
-    servlet.rdt = recDao;
+    servlet.setRdt(recDao);
     GiocatoreBean g4 = new GiocatoreBean();
     g4.setUsername("mario");
     g4.setEmail("mario@mario.it");
@@ -183,7 +183,7 @@ public class TestRecensioneServlet {
   @Test
   public void nullAction() throws ServletException, IOException, SQLException {
 
-    servlet.rdt = recDao;
+    servlet.setRdt(recDao);
     GiocatoreBean g4 = new GiocatoreBean();
     g4.setUsername("mario");
     g4.setEmail("mario@mario.it");
@@ -225,7 +225,7 @@ public class TestRecensioneServlet {
   @Test
   public void altriAction() throws ServletException, IOException, SQLException {
 
-    servlet.rdt = recDao;
+    servlet.setRdt(recDao);
     GiocatoreBean g4 = new GiocatoreBean();
     g4.setUsername("mario");
     g4.setEmail("mario@mario.it");
@@ -305,8 +305,8 @@ public class TestRecensioneServlet {
   @Test
   public void aggiungiRecensione() throws ServletException, IOException, SQLException {
 
-    servlet.rdt = recDao;
-    servlet.gdt = gDao;
+    servlet.setRdt(recDao);
+    servlet.setGdt(gDao);
     GiocatoreBean g4 = new GiocatoreBean();
     g4 = new GiocatoreBean();
     g4.setUsername("simone45");
@@ -371,8 +371,8 @@ public class TestRecensioneServlet {
   @Test
   public void eliminaRecensione() throws ServletException, IOException, SQLException {
 
-    servlet.rdt = recDao;
-    servlet.gdt = gDao;
+    servlet.setRdt(recDao);
+    servlet.setGdt(gDao);
     GiocatoreBean g4 = new GiocatoreBean();
     g4 = new GiocatoreBean();
     g4.setUsername("simone45");
@@ -435,8 +435,8 @@ public class TestRecensioneServlet {
   @Test
   public void altriRec() throws ServletException, IOException, SQLException {
 
-    servlet.rdt = recDao;
-    servlet.gdt = gDao;
+    servlet.setRdt(recDao);
+    servlet.setGdt(gDao);
     GiocatoreBean g4 = new GiocatoreBean();
     g4 = new GiocatoreBean();
     g4.setUsername("simone45");

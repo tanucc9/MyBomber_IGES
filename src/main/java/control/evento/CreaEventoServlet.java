@@ -30,13 +30,13 @@ public class CreaEventoServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /** The e D. */
-  public EventoDAO eD;
+  private EventoDAO eD;
 
   /** The g D. */
-  public GestoreDAO gD;
+  private GestoreDAO gD;
 
   /** The s D. */
-  public StrutturaDAO sD;
+  private StrutturaDAO sD;
 
   /**
    * Do get.
@@ -52,11 +52,8 @@ public class CreaEventoServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    EventoDAO eventoDAO;
-    GestoreDAO gestoreDAO;
     GestoreBean gestore = new GestoreBean();
     EventoBean evento = new EventoBean();
-    StrutturaDAO strutturaDAO;
 
     String nome = request.getParameter("nome");
     evento.setNome(nome);
@@ -73,13 +70,11 @@ public class CreaEventoServlet extends HttpServlet {
       evento.setTipologia("libero");
 
     try {
-      if (gD == null) {
-        gestoreDAO = new GestoreDAO();
-      } else {
-        gestoreDAO = gD;
+      if (this.gD == null) {
+        this.gD = new GestoreDAO();
       }
 
-      gestore = gestoreDAO.doRetrieveByStruttura(struttura);
+      gestore = this.gD.doRetrieveByStruttura(struttura);
       evento.setGestore(gestore.getEmail());
       // Se l'utente che sta utilizzando l'applicazione = giocatore
       if (request.getSession().getAttribute("giocatore") != null) {
@@ -93,26 +88,22 @@ public class CreaEventoServlet extends HttpServlet {
       }
       evento.setStato("richiesta");
 
-      if (eD == null) {
-        eventoDAO = new EventoDAO();
-      } else {
-        eventoDAO = eD;
+      if (this.eD == null) {
+        this.eD = new EventoDAO();
       }
 
       EventoBean testEvento = new EventoBean();
-      testEvento = eventoDAO.doRetrieveByKey(nome);
+      testEvento = eD.doRetrieveByKey(nome);
 
-      if (sD == null) {
-        strutturaDAO = new StrutturaDAO();
-      } else {
-        strutturaDAO = sD;
+      if (this.sD == null) {
+        this.sD = new StrutturaDAO();
       }
 
       StrutturaBean testStruttura;
-      testStruttura = strutturaDAO.doRetrieveByKey(struttura);
+      testStruttura = this.sD.doRetrieveByKey(struttura);
 
       if (testEvento == null && testStruttura != null) {
-        eventoDAO.doSave(evento);
+        eD.doSave(evento);
         RequestDispatcher dispatcher = request
             .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
         dispatcher.forward(request, response);
@@ -148,8 +139,18 @@ public class CreaEventoServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
     doGet(request, response);
   }
 
+  public void seteD(EventoDAO eD) {
+    this.eD = eD;
+  }
+
+  public void setgD(GestoreDAO gD) {
+    this.gD = gD;
+  }
+
+  public void setsD(StrutturaDAO sD) {
+    this.sD = sD;
+  }
 }

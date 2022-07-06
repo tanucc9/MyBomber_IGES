@@ -94,4 +94,6 @@ public class MostraSquadreServlet extends HttpServlet {
     public void setSquadraDao(SquadraDAO squadraDao) {
         this.squadraDao = squadraDao;
     }
+
+
 }

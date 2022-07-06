@@ -144,10 +144,8 @@ public class TestIntegrazioneStruttura {
    */
   @Test
   public void testing() throws ServletException, IOException, SQLException {
-    servlet.sdao = new StrutturaDAO();
     when(req.getRequestDispatcher(res.encodeRedirectURL("./CreaEvento.jsp"))).thenReturn(rd);
     servlet.doGet(req, res);
     verify(rd).forward(req, res);
-
   }
 }

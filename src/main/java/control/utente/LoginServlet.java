@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import log.LoggerSingleton;
 import model.squadra.LogoSquadraDAO;
 import model.squadra.SquadraBean;
 import model.squadra.SquadraDAO;
@@ -19,7 +18,6 @@ import model.utente.gestore.GestoreDAO;
 import model.utente.giocatore.GiocatoreBean;
 import model.utente.giocatore.GiocatoreDAO;
 
-// TODO: Auto-generated Javadoc
 /**
  * Servlet implementation class EsempioServlet.
  */
@@ -30,20 +28,18 @@ public class LoginServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /** The giocatore dao. */
-  public GiocatoreDAO giocatoreDao;
+  private GiocatoreDAO giocatoreDao;
 
   /** The gestore dao. */
-  public GestoreDAO gestoreDao;
+  private GestoreDAO gestoreDao;
 
-  public SquadraDAO squadraDAO;
-  public LogoSquadraDAO logoDAO;
+  private SquadraDAO squadraDAO;
+  private LogoSquadraDAO logoDAO;
 
   /**
    * Default constructor.
    */
-  public LoginServlet() {
-    // TODO Auto-generated constructor stub
-  }
+  public LoginServlet() {}
 
   /**
    * Do get.
@@ -58,7 +54,6 @@ public class LoginServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
 
     RequestDispatcher dispatcher = request
         .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
@@ -82,53 +77,42 @@ public class LoginServlet extends HttpServlet {
 
     String email = request.getParameter("email");
     String password = request.getParameter("password");
-    GiocatoreDAO gd;
-    if (giocatoreDao != null) {
-      gd = giocatoreDao;
-    } else {
-      gd = new GiocatoreDAO();
+    if (this.giocatoreDao == null) {
+      this.giocatoreDao = new GiocatoreDAO();
     }
-    GestoreDAO gesd;
-    if (gestoreDao != null) {
-      gesd = gestoreDao;
-    } else {
-      gesd = new GestoreDAO();
+
+    if (this.gestoreDao == null) {
+      this.gestoreDao = new GestoreDAO();
     }
 
     GiocatoreBean giocatore = new GiocatoreBean();
     GestoreBean gestore = new GestoreBean();
 
     try {
-      giocatore = gd.doRetrieveByAuth(email, password);
-      gestore = gesd.doRetrieveByAuth(email, password);
+      giocatore = this.giocatoreDao.doRetrieveByAuth(email, password);
+      gestore = this.gestoreDao.doRetrieveByAuth(email, password);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
     if (giocatore != null) {
       request.getSession().setAttribute("giocatore", giocatore);
 
-      LogoSquadraDAO lDao;
-      if (logoDAO != null) {
-        lDao = logoDAO;
-      } else {
-        lDao = new LogoSquadraDAO();
+      if (this.logoDAO == null) {
+        this.logoDAO = new LogoSquadraDAO();
       }
 
       try {
-        request.getSession().setAttribute("loghiSquadra", lDao.doRetrieveAll());
+        request.getSession().setAttribute("loghiSquadra", this.logoDAO.doRetrieveAll());
       } catch (SQLException e) {
         throw new RuntimeException(e);
       }
 
 
-      SquadraDAO sDao;
-      if (squadraDAO != null) {
-        sDao = squadraDAO;
-      } else {
-        sDao = new SquadraDAO();
+      if (this.squadraDAO == null) {
+        this.squadraDAO = new SquadraDAO();
       }
 
-      SquadraBean squadra = sDao.doRetrieveByKey(giocatore.getIdSquadra());
+      SquadraBean squadra = this.squadraDAO.doRetrieveByKey(giocatore.getIdSquadra());
       if (squadra != null) {
         request.getSession().setAttribute("squadra", squadra);
       }
@@ -151,5 +135,21 @@ public class LoginServlet extends HttpServlet {
     RequestDispatcher dispatcher = request
         .getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
     dispatcher.forward(request, response);
+  }
+
+  public void setGiocatoreDao(GiocatoreDAO giocatoreDao) {
+    this.giocatoreDao = giocatoreDao;
+  }
+
+  public void setGestoreDao(GestoreDAO gestoreDao) {
+    this.gestoreDao = gestoreDao;
+  }
+
+  public void setSquadraDAO(SquadraDAO squadraDAO) {
+    this.squadraDAO = squadraDAO;
+  }
+
+  public void setLogoDAO(LogoSquadraDAO logoDAO) {
+    this.logoDAO = logoDAO;
   }
 }

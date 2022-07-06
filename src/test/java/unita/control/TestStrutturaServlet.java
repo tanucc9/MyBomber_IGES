@@ -75,7 +75,7 @@ public class TestStrutturaServlet {
    */
   @Test
   public void cercaCronologiaGestore() throws ServletException, IOException, SQLException {
-    servlet.sdao = sDao;
+    servlet.setSdao(sDao);
     StrutturaBean bean = new StrutturaBean();
     bean.setNome("playh");
     bean.setIndirizzo("via giorgio 21");
