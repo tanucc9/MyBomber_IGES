@@ -38,7 +38,7 @@
 									</div>
 									<h6 class="f-w-600">Squadra</h6>
 									<p><% if (squadra != null) { %>
-										<%=squadra.getNome()%>
+										<a href="/mybomber/squadraSpecifica?idSquadra=<%= squadra.getIdSquadra() %>" class="nome_squadra"><%=squadra.getNome()%> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 										<% } else { %>
 										-
 										<% } %></p>

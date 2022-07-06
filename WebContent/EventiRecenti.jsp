@@ -91,7 +91,7 @@ non puoi accedere a questa pagina
 		} else {
 	%>
 
-			<h2>Non hai partecipato a nessuna partita nell'ultima settimana</h2>
+			<p class="text-center">Non hai partecipato a nessuna partita nell'ultima settimana.</p>
 
 			<%
 		}
@@ -138,14 +138,6 @@ non puoi accedere a questa pagina
 						<p class="card-text">
 							Partecipanti:
 							<%=e.getNumPartecipanti()%></p>
-						<%
-							if(e.isFinished()) {
-						%>
-						<a href="recensione?&action=cercagiocatori&nome=<%=e.getNome()%>"
-						   class="btn btn-primary">Recensisci</a>
-						<%
-							}
-						%>
 					</div>
 				</div>
 			</div>
