@@ -40,13 +40,7 @@ public class AreaUtenteServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    /*
-     * request.setAttribute("errorReg",pippo);
-     *
-     * RequestDispatcher dispatcher1 = request
-     * .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
-     * dispatcher1.forward(request, response);
-     */
+
     GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
     GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
 
@@ -81,8 +75,6 @@ public class AreaUtenteServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
-
     doGet(request, response);
   }
 

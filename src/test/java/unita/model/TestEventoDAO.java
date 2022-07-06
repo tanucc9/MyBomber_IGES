@@ -185,12 +185,12 @@ public class TestEventoDAO extends TestCase {
     list.add(g3.toString());
 
     ArrayList<String> list2 = new ArrayList<>();
-    /*ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(g3.getOrganizzatore());
+    ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(g3.getOrganizzatore());
     for (EventoBean p : eventi) {
       list2.add(p.toString());
     }
 
-    assertEquals(list, list2);*/
+    assertEquals(list, list2);
 
   }
 
@@ -410,12 +410,12 @@ public class TestEventoDAO extends TestCase {
     list.add(g3.toString());
 
     ArrayList<String> list2 = new ArrayList<>();
-    /*ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(g3.getOrganizzatore());
+    ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(g3.getOrganizzatore());
     for (EventoBean p : eventi) {
       list2.add(p.toString());
     }
 
-    assertEquals(list, list2);*/
+    assertEquals(list, list2);
 
   }
 

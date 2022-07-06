@@ -63,7 +63,6 @@ public class TestAreaUtenteServlet {
     hashTool = new HashTool();
     servlet = new AreaUtenteServlet();
     when(req.getSession()).thenReturn(session);
-
   }
 
   /**
@@ -87,6 +86,7 @@ public class TestAreaUtenteServlet {
     gi.setCittaResidenza("Napoli");
     gi.setCapResidenza("80000");
     gi.setValutazione(0);
+    gi.setIdSquadra(1);
     when((GestoreBean) req.getSession().getAttribute("gestore")).thenReturn(null);
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(gi);
     when(req.getAttribute("cu")).thenReturn("giocatore");
@@ -94,7 +94,6 @@ public class TestAreaUtenteServlet {
     servlet.doGet(req, res);
     verify(rd).forward(req, res);
     assertEquals(req.getAttribute("cu"), "giocatore");
-
   }
 
   /**
@@ -119,6 +118,15 @@ public class TestAreaUtenteServlet {
     verify(rd).forward(req, res);
     String controllo = (String) req.getAttribute("cu");
     assertEquals("gestore", controllo);
+  }
+
+  @Test
+  public void notUserLogged() throws ServletException, IOException {
+    when((GestoreBean) req.getSession().getAttribute("gestore")).thenReturn(null);
+    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(null);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./"))).thenReturn(rd);
+    servlet.doGet(req, res);
+    verify(rd).forward(req, res);
   }
 
 }
