@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import log.LoggerSingleton;
 import model.evento.EventoBean;
 import model.evento.EventoDAO;
 import model.struttura.StrutturaBean;
@@ -65,6 +67,10 @@ public class CreaEventoServlet extends HttpServlet {
     evento.setData(Date.valueOf(data));
     String ora = request.getParameter("ora");
     evento.setOra(Integer.parseInt(ora));
+    if (request.getParameter("switch_tipologia") != null)
+      evento.setTipologia("squadra");
+    else
+      evento.setTipologia("libero");
 
     try {
       if (gD == null) {

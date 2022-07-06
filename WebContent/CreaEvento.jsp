@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
 	import="java.time.*,model.utente.giocatore.*,model.utente.gestore.*,model.struttura.*"%>
+<%@ page import="model.squadra.SquadraBean" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -14,6 +15,10 @@
 	ArrayList<?> strutture = (ArrayList<?>) request.getAttribute("strutture");
 	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
     GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
+	SquadraBean miaSquadra = (SquadraBean) request.getSession().getAttribute("squadra");
+	boolean isCaptain = false;
+	if (miaSquadra != null)
+		isCaptain = miaSquadra.getCapitano().equals(giocatore.getEmail());
     if(giocatore == null && gestore == null)
     {
     	response.sendRedirect("./Login.jsp");
@@ -66,7 +71,14 @@
 					class="form-control" min="00" max="23" required>
 			</div>
 
-			<div class="form mb-3">
+			<% if (isCaptain) { %>
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" id="switch_tipologia" name="switch_tipologia" value="1">
+				<label class="form-check-label" for="switch_tipologia">Evento di tipo squadra</label>
+			</div>
+			<% } %>
+
+			<div class="form mb-3 mt-3">
 				<input type="submit" class="btn btn-primary" value="Crea">
 			</div>
 

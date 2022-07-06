@@ -13,6 +13,9 @@ import model.evento.EventoBean;
 import model.evento.EventoDAO;
 import model.partecipazione.PartecipazioneBean;
 import model.partecipazione.PartecipazioneDAO;
+import model.partecipazione.PartecipazioneSquadraBean;
+import model.partecipazione.PartecipazioneSquadraDAO;
+import model.squadra.SquadraBean;
 import model.utente.giocatore.GiocatoreBean;
 
 // TODO: Auto-generated Javadoc
@@ -30,6 +33,7 @@ public class PartecipaEventiServlet extends HttpServlet {
 
   /** The p D. */
   public PartecipazioneDAO pD;
+  private PartecipazioneSquadraDAO parSquadraDao;
 
   /**
    * Do get.
@@ -46,6 +50,13 @@ public class PartecipaEventiServlet extends HttpServlet {
       throws ServletException, IOException {
 
     GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
+    if (giocatore == null) {
+      RequestDispatcher dispatcher = request
+              .getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
+      dispatcher.forward(request, response);
+      return;
+    }
+
     EventoDAO eventoDao;
     ArrayList<EventoBean> eventi = new ArrayList<>();
 
@@ -80,14 +91,12 @@ public class PartecipaEventiServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
     GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
     String nomeEvento = request.getParameter("nome");
     EventoDAO eventoDao;
     PartecipazioneDAO partecipazioneDao = new PartecipazioneDAO();
-    PartecipazioneBean partecipazione = new PartecipazioneBean();
-    partecipazione.setUtente(giocatore.getEmail());
-    partecipazione.setEvento(nomeEvento);
+    SquadraBean squadra = (SquadraBean) request.getSession().getAttribute("squadra");
+    boolean isCaptain = squadra.getCapitano().equals(giocatore.getEmail());
 
     try {
       if (eD == null) {
@@ -101,13 +110,31 @@ public class PartecipaEventiServlet extends HttpServlet {
       } else {
         partecipazioneDao = pD;
       }
-      EventoBean eventoBean = eventoDao.doRetrieveByKey(nomeEvento);
-      if (eventoBean.getNumPartecipanti() < 10) {
-        partecipazioneDao.doSave(partecipazione);
-        eventoBean.aggiungiG();
-        eventoBean.setValutazione(eventoBean.getValutazione() + giocatore.getValutazione());
+
+      if (this.parSquadraDao == null) {
+        this.parSquadraDao = new PartecipazioneSquadraDAO();
       }
-      if (eventoBean.getNumPartecipanti() == 10) {
+
+      EventoBean eventoBean = eventoDao.doRetrieveByKey(nomeEvento);
+
+      if (eventoBean.getTipologia().equals("libero")) {
+        if (eventoBean.getNumPartecipanti() < 10) {
+          PartecipazioneBean partecipazione = new PartecipazioneBean();
+          partecipazione.setUtente(giocatore.getEmail());
+          partecipazione.setEvento(nomeEvento);
+          partecipazioneDao.doSave(partecipazione);
+          eventoBean.aggiungiG();
+          eventoBean.setValutazione(eventoBean.getValutazione() + giocatore.getValutazione());
+        }
+        if (eventoBean.getNumPartecipanti() == 10) {
+          eventoBean.setStato("completato");
+        }
+      } else if (eventoBean.getTipologia().equals("squadra") && isCaptain) {
+        PartecipazioneSquadraBean partecipazioneSquadra = new PartecipazioneSquadraBean();
+        partecipazioneSquadra.setIdSquadra(giocatore.getIdSquadra());
+        partecipazioneSquadra.setIdEvento(eventoBean.getNome());
+        parSquadraDao.doSave(partecipazioneSquadra);
+        eventoBean.aggiungiG();
         eventoBean.setStato("completato");
       }
       eventoDao.doUpdate(eventoBean);

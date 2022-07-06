@@ -20,10 +20,14 @@ import model.utente.giocatore.GiocatoreBean;
 @WebServlet("/eventiRecenti")
 public class EventiRecentiServlet extends HttpServlet {
 
-  /** The Constant serialVersionUID. */
+  /**
+   * The Constant serialVersionUID.
+   */
   private static final long serialVersionUID = 1L;
 
-  /** The e D. */
+  /**
+   * The e D.
+   */
   public EventoDAO eD;
 
   /**
@@ -36,10 +40,17 @@ public class EventiRecentiServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
     EventoDAO eventoDao;
     GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
+    if (giocatore == null) {
+      RequestDispatcher dispatcher = request
+              .getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
+      dispatcher.forward(request, response);
+      return;
+    }
+
     ArrayList<EventoBean> eventiRecenti;
 
     try {
@@ -50,24 +61,20 @@ public class EventiRecentiServlet extends HttpServlet {
       }
 
       eventiRecenti = eventoDao.doRetrieveEventiRecenti(giocatore.getEmail());
+
+      if (giocatore.getIdSquadra() != 0) {
+        ArrayList<EventoBean> eventiRecentiSquadra = eventoDao.doRetrieveEventiRecentiSquadra(giocatore.getIdSquadra());
+        request.setAttribute("eventiRecentiSquadra", eventiRecentiSquadra);
+      }
+
       request.setAttribute("eventiRecenti", eventiRecenti);
     } catch (SQLException e) {
       e.getStackTrace();
     }
 
     RequestDispatcher dispatcher = request
-        .getRequestDispatcher(response.encodeRedirectURL("./EventiRecenti.jsp"));
+            .getRequestDispatcher(response.encodeRedirectURL("./EventiRecenti.jsp"));
     dispatcher.forward(request, response);
 
   }
-
-  /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-   *      response)
-   */
-  /*
-   * protected void doPost(HttpServletRequest request, HttpServletResponse
-   * response) throws ServletException, IOException { // TODO Auto-generated
-   * method stub doGet(request, response); }
-   */
 }

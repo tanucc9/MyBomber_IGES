@@ -9,15 +9,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import log.LoggerSingleton;
 import model.evento.EventoBean;
 import model.evento.EventoDAO;
 import model.partecipazione.PartecipazioneBean;
 import model.partecipazione.PartecipazioneDAO;
+import model.partecipazione.PartecipazioneSquadraBean;
+import model.partecipazione.PartecipazioneSquadraDAO;
+import model.squadra.SquadraBean;
+import model.squadra.SquadraDAO;
 import model.utente.gestore.GestoreBean;
 import model.utente.giocatore.GiocatoreBean;
 import model.utente.giocatore.GiocatoreDAO;
 
-// TODO: Auto-generated Javadoc
 /**
  * Servlet implementation class EsempioServlet.
  */
@@ -35,6 +40,8 @@ public class RichiesteEventiServlet extends HttpServlet {
 
   /** The p D. */
   public PartecipazioneDAO pD;
+
+  private PartecipazioneSquadraDAO partecipazioneSquadraDao;
 
   /**
    * Do get.
@@ -55,6 +62,11 @@ public class RichiesteEventiServlet extends HttpServlet {
     PartecipazioneDAO partecipazioneDao;
     ArrayList<GiocatoreBean> giocatori = new ArrayList<>();
     GestoreBean gestore = (GestoreBean) request.getSession().getAttribute("gestore");
+    if (gestore == null) {
+      RequestDispatcher dispatcher = request
+              .getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
+      dispatcher.forward(request, response);
+    }
     String nomeEvento = request.getParameter("nome");
     String action = request.getParameter("action");
     ArrayList<EventoBean> richieste = new ArrayList<>();
@@ -84,13 +96,35 @@ public class RichiesteEventiServlet extends HttpServlet {
         if (action.equalsIgnoreCase("addE")) {
           bean.setStato("attivo");
           bean.aggiungiG();
-          partecipazione.setEvento(bean.getNome());
+
           giocatori = giocatoreDao.doRetrieveAll();
+          GiocatoreBean giocatore = null;
+
           for (GiocatoreBean element : giocatori) {
             if (bean.getOrganizzatore().equals(element.getEmail())) {
+              giocatore = element;
+            }
+          }
+
+          if (bean.getTipologia().equals("libero")) {
+            partecipazione.setEvento(bean.getNome());
+            if (giocatore != null) {
               partecipazione.setUtente(bean.getOrganizzatore());
               partecipazioneDao.doSave(partecipazione);
             }
+          } else {
+            LoggerSingleton log = LoggerSingleton.getInstance();
+            if (this.partecipazioneSquadraDao == null) {
+              this.partecipazioneSquadraDao = new PartecipazioneSquadraDAO();
+            }
+
+            log.debug(giocatore.toString());
+
+            PartecipazioneSquadraBean partecipazioneSquadra = new PartecipazioneSquadraBean();
+            partecipazioneSquadra.setIdSquadra(giocatore.getIdSquadra());
+            partecipazioneSquadra.setIdEvento(bean.getNome());
+            log.debug(partecipazioneSquadra.toString());
+            this.partecipazioneSquadraDao.doSave(partecipazioneSquadra);
           }
           eventoDao.doUpdate(bean);
         } else if (action.equalsIgnoreCase("deleteE")) {

@@ -186,6 +186,7 @@ public class GiocatoreDAO {
         bean.setCittaResidenza(rs.getString("citta_residenza"));
         bean.setCapResidenza(rs.getString("cap_residenza"));
         bean.setValutazione(rs.getFloat("valutazione"));
+        bean.setIdSquadra(rs.getInt("id_squadra"));
         giocatori.add(bean);
 
       }

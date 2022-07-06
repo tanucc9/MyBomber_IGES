@@ -4,6 +4,7 @@
 <%@ page import="model.squadra.SquadraBean" %>
 <%@ page import="model.squadra.LogoSquadraBean" %>
 <%@ page import="java.lang.reflect.Array" %>
+<%@ page import="model.evento.EventoBean" %>
 
 <%
     GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
@@ -14,6 +15,7 @@
     ArrayList<GiocatoreBean> giocatori = (ArrayList<GiocatoreBean>) request.getAttribute("giocatori");
     GiocatoreBean capitano = (GiocatoreBean) request.getAttribute("capitano");
     boolean isCaptain = squadra.getCapitano().equals(giocatore.getEmail());
+    ArrayList<EventoBean> eventiSquadra = (ArrayList<EventoBean>) request.getAttribute("eventiRecentiSquadra");
 
     if(giocatore==null && gestore==null) {
         response.sendRedirect("./Login.jsp");
@@ -86,7 +88,7 @@
                         <% if (miaSquadra == null) { %>
                         <a href="#" class="btn btn-primary" id="uniscitiSquadraBTN" data-id-squadra="<%= squadra.getIdSquadra() %>">Unisciti alla squadra</a>
                         <% } %>
-                        <% if (miaSquadra != null && !isCaptain) { %>
+                        <% if ((miaSquadra != null && miaSquadra.toString().equals(squadra.toString())) && !isCaptain) { %>
                         <a href="#" class="btn btn-outline-danger" id="abbandonaSquadraBTN" data-id-squadra="<%= squadra.getIdSquadra() %>">Abbandona squadra</a>
                         <% } %>
                     </div>
@@ -94,6 +96,56 @@
             </div>
         </div>
     </div>
+
+    <% if (eventiSquadra != null && eventiSquadra.size() > 0) { %>
+
+    <h3 class="text-center mt-5">Eventi recenti squadra</h3>
+    <div class="row">
+        <%
+            Iterator<?> it = eventiSquadra.iterator();
+            while (it.hasNext()) {
+                EventoBean e = (EventoBean) it.next();
+        %>
+        <div class="col-lg-4 cusom_event_class mb-5">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"><%=e.getNome() %>
+                        <%if(e.getStato().equals("attivo")) { %>
+                        <span class="badge bg-warning text-dark"><%=e.getStato() %></span>
+                        <%} else { %>
+                        <span class="badge bg-success"><%=e.getStato() %></span>
+                        <%} %>
+                    </h3>
+                    <p class="card-text">
+                        descrizione:
+                        <%=e.getDescrizione()%></p>
+                    <p class="card-text">
+                        data :
+                            <%=e.getData()%>
+                    <p class="card-text">
+                        ora :
+                        <%=e.getOra()%></p>
+                    <p class="card-text">
+                        struttura:
+                        <%=e.getStruttura()%></p>
+                    <p class="card-text">
+                        gestore:
+                        <%=e.getGestore()%></p>
+                    <p class="card-text">
+                        organizzatore:
+                        <%=e.getOrganizzatore()%></p>
+                    <p class="card-text">
+                        Partecipanti:
+                        <%=e.getNumPartecipanti()%></p>
+                </div>
+            </div>
+        </div>
+        <%
+            }
+        %>
+    </div>
+    <% } %>
+
 </div>
 
 <%@ include file="./fragments/footer.html"%>

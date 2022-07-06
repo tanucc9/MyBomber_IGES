@@ -3,6 +3,7 @@
 	import="java.util.*,model.evento.*,model.utente.giocatore.*,model.recensione.*,model.utente.gestore.*"%>
 
 <%  ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventiRecenti");
+	ArrayList<EventoBean> eventiSquadra = (ArrayList<EventoBean>) request.getAttribute("eventiRecentiSquadra");
 	GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
 	GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
 	if(giocatore==null && gestore==null) {
@@ -96,6 +97,63 @@ non puoi accedere a questa pagina
 		}
 	%>
 		</div>
+
+		<% if (giocatore.getIdSquadra() != 0 && eventiSquadra != null && eventiSquadra.size() > 0) { %>
+
+		<h3 class="text-center mt-5">Eventi recenti squadra</h3>
+		<div class="row">
+			<%
+				Iterator<?> it = eventiSquadra.iterator();
+				while (it.hasNext()) {
+					EventoBean e = (EventoBean) it.next();
+			%>
+			<div class="col-lg-4 cusom_event_class mb-5">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title"><%=e.getNome() %>
+							<%if(e.getStato().equals("attivo")) { %>
+							<span class="badge bg-warning text-dark"><%=e.getStato() %></span>
+							<%} else { %>
+							<span class="badge bg-success"><%=e.getStato() %></span>
+							<%} %>
+						</h3>
+						<p class="card-text">
+							descrizione:
+							<%=e.getDescrizione()%></p>
+						<p class="card-text">
+							data :
+								<%=e.getData()%>
+						<p class="card-text">
+							ora :
+							<%=e.getOra()%></p>
+						<p class="card-text">
+							struttura:
+							<%=e.getStruttura()%></p>
+						<p class="card-text">
+							gestore:
+							<%=e.getGestore()%></p>
+						<p class="card-text">
+							organizzatore:
+							<%=e.getOrganizzatore()%></p>
+						<p class="card-text">
+							Partecipanti:
+							<%=e.getNumPartecipanti()%></p>
+						<%
+							if(e.isFinished()) {
+						%>
+						<a href="recensione?&action=cercagiocatori&nome=<%=e.getNome()%>"
+						   class="btn btn-primary">Recensisci</a>
+						<%
+							}
+						%>
+					</div>
+				</div>
+			</div>
+			<%
+				}
+			%>
+		</div>
+		<% } %>
 	</div>
 
 	<%@ include file="./fragments/footer.html"%>

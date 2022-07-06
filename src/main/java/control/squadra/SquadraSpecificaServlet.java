@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.evento.EventoBean;
+import model.evento.EventoDAO;
 import model.squadra.LogoSquadraBean;
 import model.squadra.LogoSquadraDAO;
 import model.squadra.SquadraBean;
@@ -26,6 +28,7 @@ public class SquadraSpecificaServlet extends HttpServlet {
     private SquadraDAO squadraDao;
     private LogoSquadraDAO logoDao;
     private GiocatoreDAO gioDao;
+    private EventoDAO eventoDao;
 
     /**
      * Do get.
@@ -73,6 +76,9 @@ public class SquadraSpecificaServlet extends HttpServlet {
         if (this.gioDao == null) {
             this.gioDao = new GiocatoreDAO();
         }
+        if (this.eventoDao == null) {
+            this.eventoDao = new EventoDAO();
+        }
 
         int idSquadra = Integer.parseInt(request.getParameter("idSquadra"));
 
@@ -81,7 +87,9 @@ public class SquadraSpecificaServlet extends HttpServlet {
             LogoSquadraBean logo = this.logoDao.doRetrieveByKey(squadra.getLogo());
             ArrayList<GiocatoreBean> giocatori = this.gioDao.doRetrieveBySquadra(idSquadra);
             GiocatoreBean capitano = this.gioDao.doRetrieveByKey(squadra.getCapitano());
+            ArrayList<EventoBean> eventiRecentiSquadra = eventoDao.doRetrieveEventiRecentiSquadra(giocatore.getIdSquadra());
 
+            request.setAttribute("eventiRecentiSquadra", eventiRecentiSquadra);
             request.setAttribute("squadra", squadra);
             request.setAttribute("logo", logo);
             request.setAttribute("giocatori", giocatori);

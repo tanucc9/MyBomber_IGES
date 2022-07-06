@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
 	import="java.util.*,model.evento.*,model.utente.giocatore.*,model.recensione.*,model.utente.gestore.*"%>
+<%@ page import="model.squadra.SquadraBean" %>
 
 <%  
     ArrayList<?> eventi = (ArrayList<?>) request.getAttribute("eventi");
     GiocatoreBean giocatore=(GiocatoreBean)request.getSession().getAttribute("giocatore");
     GestoreBean gestore=(GestoreBean)request.getSession().getAttribute("gestore");
-    if(giocatore==null && gestore==null)
+	SquadraBean miaSquadra = (SquadraBean) request.getSession().getAttribute("squadra");
+	boolean isCaptain = false;
+	if (miaSquadra != null)
+		isCaptain = miaSquadra.getCapitano().equals(giocatore.getEmail());
+
+	if(giocatore==null && gestore==null)
     {
 	  response.sendRedirect("./Login.jsp");
     }
@@ -43,6 +49,7 @@ non puoi accedere a questa pagina
 			Iterator<?> it = eventi.iterator();
 			while (it.hasNext()) {
 				EventoBean e = (EventoBean) it.next();
+				if (isCaptain || !e.getTipologia().equals("squadra")) {
 	%>
 			<div class="col-lg-4 cusom_event_class mt-5">
 				<div class="card">
@@ -72,6 +79,9 @@ non puoi accedere a questa pagina
 						<p class="card-text">
 							Valutazione:
 							<%=e.getMedia()%></p>
+						<p class="card-text">
+							Tipologia:
+							<%=e.getTipologia()%></p>
 
 						<form action="partecipa" method="post">
 							<input type="hidden" value="<%=e.getNome() %>" name="nome"
@@ -82,7 +92,7 @@ non puoi accedere a questa pagina
 				</div>
 			</div>
 			<%
-			}
+			}}
 		} else {
 	%>
 

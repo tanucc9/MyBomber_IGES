@@ -152,7 +152,7 @@ public class TestRichiesteEventiServlet {
 
     when((GestoreBean) req.getSession().getAttribute("gestore")).thenReturn(g);
     when(req.getParameter("action")).thenReturn("trovaRichieste");
-    when(evDao.doRetrieveEventiRecenti(g.getEmail())).thenReturn(list);
+    //when(evDao.doRetrieveEventiRecenti(g.getEmail())).thenReturn(list);
     when(req.getAttribute("richieste")).thenReturn(list);
     when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
     servlet.doGet(req, res);
