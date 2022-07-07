@@ -42,6 +42,7 @@ public class TestEventoDAO extends TestCase {
     bean.setStato("completato");
     bean.setValutazione(0);
     bean.setNumPartecipanti(10);
+    bean.setTipologia("libero");
     tester.doSave(bean);
   }
 
@@ -108,58 +109,59 @@ public class TestEventoDAO extends TestCase {
 
     ArrayList<String> list = new ArrayList<>();
 
-    EventoBean g2 = new EventoBean();
-    EventoBean g3 = new EventoBean();
-    EventoBean g4 = new EventoBean();
+    EventoBean evento = new EventoBean();
+    EventoBean evento2 = new EventoBean();
+    EventoBean evento3 = new EventoBean();
 
-    g2.setNome("Evento 333");
-    g2.setDescrizione("Prova descrizione");
-    g2.setStruttura("playk");
-    g2.setData(Date.valueOf("2022-01-16"));
-    g2.setOra(22);
-    g2.setGestore("gino@gino.it");
-    g2.setOrganizzatore("simone@simone.it");
-    g2.setStato("richiesta");
-    g2.setValutazione(0);
-    g2.setNumPartecipanti(0);
+    evento.setNome("Evento 333");
+    evento.setDescrizione("Prova descrizione");
+    evento.setStruttura("playk");
+    evento.setData(Date.valueOf("2022-01-16"));
+    evento.setOra(22);
+    evento.setGestore("gino@gino.it");
+    evento.setOrganizzatore("simone@simone.it");
+    evento.setStato("richiesta");
+    evento.setValutazione(0);
+    evento.setNumPartecipanti(0);
+    evento.setTipologia("libero");
 
-    list.add(g2.toString());
+    list.add(evento.toString());
     list.add(bean.toString());
 
-    g4.setNome("evento2");
-    g4.setDescrizione("grande evento");
-    g4.setStruttura("playk");
-    g4.setData(Date.valueOf("2022-01-03"));
-    g4.setOra(2);
-    g4.setGestore("gino@gino.it");
-    g4.setOrganizzatore("simone@simone.it");
-    g4.setStato("completato");
-    g4.setValutazione(0);
-    g4.setNumPartecipanti(10);
+    evento2.setNome("evento2");
+    evento2.setDescrizione("grande evento");
+    evento2.setStruttura("playk");
+    evento2.setData(Date.valueOf("2022-01-03"));
+    evento2.setOra(2);
+    evento2.setGestore("gino@gino.it");
+    evento2.setOrganizzatore("simone@simone.it");
+    evento2.setStato("completato");
+    evento2.setValutazione(0);
+    evento2.setNumPartecipanti(10);
+    evento2.setTipologia("libero");
 
-    g3.setNome("evento3");
-    g3.setDescrizione("sdfghgfds");
-    g3.setStruttura("playk");
-    g3.setData(Date.valueOf("2022-01-15"));
-    g3.setOra(1);
-    g3.setGestore("gino@gino.it");
-    g3.setOrganizzatore("simone@simone.it");
-    g3.setStato("attivo");
-    g3.setValutazione(0);
-    g3.setNumPartecipanti(3);
+    evento3.setNome("evento3");
+    evento3.setDescrizione("sdfghgfds");
+    evento3.setStruttura("playk");
+    evento3.setData(Date.valueOf("2022-01-15"));
+    evento3.setOra(1);
+    evento3.setGestore("gino@gino.it");
+    evento3.setOrganizzatore("simone@simone.it");
+    evento3.setStato("attivo");
+    evento3.setValutazione(0);
+    evento3.setNumPartecipanti(3);
+    evento3.setTipologia("libero");
 
-    list.add(g4.toString());
-
-    list.add(g3.toString());
+    list.add(evento2.toString());
+    list.add(evento3.toString());
 
     ArrayList<String> list2 = new ArrayList<>();
     ArrayList<EventoBean> eventi = tester.doRetrieveAll();
-    for (EventoBean p : eventi) {
-      list2.add(p.toString());
+    for (EventoBean e : eventi) {
+      list2.add(e.toString());
     }
 
     assertEquals(list, list2);
-
   }
 
   /**
@@ -272,39 +274,40 @@ public class TestEventoDAO extends TestCase {
     // nel database simone deve aver partecipato all'evento2
     ArrayList<String> list = new ArrayList<>();
 
-    EventoBean g3 = new EventoBean();
-    EventoBean g4 = new EventoBean();
+    EventoBean evento = new EventoBean();
+    EventoBean evento2 = new EventoBean();
 
     list.add(bean.toString());
 
-    g4.setNome("evento2");
-    g4.setDescrizione("grande evento");
-    g4.setStruttura("playk");
-    g4.setData(Date.valueOf("2022-01-03"));
-    g4.setOra(2);
-    g4.setGestore("gino@gino.it");
-    g4.setOrganizzatore("simone@simone.it");
-    g4.setStato("completato");
-    g4.setValutazione(0);
-    g4.setNumPartecipanti(10);
+    evento2.setNome("evento2");
+    evento2.setDescrizione("grande evento");
+    evento2.setStruttura("playk");
+    evento2.setData(Date.valueOf("2022-01-03"));
+    evento2.setOra(2);
+    evento2.setGestore("gino@gino.it");
+    evento2.setOrganizzatore("simone@simone.it");
+    evento2.setStato("completato");
+    evento2.setValutazione(0);
+    evento2.setNumPartecipanti(10);
+    evento2.setTipologia("libero");
 
-    g3.setNome("evento3");
-    g3.setDescrizione("sdfghgfds");
-    g3.setStruttura("playk");
-    g3.setData(Date.valueOf("2022-01-15"));
-    g3.setOra(1);
-    g3.setGestore("gino@gino.it");
-    g3.setOrganizzatore("simone@simone.it");
-    g3.setStato("attivo");
-    g3.setValutazione(0);
-    g3.setNumPartecipanti(3);
+    evento.setNome("evento3");
+    evento.setDescrizione("sdfghgfds");
+    evento.setStruttura("playk");
+    evento.setData(Date.valueOf("2022-01-15"));
+    evento.setOra(1);
+    evento.setGestore("gino@gino.it");
+    evento.setOrganizzatore("simone@simone.it");
+    evento.setStato("attivo");
+    evento.setValutazione(0);
+    evento.setNumPartecipanti(3);
+    evento.setTipologia("libero");
 
-    list.add(g3.toString());
-
-    list.add(g4.toString());
+    list.add(evento.toString());
+    list.add(evento2.toString());
 
     ArrayList<String> list2 = new ArrayList<>();
-    ArrayList<EventoBean> eventi = tester.doRetrieveEventiGestore(g3.getGestore());
+    ArrayList<EventoBean> eventi = tester.doRetrieveEventiGestore(evento.getGestore());
     for (EventoBean p : eventi) {
       list2.add(p.toString());
     }
@@ -323,24 +326,25 @@ public class TestEventoDAO extends TestCase {
 
     ArrayList<String> list = new ArrayList<>();
 
-    EventoBean g4 = new EventoBean();
+    EventoBean evento = new EventoBean();
 
-    g4.setNome("evento2");
-    g4.setDescrizione("grande evento");
-    g4.setStruttura("playk");
-    g4.setData(Date.valueOf("2022-01-03"));
-    g4.setOra(2);
-    g4.setGestore("gino@gino.it");
-    g4.setOrganizzatore("simone@simone.it");
-    g4.setStato("completato");
-    g4.setValutazione(0);
-    g4.setNumPartecipanti(10);
+    evento.setNome("evento2");
+    evento.setDescrizione("grande evento");
+    evento.setStruttura("playk");
+    evento.setData(Date.valueOf("2022-01-03"));
+    evento.setOra(2);
+    evento.setGestore("gino@gino.it");
+    evento.setOrganizzatore("simone@simone.it");
+    evento.setStato("completato");
+    evento.setValutazione(0);
+    evento.setNumPartecipanti(10);
+    evento.setTipologia("libero");
 
     list.add(bean.toString());
-    list.add(g4.toString());
+    list.add(evento.toString());
 
     ArrayList<String> list2 = new ArrayList<>();
-    ArrayList<EventoBean> eventi = tester.doRetrieveCronologia(g4.getOrganizzatore());
+    ArrayList<EventoBean> eventi = tester.doRetrieveCronologia(evento.getOrganizzatore());
     for (EventoBean p : eventi) {
       list2.add(p.toString());
     }
@@ -359,19 +363,21 @@ public class TestEventoDAO extends TestCase {
     // piero deve esistere e non partecipare a evento3
     ArrayList<String> list = new ArrayList<>();
 
-    EventoBean g3 = new EventoBean();
+    EventoBean evento = new EventoBean();
 
-    g3.setNome("evento3");
-    g3.setDescrizione("sdfghgfds");
-    g3.setStruttura("playk");
-    g3.setData(Date.valueOf("2022-01-15"));
-    g3.setOra(1);
-    g3.setGestore("gino@gino.it");
-    g3.setOrganizzatore("simone@simone.it");
-    g3.setStato("attivo");
-    g3.setValutazione(0);
-    g3.setNumPartecipanti(3);
-    list.add(g3.toString());
+    evento.setNome("evento3");
+    evento.setDescrizione("sdfghgfds");
+    evento.setStruttura("playk");
+    evento.setData(Date.valueOf("2022-01-15"));
+    evento.setOra(1);
+    evento.setGestore("gino@gino.it");
+    evento.setOrganizzatore("simone@simone.it");
+    evento.setStato("attivo");
+    evento.setValutazione(0);
+    evento.setNumPartecipanti(3);
+    evento.setTipologia("libero");
+
+    list.add(evento.toString());
     ArrayList<String> list2 = new ArrayList<>();
     ArrayList<EventoBean> eventi = tester.doRetrieveEventi("piero@piero.it");
     for (EventoBean p : eventi) {

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import log.LoggerSingleton;
 import model.evento.EventoBean;
 import model.evento.EventoDAO;
 import model.struttura.StrutturaBean;
@@ -19,10 +18,6 @@ import model.utente.gestore.GestoreBean;
 import model.utente.gestore.GestoreDAO;
 import model.utente.giocatore.GiocatoreBean;
 
-// TODO: Auto-generated Javadoc
-/**
- * Servlet implementation class EsempioServlet.
- */
 @WebServlet("/creaEvento")
 public class CreaEventoServlet extends HttpServlet {
 

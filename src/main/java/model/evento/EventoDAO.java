@@ -134,6 +134,7 @@ public class EventoDAO {
         bean.setStato(rs.getString("stato"));
         bean.setValutazione(rs.getFloat("valutazione"));
         bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
+        bean.setTipologia(rs.getString("tipologia"));
         eventi.add(bean);
       }
 
@@ -374,6 +375,8 @@ public class EventoDAO {
         bean.setStato(rs.getString("stato"));
         bean.setValutazione(rs.getFloat("valutazione"));
         bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
+        bean.setTipologia(rs.getString("tipologia"));
+
         eventi.add(bean);
       }
 
@@ -428,6 +431,8 @@ public class EventoDAO {
         bean.setStato(rs.getString("stato"));
         bean.setValutazione(rs.getFloat("valutazione"));
         bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
+        bean.setTipologia(rs.getString("tipologia"));
+
         eventi.add(bean);
       }
 

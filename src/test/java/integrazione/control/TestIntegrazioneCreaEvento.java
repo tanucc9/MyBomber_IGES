@@ -77,25 +77,7 @@ public class TestIntegrazioneCreaEvento {
    */
   @Test
   public void creaEvento() throws ServletException, IOException, SQLException {
-    GestoreBean gi = new GestoreBean();
-    gi.setEmail("gino@gino.it");
-    gi.setNome("gino");
-    gi.setCognome("pozzo");
-    gi.setEncPassword(hashTool.hashSHA256("gino"));
-    gi.setTelefono("3923415443");
-    gi.setStruttura("playk");
-
-    EventoBean e = new EventoBean();
-    e.setNome("newEvento");
-    e.setDescrizione("Prova descrizione");
-    e.setStruttura("playk");
-    e.setData(Date.valueOf("2022-01-29"));
-    e.setOra(22);
-    e.setGestore("gino@gino.it");
-    e.setOrganizzatore("simone@simone.it");
-    e.setStato("richiesta");
-    e.setValutazione(0);
-    e.setNumPartecipanti(0);
+    String nomeEvento = "newEvento";
 
     GiocatoreBean g5 = new GiocatoreBean();
     g5.setUsername("gio");
@@ -110,27 +92,53 @@ public class TestIntegrazioneCreaEvento {
     g5.setCittaResidenza("Caserta");
     g5.setCapResidenza("89976");
     g5.setValutazione(0);
+
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g5);
-    when(req.getParameter("nome")).thenReturn("newEvento");
+    when(req.getParameter("nome")).thenReturn(nomeEvento);
     when(req.getParameter("descrizione")).thenReturn("Prova descrizione");
     when(req.getParameter("struttura")).thenReturn("playk");
     when(req.getParameter("data")).thenReturn("2023-01-29");
     when(req.getParameter("ora")).thenReturn("17");
-
-    StrutturaBean s = new StrutturaBean();
-    s.setNome("playk");
-    s.setIndirizzo("via andrea 21");
-    s.setNazione("italia");
-    s.setCitta("napoli");
-    s.setCap("80098");
-    s.setProvincia("napoli");
-    s.setTelefono("3122122143");
+    when(req.getParameter("switch_tipologia")).thenReturn(null);
 
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
     servlet.doGet(req, res);
     verify(rd).forward(req, res);
     EventoDAO ed = new EventoDAO();
-    ed.doDelete(e.getNome());
+    ed.doDelete(nomeEvento);
+  }
+
+  @Test
+  public void creaEventoSquadra() throws ServletException, IOException, SQLException {
+    String nomeEvento = "newEvento";
+
+    GiocatoreBean g5 = new GiocatoreBean();
+    g5.setUsername("gio");
+    g5.setEmail("gio4@email.it");
+    g5.setNome("Giovanni");
+    g5.setCognome("Falco");
+    g5.setEncPassword(hashTool.hashSHA256("Gio"));
+    g5.setTelefono("3334562167");
+    g5.setDataNascita(Date.valueOf("2001-11-16"));
+    g5.setNazioneResidenza("Italia");
+    g5.setProvinciaResidenza("Caserta");
+    g5.setCittaResidenza("Caserta");
+    g5.setCapResidenza("89976");
+    g5.setValutazione(0);
+
+    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g5);
+    when(req.getParameter("nome")).thenReturn(nomeEvento);
+    when(req.getParameter("descrizione")).thenReturn("Prova descrizione");
+    when(req.getParameter("struttura")).thenReturn("playk");
+    when(req.getParameter("data")).thenReturn("2023-01-29");
+    when(req.getParameter("ora")).thenReturn("17");
+    when(req.getParameter("switch_tipologia")).thenReturn("1");
+
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+    servlet.doGet(req, res);
+    verify(rd).forward(req, res);
+    EventoDAO ed = new EventoDAO();
+    ed.doDelete(nomeEvento);
   }
 
   /**
