@@ -107,4 +107,70 @@ public class LogoSquadraDAO {
         return null;
     }
 
+    public synchronized LogoSquadraBean doRetrieveId() throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        String selectSQL = "SELECT * FROM " + TABLE_NAME + " ORDER BY id_logo_squadra DESC LIMIT 1 ";
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                LogoSquadraBean bean = new LogoSquadraBean();
+                bean.setIdLogoSquadra(rs.getInt("id_logo_squadra"));
+                bean.setNome(rs.getString("nome"));
+                bean.setUrl(rs.getString("url"));
+                return bean;
+            }
+
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
+        return null;
+    }
+
+    public synchronized boolean doDelete(int idLogoSquadra) throws SQLException {
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        int result = 0;
+
+        String deleteSQL = "delete from " + TABLE_NAME + " WHERE id_logo_squadra = ?";
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            connection.setAutoCommit(true);
+            preparedStatement = connection.prepareStatement(deleteSQL);
+            preparedStatement.setInt(1, idLogoSquadra);
+
+            result = preparedStatement.executeUpdate();
+
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
+        return (result != 0);
+    }
+
+
 }
