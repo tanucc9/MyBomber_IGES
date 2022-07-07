@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import model.evento.EventoBean;
 import model.utente.giocatore.GiocatoreBean;
 import org.junit.Before;
@@ -24,7 +25,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.HashTool;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestIntegrazioneEventiRecenti.
  */
@@ -90,6 +90,7 @@ public class TestIntegrazioneEventiRecenti {
     g.setCittaResidenza("Caserta");
     g.setCapResidenza("89976");
     g.setValutazione(0);
+    g.setIdSquadra(0);
 
     // mariello
     ArrayList<EventoBean> list = new ArrayList<>();
@@ -155,4 +156,65 @@ public class TestIntegrazioneEventiRecenti {
 
   }
 
+  @Test
+  public void cercaEventiRecentiSquadra() throws ServletException, IOException, SQLException {
+    GiocatoreBean g = new GiocatoreBean();
+    g.setUsername("gio");
+    g.setEmail("gio4@email.it");
+    g.setNome("Giovanni");
+    g.setCognome("Falco");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
+    g.setTelefono("3334562167");
+    g.setDataNascita(Date.valueOf("2001-11-16"));
+    g.setNazioneResidenza("Italia");
+    g.setProvinciaResidenza("Caserta");
+    g.setCittaResidenza("Caserta");
+    g.setCapResidenza("89976");
+    g.setValutazione(0);
+    g.setIdSquadra(2);
+
+    // mariello
+    ArrayList<EventoBean> eventiRecenti = new ArrayList<EventoBean>();
+    ArrayList<EventoBean> eventiRecentiSquadra = new ArrayList<EventoBean>();
+
+    EventoBean ev = new EventoBean();
+    ev.setNome("evento12");
+    ev.setDescrizione("mitico evento");
+    ev.setStruttura("playk");
+    ev.setData(Date.valueOf("2023-01-03"));
+    ev.setOra(2);
+    ev.setGestore("gino@gino.it");
+    ev.setOrganizzatore("simone@simone.it");
+    ev.setStato("completato");
+    ev.setValutazione(0);
+    ev.setNumPartecipanti(10);
+    ev.setTipologia("libero");
+
+    eventiRecenti.add(ev);
+
+    EventoBean evSquadra = new EventoBean();
+
+    evSquadra.setNome("evento squadra");
+    evSquadra.setDescrizione("descrizione.");
+    evSquadra.setStruttura("playk");
+    evSquadra.setData(Date.valueOf("2022-01-15"));
+    evSquadra.setOra(22);
+    evSquadra.setGestore("gino@gino.it");
+    evSquadra.setOrganizzatore("gio4@email.it");
+    evSquadra.setStato("completato");
+    evSquadra.setValutazione(0);
+    evSquadra.setNumPartecipanti(2);
+    evSquadra.setTipologia("squadra");
+
+    eventiRecentiSquadra.add(evSquadra);
+
+    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
+    when(req.getAttribute("eventiRecenti")).thenReturn(eventiRecenti);
+    when(req.getAttribute("eventiRecentiSquadra")).thenReturn(eventiRecentiSquadra);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./EventiRecenti.jsp"))).thenReturn(rd);
+
+    servlet.doGet(req, res);
+
+    verify(rd).forward(req, res);
+  }
 }
