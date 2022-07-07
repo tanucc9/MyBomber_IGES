@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GiocatoreDAO.
  */
@@ -29,7 +28,7 @@ public class GiocatoreDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     String insertSQL = "insert into " + TABLE_NAME
-        + " (username, e_mail, nome, cognome, password_giocatore, telefono, data_nascita, nazione_residenza, provincia_residenza, citta_residenza, cap_residenza, valutazione) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        + " (username, e_mail, nome, cognome, password_giocatore, telefono, data_nascita, nazione_residenza, provincia_residenza, citta_residenza, cap_residenza, valutazione, id_squadra) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
@@ -45,6 +44,8 @@ public class GiocatoreDAO {
       preparedStatement.setString(10, e.getCittaResidenza());
       preparedStatement.setString(11, e.getCapResidenza());
       preparedStatement.setFloat(12, e.getValutazione());
+      preparedStatement.setInt(13, e.getIdSquadra());
+
       preparedStatement.executeUpdate();
       connection.commit();
     } finally {
@@ -89,17 +90,17 @@ public class GiocatoreDAO {
         bean.setCittaResidenza(rs.getString("citta_residenza"));
         bean.setCapResidenza(rs.getString("cap_residenza"));
         bean.setValutazione(rs.getFloat("valutazione"));
+        bean.setIdSquadra(rs.getInt("id_squadra"));
+
         return bean;
       }
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } finally {
       try {
         ps.close();
         DriverManagerConnectionPool.releaseConnection(conn);
       } catch (SQLException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     }
@@ -135,17 +136,17 @@ public class GiocatoreDAO {
         bean.setCittaResidenza(rs.getString("citta_residenza"));
         bean.setCapResidenza(rs.getString("cap_residenza"));
         bean.setValutazione(rs.getFloat("valutazione"));
+        bean.setIdSquadra(rs.getInt("id_squadra"));
+
         return bean;
       }
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } finally {
       try {
         ps.close();
         DriverManagerConnectionPool.releaseConnection(conn);
       } catch (SQLException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     }

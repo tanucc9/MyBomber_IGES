@@ -52,6 +52,7 @@ public class TestGiocatoreDAO extends TestCase {
     bean.setCittaResidenza("Napoli");
     bean.setCapResidenza("80000");
     bean.setValutazione(0);
+    bean.setIdSquadra(2);
     tester.doSave(bean);
   }
 
@@ -200,6 +201,45 @@ public class TestGiocatoreDAO extends TestCase {
   @Test
   public void testDoRetrieveByAuth() throws NoSuchAlgorithmException {
     assertEquals(bean.toString(), tester.doRetrieveByAuth(bean.getEmail(), password).toString());
+  }
+
+  @Test
+  public void testDoLeaveTeam() throws SQLException, NoSuchAlgorithmException {
+    bean.setIdSquadra(0);
+    tester.doLeaveTeam(bean);
+    GiocatoreBean mod = tester.doRetrieveByKey(bean.getEmail());
+    assertEquals(bean.toString(), mod.toString());
+  }
+
+  @Test
+  public void testDoRetrieveBySquadra() throws SQLException {
+    ArrayList<String> expected = new ArrayList<String>();
+    ArrayList<String> actual = new ArrayList<String>();
+
+    GiocatoreBean g = new GiocatoreBean();
+    g.setUsername("gio");
+    g.setEmail("gio4@email.it");
+    g.setNome("Giovanni");
+    g.setCognome("Falco");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
+    g.setTelefono("3334562167");
+    g.setDataNascita(Date.valueOf("2001-11-16"));
+    g.setNazioneResidenza("Italia");
+    g.setProvinciaResidenza("Caserta");
+    g.setCittaResidenza("Caserta");
+    g.setCapResidenza("89976");
+    g.setValutazione(0);
+    g.setIdSquadra(2);
+
+    expected.add(g.toString());
+    expected.add(bean.toString());
+
+    ArrayList<GiocatoreBean> res = tester.doRetrieveBySquadra(2);
+    for (GiocatoreBean gio : res) {
+      actual.add(gio.toString());
+    }
+
+    assertEquals(expected, actual);
   }
 
 }
