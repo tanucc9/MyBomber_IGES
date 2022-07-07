@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import control.evento.PartecipaEventiServlet;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,17 +15,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import junit.framework.TestCase;
 import model.evento.EventoBean;
 import model.evento.EventoDAO;
 import model.partecipazione.PartecipazioneDAO;
+import model.squadra.SquadraBean;
 import model.utente.giocatore.GiocatoreBean;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.HashTool;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestIntegrazionePartecipaEventi.
  */
@@ -55,16 +57,38 @@ public class TestIntegrazionePartecipaEventi {
   /** The servlet. */
   private PartecipaEventiServlet servlet;
   private HashTool hashTool;
+  private SquadraBean squadra;
 
   /**
    * Sets the up.
    */
   @Before
-  public void setUp() throws NoSuchAlgorithmException {
+  public void setUp() throws Exception {
     MockitoAnnotations.openMocks(this);
+
     servlet = new PartecipaEventiServlet();
     hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
+
+    squadra = new SquadraBean();
+    squadra.setIdSquadra(2);
+    squadra.setNome("tigers");
+    squadra.setNomeAbbreviato("tig");
+    squadra.setDescrizione("Lorem ipsum lorem ipsum lorem ipsum lorem ipsum.");
+    squadra.setCitta("Salerno");
+    squadra.setLogo(2);
+    squadra.setCapitano("gio4@email.it");
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    PartecipazioneDAO pd = new PartecipazioneDAO();
+    EventoDAO evd = new EventoDAO();
+    pd.doDelete("mario@mario.it", "evento3");
+    EventoBean eb = evd.doRetrieveByKey("evento3");
+    eb.setNumPartecipanti(3);
+    eb.setValutazione(0);
+    evd.doUpdate(eb);
   }
 
   /**
@@ -90,7 +114,6 @@ public class TestIntegrazionePartecipaEventi {
     g.setCittaResidenza("Caserta");
     g.setCapResidenza("89976");
     g.setValutazione(0);
-    // mariono test
 
     ArrayList<EventoBean> list = new ArrayList<>();
     ArrayList<String> listr = new ArrayList<>();
@@ -122,7 +145,6 @@ public class TestIntegrazionePartecipaEventi {
     }
 
     assertEquals(stcev, listr);
-
   }
 
   /**
@@ -149,32 +171,26 @@ public class TestIntegrazionePartecipaEventi {
     g.setCapResidenza("89976");
     g.setValutazione(0);
 
-    EventoBean g3 = new EventoBean();
-    g3.setNome("evento3");
-    g3.setDescrizione("sdfghgfds");
-    g3.setStruttura("playk");
-    g3.setData(Date.valueOf("2022-01-15"));
-    g3.setOra(1);
-    g3.setGestore("gino@gino.it");
-    g3.setOrganizzatore("simone@simone.it");
-    g3.setStato("attivo");
-    g3.setValutazione(0);
-    g3.setNumPartecipanti(3);
+    EventoBean ev = new EventoBean();
+    ev.setNome("evento3");
+    ev.setDescrizione("sdfghgfds");
+    ev.setStruttura("playk");
+    ev.setData(Date.valueOf("2022-01-15"));
+    ev.setOra(1);
+    ev.setGestore("gino@gino.it");
+    ev.setOrganizzatore("simone@simone.it");
+    ev.setStato("attivo");
+    ev.setValutazione(0);
+    ev.setNumPartecipanti(3);
+
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
+    when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
     when(req.getParameter("nome")).thenReturn("evento3");
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+
     servlet.doPost(req, res);
+
     verify(rd).forward(req, res);
-
-    // ripulisco il db
-    PartecipazioneDAO pd = new PartecipazioneDAO();
-    EventoDAO evd = new EventoDAO();
-    pd.doDelete("mario@mario.it", "evento3");
-    EventoBean eb = evd.doRetrieveByKey("evento3");
-    eb.setNumPartecipanti(3);
-    eb.setValutazione(0);
-    evd.doUpdate(eb);
-
   }
 
 }

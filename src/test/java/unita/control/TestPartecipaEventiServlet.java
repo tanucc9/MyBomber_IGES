@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import model.evento.EventoBean;
 import model.evento.EventoDAO;
 import model.partecipazione.PartecipazioneDAO;
+import model.squadra.SquadraBean;
 import model.utente.giocatore.GiocatoreBean;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,15 +66,30 @@ public class TestPartecipaEventiServlet {
   private PartecipaEventiServlet servlet;
   private HashTool hashTool;
 
+  private SquadraBean squadra;
+
   /**
    * Sets the up.
    */
   @Before
   public void setUp() throws NoSuchAlgorithmException {
     MockitoAnnotations.openMocks(this);
+
     servlet = new PartecipaEventiServlet();
+    servlet.seteD(evDao);
+    servlet.setpD(pDao);
+
     hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
+
+    squadra = new SquadraBean();
+    squadra.setIdSquadra(2);
+    squadra.setNome("tigers");
+    squadra.setNomeAbbreviato("tig");
+    squadra.setDescrizione("Lorem ipsum lorem ipsum lorem ipsum lorem ipsum.");
+    squadra.setCitta("Salerno");
+    squadra.setLogo(2);
+    squadra.setCapitano("gio4@email.it");
   }
 
   /**
@@ -118,11 +134,15 @@ public class TestPartecipaEventiServlet {
     g3.setNumPartecipanti(3);
     list.add(g3);
     listr.add(g3.toString());
+
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
+    when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
     when(evDao.doRetrieveEventi(g.getEmail())).thenReturn(list);
     when(req.getAttribute("eventi")).thenReturn(list);
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+
     servlet.doGet(req, res);
+
     verify(rd).forward(req, res);
     ArrayList<EventoBean> cev = new ArrayList<>();
     ArrayList<String> stcev = new ArrayList<>();
@@ -176,8 +196,7 @@ public class TestPartecipaEventiServlet {
    */
   @Test
   public void partecipaEvento() throws ServletException, IOException, SQLException {
-    servlet.seteD(evDao);
-    servlet.setpD(pDao);
+
     GiocatoreBean g = new GiocatoreBean();
     g.setUsername("pierox");
     g.setEmail("piero@piero.it");
@@ -192,24 +211,28 @@ public class TestPartecipaEventiServlet {
     g.setCapResidenza("89976");
     g.setValutazione(0);
 
-    EventoBean g3 = new EventoBean();
-    g3.setNome("evento3");
-    g3.setDescrizione("sdfghgfds");
-    g3.setStruttura("playk");
-    g3.setData(Date.valueOf("2022-01-15"));
-    g3.setOra(1);
-    g3.setGestore("gino@gino.it");
-    g3.setOrganizzatore("simone@simone.it");
-    g3.setStato("attivo");
-    g3.setValutazione(0);
-    g3.setNumPartecipanti(4);
-    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
-    when(req.getParameter("nome")).thenReturn("evento3");
-    when(evDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(g3);
-    when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
-    servlet.doPost(req, res);
-    verify(rd).forward(req, res);
+    EventoBean ev = new EventoBean();
+    ev.setNome("evento3");
+    ev.setDescrizione("sdfghgfds");
+    ev.setStruttura("playk");
+    ev.setData(Date.valueOf("2022-01-15"));
+    ev.setOra(1);
+    ev.setGestore("gino@gino.it");
+    ev.setOrganizzatore("simone@simone.it");
+    ev.setStato("attivo");
+    ev.setValutazione(0);
+    ev.setNumPartecipanti(4);
+    ev.setTipologia("libero");
 
+    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
+    when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
+    when(req.getParameter("nome")).thenReturn("evento3");
+    when(evDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(ev);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+
+    servlet.doPost(req, res);
+
+    verify(rd).forward(req, res);
   }
 
   /**
@@ -221,8 +244,7 @@ public class TestPartecipaEventiServlet {
    */
   @Test
   public void partecipaEventoCompleto() throws ServletException, IOException, SQLException {
-    servlet.seteD(evDao);
-    servlet.setpD(pDao);
+
     GiocatoreBean g = new GiocatoreBean();
     g.setUsername("pierox");
     g.setEmail("piero@piero.it");
@@ -237,24 +259,28 @@ public class TestPartecipaEventiServlet {
     g.setCapResidenza("89976");
     g.setValutazione(0);
 
-    EventoBean g3 = new EventoBean();
-    g3.setNome("evento3");
-    g3.setDescrizione("sdfghgfds");
-    g3.setStruttura("playk");
-    g3.setData(Date.valueOf("2022-01-15"));
-    g3.setOra(1);
-    g3.setGestore("gino@gino.it");
-    g3.setOrganizzatore("simone@simone.it");
-    g3.setStato("attivo");
-    g3.setValutazione(0);
-    g3.setNumPartecipanti(10);
-    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
-    when(req.getParameter("nome")).thenReturn("evento3");
-    when(evDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(g3);
-    when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
-    servlet.doPost(req, res);
-    verify(rd).forward(req, res);
+    EventoBean ev = new EventoBean();
+    ev.setNome("evento3");
+    ev.setDescrizione("sdfghgfds");
+    ev.setStruttura("playk");
+    ev.setData(Date.valueOf("2022-01-15"));
+    ev.setOra(1);
+    ev.setGestore("gino@gino.it");
+    ev.setOrganizzatore("simone@simone.it");
+    ev.setStato("attivo");
+    ev.setValutazione(0);
+    ev.setNumPartecipanti(10);
+    ev.setTipologia("libero");
 
+    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
+    when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
+    when(req.getParameter("nome")).thenReturn("evento3");
+    when(evDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(ev);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+
+    servlet.doPost(req, res);
+
+    verify(rd).forward(req, res);
   }
 
 }
