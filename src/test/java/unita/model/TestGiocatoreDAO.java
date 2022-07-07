@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import util.HashTool;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestGiocatoreDAO.
  */
@@ -129,6 +128,7 @@ public class TestGiocatoreDAO extends TestCase {
     GiocatoreBean g3 = new GiocatoreBean();
     GiocatoreBean g4 = new GiocatoreBean();
     GiocatoreBean g5 = new GiocatoreBean();
+
     g2.setUsername("gio");
     g2.setEmail("gio4@email.it");
     g2.setNome("Giovanni");
@@ -141,6 +141,7 @@ public class TestGiocatoreDAO extends TestCase {
     g2.setCittaResidenza("Caserta");
     g2.setCapResidenza("89976");
     g2.setValutazione(0);
+    g2.setIdSquadra(2);
     list.add(g2.toString());
 
     g3.setUsername("mario");
@@ -155,6 +156,7 @@ public class TestGiocatoreDAO extends TestCase {
     g3.setCittaResidenza("Avellino");
     g3.setCapResidenza("80076");
     g3.setValutazione(0);
+    g3.setIdSquadra(3);
     list.add(g3.toString());
 
     g4.setUsername("pino");
