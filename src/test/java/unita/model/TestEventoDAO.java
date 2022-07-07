@@ -112,6 +112,7 @@ public class TestEventoDAO extends TestCase {
     EventoBean evento = new EventoBean();
     EventoBean evento2 = new EventoBean();
     EventoBean evento3 = new EventoBean();
+    EventoBean evento4 = new EventoBean();
 
     evento.setNome("Evento 333");
     evento.setDescrizione("Prova descrizione");
@@ -125,7 +126,20 @@ public class TestEventoDAO extends TestCase {
     evento.setNumPartecipanti(0);
     evento.setTipologia("libero");
 
+    evento4.setNome("evento squadra");
+    evento4.setDescrizione("descrizione.");
+    evento4.setStruttura("playk");
+    evento4.setData(Date.valueOf("2022-01-15"));
+    evento4.setOra(22);
+    evento4.setGestore("gino@gino.it");
+    evento4.setOrganizzatore("gio4@email.it");
+    evento4.setStato("completato");
+    evento4.setValutazione(0);
+    evento4.setNumPartecipanti(2);
+    evento4.setTipologia("squadra");
+
     list.add(evento.toString());
+    list.add(evento4.toString());
     list.add(bean.toString());
 
     evento2.setNome("evento2");
@@ -276,8 +290,22 @@ public class TestEventoDAO extends TestCase {
 
     EventoBean evento = new EventoBean();
     EventoBean evento2 = new EventoBean();
+    EventoBean evento3 = new EventoBean();
+
+    evento3.setNome("evento squadra");
+    evento3.setDescrizione("descrizione.");
+    evento3.setStruttura("playk");
+    evento3.setData(Date.valueOf("2022-01-15"));
+    evento3.setOra(22);
+    evento3.setGestore("gino@gino.it");
+    evento3.setOrganizzatore("gio4@email.it");
+    evento3.setStato("completato");
+    evento3.setValutazione(0);
+    evento3.setNumPartecipanti(2);
+    evento3.setTipologia("squadra");
 
     list.add(bean.toString());
+    list.add(evento3.toString());
 
     evento2.setNome("evento2");
     evento2.setDescrizione("grande evento");
@@ -417,6 +445,33 @@ public class TestEventoDAO extends TestCase {
 
     ArrayList<String> list2 = new ArrayList<>();
     ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecenti(g3.getOrganizzatore());
+    for (EventoBean p : eventi) {
+      list2.add(p.toString());
+    }
+
+    assertEquals(list, list2);
+
+  }
+
+  @Test
+  public void testDoRetrieveEventiRecentiSquadra() throws SQLException {
+    ArrayList<String> list = new ArrayList<>();
+    EventoBean evento = new EventoBean();
+    evento.setNome("evento squadra");
+    evento.setDescrizione("descrizione.");
+    evento.setStruttura("playk");
+    evento.setData(Date.valueOf("2022-01-15"));
+    evento.setOra(22);
+    evento.setGestore("gino@gino.it");
+    evento.setOrganizzatore("gio4@email.it");
+    evento.setStato("completato");
+    evento.setValutazione(0);
+    evento.setNumPartecipanti(2);
+    evento.setTipologia("squadra");
+    list.add(evento.toString());
+
+    ArrayList<String> list2 = new ArrayList<>();
+    ArrayList<EventoBean> eventi = tester.doRetrieveEventiRecentiSquadra(2);
     for (EventoBean p : eventi) {
       list2.add(p.toString());
     }
