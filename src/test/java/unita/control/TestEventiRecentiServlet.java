@@ -334,4 +334,13 @@ public class TestEventiRecentiServlet {
 
   }
 
+  @Test
+  public void giocatoreNotLogged() throws ServletException, IOException {
+    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(null);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./Login.jsp"))).thenReturn(rd);
+
+    servlet.doGet(req, res);
+
+    verify(rd).forward(req, res);
+  }
 }
