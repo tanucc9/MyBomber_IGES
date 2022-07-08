@@ -29,7 +29,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.HashTool;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestLoginServlet.
  */

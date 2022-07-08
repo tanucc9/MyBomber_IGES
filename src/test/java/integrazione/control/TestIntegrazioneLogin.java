@@ -23,7 +23,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import util.HashTool;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestIntegrazioneLogin.
  */
@@ -73,17 +72,17 @@ public class TestIntegrazioneLogin {
   @Test
   public void loginGiocatoreOk() throws ServletException, IOException {
     GiocatoreBean g = new GiocatoreBean();
-    g.setUsername("gio");
-    g.setEmail("gio4@email.it");
-    g.setNome("Giovanni");
-    g.setCognome("Falco");
-    g.setEncPassword(hashTool.hashSHA256("Gio"));
-    g.setTelefono("3334562167");
-    g.setDataNascita(Date.valueOf("2001-11-16"));
+    g.setUsername("pino");
+    g.setEmail("pino@pino.it");
+    g.setNome("Pino");
+    g.setCognome("Inglese");
+    g.setEncPassword(hashTool.hashSHA256("pino"));
+    g.setTelefono("3665423187");
+    g.setDataNascita(Date.valueOf("2000-09-09"));
     g.setNazioneResidenza("Italia");
-    g.setProvinciaResidenza("Caserta");
-    g.setCittaResidenza("Caserta");
-    g.setCapResidenza("89976");
+    g.setProvinciaResidenza("Napoli");
+    g.setCittaResidenza("Napoli");
+    g.setCapResidenza("80000");
     g.setValutazione(0);
     g.setIdSquadra(0);
 
@@ -105,22 +104,22 @@ public class TestIntegrazioneLogin {
   @Test
   public void loginGiocatoreOkConSquadra() throws ServletException, IOException {
     GiocatoreBean g = new GiocatoreBean();
-    g.setUsername("pino");
-    g.setEmail("pino@pino.it");
-    g.setNome("Pino");
-    g.setCognome("Inglese");
-    g.setEncPassword(hashTool.hashSHA256("pino"));
-    g.setTelefono("3665423187");
-    g.setDataNascita(Date.valueOf("2000-09-09"));
+    g.setUsername("gio");
+    g.setEmail("gio4@email.it");
+    g.setNome("Giovanni");
+    g.setCognome("Falco");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
+    g.setTelefono("3334562167");
+    g.setDataNascita(Date.valueOf("2001-11-16"));
     g.setNazioneResidenza("Italia");
-    g.setProvinciaResidenza("Napoli");
-    g.setCittaResidenza("Napoli");
-    g.setCapResidenza("80000");
+    g.setProvinciaResidenza("Caserta");
+    g.setCittaResidenza("Caserta");
+    g.setCapResidenza("89976");
     g.setValutazione(0);
-    g.setIdSquadra(1);
+    g.setIdSquadra(2);
 
-    when(req.getParameter("email")).thenReturn("pino@pino.it");
-    when(req.getParameter("password")).thenReturn("pino");
+    when(req.getParameter("email")).thenReturn("gio4@email.it");
+    when(req.getParameter("password")).thenReturn("Gio");
     when(session.getAttribute("giocatore")).thenReturn(g);
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
     servlet.doPost(req, res);
