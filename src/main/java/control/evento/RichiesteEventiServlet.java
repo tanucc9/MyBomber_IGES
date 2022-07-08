@@ -60,6 +60,7 @@ public class RichiesteEventiServlet extends HttpServlet {
       RequestDispatcher dispatcher = request
               .getRequestDispatcher(response.encodeRedirectURL("./Login.jsp"));
       dispatcher.forward(request, response);
+      return;
     }
     String nomeEvento = request.getParameter("nome");
     String action = request.getParameter("action");
