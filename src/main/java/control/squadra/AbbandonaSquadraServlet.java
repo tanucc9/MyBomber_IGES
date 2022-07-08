@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.squadra.SquadraBean;
-import model.squadra.SquadraDAO;
 import model.utente.giocatore.GiocatoreBean;
 import model.utente.giocatore.GiocatoreDAO;
 
@@ -22,7 +21,6 @@ public class AbbandonaSquadraServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private GiocatoreDAO gioDao;
-    private SquadraDAO squadraDao;
 
     /**
      * Do get.
@@ -49,9 +47,6 @@ public class AbbandonaSquadraServlet extends HttpServlet {
 
         if (this.gioDao == null) {
             this.gioDao = new GiocatoreDAO();
-        }
-        if (this.squadraDao == null) {
-            this.squadraDao = new SquadraDAO();
         }
 
         try {
@@ -89,9 +84,5 @@ public class AbbandonaSquadraServlet extends HttpServlet {
 
     public void setGioDao(GiocatoreDAO gioDao) {
         this.gioDao = gioDao;
-    }
-
-    public void setSquadraDao(SquadraDAO squadraDao) {
-        this.squadraDao = squadraDao;
     }
 }
