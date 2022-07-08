@@ -21,7 +21,7 @@ public class TestPartecipazioneSquadraDAO extends TestCase {
 
         tester = new PartecipazioneSquadraDAO();
         ps = new PartecipazioneSquadraBean();
-        ps.setIdSquadra(2);
+        ps.setIdSquadra(3);
         ps.setIdEvento("evento squadra 2");
         tester.doSave(ps);
     }

@@ -67,6 +67,10 @@ public class TestPartecipaEventiServlet {
   private HashTool hashTool;
 
   private SquadraBean squadra;
+  private GiocatoreBean g;
+  private EventoBean ev;
+  private EventoBean evSquadra;
+
 
   /**
    * Sets the up.
@@ -81,6 +85,47 @@ public class TestPartecipaEventiServlet {
 
     hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);
+
+    g = new GiocatoreBean();
+    g.setUsername("pierox");
+    g.setEmail("gio4@email.it");
+    g.setNome("Giovanni");
+    g.setCognome("Falco");
+    g.setEncPassword(hashTool.hashSHA256("Gio"));
+    g.setTelefono("3334562167");
+    g.setDataNascita(Date.valueOf("2001-11-16"));
+    g.setNazioneResidenza("Italia");
+    g.setProvinciaResidenza("Caserta");
+    g.setCittaResidenza("Caserta");
+    g.setCapResidenza("89976");
+    g.setValutazione(0);
+    g.setIdSquadra(2);
+
+    ev = new EventoBean();
+    ev.setNome("evento3");
+    ev.setDescrizione("sdfghgfds");
+    ev.setStruttura("playk");
+    ev.setData(Date.valueOf("2022-01-15"));
+    ev.setOra(1);
+    ev.setGestore("gino@gino.it");
+    ev.setOrganizzatore("simone@simone.it");
+    ev.setStato("attivo");
+    ev.setValutazione(0);
+    ev.setNumPartecipanti(4);
+    ev.setTipologia("libero");
+
+    evSquadra = new EventoBean();
+    evSquadra.setNome("evento3");
+    evSquadra.setDescrizione("sdfghgfds");
+    evSquadra.setStruttura("playk");
+    evSquadra.setData(Date.valueOf("2022-01-15"));
+    evSquadra.setOra(1);
+    evSquadra.setGestore("gino@gino.it");
+    evSquadra.setOrganizzatore("simone@simone.it");
+    evSquadra.setStato("attivo");
+    evSquadra.setValutazione(0);
+    evSquadra.setNumPartecipanti(4);
+    evSquadra.setTipologia("squadra");
 
     squadra = new SquadraBean();
     squadra.setIdSquadra(2);
@@ -102,21 +147,6 @@ public class TestPartecipaEventiServlet {
   @Test
   public void cercaEventi() throws ServletException, IOException, SQLException {
     servlet.seteD(evDao);
-
-    GiocatoreBean g = new GiocatoreBean();
-    g.setUsername("pierox");
-    g.setEmail("piero@piero.it");
-    g.setNome("Giovanni");
-    g.setCognome("Falco");
-    g.setEncPassword(hashTool.hashSHA256("Gio"));
-    g.setTelefono("3334562167");
-    g.setDataNascita(Date.valueOf("2001-11-16"));
-    g.setNazioneResidenza("Italia");
-    g.setProvinciaResidenza("Caserta");
-    g.setCittaResidenza("Caserta");
-    g.setCapResidenza("89976");
-    g.setValutazione(0);
-    // mariono test
 
     ArrayList<EventoBean> list = new ArrayList<>();
     ArrayList<String> listr = new ArrayList<>();
@@ -152,7 +182,6 @@ public class TestPartecipaEventiServlet {
     }
 
     assertEquals(stcev, listr);
-
   }
 
   /**
@@ -164,20 +193,6 @@ public class TestPartecipaEventiServlet {
    */
   @Test
   public void noTestingDoGet() throws ServletException, IOException, SQLException {
-
-    GiocatoreBean g = new GiocatoreBean();
-    g.setUsername("pierox");
-    g.setEmail("piero@piero.it");
-    g.setNome("Giovanni");
-    g.setCognome("Falco");
-    g.setEncPassword(hashTool.hashSHA256("Gio"));
-    g.setTelefono("3334562167");
-    g.setDataNascita(Date.valueOf("2001-11-16"));
-    g.setNazioneResidenza("Italia");
-    g.setProvinciaResidenza("Caserta");
-    g.setCittaResidenza("Caserta");
-    g.setCapResidenza("89976");
-    g.setValutazione(0);
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
 
@@ -196,34 +211,6 @@ public class TestPartecipaEventiServlet {
    */
   @Test
   public void partecipaEvento() throws ServletException, IOException, SQLException {
-
-    GiocatoreBean g = new GiocatoreBean();
-    g.setUsername("pierox");
-    g.setEmail("piero@piero.it");
-    g.setNome("Giovanni");
-    g.setCognome("Falco");
-    g.setEncPassword(hashTool.hashSHA256("Gio"));
-    g.setTelefono("3334562167");
-    g.setDataNascita(Date.valueOf("2001-11-16"));
-    g.setNazioneResidenza("Italia");
-    g.setProvinciaResidenza("Caserta");
-    g.setCittaResidenza("Caserta");
-    g.setCapResidenza("89976");
-    g.setValutazione(0);
-
-    EventoBean ev = new EventoBean();
-    ev.setNome("evento3");
-    ev.setDescrizione("sdfghgfds");
-    ev.setStruttura("playk");
-    ev.setData(Date.valueOf("2022-01-15"));
-    ev.setOra(1);
-    ev.setGestore("gino@gino.it");
-    ev.setOrganizzatore("simone@simone.it");
-    ev.setStato("attivo");
-    ev.setValutazione(0);
-    ev.setNumPartecipanti(4);
-    ev.setTipologia("libero");
-
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
     when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
     when(req.getParameter("nome")).thenReturn("evento3");
@@ -245,20 +232,6 @@ public class TestPartecipaEventiServlet {
   @Test
   public void partecipaEventoCompleto() throws ServletException, IOException, SQLException {
 
-    GiocatoreBean g = new GiocatoreBean();
-    g.setUsername("pierox");
-    g.setEmail("piero@piero.it");
-    g.setNome("Giovanni");
-    g.setCognome("Falco");
-    g.setEncPassword(hashTool.hashSHA256("Gio"));
-    g.setTelefono("3334562167");
-    g.setDataNascita(Date.valueOf("2001-11-16"));
-    g.setNazioneResidenza("Italia");
-    g.setProvinciaResidenza("Caserta");
-    g.setCittaResidenza("Caserta");
-    g.setCapResidenza("89976");
-    g.setValutazione(0);
-
     EventoBean ev = new EventoBean();
     ev.setNome("evento3");
     ev.setDescrizione("sdfghgfds");
@@ -269,7 +242,7 @@ public class TestPartecipaEventiServlet {
     ev.setOrganizzatore("simone@simone.it");
     ev.setStato("attivo");
     ev.setValutazione(0);
-    ev.setNumPartecipanti(10);
+    ev.setNumPartecipanti(9);
     ev.setTipologia("libero");
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
@@ -283,4 +256,28 @@ public class TestPartecipaEventiServlet {
     verify(rd).forward(req, res);
   }
 
+  @Test
+  public void testPartecipaEventoSquadra() throws ServletException, IOException, SQLException {
+
+    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
+    when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
+    when(req.getParameter("nome")).thenReturn("evento3");
+    when(evDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(evSquadra);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
+
+    servlet.doPost(req, res);
+
+    verify(rd).forward(req, res);
+  }
+
+  @Test
+  public void testNotGiocatoreLogged() throws ServletException, IOException, SQLException {
+
+    when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(null);
+    when(req.getRequestDispatcher(res.encodeRedirectURL("./Login.jsp"))).thenReturn(rd);
+
+    servlet.doGet(req, res);
+
+    verify(rd).forward(req, res);
+  }
 }

@@ -18,7 +18,6 @@ import model.partecipazione.PartecipazioneSquadraDAO;
 import model.squadra.SquadraBean;
 import model.utente.giocatore.GiocatoreBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PartecipaEventiServlet.
  */
@@ -73,7 +72,6 @@ public class PartecipaEventiServlet extends HttpServlet {
     RequestDispatcher dispatcher = request
         .getRequestDispatcher(response.encodeRedirectURL("./PartecipaEventi.jsp"));
     dispatcher.forward(request, response);
-
   }
 
   /**
