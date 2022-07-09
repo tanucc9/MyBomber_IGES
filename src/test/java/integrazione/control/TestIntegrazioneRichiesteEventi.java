@@ -103,7 +103,7 @@ public class TestIntegrazioneRichiesteEventi {
     evSquadra.setData(Date.valueOf("2023-01-03"));
     evSquadra.setOra(2);
     evSquadra.setGestore("gino@gino.it");
-    evSquadra.setOrganizzatore("simone@simone.it");
+    evSquadra.setOrganizzatore("gio4@email.it");
     evSquadra.setStato("richiesta");
     evSquadra.setValutazione(0);
     evSquadra.setNumPartecipanti(10);

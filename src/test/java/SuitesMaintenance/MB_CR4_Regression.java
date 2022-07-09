@@ -15,9 +15,7 @@ import unita.model.TestEventoDAO;
         TestPartecipaEventiServlet.class,
         TestRichiesteEventiServlet.class,
         TestEventoDAO.class,
-        TestRecensioneServlet.class,
         TestIntegrazionePartecipaEventi.class,
-        TestIntegrazioneRecensione.class,
         TestIntegrazioneCreaEvento.class,
         TestIntegrazioneRichiesteEventi.class,
         TestIntegrazioneEventiRecenti.class

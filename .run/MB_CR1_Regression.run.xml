@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MB_CR1_Regression" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="MyBomber_C11" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="SuitesMaintenance.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="SuitesMaintenance" />
+    <option name="MAIN_CLASS_NAME" value="SuitesMaintenance.MB_CR1_Regression" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

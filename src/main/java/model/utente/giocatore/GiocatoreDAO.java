@@ -28,7 +28,7 @@ public class GiocatoreDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     String insertSQL = "insert into " + TABLE_NAME
-        + " (username, e_mail, nome, cognome, password_giocatore, telefono, data_nascita, nazione_residenza, provincia_residenza, citta_residenza, cap_residenza, valutazione, id_squadra) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        + " (username, e_mail, nome, cognome, password_giocatore, telefono, data_nascita, nazione_residenza, provincia_residenza, citta_residenza, cap_residenza, valutazione, id_squadra) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
@@ -44,7 +44,6 @@ public class GiocatoreDAO {
       preparedStatement.setString(10, e.getCittaResidenza());
       preparedStatement.setString(11, e.getCapResidenza());
       preparedStatement.setFloat(12, e.getValutazione());
-      preparedStatement.setInt(13, e.getIdSquadra());
 
       preparedStatement.executeUpdate();
       connection.commit();

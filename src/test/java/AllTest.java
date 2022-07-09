@@ -5,13 +5,15 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import unita.control.AllTestUnitaControl;
 import unita.model.AllTestUnitaModel;
+import unita.util.AllTestUnitaUtil;
 
 /**
  * The Class AllTest.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AllTestIntegrazioneControl.class, AllTestUnitaControl.class, AllTestUnitaModel.class
-
+@SuiteClasses({
+        AllTestUnitaUtil.class, AllTestUnitaModel.class, AllTestUnitaControl.class,
+        AllTestIntegrazioneControl.class
 })
 
 public class AllTest {

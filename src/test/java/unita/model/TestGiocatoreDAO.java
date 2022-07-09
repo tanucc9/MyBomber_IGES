@@ -52,7 +52,6 @@ public class TestGiocatoreDAO extends TestCase {
     bean.setCittaResidenza("Napoli");
     bean.setCapResidenza("80000");
     bean.setValutazione(0);
-    bean.setIdSquadra(2);
     tester.doSave(bean);
   }
 
@@ -232,7 +231,6 @@ public class TestGiocatoreDAO extends TestCase {
     g.setIdSquadra(2);
 
     expected.add(g.toString());
-    expected.add(bean.toString());
 
     ArrayList<GiocatoreBean> res = tester.doRetrieveBySquadra(2);
     for (GiocatoreBean gio : res) {

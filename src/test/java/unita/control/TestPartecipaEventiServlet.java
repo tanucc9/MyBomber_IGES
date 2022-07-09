@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import model.evento.EventoBean;
 import model.evento.EventoDAO;
 import model.partecipazione.PartecipazioneDAO;
+import model.partecipazione.PartecipazioneSquadraDAO;
 import model.squadra.SquadraBean;
 import model.utente.giocatore.GiocatoreBean;
 import org.junit.Before;
@@ -62,6 +63,9 @@ public class TestPartecipaEventiServlet {
   @Mock
   PartecipazioneDAO pDao = new PartecipazioneDAO();
 
+  @Mock
+  PartecipazioneSquadraDAO psDao = new PartecipazioneSquadraDAO();
+
   /** The servlet. */
   private PartecipaEventiServlet servlet;
   private HashTool hashTool;
@@ -82,6 +86,7 @@ public class TestPartecipaEventiServlet {
     servlet = new PartecipaEventiServlet();
     servlet.seteD(evDao);
     servlet.setpD(pDao);
+    servlet.setParSquadraDao(psDao);
 
     hashTool = new HashTool();
     when(req.getSession()).thenReturn(session);

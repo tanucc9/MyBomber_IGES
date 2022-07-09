@@ -53,7 +53,6 @@ public class RegistrazioneServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
 
     RequestDispatcher dispatcher = request
         .getRequestDispatcher(response.encodeRedirectURL("./Registrazione.jsp"));
