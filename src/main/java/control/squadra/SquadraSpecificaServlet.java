@@ -104,11 +104,19 @@ public class SquadraSpecificaServlet extends HttpServlet {
 
     }
 
-    public SquadraDAO getSquadraDao() {
-        return squadraDao;
-    }
-
     public void setSquadraDao(SquadraDAO squadraDao) {
         this.squadraDao = squadraDao;
+    }
+
+    public void setLogoDao(LogoSquadraDAO logoDao) {
+        this.logoDao = logoDao;
+    }
+
+    public void setGioDao(GiocatoreDAO gioDao) {
+        this.gioDao = gioDao;
+    }
+
+    public void setEventoDao(EventoDAO eventoDao) {
+        this.eventoDao = eventoDao;
     }
 }
