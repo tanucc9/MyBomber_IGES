@@ -41,9 +41,17 @@ public class EliminaSquadraServlet extends HttpServlet {
             throws ServletException, IOException {
         GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
         SquadraBean squadra = (SquadraBean) request.getSession().getAttribute("squadra");
+
+        if (giocatore == null) {
+            RequestDispatcher dispatcher = request
+                    .getRequestDispatcher(response.encodeRedirectURL("./"));
+            dispatcher.forward(request, response);
+            return;
+        }
+
         boolean isCaptain = squadra.getCapitano().equals(giocatore.getEmail());
 
-        if (giocatore == null || !isCaptain) {
+        if (!isCaptain) {
             RequestDispatcher dispatcher = request
                     .getRequestDispatcher(response.encodeRedirectURL("./"));
             dispatcher.forward(request, response);
