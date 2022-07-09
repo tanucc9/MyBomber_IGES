@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
-import control.squadra.MostraSquadreServlet;
+import control.squadra.SquadraSpecificaServlet;
 import junit.framework.TestCase;
 import model.utente.giocatore.GiocatoreBean;
 import org.junit.After;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class TestIntegrazioneMostraSquadre extends TestCase {
+public class TestIntegrazioneSquadraSpecifica extends TestCase {
 
     @Mock
     private HttpServletRequest req;
@@ -41,7 +41,7 @@ public class TestIntegrazioneMostraSquadre extends TestCase {
     @Mock
     private RequestDispatcher rd;
 
-    private MostraSquadreServlet servlet;
+    private SquadraSpecificaServlet servlet;
     private GiocatoreBean giocatore;
 
     @Override
@@ -50,7 +50,7 @@ public class TestIntegrazioneMostraSquadre extends TestCase {
         super.setUp();
 
         MockitoAnnotations.openMocks(this);
-        servlet = new MostraSquadreServlet();
+        servlet = new SquadraSpecificaServlet();
         when(req.getSession()).thenReturn(session);
 
         giocatore = new GiocatoreBean();
@@ -77,10 +77,11 @@ public class TestIntegrazioneMostraSquadre extends TestCase {
     }
 
     @Test
-    public void testMostraSquadre() throws ServletException, IOException, SQLException {
+    public void testSquadraSpecifica() throws ServletException, IOException, SQLException {
         when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(giocatore);
+        when(req.getParameter("idSquadra")).thenReturn("2");
 
-        when(req.getRequestDispatcher(res.encodeRedirectURL("./Squadre.jsp"))).thenReturn(rd);
+        when(req.getRequestDispatcher(res.encodeRedirectURL("./Squadra.jsp"))).thenReturn(rd);
 
         servlet.doGet(req, res);
 

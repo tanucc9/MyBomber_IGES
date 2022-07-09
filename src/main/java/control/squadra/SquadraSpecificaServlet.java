@@ -87,7 +87,7 @@ public class SquadraSpecificaServlet extends HttpServlet {
             LogoSquadraBean logo = this.logoDao.doRetrieveByKey(squadra.getLogo());
             ArrayList<GiocatoreBean> giocatori = this.gioDao.doRetrieveBySquadra(idSquadra);
             GiocatoreBean capitano = this.gioDao.doRetrieveByKey(squadra.getCapitano());
-            ArrayList<EventoBean> eventiRecentiSquadra = eventoDao.doRetrieveEventiRecentiSquadra(giocatore.getIdSquadra());
+            ArrayList<EventoBean> eventiRecentiSquadra = eventoDao.doRetrieveEventiRecentiSquadra(idSquadra);
 
             request.setAttribute("eventiRecentiSquadra", eventiRecentiSquadra);
             request.setAttribute("squadra", squadra);
