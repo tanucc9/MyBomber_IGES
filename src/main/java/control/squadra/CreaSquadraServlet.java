@@ -140,6 +140,7 @@ public class CreaSquadraServlet extends HttpServlet {
             this.squadraDao.doSave(squadra);
             SquadraBean sq = this.squadraDao.doRetrieveByName(squadra.getNome());
             giocatore.setIdSquadra(sq.getIdSquadra());
+            squadra.setIdSquadra(sq.getIdSquadra());
             if (this.gioDao == null) {
                 this.gioDao = new GiocatoreDAO();
             }
