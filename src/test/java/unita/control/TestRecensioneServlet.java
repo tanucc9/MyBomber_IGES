@@ -112,19 +112,19 @@ public class TestRecensioneServlet {
 
     r2.setRecensore("pino@pino.it");
     r2.setRecensito("mario@mario.it");
-    r2.setNomeEvento("evento3");
+    r2.setCodeEvento("evento3");
     r2.setRecensione(2);
     r2.setDescrizione("scarso");
     list.add(r2);
 
     r2.setRecensore("pino@pino.it");
     r2.setRecensito("simone@simone.it");
-    r2.setNomeEvento("evento3");
+    r2.setCodeEvento("evento3");
     r2.setRecensione(2);
     r2.setDescrizione("scarso");
     list.add(r2);
-    when(recDao.doRetrieveDaRecensire(g4.getEmail(), r2.getNomeEvento())).thenReturn(null);
-    when(recDao.doRetrieveRecensiti(g4.getEmail(), r2.getNomeEvento())).thenReturn(list);
+    when(recDao.doRetrieveDaRecensire(g4.getEmail(), r2.getCodeEvento())).thenReturn(null);
+    when(recDao.doRetrieveRecensiti(g4.getEmail(), r2.getCodeEvento())).thenReturn(list);
     when(req.getRequestDispatcher(res.encodeRedirectURL("./DaiRecensione.jsp"))).thenReturn(rd);
     servlet.doGet(req, res);
     verify(rd).forward(req, res);
@@ -328,10 +328,10 @@ public class TestRecensioneServlet {
     RecensioneBean bean = new RecensioneBean();
     bean.setRecensore("simone@simone.it");
     bean.setRecensito("pino@pino.it");
-    bean.setNomeEvento("Evento 333");
+    bean.setCodeEvento("evento-333");
     bean.setRecensione(4);
 
-    when(req.getParameter("nomeEvento")).thenReturn(bean.getNomeEvento());
+    when(req.getParameter("nomeEvento")).thenReturn(bean.getCodeEvento());
     when(req.getParameter("nomeG")).thenReturn(bean.getRecensito());
     when(req.getParameter("descrizione")).thenReturn(bean.getDescrizione());
     when(req.getParameter("valutazione")).thenReturn("4");
@@ -394,10 +394,10 @@ public class TestRecensioneServlet {
     RecensioneBean bean = new RecensioneBean();
     bean.setRecensore("simone@simone.it");
     bean.setRecensito("pino@pino.it");
-    bean.setNomeEvento("Evento 333");
+    bean.setCodeEvento("evento-333");
     bean.setRecensione(4);
 
-    when(req.getParameter("nomeEvento")).thenReturn(bean.getNomeEvento());
+    when(req.getParameter("nomeEvento")).thenReturn(bean.getCodeEvento());
     when(req.getParameter("nomeG")).thenReturn(bean.getRecensore());
 
     when(recDao.doRetrieveMedia(bean.getRecensito())).thenReturn(bean.getRecensione());

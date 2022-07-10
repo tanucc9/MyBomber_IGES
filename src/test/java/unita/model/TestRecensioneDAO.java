@@ -33,7 +33,7 @@ public class TestRecensioneDAO extends TestCase {
     bean = new RecensioneBean();
     bean.setRecensore("simone@simone.it");
     bean.setRecensito("pino@pino.it");
-    bean.setNomeEvento("Evento 333");
+    bean.setCodeEvento("evento-333");
     bean.setRecensione(4);
     tester.doSave(bean);
   }
@@ -47,7 +47,7 @@ public class TestRecensioneDAO extends TestCase {
   @After
   public void tearDown() throws Exception {
     super.tearDown();
-    tester.doDelete(bean.getRecensore(), bean.getRecensito(), bean.getNomeEvento());
+    tester.doDelete(bean.getRecensore(), bean.getRecensito(), bean.getCodeEvento());
   }
 
   /**
@@ -56,7 +56,7 @@ public class TestRecensioneDAO extends TestCase {
   @Test
   public void testDoRetrieveByKey() {
     assertEquals(bean.toString(), tester
-        .doRetrieveByKey(bean.getRecensore(), bean.getRecensito(), bean.getNomeEvento()).toString());
+        .doRetrieveByKey(bean.getRecensore(), bean.getRecensito(), bean.getCodeEvento()).toString());
   }
 
   /**
@@ -65,7 +65,7 @@ public class TestRecensioneDAO extends TestCase {
   @Test
   public void testDoSave() {
     RecensioneBean inserito = tester.doRetrieveByKey(bean.getRecensore(), bean.getRecensito(),
-        bean.getNomeEvento());
+        bean.getCodeEvento());
     assertEquals(bean.toString(), inserito.toString());
   }
 
@@ -76,9 +76,9 @@ public class TestRecensioneDAO extends TestCase {
    */
   @Test
   public void testDoDelete() throws SQLException {
-    tester.doDelete(bean.getRecensore(), bean.getRecensito(), bean.getNomeEvento());
+    tester.doDelete(bean.getRecensore(), bean.getRecensito(), bean.getCodeEvento());
     assertEquals(null,
-        tester.doRetrieveByKey(bean.getRecensore(), bean.getRecensito(), bean.getNomeEvento()));
+        tester.doRetrieveByKey(bean.getRecensore(), bean.getRecensito(), bean.getCodeEvento()));
   }
 
   /**
@@ -91,7 +91,7 @@ public class TestRecensioneDAO extends TestCase {
     bean.setDescrizione("bravo");
     tester.doUpdate(bean);
     RecensioneBean r2 = new RecensioneBean();
-    r2 = tester.doRetrieveByKey(bean.getRecensore(), bean.getRecensito(), bean.getNomeEvento());
+    r2 = tester.doRetrieveByKey(bean.getRecensore(), bean.getRecensito(), bean.getCodeEvento());
     assertEquals(bean.toString(), r2.toString());
   }
 
@@ -107,14 +107,14 @@ public class TestRecensioneDAO extends TestCase {
 
     r2.setRecensore("pino@pino.it");
     r2.setRecensito("mario@mario.it");
-    r2.setNomeEvento("evento3");
+    r2.setCodeEvento("evento3");
     r2.setRecensione(2);
     r2.setDescrizione("scarso");
     list.add(r2.toString());
 
     r2.setRecensore("pino@pino.it");
     r2.setRecensito("simone@simone.it");
-    r2.setNomeEvento("evento3");
+    r2.setCodeEvento("evento3");
     r2.setRecensione(2);
     r2.setDescrizione("scarso");
     list.add(r2.toString());
@@ -173,21 +173,21 @@ public class TestRecensioneDAO extends TestCase {
 
     r2.setRecensore("pino@pino.it");
     r2.setRecensito("mario@mario.it");
-    r2.setNomeEvento("evento3");
+    r2.setCodeEvento("evento3");
     r2.setRecensione(2);
     r2.setDescrizione("scarso");
     list.add(r2.toString());
 
     r2.setRecensore("pino@pino.it");
     r2.setRecensito("simone@simone.it");
-    r2.setNomeEvento("evento3");
+    r2.setCodeEvento("evento3");
     r2.setRecensione(2);
     r2.setDescrizione("scarso");
     list.add(r2.toString());
 
     ArrayList<String> list2 = new ArrayList<>();
     ArrayList<RecensioneBean> recensioni = tester.doRetrieveRecensiti(r2.getRecensore(),
-        r2.getNomeEvento());
+        r2.getCodeEvento());
     for (RecensioneBean r : recensioni) {
       list2.add(r.toString());
     }

@@ -84,7 +84,7 @@ non puoi accedere a questa pagina
 							<%=e.getTipologia()%></p>
 
 						<form action="partecipa" method="post">
-							<input type="hidden" value="<%=e.getNome() %>" name="nome"
+							<input type="hidden" value="<%=e.getCode() %>" name="code"
 								id="nome"> <input type="submit" class="btn btn-primary"
 								value="Partecipa">
 						</form>

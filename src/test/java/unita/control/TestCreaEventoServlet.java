@@ -136,7 +136,7 @@ public class TestCreaEventoServlet {
 
     when(gesDao.doRetrieveByStruttura(ArgumentMatchers.anyString())).thenReturn(gi);
     when(req.getParameter("giocatore")).thenReturn(g.getEmail());
-    when(eDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(null);
+    when(eDao.doRetrieveByName(ArgumentMatchers.anyString())).thenReturn(null);
     when(sDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(s);
 
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
@@ -189,7 +189,7 @@ public class TestCreaEventoServlet {
 
     when(gesDao.doRetrieveByStruttura(ArgumentMatchers.anyString())).thenReturn(gi);
     when(req.getParameter("giocatore")).thenReturn(g.getEmail());
-    when(eDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(null);
+    when(eDao.doRetrieveByName(ArgumentMatchers.anyString())).thenReturn(null);
     when(sDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(s);
 
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
@@ -226,7 +226,7 @@ public class TestCreaEventoServlet {
     s.setTelefono("3122122143");
 
     when(gesDao.doRetrieveByStruttura(ArgumentMatchers.anyString())).thenReturn(gi);
-    when(eDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(null);
+    when(eDao.doRetrieveByName(ArgumentMatchers.anyString())).thenReturn(null);
     when(sDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(s);
 
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
@@ -289,7 +289,7 @@ public class TestCreaEventoServlet {
 
     when(req.getParameter("giocatore")).thenReturn(g.getEmail());
     when(gesDao.doRetrieveByStruttura(ArgumentMatchers.anyString())).thenReturn(gi);
-    when(eDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(e);
+    when(eDao.doRetrieveByName(ArgumentMatchers.anyString())).thenReturn(e);
     when(sDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(null);
     when(req.getParameter("nome")).thenReturn("newEvento");
     when(req.getParameter("descrizione")).thenReturn("Prova descrizione");
@@ -355,7 +355,7 @@ public class TestCreaEventoServlet {
 
     when(req.getParameter("giocatore")).thenReturn(g.getEmail());
     when(gesDao.doRetrieveByStruttura(ArgumentMatchers.anyString())).thenReturn(gi);
-    when(eDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(e);
+    when(eDao.doRetrieveByName(ArgumentMatchers.anyString())).thenReturn(e);
     when(sDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(s);
     when(req.getParameter("nome")).thenReturn("newEvento");
     when(req.getParameter("descrizione")).thenReturn("Prova descrizione");
@@ -402,7 +402,7 @@ public class TestCreaEventoServlet {
     when(req.getParameter("ora")).thenReturn("17");
 
     when(gesDao.doRetrieveByStruttura(ArgumentMatchers.anyString())).thenReturn(gi);
-    when(eDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(null);
+    when(eDao.doRetrieveByName(ArgumentMatchers.anyString())).thenReturn(null);
     when(sDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(null);
 
     when(req.getRequestDispatcher(res.encodeRedirectURL("struttura"))).thenReturn(rd);

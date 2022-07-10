@@ -15,7 +15,7 @@ public class PartecipazioneBean implements Serializable {
   private String utente;
 
   /** The evento. */
-  private String nomeEvento;
+  private String codeEvento;
 
   /**
    * Sets the utente.
@@ -29,10 +29,10 @@ public class PartecipazioneBean implements Serializable {
   /**
    * Sets the evento.
    *
-   * @param nomeEvento the new evento
+   * @param codeEvento the new evento
    */
-  public void setNomeEvento(String nomeEvento) {
-    this.nomeEvento = nomeEvento;
+  public void setCodeEvento(String codeEvento) {
+    this.codeEvento = codeEvento;
   }
 
   /**
@@ -49,8 +49,8 @@ public class PartecipazioneBean implements Serializable {
    *
    * @return the evento
    */
-  public String getNomeEvento() {
-    return nomeEvento;
+  public String getCodeEvento() {
+    return codeEvento;
   }
 
   /**
@@ -60,6 +60,6 @@ public class PartecipazioneBean implements Serializable {
    */
   @Override
   public String toString() {
-    return "utente " + utente + " nomeEvento " + nomeEvento;
+    return "utente " + utente + " nomeEvento " + codeEvento;
   }
 }

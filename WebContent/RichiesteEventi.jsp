@@ -61,9 +61,9 @@ non puoi accedere a questa pagina
 						<p class="card-text">
 							organizzatore:
 							<%=e.getOrganizzatore()%></p>
-						<a href="richieste?action=addE&nome=<%=e.getNome()%>"
+						<a href="richieste?action=addE&code=<%=e.getCode()%>"
 							class="btn btn-primary">Accetta</a> <a
-							href="richieste?action=deleteE&nome=<%= e.getNome()%>"
+							href="richieste?action=deleteE&code=<%= e.getCode()%>"
 							class="btn btn-outline-danger">Rifiuta</a>
 					</div>
 				</div>

@@ -31,7 +31,7 @@ public class TestPartecipazioneDAO extends TestCase {
   public void setUp() throws Exception {
     super.setUp();
     bean = new PartecipazioneBean();
-    bean.setNomeEvento("evento2");
+    bean.setCodeEvento("evento2");
     bean.setUtente("gio4@email.it");
     tester.doSave(bean);
   }
@@ -45,7 +45,7 @@ public class TestPartecipazioneDAO extends TestCase {
   @After
   public void tearDown() throws Exception {
     super.tearDown();
-    tester.doDelete(bean.getUtente(), bean.getNomeEvento());
+    tester.doDelete(bean.getUtente(), bean.getCodeEvento());
   }
 
   /**
@@ -54,7 +54,7 @@ public class TestPartecipazioneDAO extends TestCase {
   @Test
   public void testDoRetrieveByKey() {
     assertEquals(bean.toString(),
-        tester.doRetrieveByKey(bean.getUtente(), bean.getNomeEvento()).toString());
+        tester.doRetrieveByKey(bean.getUtente(), bean.getCodeEvento()).toString());
   }
 
   /**
@@ -62,7 +62,7 @@ public class TestPartecipazioneDAO extends TestCase {
    */
   @Test
   public void testDoSave() {
-    PartecipazioneBean inserito = tester.doRetrieveByKey(bean.getUtente(), bean.getNomeEvento());
+    PartecipazioneBean inserito = tester.doRetrieveByKey(bean.getUtente(), bean.getCodeEvento());
     assertEquals(bean.toString(), inserito.toString());
   }
 
@@ -73,8 +73,8 @@ public class TestPartecipazioneDAO extends TestCase {
    */
   @Test
   public void testDoDelete() throws SQLException {
-    tester.doDelete(bean.getUtente(), bean.getNomeEvento());
-    assertEquals(null, tester.doRetrieveByKey(bean.getUtente(), bean.getNomeEvento()));
+    tester.doDelete(bean.getUtente(), bean.getCodeEvento());
+    assertEquals(null, tester.doRetrieveByKey(bean.getUtente(), bean.getCodeEvento()));
   }
 
   /**
@@ -87,20 +87,20 @@ public class TestPartecipazioneDAO extends TestCase {
     ArrayList<String> list = new ArrayList<>();
     PartecipazioneBean p2 = new PartecipazioneBean();
 
-    p2.setNomeEvento("Evento 333");
+    p2.setCodeEvento("evento-333");
     p2.setUtente("pino@pino.it");
     list.add(p2.toString());
 
-    p2.setNomeEvento("Evento 333");
+    p2.setCodeEvento("evento-333");
     p2.setUtente("simone@simone.it");
     list.add(p2.toString());
     list.add(bean.toString());
 
-    p2.setNomeEvento("evento3");
+    p2.setCodeEvento("evento3");
     p2.setUtente("pino@pino.it");
     list.add(p2.toString());
 
-    p2.setNomeEvento("evento3");
+    p2.setCodeEvento("evento3");
     p2.setUtente("simone@simone.it");
     list.add(p2.toString());
 
@@ -123,16 +123,16 @@ public class TestPartecipazioneDAO extends TestCase {
     ArrayList<String> list = new ArrayList<>();
     PartecipazioneBean p2 = new PartecipazioneBean();
     PartecipazioneBean p3 = new PartecipazioneBean();
-    p2.setNomeEvento("Evento 333");
+    p2.setCodeEvento("evento-333");
     p2.setUtente("pino@pino.it");
     list.add(p2.toString());
 
-    p3.setNomeEvento("Evento 333");
+    p3.setCodeEvento("evento-333");
     p3.setUtente("simone@simone.it");
     list.add(p3.toString());
 
     ArrayList<String> list2 = new ArrayList<>();
-    ArrayList<PartecipazioneBean> partecipazioni = tester.doRetrieveByEvento(p2.getNomeEvento());
+    ArrayList<PartecipazioneBean> partecipazioni = tester.doRetrieveByEvento(p2.getCodeEvento());
     for (PartecipazioneBean p : partecipazioni) {
       list2.add(p.toString());
     }
@@ -150,17 +150,17 @@ public class TestPartecipazioneDAO extends TestCase {
     ArrayList<String> list = new ArrayList<>();
     PartecipazioneBean p2 = new PartecipazioneBean();
     PartecipazioneBean p3 = new PartecipazioneBean();
-    p2.setNomeEvento("Evento 333");
+    p2.setCodeEvento("evento-333");
     p2.setUtente("pino@pino.it");
 
     list.add(p2.getUtente());
 
-    p3.setNomeEvento("Evento 333");
+    p3.setCodeEvento("evento-333");
     p3.setUtente("simone@simone.it");
     list.add(p3.getUtente());
 
     ArrayList<String> list2 = new ArrayList<>();
-    list2 = tester.doGetPartecipanti(p2.getNomeEvento());
+    list2 = tester.doGetPartecipanti(p2.getCodeEvento());
 
     assertEquals(list, list2);
   }

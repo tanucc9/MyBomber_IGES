@@ -21,7 +21,7 @@ public class RecensioneBean implements Serializable {
   private float recensione;
 
   /** The evento. */
-  private String nomeEvento;
+  private String codeEvento;
 
   /** The descrizione. */
   String descrizione;
@@ -56,10 +56,10 @@ public class RecensioneBean implements Serializable {
   /**
    * Sets the evento.
    *
-   * @param nomeEvento the new evento
+   * @param codeEvento the new evento
    */
-  public void setNomeEvento(String nomeEvento) {
-    this.nomeEvento = nomeEvento;
+  public void setCodeEvento(String codeEvento) {
+    this.codeEvento = codeEvento;
   }
 
   /**
@@ -103,8 +103,8 @@ public class RecensioneBean implements Serializable {
    *
    * @return the evento
    */
-  public String getNomeEvento() {
-    return nomeEvento;
+  public String getCodeEvento() {
+    return codeEvento;
   }
 
   /**
@@ -123,6 +123,6 @@ public class RecensioneBean implements Serializable {
    */
   @Override
   public String toString() {
-    return "recensore " + recensore + " recensito " + recensito + " nomeEvento " + nomeEvento;
+    return "recensore " + recensore + " recensito " + recensito + " nomeEvento " + codeEvento;
   }
 }

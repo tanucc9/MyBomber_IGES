@@ -203,7 +203,7 @@ public class TestRichiesteEventiServlet {
     when(req.getParameter("nome")).thenReturn(ev.getNome());
     when(req.getParameter("action")).thenReturn("addE");
     when(gDao.doRetrieveAll()).thenReturn(giocatori);
-    when(evDao.doRetrieveByKey(ev.getNome())).thenReturn(ev);
+    when(evDao.doRetrieveByKey(ev.getCode())).thenReturn(ev);
     when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
 
     servlet.doGet(req, res);
@@ -264,7 +264,7 @@ public class TestRichiesteEventiServlet {
     when(req.getParameter("nome")).thenReturn(ev.getNome());
     when(req.getParameter("action")).thenReturn("addE");
     when(gDao.doRetrieveAll()).thenReturn(giocatori);
-    when(evDao.doRetrieveByKey(ev.getNome())).thenReturn(ev);
+    when(evDao.doRetrieveByKey(ev.getCode())).thenReturn(ev);
     when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
 
     servlet.doGet(req, res);

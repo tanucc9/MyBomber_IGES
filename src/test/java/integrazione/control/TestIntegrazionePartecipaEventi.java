@@ -104,7 +104,7 @@ public class TestIntegrazionePartecipaEventi {
     EventoDAO evd = new EventoDAO();
     PartecipazioneSquadraBean ps = new PartecipazioneSquadraBean();
 
-    ps.setIdEvento("evento squadra 2");
+    ps.setIdEvento("evento-squadra-2");
     ps.setIdSquadra(3);
 
     pd.doDelete("mario@mario.it", "evento3");
@@ -115,7 +115,7 @@ public class TestIntegrazionePartecipaEventi {
     eb.setValutazione(0);
     evd.doUpdate(eb);
 
-    EventoBean evSquadra = evd.doRetrieveByKey("evento squadra 2");
+    EventoBean evSquadra = evd.doRetrieveByKey("evento-squadra-2");
     evSquadra.setNumPartecipanti(1);
     evSquadra.setValutazione(0);
     evd.doUpdate(evSquadra);
@@ -133,7 +133,7 @@ public class TestIntegrazionePartecipaEventi {
     ArrayList<EventoBean> list = new ArrayList<>();
     ArrayList<String> listr = new ArrayList<>();
     EventoBean ev = new EventoBean();
-
+    ev.setCode("evento3");
     ev.setNome("evento3");
     ev.setDescrizione("sdfghgfds");
     ev.setStruttura("playk");
@@ -177,7 +177,7 @@ public class TestIntegrazionePartecipaEventi {
   public void partecipaEvento() throws ServletException, IOException, SQLException {
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
     when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
-    when(req.getParameter("nome")).thenReturn("evento3");
+    when(req.getParameter("code")).thenReturn("evento3");
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
 
     servlet.doPost(req, res);
@@ -189,7 +189,7 @@ public class TestIntegrazionePartecipaEventi {
   public void partecipaEventoSquadra() throws ServletException, IOException, SQLException {
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
     when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
-    when(req.getParameter("nome")).thenReturn("evento squadra 2");
+    when(req.getParameter("code")).thenReturn("evento-squadra-2");
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
 
     servlet.doPost(req, res);

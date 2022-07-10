@@ -26,13 +26,13 @@ public class PartecipazioneDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    String insertSQL = "insert into " + TABLE_NAME + " (e_mail, nome_evento) values (?, ?)";
+    String insertSQL = "insert into " + TABLE_NAME + " (e_mail, code_evento) values (?, ?)";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
       preparedStatement.setString(1, e.getUtente());
-      preparedStatement.setString(2, e.getNomeEvento());
+      preparedStatement.setString(2, e.getCodeEvento());
       preparedStatement.executeUpdate();
 
       connection.commit();
@@ -64,7 +64,7 @@ public class PartecipazioneDAO {
       PartecipazioneBean bean = new PartecipazioneBean();
       conn = DriverManagerConnectionPool.getConnection();
       preparedStatement = conn.prepareStatement(
-          "SELECT * FROM " + TABLE_NAME + " WHERE e_mail = ? AND nome_evento = ?");
+          "SELECT * FROM " + TABLE_NAME + " WHERE e_mail = ? AND code_evento = ?");
       preparedStatement.setString(1, email);
       preparedStatement.setString(2, evento);
 
@@ -73,7 +73,7 @@ public class PartecipazioneDAO {
       // 4. Prendi il risultato
       if (rs.next()) {
         bean.setUtente(rs.getString("e_mail"));
-        bean.setNomeEvento(rs.getString("nome_evento"));
+        bean.setCodeEvento(rs.getString("code_evento"));
         return bean;
       }
 
@@ -115,7 +115,7 @@ public class PartecipazioneDAO {
       while (rs.next()) {
         PartecipazioneBean bean = new PartecipazioneBean();
         bean.setUtente(rs.getString("e_mail"));
-        bean.setNomeEvento(rs.getString("nome_evento"));
+        bean.setCodeEvento(rs.getString("code_evento"));
 
         partecipazioni.add(bean);
 
@@ -141,7 +141,7 @@ public class PartecipazioneDAO {
    * Connection connection = null; PreparedStatement preparedStatement = null;
    *
    * String updateSQL ="UPDATE " + TABLE_NAME +
-   * " SET e_mail = ?, nome_evento = ? WHERE e_mail = ? AND nome_evento = ?"; try
+   * " SET e_mail = ?, code_evento = ? WHERE e_mail = ? AND code_evento = ?"; try
    * { connection = DriverManagerConnectionPool.getConnection(); preparedStatement
    * = connection.prepareStatement(updateSQL); preparedStatement.setString(1,
    * e.getUtente()); preparedStatement.setString(2, e.getEvento());
@@ -163,13 +163,13 @@ public class PartecipazioneDAO {
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public synchronized boolean doDelete(String email, String evento) throws SQLException {
+  public synchronized boolean doDelete(String email, String evento) throws SQLException { // FIXME: callers
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
     int result = 0;
 
-    String deleteSQL = "delete from " + TABLE_NAME + " where e_mail = ? AND nome_evento = ?";
+    String deleteSQL = "delete from " + TABLE_NAME + " where e_mail = ? AND code_evento = ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
@@ -205,7 +205,7 @@ public class PartecipazioneDAO {
     Connection conn = null;
     PreparedStatement preparedStatement = null;
     ArrayList<PartecipazioneBean> partecipanti = new ArrayList<>();
-    String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE nome_evento = ?";
+    String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE code_evento = ?";
 
     try {
       conn = DriverManagerConnectionPool.getConnection();
@@ -218,7 +218,7 @@ public class PartecipazioneDAO {
       while (rs.next()) {
         PartecipazioneBean bean = new PartecipazioneBean();
         bean.setUtente(rs.getString("e_mail"));
-        bean.setNomeEvento(rs.getString("nome_evento"));
+        bean.setCodeEvento(rs.getString("code_evento"));
         partecipanti.add(bean);
       }
 
@@ -248,7 +248,7 @@ public class PartecipazioneDAO {
     Connection conn = null;
     PreparedStatement preparedStatement = null;
     ArrayList<String> partecipanti = new ArrayList<>();
-    String selectSQL = "SELECT e_mail FROM " + TABLE_NAME + " WHERE nome_evento = ?";
+    String selectSQL = "SELECT e_mail FROM " + TABLE_NAME + " WHERE code_evento = ?";
 
     try {
       conn = DriverManagerConnectionPool.getConnection();

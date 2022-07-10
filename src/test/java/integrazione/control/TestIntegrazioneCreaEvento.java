@@ -105,7 +105,7 @@ public class TestIntegrazioneCreaEvento {
     servlet.doGet(req, res);
     verify(rd).forward(req, res);
     EventoDAO ed = new EventoDAO();
-    ed.doDelete(nomeEvento);
+    ed.doDelete("newevento");
   }
 
   @Test
@@ -138,7 +138,7 @@ public class TestIntegrazioneCreaEvento {
     servlet.doGet(req, res);
     verify(rd).forward(req, res);
     EventoDAO ed = new EventoDAO();
-    ed.doDelete(nomeEvento);
+    ed.doDelete("newevento");
   }
 
   /**

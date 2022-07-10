@@ -47,7 +47,7 @@ public class RecensioneServlet extends HttpServlet {
     if (this.rdt == null) {
       this.rdt = new RecensioneDAO();
     }
-    String nomeE = request.getParameter("nome");
+    String codeEvento = request.getParameter("nome");
 
     try {
 
@@ -55,11 +55,11 @@ public class RecensioneServlet extends HttpServlet {
         if (action.equalsIgnoreCase("cercagiocatori")) {
           ArrayList<String> daRecensire;
           ArrayList<RecensioneBean> recensiti;
-          daRecensire = this.rdt.doRetrieveDaRecensire(giocatore.getEmail(), nomeE);
-          recensiti = this.rdt.doRetrieveRecensiti(giocatore.getEmail(), nomeE);
+          daRecensire = this.rdt.doRetrieveDaRecensire(giocatore.getEmail(), codeEvento);
+          recensiti = this.rdt.doRetrieveRecensiti(giocatore.getEmail(), codeEvento);
           request.setAttribute("giocatoriDaRecensire", daRecensire);
           request.setAttribute("giocatoriRecensiti", recensiti);
-          request.setAttribute("nomeEvento", nomeE);
+          request.setAttribute("codeEvento", codeEvento);
         }
       }
 
@@ -97,14 +97,14 @@ public class RecensioneServlet extends HttpServlet {
       try {
         if (rec.equalsIgnoreCase("set")) {
 
-          String nomeEvento = request.getParameter("nomeEvento");
+          String codeEvento = request.getParameter("codeEvento");
           String recensito = request.getParameter("nomeG");
           String descrizione = request.getParameter("descrizione");
           float valutazione = Float.parseFloat(request.getParameter("valutazione"));
           RecensioneBean recensione = new RecensioneBean();
           recensione.setRecensione(valutazione);
           recensione.setDescrizione(descrizione);
-          recensione.setNomeEvento(nomeEvento);
+          recensione.setCodeEvento(codeEvento);
           recensione.setRecensito(recensito);
           recensione.setRecensore(giocatore.getEmail());
           this.rdt.doSave(recensione);
@@ -127,8 +127,8 @@ public class RecensioneServlet extends HttpServlet {
 
         } else if (rec.equalsIgnoreCase("el")) {
           String recensito = request.getParameter("nomeG");
-          String nomeEvento = request.getParameter("nomeEvento");
-          this.rdt.doDelete(giocatore.getEmail(), recensito, nomeEvento);
+          String codeEvento = request.getParameter("codeEvento");
+          this.rdt.doDelete(giocatore.getEmail(), recensito, codeEvento);
 
           if (this.gdt == null) {
             this.gdt = new GiocatoreDAO();

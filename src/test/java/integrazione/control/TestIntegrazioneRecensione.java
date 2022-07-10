@@ -74,13 +74,13 @@ public class TestIntegrazioneRecensione {
     PartecipazioneDAO tester = new PartecipazioneDAO();
     PartecipazioneBean bean = new PartecipazioneBean();
     bean = new PartecipazioneBean();
-    bean.setNomeEvento("evento2");
+    bean.setCodeEvento("evento2");
     bean.setUtente("gio4@email.it");
     tester.doSave(bean);
-    bean.setNomeEvento("evento2");
+    bean.setCodeEvento("evento2");
     bean.setUtente("mario@mario.it");
     tester.doSave(bean);
-    bean.setNomeEvento("evento2");
+    bean.setCodeEvento("evento2");
     bean.setUtente("pino@pino.it");
     tester.doSave(bean);
 
@@ -88,7 +88,7 @@ public class TestIntegrazioneRecensione {
     RecensioneBean rb = new RecensioneBean();
     rb.setRecensore("gio4@email.it");
     rb.setRecensito("mario@mario.it");
-    rb.setNomeEvento("evento2");
+    rb.setCodeEvento("evento2");
     rb.setRecensione(4);
     rd.doSave(rb);
 
@@ -159,10 +159,10 @@ public class TestIntegrazioneRecensione {
     RecensioneBean bean = new RecensioneBean();
     bean.setRecensore("mario@mario.it");
     bean.setRecensito("pino@pino.it");
-    bean.setNomeEvento("evento2");
+    bean.setCodeEvento("evento2");
     bean.setRecensione(4);
 
-    when(req.getParameter("nomeEvento")).thenReturn(bean.getNomeEvento());
+    when(req.getParameter("codeEvento")).thenReturn(bean.getCodeEvento());
     when(req.getParameter("nomeG")).thenReturn(bean.getRecensito());
     when(req.getParameter("descrizione")).thenReturn(bean.getDescrizione());
     when(req.getParameter("valutazione")).thenReturn("4");
@@ -206,11 +206,11 @@ public class TestIntegrazioneRecensione {
     RecensioneBean bean = new RecensioneBean();
     bean.setRecensore("mario@mario.it");
     bean.setRecensito("pino@pino.it");
-    bean.setNomeEvento("evento2");
+    bean.setCodeEvento("evento2");
     bean.setRecensione(4);
 
     when(req.getParameter("nomeG")).thenReturn(bean.getRecensito());
-    when(req.getParameter("nomeEvento")).thenReturn(bean.getNomeEvento());
+    when(req.getParameter("codeEvento")).thenReturn(bean.getCodeEvento());
 
     when(req.getAttribute("deleteok")).thenReturn("deleteok");
 
@@ -230,23 +230,23 @@ public class TestIntegrazioneRecensione {
     PartecipazioneDAO tester = new PartecipazioneDAO();
     PartecipazioneBean bean = new PartecipazioneBean();
     bean = new PartecipazioneBean();
-    bean.setNomeEvento("evento2");
+    bean.setCodeEvento("evento2");
     bean.setUtente("gio4@email.it");
-    tester.doDelete(bean.getUtente(), bean.getNomeEvento());
-    bean.setNomeEvento("evento2");
+    tester.doDelete(bean.getUtente(), bean.getCodeEvento());
+    bean.setCodeEvento("evento2");
     bean.setUtente("mario@mario.it");
-    tester.doDelete(bean.getUtente(), bean.getNomeEvento());
-    bean.setNomeEvento("evento2");
+    tester.doDelete(bean.getUtente(), bean.getCodeEvento());
+    bean.setCodeEvento("evento2");
     bean.setUtente("pino@pino.it");
-    tester.doDelete(bean.getUtente(), bean.getNomeEvento());
+    tester.doDelete(bean.getUtente(), bean.getCodeEvento());
 
     RecensioneDAO rd = new RecensioneDAO();
     RecensioneBean rb = new RecensioneBean();
     rb.setRecensore("gio4@email.it");
     rb.setRecensito("mario@mario.it");
-    rb.setNomeEvento("evento2");
+    rb.setCodeEvento("evento2");
     rb.setRecensione(4);
-    rd.doDelete(rb.getRecensore(), rb.getRecensito(), rb.getNomeEvento());
+    rd.doDelete(rb.getRecensore(), rb.getRecensito(), rb.getCodeEvento());
   }
 
 }

@@ -27,14 +27,14 @@ public class RecensioneDAO {
     PreparedStatement preparedStatement = null;
 
     String insertSQL = "insert into " + TABLE_NAME
-        + " (e_mail_recensore, e_mail_recensito, nome_evento, recensione, descrizione) values (?, ?, ?, ?, ?)";
+        + " (e_mail_recensore, e_mail_recensito, code_evento, recensione, descrizione) values (?, ?, ?, ?, ?)";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
       preparedStatement.setString(1, e.getRecensore());
       preparedStatement.setString(2, e.getRecensito());
-      preparedStatement.setString(3, e.getNomeEvento());
+      preparedStatement.setString(3, e.getCodeEvento());
       preparedStatement.setFloat(4, e.getRecensione());
       preparedStatement.setString(5, e.getDescrizione());
 
@@ -71,7 +71,7 @@ public class RecensioneDAO {
       RecensioneBean bean = new RecensioneBean();
       conn = DriverManagerConnectionPool.getConnection();
       preparedStatement = conn.prepareStatement("SELECT * FROM " + TABLE_NAME
-          + " WHERE e_mail_recensore = ? AND e_mail_recensito = ? AND nome_evento = ?");
+          + " WHERE e_mail_recensore = ? AND e_mail_recensito = ? AND code_evento = ?");
       preparedStatement.setString(1, recensore);
       preparedStatement.setString(2, recensito);
       preparedStatement.setString(3, evento);
@@ -81,7 +81,7 @@ public class RecensioneDAO {
       if (rs.next()) {
         bean.setRecensore(rs.getString("e_mail_recensore"));
         bean.setRecensito(rs.getString("e_mail_recensito"));
-        bean.setNomeEvento(rs.getString("nome_evento"));
+        bean.setCodeEvento(rs.getString("code_evento"));
         bean.setRecensione(rs.getFloat("recensione"));
         bean.setDescrizione(rs.getString("descrizione"));
         return bean;
@@ -126,7 +126,7 @@ public class RecensioneDAO {
         RecensioneBean bean = new RecensioneBean();
         bean.setRecensore(rs.getString("e_mail_recensore"));
         bean.setRecensito(rs.getString("e_mail_recensito"));
-        bean.setNomeEvento(rs.getString("nome_evento"));
+        bean.setCodeEvento(rs.getString("code_evento"));
         bean.setRecensione(rs.getFloat("recensione"));
         bean.setDescrizione(rs.getString("descrizione"));
         recensioni.add(bean);
@@ -190,27 +190,27 @@ public class RecensioneDAO {
    * Do retrieve da recensire.
    *
    * @param recensore the recensore
-   * @param evento    the evento
+   * @param codeEvento    the evento
    * @return the array list
    * @throws SQLException the SQL exception
    */
-  public synchronized ArrayList<String> doRetrieveDaRecensire(String recensore, String evento)
+  public synchronized ArrayList<String> doRetrieveDaRecensire(String recensore, String codeEvento)
       throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
     ArrayList<String> daRecensire = new ArrayList<>();
 
-    String selectSQL = "SELECT e_mail FROM partecipazione WHERE nome_evento = ? AND e_mail != ALL "
+    String selectSQL = "SELECT e_mail FROM partecipazione WHERE code_evento = ? AND e_mail != ALL "
         + "(SELECT e_mail_recensito FROM " + TABLE_NAME
-        + " WHERE nome_evento = ? AND e_mail_recensore = ?) AND e_mail != ?";
+        + " WHERE code_evento = ? AND e_mail_recensore = ?) AND e_mail != ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(selectSQL);
 
-      preparedStatement.setString(1, evento);
-      preparedStatement.setString(2, evento);
+      preparedStatement.setString(1, codeEvento);
+      preparedStatement.setString(2, codeEvento);
       preparedStatement.setString(3, recensore);
       preparedStatement.setString(4, recensore);
       ResultSet rs = preparedStatement.executeQuery();
@@ -248,7 +248,7 @@ public class RecensioneDAO {
     ArrayList<RecensioneBean> recensiti = new ArrayList<>();
 
     String selectSQL = "SELECT * FROM " + TABLE_NAME
-        + " WHERE nome_evento = ? AND e_mail_recensore = ?";
+        + " WHERE code_evento = ? AND e_mail_recensore = ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
@@ -261,7 +261,7 @@ public class RecensioneDAO {
         RecensioneBean bean = new RecensioneBean();
         bean.setRecensore(rs.getString("e_mail_recensore"));
         bean.setRecensito(rs.getString("e_mail_recensito"));
-        bean.setNomeEvento(rs.getString("nome_evento"));
+        bean.setCodeEvento(rs.getString("code_evento"));
         bean.setRecensione(rs.getFloat("recensione"));
         bean.setDescrizione(rs.getString("descrizione"));
         recensiti.add(bean);
@@ -294,18 +294,18 @@ public class RecensioneDAO {
     PreparedStatement preparedStatement = null;
 
     String updateSQL = "UPDATE " + TABLE_NAME
-        + " SET e_mail_recensore = ?, e_mail_recensito = ?, nome_evento = ? , recensione = ? , descrizione = ? WHERE e_mail_recensore = ? AND e_mail_recensito = ? AND nome_evento = ?";
+        + " SET e_mail_recensore = ?, e_mail_recensito = ?, code_evento = ? , recensione = ? , descrizione = ? WHERE e_mail_recensore = ? AND e_mail_recensito = ? AND code_evento = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(updateSQL);
       preparedStatement.setString(1, e.getRecensore());
       preparedStatement.setString(2, e.getRecensito());
-      preparedStatement.setString(3, e.getNomeEvento());
+      preparedStatement.setString(3, e.getCodeEvento());
       preparedStatement.setString(4, e.getDescrizione());
       preparedStatement.setFloat(5, e.getRecensione());
       preparedStatement.setString(6, e.getRecensore());
       preparedStatement.setString(7, e.getRecensito());
-      preparedStatement.setString(8, e.getNomeEvento());
+      preparedStatement.setString(8, e.getCodeEvento());
 
       connection.commit();
     } finally {
@@ -338,7 +338,7 @@ public class RecensioneDAO {
     int result = 0;
 
     String deleteSQL = "delete from " + TABLE_NAME
-        + " where e_mail_recensore = ? AND e_mail_recensito = ? AND nome_evento = ?";
+        + " where e_mail_recensore = ? AND e_mail_recensito = ? AND code_evento = ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();

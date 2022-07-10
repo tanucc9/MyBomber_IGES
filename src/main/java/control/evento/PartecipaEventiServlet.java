@@ -88,7 +88,7 @@ public class PartecipaEventiServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     GiocatoreBean giocatore = (GiocatoreBean) request.getSession().getAttribute("giocatore");
-    String nomeEvento = request.getParameter("nome");
+    String codeEvento = request.getParameter("code");
     SquadraBean squadra = (SquadraBean) request.getSession().getAttribute("squadra");
     boolean isCaptain = squadra.getCapitano().equals(giocatore.getEmail());
 
@@ -105,13 +105,13 @@ public class PartecipaEventiServlet extends HttpServlet {
         this.parSquadraDao = new PartecipazioneSquadraDAO();
       }
 
-      EventoBean eventoBean = this.eD.doRetrieveByKey(nomeEvento);
+      EventoBean eventoBean = this.eD.doRetrieveByKey(codeEvento);
 
       if (eventoBean.getTipologia().equals("libero")) {
         if (eventoBean.getNumPartecipanti() < 10) {
           PartecipazioneBean partecipazione = new PartecipazioneBean();
           partecipazione.setUtente(giocatore.getEmail());
-          partecipazione.setNomeEvento(nomeEvento);
+          partecipazione.setCodeEvento(codeEvento);
           this.pD.doSave(partecipazione);
           eventoBean.aggiungiG();
           eventoBean.setValutazione(eventoBean.getValutazione() + giocatore.getValutazione());
@@ -122,7 +122,7 @@ public class PartecipaEventiServlet extends HttpServlet {
       } else if (eventoBean.getTipologia().equals("squadra") && isCaptain) {
         PartecipazioneSquadraBean partecipazioneSquadra = new PartecipazioneSquadraBean();
         partecipazioneSquadra.setIdSquadra(giocatore.getIdSquadra());
-        partecipazioneSquadra.setIdEvento(eventoBean.getNome());
+        partecipazioneSquadra.setIdEvento(eventoBean.getCode());
         parSquadraDao.doSave(partecipazioneSquadra);
         eventoBean.aggiungiG();
         eventoBean.setStato("completato");

@@ -84,6 +84,7 @@ public class TestIntegrazioneRichiesteEventi {
     ev = new EventoBean();
     evSquadra = new EventoBean();
     ed = new EventoDAO();
+    ev.setCode("evento435");
     ev.setNome("evento435");
     ev.setDescrizione("mitico evento");
     ev.setStruttura("playk");
@@ -97,6 +98,7 @@ public class TestIntegrazioneRichiesteEventi {
     ev.setTipologia("libero");
     ed.doSave(ev);
 
+    evSquadra.setCode("evento435-squadra");
     evSquadra.setNome("evento435 squadra");
     evSquadra.setDescrizione("mitico evento");
     evSquadra.setStruttura("playk");
@@ -115,9 +117,9 @@ public class TestIntegrazioneRichiesteEventi {
 
   @After
   public void tearDown() throws SQLException {
-    pd.doDelete(ev.getOrganizzatore(), ev.getNome());
+    pd.doDelete(ev.getOrganizzatore(), ev.getCode());
     ed.doDelete("evento435");
-    ed.doDelete("evento435 squadra");
+    ed.doDelete("evento435-squadra");
   }
 
 
@@ -149,7 +151,7 @@ public class TestIntegrazioneRichiesteEventi {
   @Test
   public void accettaRichieste() throws ServletException, IOException {
     when((GestoreBean) req.getSession().getAttribute("gestore")).thenReturn(g);
-    when(req.getParameter("nome")).thenReturn("evento435");
+    when(req.getParameter("code")).thenReturn("evento435");
     when(req.getParameter("action")).thenReturn("addE");
     when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
 
@@ -169,7 +171,7 @@ public class TestIntegrazioneRichiesteEventi {
   public void rifiutaRichieste() throws ServletException, IOException {
 
     when((GestoreBean) req.getSession().getAttribute("gestore")).thenReturn(g);
-    when(req.getParameter("nome")).thenReturn("evento435");
+    when(req.getParameter("code")).thenReturn("evento435");
     when(req.getParameter("action")).thenReturn("deleteE");
     when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
 
@@ -181,7 +183,7 @@ public class TestIntegrazioneRichiesteEventi {
   @Test
   public void accettaRichiesteSquadra() throws ServletException, IOException {
     when((GestoreBean) req.getSession().getAttribute("gestore")).thenReturn(g);
-    when(req.getParameter("nome")).thenReturn("evento435 squadra");
+    when(req.getParameter("code")).thenReturn("evento435-squadra");
     when(req.getParameter("action")).thenReturn("addE");
     when(req.getRequestDispatcher(res.encodeRedirectURL("./RichiesteEventi.jsp"))).thenReturn(rd);
 

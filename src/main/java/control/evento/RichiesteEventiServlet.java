@@ -62,7 +62,7 @@ public class RichiesteEventiServlet extends HttpServlet {
       dispatcher.forward(request, response);
       return;
     }
-    String nomeEvento = request.getParameter("nome");
+    String codeEvento = request.getParameter("code");
     String action = request.getParameter("action");
     ArrayList<EventoBean> richieste = new ArrayList<>();
 
@@ -79,7 +79,7 @@ public class RichiesteEventiServlet extends HttpServlet {
         this.gD = new GiocatoreDAO();
       }
 
-      EventoBean bean = this.eD.doRetrieveByKey(nomeEvento);
+      EventoBean bean = this.eD.doRetrieveByKey(codeEvento);
       PartecipazioneBean partecipazione = new PartecipazioneBean();
       if (action != null) {
         if (action.equalsIgnoreCase("addE")) {
@@ -96,7 +96,7 @@ public class RichiesteEventiServlet extends HttpServlet {
           }
 
           if (bean.getTipologia().equals("libero")) {
-            partecipazione.setNomeEvento(bean.getNome());
+            partecipazione.setCodeEvento(bean.getCode());
             if (giocatore != null) {
               partecipazione.setUtente(bean.getOrganizzatore());
               this.pD.doSave(partecipazione);
@@ -108,12 +108,12 @@ public class RichiesteEventiServlet extends HttpServlet {
 
             PartecipazioneSquadraBean partecipazioneSquadra = new PartecipazioneSquadraBean();
             partecipazioneSquadra.setIdSquadra(giocatore.getIdSquadra());
-            partecipazioneSquadra.setIdEvento(bean.getNome());
+            partecipazioneSquadra.setIdEvento(bean.getCode());
             this.partecipazioneSquadraDao.doSave(partecipazioneSquadra);
           }
           this.eD.doUpdate(bean);
         } else if (action.equalsIgnoreCase("deleteE")) {
-          this.eD.doDelete(nomeEvento);
+          this.eD.doDelete(codeEvento);
         } else if (action.equalsIgnoreCase("trovarichieste")) {
           richieste = this.eD.doRetrieveRichieste(gestore.getEmail());
           request.setAttribute("richieste", richieste);

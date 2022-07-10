@@ -107,6 +107,7 @@ public class TestPartecipaEventiServlet {
     g.setIdSquadra(2);
 
     ev = new EventoBean();
+    ev.setCode("evento3");
     ev.setNome("evento3");
     ev.setDescrizione("sdfghgfds");
     ev.setStruttura("playk");
@@ -120,6 +121,7 @@ public class TestPartecipaEventiServlet {
     ev.setTipologia("libero");
 
     evSquadra = new EventoBean();
+    evSquadra.setCode("evento3");
     evSquadra.setNome("evento3");
     evSquadra.setDescrizione("sdfghgfds");
     evSquadra.setStruttura("playk");
@@ -156,7 +158,7 @@ public class TestPartecipaEventiServlet {
     ArrayList<EventoBean> list = new ArrayList<>();
     ArrayList<String> listr = new ArrayList<>();
     EventoBean g3 = new EventoBean();
-
+    g3.setCode("evento3");
     g3.setNome("evento3");
     g3.setDescrizione("sdfghgfds");
     g3.setStruttura("playk");
@@ -218,7 +220,7 @@ public class TestPartecipaEventiServlet {
   public void partecipaEvento() throws ServletException, IOException, SQLException {
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
     when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
-    when(req.getParameter("nome")).thenReturn("evento3");
+    when(req.getParameter("code")).thenReturn("evento3");
     when(evDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(ev);
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
 
@@ -238,6 +240,7 @@ public class TestPartecipaEventiServlet {
   public void partecipaEventoCompleto() throws ServletException, IOException, SQLException {
 
     EventoBean ev = new EventoBean();
+    ev.setCode("evento3");
     ev.setNome("evento3");
     ev.setDescrizione("sdfghgfds");
     ev.setStruttura("playk");
@@ -252,7 +255,7 @@ public class TestPartecipaEventiServlet {
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
     when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
-    when(req.getParameter("nome")).thenReturn("evento3");
+    when(req.getParameter("code")).thenReturn("evento3");
     when(evDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(ev);
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
 
@@ -266,7 +269,7 @@ public class TestPartecipaEventiServlet {
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g);
     when((SquadraBean) req.getSession().getAttribute("squadra")).thenReturn(squadra);
-    when(req.getParameter("nome")).thenReturn("evento3");
+    when(req.getParameter("code")).thenReturn("evento3");
     when(evDao.doRetrieveByKey(ArgumentMatchers.anyString())).thenReturn(evSquadra);
     when(req.getRequestDispatcher(res.encodeRedirectURL("./PartecipaEventi.jsp"))).thenReturn(rd);
 

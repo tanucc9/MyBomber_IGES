@@ -14,6 +14,9 @@ public class EventoBean implements Serializable {
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;
 
+  /** The code. */
+  private String code;
+
   /** The nome. */
   private String nome;
 
@@ -44,6 +47,15 @@ public class EventoBean implements Serializable {
   /** The num partecipanti. */
   private int numPartecipanti;
   private String tipologia;
+
+  /**
+   * Sets the code.
+   *
+   * @param code the new code
+   */
+  public void setCode(String code) {
+    this.code = code;
+  }
 
   /**
    * Sets the nome.
@@ -134,6 +146,15 @@ public class EventoBean implements Serializable {
    */
   public void setNumPartecipanti(int numPartecipanti) {
     this.numPartecipanti = numPartecipanti;
+  }
+
+  /**
+   * Gets the code.
+   *
+   * @return the code
+   */
+  public String getCode() {
+    return code;
   }
 
   /**
@@ -318,7 +339,8 @@ public class EventoBean implements Serializable {
   @Override
   public String toString() {
     return "EventoBean{" +
-            "nome='" + nome + '\'' +
+            "code='" + code + '\'' +
+            ", nome='" + nome + '\'' +
             ", descrizione='" + descrizione + '\'' +
             ", struttura='" + struttura + '\'' +
             ", data=" + data +

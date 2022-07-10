@@ -88,7 +88,7 @@ public class CreaEventoServlet extends HttpServlet {
       }
 
       EventoBean testEvento = new EventoBean();
-      testEvento = eD.doRetrieveByKey(nome);
+      testEvento = eD.doRetrieveByName(nome);
 
       if (this.sD == null) {
         this.sD = new StrutturaDAO();

@@ -7,7 +7,7 @@
 	ArrayList<?> daRecensire = (ArrayList<?>) request.getAttribute("giocatoriDaRecensire");
 	ArrayList<?> recensiti = (ArrayList<?>) request.getAttribute("giocatoriRecensiti");
 	GiocatoreBean giotest=(GiocatoreBean)request.getSession().getAttribute("giocatore");
-	String nomeEvento=(String)request.getAttribute("nomeEvento");
+	String codeEvento=(String)request.getAttribute("codeEvento"); // FIXME: was "nomeEvento"
     if(giotest==null)
     {
     	response.sendRedirect("./Login.jsp");
@@ -58,8 +58,8 @@
 						<form id="dairecensione" action="recensione" method="post"
 							onSubmit="event.preventDefault(); validate(this);">
 							<input type="hidden" name="rec" id="rec" value="set"> <input
-								type="hidden" name="nomeEvento" id="nomeEvento"
-								value="<%=nomeEvento%>"> <input type="hidden"
+								type="hidden" name="codeEvento" id="codeEvento"
+								value="<%=codeEvento%>"> <input type="hidden"
 								name="nomeG" id="nomeG" value="<%=giocatore%>">
 							<div class="mb-3">
 								<label for="valutazione" class="form-label">Valutazione</label>
@@ -127,8 +127,8 @@
 						<form id="dairecensione" method="post" action="recensione"
 							onSubmit="event.preventDefault(); validate(this);">
 							<input type="hidden" name="rec" id="rec" value="el"> <input
-								type="hidden" name="nomeEvento" id="nomeEvento"
-								value="<%=nomeEvento%>"> <input type="hidden"
+								type="hidden" name="codeEvento" id="codeEvento"
+								value="<%=codeEvento%>"> <input type="hidden"
 								name="nomeG" id="nomeG" value="<%=recensione.getRecensito()%>">
 							<div class="mb-3">
 								<label for="valutazione" class="form-label">Valutazione</label>

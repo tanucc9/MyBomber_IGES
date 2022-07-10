@@ -39,6 +39,7 @@ public class TestEventoDAO extends TestCase {
   public void setUp() throws Exception {
     super.setUp();
     bean = new EventoBean();
+    bean.setCode("evento12");
     bean.setNome("evento12");
     bean.setDescrizione("mitico evento");
     bean.setStruttura("playk");
@@ -58,6 +59,7 @@ public class TestEventoDAO extends TestCase {
     evento4 = new EventoBean();
     evento5 = new EventoBean();
 
+    evento.setCode("evento-333");
     evento.setNome("Evento 333");
     evento.setDescrizione("Prova descrizione");
     evento.setStruttura("playk");
@@ -70,6 +72,7 @@ public class TestEventoDAO extends TestCase {
     evento.setNumPartecipanti(0);
     evento.setTipologia("libero");
 
+    evento4.setCode("evento-squadra");
     evento4.setNome("evento squadra");
     evento4.setDescrizione("descrizione.");
     evento4.setStruttura("playk");
@@ -82,6 +85,7 @@ public class TestEventoDAO extends TestCase {
     evento4.setNumPartecipanti(2);
     evento4.setTipologia("squadra");
 
+    evento5.setCode("evento-squadra-2");
     evento5.setNome("evento squadra 2");
     evento5.setDescrizione("descrizione.");
     evento5.setStruttura("playk");
@@ -94,6 +98,7 @@ public class TestEventoDAO extends TestCase {
     evento5.setNumPartecipanti(1);
     evento5.setTipologia("squadra");
 
+    evento2.setCode("evento2");
     evento2.setNome("evento2");
     evento2.setDescrizione("grande evento");
     evento2.setStruttura("playk");
@@ -106,6 +111,7 @@ public class TestEventoDAO extends TestCase {
     evento2.setNumPartecipanti(10);
     evento2.setTipologia("libero");
 
+    evento3.setCode("evento3");
     evento3.setNome("evento3");
     evento3.setDescrizione("sdfghgfds");
     evento3.setStruttura("playk");
@@ -128,7 +134,7 @@ public class TestEventoDAO extends TestCase {
   @After
   public void tearDown() throws Exception {
     super.tearDown();
-    tester.doDelete(bean.getNome());
+    tester.doDelete(bean.getCode());
   }
 
   /**
@@ -136,7 +142,7 @@ public class TestEventoDAO extends TestCase {
    */
   @Test
   public void testDoRetrieveByKey() {
-    assertEquals(bean.toString(), tester.doRetrieveByKey(bean.getNome()).toString());
+    assertEquals(bean.toString(), tester.doRetrieveByKey(bean.getCode()).toString());
   }
 
   /**
@@ -144,7 +150,7 @@ public class TestEventoDAO extends TestCase {
    */
   @Test
   public void testDoSave() {
-    EventoBean inserito = tester.doRetrieveByKey(bean.getNome());
+    EventoBean inserito = tester.doRetrieveByKey(bean.getCode());
     assertEquals(bean.toString(), inserito.toString());
   }
 
@@ -155,8 +161,8 @@ public class TestEventoDAO extends TestCase {
    */
   @Test
   public void testDoDelete() throws SQLException {
-    tester.doDelete(bean.getNome());
-    assertEquals(null, tester.doRetrieveByKey(bean.getNome()));
+    tester.doDelete(bean.getCode());
+    assertEquals(null, tester.doRetrieveByKey(bean.getCode()));
   }
 
   /**
@@ -168,7 +174,7 @@ public class TestEventoDAO extends TestCase {
   public void testDoUpdate() throws SQLException {
     bean.setDescrizione("bellissimo");
     tester.doUpdate(bean);
-    EventoBean mod = tester.doRetrieveByKey(bean.getNome());
+    EventoBean mod = tester.doRetrieveByKey(bean.getCode());
     assertEquals(bean.toString(), mod.toString());
   }
 

@@ -1,6 +1,8 @@
 package model.evento;
 
 import control.DriverManagerConnectionPool;
+import util.SlugGenerator;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +27,8 @@ public class EventoDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     String insertSQL = "insert into " + TABLE_NAME
-        + " (nome, descrizione, struttura, data_evento, ora, e_mail_gestore, e_mail_utente, stato, valutazione, numero_partecipanti, tipologia) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        + " (nome, descrizione, struttura, data_evento, ora, e_mail_gestore, e_mail_utente, stato, valutazione, " +
+            "numero_partecipanti, tipologia, code) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
@@ -40,6 +43,8 @@ public class EventoDAO {
       preparedStatement.setFloat(9, e.getValutazione());
       preparedStatement.setInt(10, e.getNumPartecipanti());
       preparedStatement.setString(11, e.getTipologia());
+      String code = new SlugGenerator().generaleSlugByString(e.getNome());
+      preparedStatement.setString(12, code);
       preparedStatement.executeUpdate();
       connection.commit();
     } finally {
@@ -58,10 +63,57 @@ public class EventoDAO {
   /**
    * Do retrieve by key.
    *
-   * @param nome the nome
+   * @param code the code
    * @return the evento bean
    */
-  public synchronized EventoBean doRetrieveByKey(String nome) {
+  public synchronized EventoBean doRetrieveByKey(String code) {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    EventoBean bean = new EventoBean();
+    String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE code = ?";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement.setString(1, code);
+      ResultSet rs = preparedStatement.executeQuery();
+      // 4. Prendi il risultato
+      if (rs.next()) {
+        bean.setCode(rs.getString("code"));
+        bean.setNome(rs.getString("nome"));
+        bean.setDescrizione(rs.getString("descrizione"));
+        bean.setStruttura(rs.getString("struttura"));
+        bean.setData(rs.getDate("data_evento"));
+        bean.setOra(rs.getInt("ora"));
+        bean.setGestore(rs.getString("e_mail_gestore"));
+        bean.setOrganizzatore(rs.getString("e_mail_utente"));
+        bean.setStato(rs.getString("stato"));
+        bean.setValutazione(rs.getFloat("valutazione"));
+        bean.setNumPartecipanti(rs.getInt("numero_partecipanti"));
+        bean.setTipologia(rs.getString("tipologia"));
+        return bean;
+      }
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } finally {
+      try {
+        preparedStatement.close();
+        DriverManagerConnectionPool.releaseConnection(connection);
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Do retrieve by name.
+   *
+   * @param name the name
+   * @return the evento bean
+   */
+  public synchronized EventoBean doRetrieveByName(String name) { // FIXME, remember to test
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     EventoBean bean = new EventoBean();
@@ -69,10 +121,11 @@ public class EventoDAO {
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(selectSQL);
-      preparedStatement.setString(1, nome);
+      preparedStatement.setString(1, name);
       ResultSet rs = preparedStatement.executeQuery();
       // 4. Prendi il risultato
       if (rs.next()) {
+        bean.setCode(rs.getString("code"));
         bean.setNome(rs.getString("nome"));
         bean.setDescrizione(rs.getString("descrizione"));
         bean.setStruttura(rs.getString("struttura"));
@@ -123,6 +176,7 @@ public class EventoDAO {
 
       while (rs.next()) {
         EventoBean bean = new EventoBean();
+        bean.setCode(rs.getString("code"));
         bean.setNome(rs.getString("nome"));
         bean.setDescrizione(rs.getString("descrizione"));
         bean.setStruttura(rs.getString("struttura"));
@@ -163,7 +217,8 @@ public class EventoDAO {
     PreparedStatement preparedStatement = null;
 
     String updateSQL = "UPDATE " + TABLE_NAME
-        + " SET nome = ?, descrizione = ?, struttura = ? , data_evento = ?, ora = ?, e_mail_gestore = ?, e_mail_utente = ?, stato = ?, valutazione = ?, numero_partecipanti = ? WHERE nome = ?";
+        + " SET nome = ?, descrizione = ?, struttura = ? , data_evento = ?, ora = ?, e_mail_gestore = ?, " +
+            "e_mail_utente = ?, stato = ?, valutazione = ?, numero_partecipanti = ?, code = ? WHERE code = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(updateSQL);
@@ -177,7 +232,8 @@ public class EventoDAO {
       preparedStatement.setString(8, e.getStato());
       preparedStatement.setFloat(9, e.getValutazione());
       preparedStatement.setInt(10, e.getNumPartecipanti());
-      preparedStatement.setString(11, e.getNome());
+      preparedStatement.setString(11, e.getCode());
+      preparedStatement.setString(12, e.getCode());
       preparedStatement.executeUpdate();
 
       connection.commit();
@@ -197,24 +253,24 @@ public class EventoDAO {
   /**
    * Do delete.
    *
-   * @param nome the nome
+   * @param code the code
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public synchronized boolean doDelete(String nome) throws SQLException {
+  public synchronized boolean doDelete(String code) throws SQLException {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
     int result = 0;
 
-    String deleteSQL = "delete from " + TABLE_NAME + " WHERE nome = ?";
+    String deleteSQL = "delete from " + TABLE_NAME + " WHERE code = ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
       connection.setAutoCommit(true);
       preparedStatement = connection.prepareStatement(deleteSQL);
-      preparedStatement.setString(1, nome);
+      preparedStatement.setString(1, code);
 
       result = preparedStatement.executeUpdate();
 
@@ -255,6 +311,7 @@ public class EventoDAO {
 
       while (rs.next()) {
         EventoBean bean = new EventoBean();
+        bean.setCode(rs.getString("code"));
         bean.setNome(rs.getString("nome"));
         bean.setDescrizione(rs.getString("descrizione"));
         bean.setStruttura(rs.getString("struttura"));
@@ -310,6 +367,7 @@ public class EventoDAO {
 
       while (rs.next()) {
         EventoBean bean = new EventoBean();
+        bean.setCode(rs.getString("code"));
         bean.setNome(rs.getString("nome"));
         bean.setDescrizione(rs.getString("descrizione"));
         bean.setStruttura(rs.getString("struttura"));
@@ -366,6 +424,7 @@ public class EventoDAO {
 
       while (rs.next()) {
         EventoBean bean = new EventoBean();
+        bean.setCode(rs.getString("code"));
         bean.setNome(rs.getString("nome"));
         bean.setDescrizione(rs.getString("descrizione"));
         bean.setStruttura(rs.getString("struttura"));
@@ -422,6 +481,7 @@ public class EventoDAO {
 
       while (rs.next()) {
         EventoBean bean = new EventoBean();
+        bean.setCode(rs.getString("code"));
         bean.setNome(rs.getString("nome"));
         bean.setDescrizione(rs.getString("descrizione"));
         bean.setStruttura(rs.getString("struttura"));
@@ -466,7 +526,7 @@ public class EventoDAO {
     ArrayList<EventoBean> eventi = new ArrayList<>();
 
     String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE stato = 'attivo' AND nome != ALL "
-        + "(SELECT nome_evento FROM partecipazione WHERE e_mail = ?) ORDER BY data_evento ASC";
+        + "(SELECT code_evento FROM partecipazione WHERE e_mail = ?) ORDER BY data_evento ASC";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
@@ -477,6 +537,7 @@ public class EventoDAO {
 
       while (rs.next()) {
         EventoBean bean = new EventoBean();
+        bean.setCode(rs.getString("code"));
         bean.setNome(rs.getString("nome"));
         bean.setDescrizione(rs.getString("descrizione"));
         bean.setStruttura(rs.getString("struttura"));
@@ -521,7 +582,7 @@ public class EventoDAO {
     ArrayList<EventoBean> eventi = new ArrayList<>();
 
     String selectSQL = "SELECT * FROM " + TABLE_NAME
-        + " JOIN partecipazione P on nome = P.nome_evento "
+        + " JOIN partecipazione P on nome = P.code_evento "
         + "WHERE stato != 'richiesta' AND P.e_mail = ? ORDER BY data_evento desc";
 
     try {
@@ -533,6 +594,7 @@ public class EventoDAO {
 
       while (rs.next()) {
         EventoBean bean = new EventoBean();
+        bean.setCode(rs.getString("code"));
         bean.setNome(rs.getString("nome"));
         bean.setDescrizione(rs.getString("descrizione"));
         bean.setStruttura(rs.getString("struttura"));
@@ -570,7 +632,7 @@ public class EventoDAO {
     ArrayList<EventoBean> eventi = new ArrayList<>();
 
     String selectSQL = "SELECT * FROM " + TABLE_NAME
-            + " JOIN partecipazione_squadra P on nome = P.id_evento "
+            + " JOIN partecipazione_squadra P on code = P.id_evento "
             + "WHERE stato != 'richiesta' AND P.id_squadra = ? ORDER BY data_evento desc";
 
     try {
@@ -582,6 +644,7 @@ public class EventoDAO {
 
       while (rs.next()) {
         EventoBean bean = new EventoBean();
+        bean.setCode(rs.getString("code"));
         bean.setNome(rs.getString("nome"));
         bean.setDescrizione(rs.getString("descrizione"));
         bean.setStruttura(rs.getString("struttura"));
