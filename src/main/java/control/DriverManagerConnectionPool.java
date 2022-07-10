@@ -36,7 +36,7 @@ public class DriverManagerConnectionPool {
     String ip = "localhost";
     String port = "3306";
     String db = "mybomber";
-    db = "mybomber_testing"; // da attivare per il testing
+    //db = "mybomber_testing"; // da attivare per il testing
     String username = "root";
     String password = "tanucc"; // ognuno la propria di mysql
 
