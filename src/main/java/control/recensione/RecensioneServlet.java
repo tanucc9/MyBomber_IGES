@@ -54,7 +54,7 @@ public class RecensioneServlet extends HttpServlet {
       if (action != null) {
         if (action.equalsIgnoreCase("cercagiocatori")) {
           ArrayList<String> daRecensire;
-          ArrayList<RecensioneBean> recensiti;// gi� sono stati recensiti
+          ArrayList<RecensioneBean> recensiti;
           daRecensire = this.rdt.doRetrieveDaRecensire(giocatore.getEmail(), nomeE);
           recensiti = this.rdt.doRetrieveRecensiti(giocatore.getEmail(), nomeE);
           request.setAttribute("giocatoriDaRecensire", daRecensire);
@@ -104,7 +104,7 @@ public class RecensioneServlet extends HttpServlet {
           RecensioneBean recensione = new RecensioneBean();
           recensione.setRecensione(valutazione);
           recensione.setDescrizione(descrizione);
-          recensione.setEvento(nomeEvento);
+          recensione.setNomeEvento(nomeEvento);
           recensione.setRecensito(recensito);
           recensione.setRecensore(giocatore.getEmail());
           this.rdt.doSave(recensione);

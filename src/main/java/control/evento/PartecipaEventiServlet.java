@@ -111,7 +111,7 @@ public class PartecipaEventiServlet extends HttpServlet {
         if (eventoBean.getNumPartecipanti() < 10) {
           PartecipazioneBean partecipazione = new PartecipazioneBean();
           partecipazione.setUtente(giocatore.getEmail());
-          partecipazione.setEvento(nomeEvento);
+          partecipazione.setNomeEvento(nomeEvento);
           this.pD.doSave(partecipazione);
           eventoBean.aggiungiG();
           eventoBean.setValutazione(eventoBean.getValutazione() + giocatore.getValutazione());

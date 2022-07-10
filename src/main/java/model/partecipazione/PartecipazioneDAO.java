@@ -32,7 +32,7 @@ public class PartecipazioneDAO {
       connection = DriverManagerConnectionPool.getConnection();
       preparedStatement = connection.prepareStatement(insertSQL);
       preparedStatement.setString(1, e.getUtente());
-      preparedStatement.setString(2, e.getEvento());
+      preparedStatement.setString(2, e.getNomeEvento());
       preparedStatement.executeUpdate();
 
       connection.commit();
@@ -73,7 +73,7 @@ public class PartecipazioneDAO {
       // 4. Prendi il risultato
       if (rs.next()) {
         bean.setUtente(rs.getString("e_mail"));
-        bean.setEvento(rs.getString("nome_evento"));
+        bean.setNomeEvento(rs.getString("nome_evento"));
         return bean;
       }
 
@@ -115,7 +115,7 @@ public class PartecipazioneDAO {
       while (rs.next()) {
         PartecipazioneBean bean = new PartecipazioneBean();
         bean.setUtente(rs.getString("e_mail"));
-        bean.setEvento(rs.getString("nome_evento"));
+        bean.setNomeEvento(rs.getString("nome_evento"));
 
         partecipazioni.add(bean);
 
@@ -218,7 +218,7 @@ public class PartecipazioneDAO {
       while (rs.next()) {
         PartecipazioneBean bean = new PartecipazioneBean();
         bean.setUtente(rs.getString("e_mail"));
-        bean.setEvento(rs.getString("nome_evento"));
+        bean.setNomeEvento(rs.getString("nome_evento"));
         partecipanti.add(bean);
       }
 

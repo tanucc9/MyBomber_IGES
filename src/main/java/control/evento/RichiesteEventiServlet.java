@@ -96,7 +96,7 @@ public class RichiesteEventiServlet extends HttpServlet {
           }
 
           if (bean.getTipologia().equals("libero")) {
-            partecipazione.setEvento(bean.getNome());
+            partecipazione.setNomeEvento(bean.getNome());
             if (giocatore != null) {
               partecipazione.setUtente(bean.getOrganizzatore());
               this.pD.doSave(partecipazione);

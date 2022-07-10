@@ -34,7 +34,7 @@ public class RecensioneDAO {
       preparedStatement = connection.prepareStatement(insertSQL);
       preparedStatement.setString(1, e.getRecensore());
       preparedStatement.setString(2, e.getRecensito());
-      preparedStatement.setString(3, e.getEvento());
+      preparedStatement.setString(3, e.getNomeEvento());
       preparedStatement.setFloat(4, e.getRecensione());
       preparedStatement.setString(5, e.getDescrizione());
 
@@ -81,7 +81,7 @@ public class RecensioneDAO {
       if (rs.next()) {
         bean.setRecensore(rs.getString("e_mail_recensore"));
         bean.setRecensito(rs.getString("e_mail_recensito"));
-        bean.setEvento(rs.getString("nome_evento"));
+        bean.setNomeEvento(rs.getString("nome_evento"));
         bean.setRecensione(rs.getFloat("recensione"));
         bean.setDescrizione(rs.getString("descrizione"));
         return bean;
@@ -126,7 +126,7 @@ public class RecensioneDAO {
         RecensioneBean bean = new RecensioneBean();
         bean.setRecensore(rs.getString("e_mail_recensore"));
         bean.setRecensito(rs.getString("e_mail_recensito"));
-        bean.setEvento(rs.getString("nome_evento"));
+        bean.setNomeEvento(rs.getString("nome_evento"));
         bean.setRecensione(rs.getFloat("recensione"));
         bean.setDescrizione(rs.getString("descrizione"));
         recensioni.add(bean);
@@ -261,7 +261,7 @@ public class RecensioneDAO {
         RecensioneBean bean = new RecensioneBean();
         bean.setRecensore(rs.getString("e_mail_recensore"));
         bean.setRecensito(rs.getString("e_mail_recensito"));
-        bean.setEvento(rs.getString("nome_evento"));
+        bean.setNomeEvento(rs.getString("nome_evento"));
         bean.setRecensione(rs.getFloat("recensione"));
         bean.setDescrizione(rs.getString("descrizione"));
         recensiti.add(bean);
@@ -300,12 +300,12 @@ public class RecensioneDAO {
       preparedStatement = connection.prepareStatement(updateSQL);
       preparedStatement.setString(1, e.getRecensore());
       preparedStatement.setString(2, e.getRecensito());
-      preparedStatement.setString(3, e.getEvento());
+      preparedStatement.setString(3, e.getNomeEvento());
       preparedStatement.setString(4, e.getDescrizione());
       preparedStatement.setFloat(5, e.getRecensione());
       preparedStatement.setString(6, e.getRecensore());
       preparedStatement.setString(7, e.getRecensito());
-      preparedStatement.setString(8, e.getEvento());
+      preparedStatement.setString(8, e.getNomeEvento());
 
       connection.commit();
     } finally {
