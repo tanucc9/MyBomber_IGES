@@ -62,9 +62,7 @@ public class RecensioneDAO {
    * @param evento    the evento
    * @return the recensione bean
    */
-  public synchronized RecensioneBean doRetrieveByKey(String recensore, String recensito,
-      String evento) {
-
+  public synchronized RecensioneBean doRetrieveByKey(String recensore, String recensito, String evento) {
     Connection conn = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -130,9 +128,7 @@ public class RecensioneDAO {
         bean.setRecensione(rs.getFloat("recensione"));
         bean.setDescrizione(rs.getString("descrizione"));
         recensioni.add(bean);
-
       }
-
     } finally {
       try {
         if (preparedStatement != null) {
@@ -190,7 +186,7 @@ public class RecensioneDAO {
    * Do retrieve da recensire.
    *
    * @param recensore the recensore
-   * @param codeEvento    the evento
+   * @param codeEvento the evento
    * @return the array list
    * @throws SQLException the SQL exception
    */

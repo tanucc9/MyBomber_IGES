@@ -113,7 +113,7 @@ public class EventoDAO {
    * @param name the name
    * @return the evento bean
    */
-  public synchronized EventoBean doRetrieveByName(String name) { // FIXME, remember to test
+  public synchronized EventoBean doRetrieveByName(String name) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     EventoBean bean = new EventoBean();
@@ -525,7 +525,7 @@ public class EventoDAO {
 
     ArrayList<EventoBean> eventi = new ArrayList<>();
 
-    String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE stato = 'attivo' AND nome != ALL "
+    String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE stato = 'attivo' AND code != ALL "
         + "(SELECT code_evento FROM partecipazione WHERE e_mail = ?) ORDER BY data_evento ASC";
 
     try {
@@ -582,7 +582,7 @@ public class EventoDAO {
     ArrayList<EventoBean> eventi = new ArrayList<>();
 
     String selectSQL = "SELECT * FROM " + TABLE_NAME
-        + " JOIN partecipazione P on nome = P.code_evento "
+        + " JOIN partecipazione P on code = P.code_evento "
         + "WHERE stato != 'richiesta' AND P.e_mail = ? ORDER BY data_evento desc";
 
     try {

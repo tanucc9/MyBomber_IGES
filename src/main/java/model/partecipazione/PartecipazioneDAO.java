@@ -163,7 +163,7 @@ public class PartecipazioneDAO {
    * @return true, if successful
    * @throws SQLException the SQL exception
    */
-  public synchronized boolean doDelete(String email, String evento) throws SQLException { // FIXME: callers
+  public synchronized boolean doDelete(String email, String evento) throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
