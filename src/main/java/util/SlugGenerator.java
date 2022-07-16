@@ -7,6 +7,8 @@ public class SlugGenerator {
 				.replaceAll("-+", "-")
 				.replaceAll("^-+", "")
 				.replaceAll("-+$", "")
+//				.replaceAll("([a-zA-Z])[a-zA-Z]*", "$1")
+//				.replaceAll("(\\d)\\d*", "$1")
 				.toLowerCase()
 				;
 	}
