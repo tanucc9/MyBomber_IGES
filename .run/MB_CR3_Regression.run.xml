@@ -1,0 +1,65 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MB_CR3_Regression" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="MyBomber_C11" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="unita.control.TestCreaEventoServlet" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="unita.control.TestPartecipaEventiServlet" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="unita.control.TestRecensioneServlet" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="unita.control.TestRichiesteEventiServlet" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="unita.model.TestEventoDAO" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="unita.model.TestPartecipazioneDAO" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="unita.model.TestPartecipazioneSquadraDAO" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="unita.model.TestRecensioneDAO" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="integrazione.control.TestIntegrazioneCreaEvento" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="integrazione.control.TestIntegrazionePartecipaEventi" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="integrazione.control.TestIntegrazioneRecensione" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="integrazione.control.TestIntegrazioneRichiesteEventi" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="SuitesMaintenance" />
+    <option name="MAIN_CLASS_NAME" value="SuitesMaintenance.MB_CR3_Regression" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <option name="TEST_SEARCH_SCOPE">
+      <value defaultName="wholeProject" />
+    </option>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
