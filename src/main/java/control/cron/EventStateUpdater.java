@@ -26,7 +26,8 @@ public class EventStateUpdater {
 		// completato & inizio passato => iniziato
 		// iniziato & inizio+durata passato => finito
 		long inizioEvento = eventoBean.getStartTimeMillis();
-		if (eventoBean.getStato().equals("attivo") && inizioEvento <= nowMillis) {
+		long tenMinutesMillis = 10L * 60 * 1000;
+		if (eventoBean.getStato().equals("attivo") && (inizioEvento + tenMinutesMillis) <= nowMillis) {
 			eventoBean.setStato("annullato");
 			return eventoBean;
 		} else {
