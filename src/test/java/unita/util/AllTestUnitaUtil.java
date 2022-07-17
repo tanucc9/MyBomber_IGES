@@ -6,7 +6,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        TestHashTool.class
+		TestHashTool.class,
+		TestSlugGenerator.class,
 })
 
-public class AllTestUnitaUtil {}
+public class AllTestUnitaUtil {
+}

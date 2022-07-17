@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="MB_CR4_Regression" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+  <configuration default="false" name="MB_CR2_Regression" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
     <module name="MyBomber_C11" />
     <extension name="coverage">
       <pattern>
@@ -8,7 +8,7 @@
       </pattern>
     </extension>
     <option name="PACKAGE_NAME" value="SuitesMaintenance" />
-    <option name="MAIN_CLASS_NAME" value="SuitesMaintenance.MB_CR4_Regression" />
+    <option name="MAIN_CLASS_NAME" value="SuitesMaintenance.MB_CR2_Regression" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="class" />
     <method v="2">

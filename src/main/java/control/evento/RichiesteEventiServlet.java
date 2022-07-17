@@ -64,7 +64,7 @@ public class RichiesteEventiServlet extends HttpServlet {
     }
     String codeEvento = request.getParameter("code");
     String action = request.getParameter("action");
-    ArrayList<EventoBean> richieste = new ArrayList<>();
+    ArrayList<EventoBean> richieste;
 
     try {
       if (this.eD == null) {

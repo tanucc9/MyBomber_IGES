@@ -105,7 +105,7 @@ public class TestRecensioneServlet {
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g4);
     when(req.getParameter("action")).thenReturn("cercagiocatori");
-    when(req.getParameter("nome")).thenReturn("evento3");
+    when(req.getParameter("code")).thenReturn("evento3");
 
     ArrayList<RecensioneBean> list = new ArrayList<>();
     RecensioneBean r2 = new RecensioneBean();
@@ -158,7 +158,7 @@ public class TestRecensioneServlet {
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g4);
     when(req.getParameter("action")).thenReturn("cercagiocatori");
-    when(req.getParameter("nome")).thenReturn("evento3");
+    when(req.getParameter("code")).thenReturn("evento3");
 
     ArrayList<String> list = new ArrayList<>();
 
@@ -200,7 +200,7 @@ public class TestRecensioneServlet {
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g4);
     when(req.getParameter("action")).thenReturn(null);
-    when(req.getParameter("nome")).thenReturn("evento3");
+    when(req.getParameter("code")).thenReturn("evento3");
 
     ArrayList<String> list = new ArrayList<>();
 
@@ -242,7 +242,7 @@ public class TestRecensioneServlet {
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g4);
     when(req.getParameter("action")).thenReturn("pippo");
-    when(req.getParameter("nome")).thenReturn("evento3");
+    when(req.getParameter("code")).thenReturn("evento3");
 
     ArrayList<String> list = new ArrayList<>();
 
@@ -283,7 +283,7 @@ public class TestRecensioneServlet {
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g4);
     when(req.getParameter("action")).thenReturn("pippo");
-    when(req.getParameter("nome")).thenReturn("evento3");
+    when(req.getParameter("code")).thenReturn("evento3");
 
     ArrayList<String> list = new ArrayList<>();
 
