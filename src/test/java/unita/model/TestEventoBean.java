@@ -48,49 +48,6 @@ public class TestEventoBean {
   }
 
   /**
-   * Checks if is finished.
-   */
-  @Test
-  public void isFinished() {
-    bean.setStato("richiesta");
-    boolean finito = bean.isFinished();
-    assert (!finito);
-  }
-
-  /**
-   * Checks if is finished si.
-   */
-  @Test
-  public void isFinishedSi() {
-    bean.setStato("completato");
-    bean.setData(Date.valueOf("2020-01-03"));
-    boolean finito = bean.isFinished();
-    assert (finito);
-  }
-
-  /**
-   * Checks if is finished no data.
-   */
-  @Test
-  public void isFinishedNoData() {
-    bean.setStato("completato");
-    bean.setData(Date.valueOf("2023-01-03"));
-    boolean finito = bean.isFinished();
-    assert (!finito);
-  }
-
-  /**
-   * Checks if is finished no completato.
-   */
-  @Test
-  public void isFinishedNoCompletato() {
-    bean.setStato("richiesta");
-    bean.setData(Date.valueOf("2020-01-03"));
-    boolean finito = bean.isFinished();
-    assert (!finito);
-  }
-
-  /**
    * Precedenza.
    *
    * @throws SQLException the SQL exception

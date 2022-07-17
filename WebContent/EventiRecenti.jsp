@@ -76,7 +76,7 @@ non puoi accedere a questa pagina
 							Valutazione:
 							<%=e.getMedia()%></p>
 						<%
-    			if(e.isFinished()) {
+    			if(e.getStato().equals("finito")) {
     		%>
 						<a href="recensione?&action=cercagiocatori&nome=<%=e.getNome()%>"
 							class="btn btn-primary">Recensisci</a>

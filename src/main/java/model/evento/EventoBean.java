@@ -279,19 +279,6 @@ public class EventoBean implements Serializable {
   }
 
   /**
-   * Checks if is finished.
-   *
-   * @return true, if is finished
-   */
-  public boolean isFinished() {
-    Date now = new Date(System.currentTimeMillis());
-    if (now.after(this.getData()) && this.getStato().equals("completato")) {
-      return true;
-    }
-    return false;
-  }
-
-  /**
    * Precedenza.
    *
    * @param altro the altro
