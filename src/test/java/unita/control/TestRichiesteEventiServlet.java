@@ -200,7 +200,7 @@ public class TestRichiesteEventiServlet {
     giocatori.add(gio);
 
     when((GestoreBean) req.getSession().getAttribute("gestore")).thenReturn(g);
-    when(req.getParameter("nome")).thenReturn(ev.getNome());
+    when(req.getParameter("code")).thenReturn(ev.getCode());
     when(req.getParameter("action")).thenReturn("addE");
     when(gDao.doRetrieveAll()).thenReturn(giocatori);
     when(evDao.doRetrieveByKey(ev.getCode())).thenReturn(ev);
@@ -261,7 +261,7 @@ public class TestRichiesteEventiServlet {
     giocatori.add(gio);
 
     when((GestoreBean) req.getSession().getAttribute("gestore")).thenReturn(g);
-    when(req.getParameter("nome")).thenReturn(ev.getNome());
+    when(req.getParameter("code")).thenReturn(ev.getCode());
     when(req.getParameter("action")).thenReturn("addE");
     when(gDao.doRetrieveAll()).thenReturn(giocatori);
     when(evDao.doRetrieveByKey(ev.getCode())).thenReturn(ev);

@@ -120,7 +120,7 @@ public class TestIntegrazioneRecensione {
 
     when((GiocatoreBean) req.getSession().getAttribute("giocatore")).thenReturn(g4);
     when(req.getParameter("action")).thenReturn("cercagiocatori");
-    when(req.getParameter("nome")).thenReturn("evento2");
+    when(req.getParameter("code")).thenReturn("evento2");
 
     when(req.getRequestDispatcher(res.encodeRedirectURL("./DaiRecensione.jsp"))).thenReturn(rd);
     servlet.doGet(req, res);

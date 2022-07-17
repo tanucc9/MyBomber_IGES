@@ -47,7 +47,7 @@ public class RecensioneServlet extends HttpServlet {
     if (this.rdt == null) {
       this.rdt = new RecensioneDAO();
     }
-    String codeEvento = request.getParameter("nome");
+    String codeEvento = request.getParameter("code");
 
     try {
 

@@ -78,7 +78,7 @@ non puoi accedere a questa pagina
 						<%
     			if(e.isFinished()) {
     		%>
-						<a href="recensione?&action=cercagiocatori&nome=<%=e.getNome()%>"
+						<a href="recensione?&action=cercagiocatori&code=<%=e.getCode()%>"
 							class="btn btn-primary">Recensisci</a>
 						<%
 				}
