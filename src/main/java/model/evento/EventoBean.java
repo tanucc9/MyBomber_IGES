@@ -203,6 +203,13 @@ public class EventoBean implements Serializable {
   }
 
   /**
+   * @return the milliseconds of the starting time
+   */
+  public long getStartTimeMillis() {
+    return data.getTime() + 60L * 60 * 1000 * ora;
+  }
+
+  /**
    * Gets the gestore.
    *
    * @return the gestore

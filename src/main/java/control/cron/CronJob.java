@@ -1,6 +1,5 @@
 package control.cron;
 
-import java.sql.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,8 +12,8 @@ public class CronJob {
 		eventStateUpdater = new EventStateUpdater();
 		timer.schedule(new TimerTask() {
 			public void run() {
-				Date now = new Date(System.currentTimeMillis());
-				eventStateUpdater.updateEventStateByDateTime(now);
+				long nowMillis = System.currentTimeMillis();
+				eventStateUpdater.updateEventStateByDateTime(nowMillis);
 				// timer.cancel();
 			}
 		}, 0, PERIOD_MINUTES_DURATION * 60 * 1000);

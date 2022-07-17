@@ -3,44 +3,50 @@ package control.cron;
 import model.evento.EventoBean;
 import model.evento.EventoDAO;
 
-import java.sql.Date;
-import java.util.List;
-
 public class EventStateUpdater {
 
-	public void updateEventStateByDateTime(Date now) {
+	public void updateEventStateByDateTime(long nowMillis) {
 		EventoDAO eventoDAO = new EventoDAO();
 		try {
-			// attivo & inizio passato => anullato
-			// completato & inizio passato => iniziato
-			// iniziato & inizio+durata passato => finito
-			List<EventoBean> eventi = eventoDAO.doRetrieveAll();
-			long millisDurataEvento = 60L * 60 * 1000; // Durata evento fissa a 1h.
-			Date oneHourInTheFuture = new Date(System.currentTimeMillis() + 1000 * 60 * 60);
-			for (EventoBean eventoBean : eventi) {
-				Date inizioEvento = new Date(eventoBean.getData().getTime() + 60L * 60 * eventoBean.getOra());
-				if (eventoBean.getStato().equals("attivo") && inizioEvento.before(now)) {
-					eventoBean.setStato("annullato");
-					eventoDAO.doUpdate(eventoBean);
-					System.out.println("Evento Code=" + eventoBean.getCode()
-							+ " would have started but is missing people => set to \"annullato\"");
-				} else if (eventoBean.getStato().equals("completato") && inizioEvento.before(now)) {
-					eventoBean.setStato("iniziato");
-					eventoDAO.doUpdate(eventoBean);
-					System.out.println("Evento Code=" + eventoBean.getCode() + " just started");
-				} else if (eventoBean.getStato().equals("iniziato")) {
-					Date fineEvento = new Date(inizioEvento.getTime() + millisDurataEvento);
-					if (fineEvento.before(now)) {
-						eventoBean.setStato("finito");
-						eventoDAO.doUpdate(eventoBean);
-						System.out.println("Evento Code=" + eventoBean.getCode()
-								+ " started one hour ago => set to \"finito\"");
-					}
+			for (EventoBean eventoBean : eventoDAO.doRetrieveAll()) {
+				EventoBean eventoToUpd = getEventoBeanWithNewState(eventoBean, nowMillis);
+				if (eventoToUpd != null) {
+					eventoDAO.doUpdate(eventoToUpd);
+					System.out.println("Evento Code=" + eventoToUpd.getCode()
+							+ " with state updated to \"" + eventoToUpd.getStato() + "\"");
 				}
 			}
 		} catch (Exception e) {
 			System.err.println("Unable to refresh \"Eventi\" states");
 		}
+	}
+
+	public EventoBean getEventoBeanWithNewState(EventoBean eventoBean, long nowMillis) {
+		// attivo & inizio passato => anullato
+		// completato & inizio passato => iniziato
+		// iniziato & inizio+durata passato => finito
+		long inizioEvento = eventoBean.getStartTimeMillis();
+		if (eventoBean.getStato().equals("attivo") && inizioEvento <= nowMillis) {
+			eventoBean.setStato("annullato");
+			return eventoBean;
+		} else {
+			long millisDurataEvento = 60L * 60 * 1000; // Durata evento fissa a 1h.
+			long fineMillis = eventoBean.getStartTimeMillis() + millisDurataEvento;
+			if (eventoBean.getStato().equals("completato") && inizioEvento <= nowMillis) {
+				if (fineMillis <= nowMillis) {
+					eventoBean.setStato("finito");
+					return eventoBean;
+				}
+				eventoBean.setStato("iniziato");
+				return eventoBean;
+			} else if (eventoBean.getStato().equals("iniziato")) {
+				if (fineMillis <= nowMillis) {
+					eventoBean.setStato("finito");
+					return eventoBean;
+				}
+			}
+		}
+		return null;
 	}
 
 }

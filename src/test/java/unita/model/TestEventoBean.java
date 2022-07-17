@@ -54,7 +54,6 @@ public class TestEventoBean {
    */
   @Test
   public void precedenza() throws SQLException {
-
     EventoBean b2 = new EventoBean();
     b2.setNome("evento12");
     b2.setDescrizione("mitico evento");
@@ -77,7 +76,6 @@ public class TestEventoBean {
    */
   @Test
   public void noPrecedenza() throws SQLException {
-
     EventoBean b2 = new EventoBean();
     b2.setNome("evento12");
     b2.setDescrizione("mitico evento");
