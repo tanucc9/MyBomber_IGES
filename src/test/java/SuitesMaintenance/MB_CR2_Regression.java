@@ -21,4 +21,4 @@ import unita.model.TestEventoDAO;
         TestIntegrazioneEventiRecenti.class
 })
 
-public class MB_CR4_Regression {}
+public class MB_CR2_Regression {}
