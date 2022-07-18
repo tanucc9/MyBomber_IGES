@@ -1,6 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="MyBomber_AllTest" type="JUnit" factoryName="JUnit">
     <module name="MyBomber_C11" />
+    <extension name="coverage" sample_coverage="false" />
     <option name="PACKAGE_NAME" value="" />
     <option name="MAIN_CLASS_NAME" value="AllTest" />
     <option name="METHOD_NAME" value="" />
